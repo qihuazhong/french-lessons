@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon de français par niveau — L'IA au quotidien (Easy French 199)</title>
+<style>
+  :root {
+    --bleu: #16357a;
+    --bleu-clair: #e8eefb;
+    --rouge: #c8102e;
+    --vert: #1e7a46;
+    --violet: #6b3fa0;
+    --texte: #22262e;
+    --gris: #5c6470;
+    --fond: #f6f7fb;
+    --carte: #ffffff;
+    --bordure: #dde3ee;
+    --accent: #16357a;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--fond);
+    color: var(--texte);
+    line-height: 1.65;
+    font-size: 16.5px;
+  }
+  body[data-niveau="a2"] { --accent: var(--vert); }
+  body[data-niveau="b1"] { --accent: var(--bleu); }
+  body[data-niveau="b2"] { --accent: var(--violet); }
+  header {
+    background: linear-gradient(135deg, #16357a 0%, #1d4aa3 60%, #2a5cc4 100%);
+    color: #fff;
+    padding: 2.4rem 1.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--bleu) 0 33%, #fff 33% 66%, var(--rouge) 66% 100%);
+    opacity: .9;
+  }
+  .header-inner { max-width: 900px; margin-left: max(0px, calc(50% - 450px - var(--shift, 0px))); margin-right: auto; position: relative; z-index: 1; }
+  .kicker {
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: .78rem;
+    font-weight: 700;
+    color: #bcd0f7;
+    margin: 0 0 .6rem;
+  }
+  header h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.6rem, 4.2vw, 2.4rem);
+    margin: 0 0 .7rem;
+    line-height: 1.15;
+  }
+  header p.sub { margin: 0; color: #dbe5fa; max-width: 62ch; }
+  .levelbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--bordure);
+    box-shadow: 0 2px 10px rgba(20,40,90,.06);
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: .65rem 1rem;
+    padding-right: calc(1rem + 2 * var(--shift, 0px));
+  }
+  .levelbar .lbl {
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--gris);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+  .seg {
+    position: relative;
+    border: 2px solid var(--bordure);
+    border-radius: 12px;
+    padding: .4rem .95rem;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--gris);
+    display: inline-flex;
+    gap: .5rem;
+    align-items: baseline;
+    transition: all .15s ease;
+    background: #fff;
+    user-select: none;
+  }
+  .seg small { font-weight: 500; font-size: .74rem; opacity: .85; }
+  .seg input { position: absolute; opacity: 0; pointer-events: none; }
+  .seg:has(input:checked) { color: #fff; border-color: transparent; box-shadow: 0 2px 8px rgba(20,40,90,.18); }
+  .seg[data-n="a2"]:has(input:checked) { background: var(--vert); }
+  .seg[data-n="b1"]:has(input:checked) { background: var(--bleu); }
+  .seg[data-n="b2"]:has(input:checked) { background: var(--violet); }
+  .seg:has(input:focus-visible) { outline: 3px solid #9db8ef; outline-offset: 2px; }
+  main { max-width: 900px; margin-left: max(1.25rem, calc(50% - 450px - var(--shift, 0px))); margin-right: auto; padding: 1.6rem 1.25rem 4rem; }
+  section {
+    background: var(--carte);
+    border: 1px solid var(--bordure);
+    border-radius: 14px;
+    padding: 1.6rem 1.8rem 1.8rem;
+    margin: 1.4rem 0;
+    scroll-margin-top: 84px;
+    box-shadow: 0 1px 3px rgba(20,40,90,.06);
+  }
+  h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin: 0 0 .35rem;
+    display: flex;
+    align-items: baseline;
+    gap: .6rem;
+  }
+  h2 .num {
+    font-size: .95rem;
+    font-family: system-ui, sans-serif;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 8px;
+    padding: .1rem .55rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  h3 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin: 1.5rem 0 .5rem;
+    border-bottom: 2px solid var(--bleu-clair);
+    padding-bottom: .25rem;
+  }
+  .lead { color: var(--gris); margin-top: .2rem; }
+  table { width: 100%; border-collapse: collapse; margin: .8rem 0 1.2rem; font-size: .95rem; }
+  th {
+    text-align: left;
+    background: var(--bleu-clair);
+    color: var(--bleu);
+    padding: .55rem .7rem;
+    border-bottom: 2px solid #c9d6f2;
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  td { padding: .55rem .7rem; border-bottom: 1px solid var(--bordure); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+  .ex { color: var(--gris); font-style: italic; }
+  ul.compact { margin: .4rem 0 .8rem; padding-left: 1.3rem; }
+  ul.compact li { margin: .35rem 0; }
+  ol.exos > li { margin: .55rem 0; }
+  .objectifs {
+    border-left: 5px solid var(--accent);
+    background: linear-gradient(90deg, rgba(22,53,122,.06), rgba(22,53,122,.015));
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0 0;
+  }
+  body[data-niveau="a2"] .objectifs { background: linear-gradient(90deg, rgba(30,122,70,.09), rgba(30,122,70,.02)); }
+  body[data-niveau="b2"] .objectifs { background: linear-gradient(90deg, rgba(107,63,160,.09), rgba(107,63,160,.02)); }
+  .objectifs .t { font-weight: 800; color: var(--accent); margin: 0 0 .2rem; }
+  .objectifs p { margin: .2rem 0; }
+  .objectifs .dur { font-size: .85rem; color: var(--gris); }
+  .astuce, .attention, .oral {
+    border-radius: 10px;
+    padding: .8rem 1rem;
+    margin: 1rem 0;
+    font-size: .95rem;
+  }
+  .astuce { background: #f0f7f1; border-left: 4px solid var(--vert); }
+  .attention { background: #fdf1f2; border-left: 4px solid var(--rouge); }
+  .oral { background: #f5f1fb; border-left: 4px solid var(--violet); }
+  .astuce strong:first-child, .attention strong:first-child, .oral strong:first-child { display: block; margin-bottom: .2rem; }
+  .badge {
+    display: inline-block;
+    border-radius: 999px;
+    padding: .05rem .5rem;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: .35rem;
+  }
+  .badge.familier { background: #fdf3dc; color: #8a5a00; border: 1px solid #f2d998; }
+  .badge.vulgaire { background: #fde3e6; color: #a3081f; border: 1px solid #f2b6bd; }
+  .gram-box {
+    background: #f8faff;
+    border: 1px solid var(--bordure);
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+    margin: 1rem 0;
+  }
+  .gram-box .formule {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    background: #eef3ff;
+    border: 1px dashed #b9c9ef;
+    border-radius: 8px;
+    padding: .5rem .8rem;
+    margin: .5rem 0;
+    font-size: .92rem;
+    display: inline-block;
+  }
+  .expr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: .9rem;
+    margin-top: 1rem;
+  }
+  .expr {
+    background: #fbfcfe;
+    border: 1px solid var(--bordure);
+    border-radius: 10px;
+    padding: .85rem 1rem;
+  }
+  .expr .titre-row { display: flex; align-items: flex-start; justify-content: space-between; gap: .6rem; }
+  .expr .titre { flex: 1; font-weight: 700; color: var(--bleu); }
+  .expr .sens { font-size: .9rem; color: var(--gris); }
+  .expr .usage { font-size: .87rem; font-style: italic; margin-top: .35rem; }
+  .say {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: var(--bleu-clair);
+    color: var(--bleu);
+    cursor: pointer;
+    flex-shrink: 0;
+    vertical-align: middle;
+    transition: background .12s ease, color .12s ease, transform .12s ease;
+  }
+  .say svg { width: 1rem; height: 1rem; }
+  .say:hover { background: var(--bleu); color: #fff; }
+  .say:focus-visible { outline: 3px solid #9db8ef; outline-offset: 2px; }
+  .say.playing { background: var(--accent); color: #fff; }
+  .say.playing svg { animation: say-pulse .9s ease-in-out infinite; }
+  @keyframes say-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18); }
+  }
+  td .say, .oral .say { margin-left: .45rem; }
+  .expr .say { margin-top: .15rem; }
+  .verb { position: relative; cursor: help; border-bottom: 1px dotted #9aa9c9; }
+  .verb .conj {
+    display: none;
+    position: absolute;
+    left: -0.35rem;
+    top: calc(100% + 0.55rem);
+    z-index: 40;
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(20,40,90,.20);
+    padding: .7rem .8rem .75rem;
+    font-size: .76rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--texte);
+    white-space: normal;
+    cursor: default;
+  }
+  .verb:hover .conj { display: block; }
+  .verb:hover::after {
+    content: "";
+    position: absolute;
+    left: -0.35rem;
+    top: 100%;
+    width: 5rem;
+    height: 0.7rem;
+  }
+  .verb .conj .c-title { display: block; font-weight: 800; color: var(--bleu); margin-bottom: .45rem; }
+  .verb .conj .c-title em { font-style: normal; font-weight: 600; color: var(--gris); font-size: .72rem; }
+  .verb .conj .c-grid { display: grid; grid-template-columns: auto repeat(5, auto); column-gap: .75rem; }
+  .verb .conj .c-grid > span { padding: .16rem 0; border-bottom: 1px solid #f0f3f9; }
+  .verb .conj .c-h { font-size: .64rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--bleu); border-bottom: 1px solid var(--bleu-clair); }
+  .verb .conj .c-p { color: var(--gris); font-weight: 700; padding-right: .2rem; }
+  .sidepanel {
+    position: fixed;
+    top: var(--panel-top, 84px);
+    left: max(1rem, calc(50vw - 630px - var(--shift, 0px)));
+    width: 10.5rem;
+    max-height: calc(100vh - var(--panel-top, 84px) - 20px);
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: 14px;
+    padding: .75rem .7rem;
+    box-shadow: 0 4px 18px rgba(20,40,90,.10);
+    z-index: 60;
+  }
+  .sidepanel .sp-title {
+    font-size: .72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--gris);
+    padding: 0 .55rem .45rem;
+    border-bottom: 1px solid var(--bordure);
+    margin-bottom: .4rem;
+  }
+  .sidepanel nav { display: flex; flex-direction: column; gap: 1px; }
+  .sidepanel a {
+    display: block;
+    padding: .34rem .45rem;
+    color: var(--texte);
+    text-decoration: none;
+    font-size: .86rem;
+    line-height: 1.3;
+    border-left: 3px solid transparent;
+    transition: background .12s ease, color .12s ease;
+  }
+  .sidepanel a:hover { background: #f2f6ff; color: var(--bleu); }
+  .sidepanel a.active {
+    background: var(--bleu-clair);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 700;
+  }
+  .sp-toggle {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 70;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--bleu);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: .6rem 1rem;
+    font: inherit;
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(20,40,90,.28);
+  }
+  .sp-toggle::before {
+    content: "";
+    width: 14px;
+    height: 2px;
+    background: #fff;
+    box-shadow: 0 -5px 0 #fff, 0 5px 0 #fff;
+    border-radius: 1px;
+  }
+  @media (max-width: 1399px) {
+    .sidepanel {
+      left: 1rem;
+      transform: translateX(calc(-100% - 2rem));
+      transition: transform .25s ease;
+    }
+    body.sp-open .sidepanel { transform: translateX(0); }
+  }
+  @media (min-width: 1400px) {
+    .sp-toggle { display: none; }
+  }
+  .ytpanel {
+    --ytw: clamp(260px, calc(50vw + var(--shift, 0px) - 474px), 640px);
+    position: fixed;
+    top: var(--panel-top, 84px);
+    right: max(12px, calc(50vw + var(--shift, 0px) - 462px - var(--ytw)));
+    width: var(--ytw);
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: 12px;
+    padding: .3rem .3rem .4rem;
+    box-shadow: 0 4px 18px rgba(20,40,90,.10);
+    z-index: 60;
+  }
+  .ytpanel .yt-title {
+    font-size: .68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--gris);
+    padding: .05rem .25rem .3rem;
+  }
+  .ytv { position: relative; border-radius: 8px; overflow: hidden; background: #0b1220; }
+  #ytplayer {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: #0b1220;
+    border: 0;
+  }
+  .ytv-ui {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .3rem .45rem .4rem;
+    background: linear-gradient(180deg, rgba(6,12,26,0), rgba(6,12,26,.82));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .15s ease;
+  }
+  .ytv:hover .ytv-ui, .ytv-ui:focus-within { opacity: 1; pointer-events: auto; }
+  .ytv-btn {
+    flex-shrink: 0;
+    width: 1.55rem;
+    height: 1.55rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: #fff;
+    cursor: pointer;
+    opacity: .9;
+    transition: opacity .12s ease;
+  }
+  .ytv-btn:hover { opacity: 1; }
+  .ytv-btn svg { width: 1rem; height: 1rem; }
+  .ytv .ic-pause { display: none; }
+  .ytv.playing .ic-play { display: none; }
+  .ytv.playing .ic-pause { display: inline; }
+  .ytv-seek { flex: 1; min-width: 0; height: 1rem; accent-color: var(--rouge); cursor: pointer; }
+  .ytv-time {
+    flex-shrink: 0;
+    font-size: .66rem;
+    color: #e8edf7;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .02em;
+  }
+  .ytpanel .yt-hint {
+    font-size: .68rem;
+    color: var(--gris);
+    padding: .35rem .25rem 0;
+    line-height: 1.4;
+  }
+  details {
+    background: #f2f6ff;
+    border: 1px solid #ccd9f5;
+    border-radius: 10px;
+    padding: .7rem 1rem;
+    margin: .9rem 0;
+  }
+  details summary { cursor: pointer; font-weight: 700; color: var(--bleu); font-size: .92rem; }
+  details[open] summary { margin-bottom: .5rem; }
+  details ol { margin: .3rem 0; padding-left: 1.3rem; }
+  details li { margin: .3rem 0; }
+  .answer { color: var(--vert); font-weight: 600; }
+  .speak {
+    background: #fffaf0;
+    border: 1px solid #f0dfb4;
+    border-radius: 10px;
+    padding: .9rem 1.1rem;
+    margin: .8rem 0;
+  }
+  footer {
+    max-width: 900px;
+    margin-left: max(1.25rem, calc(50% - 450px - var(--shift, 0px)));
+    margin-right: auto;
+    padding: 0 1.25rem 3rem;
+    color: var(--gris);
+    font-size: .85rem;
+  }
+  footer a { color: var(--bleu); }
+  .tricolore {
+    height: 4px;
+    border-radius: 2px;
+    margin-bottom: .8rem;
+    background: linear-gradient(90deg, var(--bleu) 0 33%, #e6e9f2 33% 66%, var(--rouge) 66% 100%);
+  }
+  @media (max-width: 620px) {
+    td:first-child { white-space: normal; }
+    section { padding: 1.2rem 1rem 1.4rem; }
+    .levelbar .lbl { display: none; }
+    .seg { padding: .35rem .7rem; font-size: .9rem; }
+    .seg small { display: none; }
+  }
+  @media print {
+    header { background: #16357a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .levelbar { position: static; }
+    section { box-shadow: none; break-inside: avoid; }
+    details { break-inside: avoid; background: #fff; }
+    details:not([open]) > *:not(summary) { display: block; }
+    .sidepanel, .sp-toggle, .say, .ytpanel { display: none !important; }
+  }
+</style>
+</head>
+<body data-niveau="a2">
+
+<header>
+  <div class="header-inner">
+    <p class="kicker">Français avec un tuteur · Parcours par niveau</p>
+    <h1>L'intelligence artificielle au quotidien — Leçon guidée</h1>
+    <p class="sub">D'après la vidéo de micro-trottoir d'<strong>Easy French</strong> : « Do French People Use AI? » (n° 199). Des passants parisiens racontent s'ils utilisent l'IA dans leur vie de tous les jours — parfait pour apprendre à parler de technologie, d'études et de travail.</p>
+  </div>
+</header>
+
+<div class="levelbar" role="radiogroup" aria-label="Choisissez votre niveau">
+  <span class="lbl">Niveau</span>
+  <label class="seg" data-n="a2" for="lv-a2"><input type="radio" id="lv-a2" name="niveau" value="a2" checked> A2 <small>Les bases</small></label>
+  <label class="seg" data-n="b1" for="lv-b1"><input type="radio" id="lv-b1" name="niveau" value="b1"> B1 <small>Conversation</small></label>
+  <label class="seg" data-n="b2" for="lv-b2"><input type="radio" id="lv-b2" name="niveau" value="b2"> B2 <small>Nuances</small></label>
+</div>
+
+<aside class="sidepanel" id="sidepanel" aria-label="Sommaire de la leçon">
+  <div class="sp-title">Sommaire</div>
+  <nav>
+    <a href="#intro">Votre parcours</a>
+    <a href="#comprehension">1 · Compréhension orale</a>
+    <a href="#vocabulaire">2 · Vocabulaire</a>
+    <a href="#expressions">3 · Expressions</a>
+    <a href="#grammaire">4 · Grammaire</a>
+    <a href="#parle">5 · Français parlé</a>
+    <a href="#exercices">6 · Exercices</a>
+    <a href="#corrige">7 · Corrigés</a>
+    <a href="#avous">8 · À vous !</a>
+  </nav>
+
+<!--LESSONS_NAV-->
+  <div class="sp-title" style="margin-top:.6rem;border-top:1px solid var(--bordure);padding-top:.6rem;">Leçons</div>
+  <nav>
+      <a href="index.html">Toutes les leçons</a>
+      <a href="lecon-opinions-impopulaires.html">259 · Les opinions impopulaires</a>
+  </nav>
+  <!--/LESSONS_NAV-->
+</aside>
+<button class="sp-toggle" id="spToggle" type="button" aria-controls="sidepanel" aria-expanded="false">Sommaire</button>
+
+<aside class="ytpanel" id="ytpanel" aria-label="Vidéo — extraits de la leçon">
+  <div class="yt-title">Vidéo · Easy French 199</div>
+  <div class="ytv" id="ytv">
+    <video id="ytplayer" src="video_src-ai/lesson_video.mp4" preload="metadata" playsinline></video>
+    <div class="ytv-ui">
+      <button class="ytv-btn ytv-play" type="button" aria-label="Lecture / pause">
+        <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z" fill="currentColor"/></svg>
+      </button>
+      <span class="ytv-time" id="ytvCur">0:00</span>
+      <input class="ytv-seek" id="ytvSeek" type="range" min="0" max="1000" step="1" value="0" aria-label="Position dans la vidéo">
+      <span class="ytv-time" id="ytvDur">0:00</span>
+      <button class="ytv-btn ytv-full" type="button" aria-label="Plein écran">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm14 0h2v6h-6v-2h4v-4z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="yt-hint">Cliquez sur un haut-parleur : la vidéo joue le passage et s'arrête à la fin. Contrôles : survolez la vidéo.</div>
+</aside>
+
+<main>
+
+<section class="intro" id="intro">
+  <h2>Votre parcours</h2>
+  <div class="tricolore"></div>
+  <div class="astuce">
+    <strong>Méthode conseillée</strong>
+    Regardez la vidéo une fois, puis faites le parcours de votre niveau sans cliquer sur les corrigés. Re-regardez ensuite la vidéo : vous entendrez tout ce que vous venez d'apprendre.
+  </div>
+
+  <div class="objectifs" data-lv="a2">
+    <p class="t">Parcours A2 — Les bases</p>
+    <p>Parler de la technologie au quotidien : 10 mots essentiels (l'IA, les devoirs, un logiciel…), poser des questions avec « est-ce que », les négations (pas du tout, jamais…) et la chute du « ne ».</p>
+    <p class="dur">Durée estimée : 20–25 min · Prérequis : niveau débutant (A1–A2)</p>
+  </div>
+  <div class="objectifs" data-lv="b1" hidden>
+    <p class="t">Parcours B1 — Conversation</p>
+    <p>Donner son avis sur l'IA : 10 mots, 6 expressions, les pronoms en / y, le gérondif (en + participe présent) et le conditionnel des possibilités — avec les petits mots du français oral.</p>
+    <p class="dur">Durée estimée : 35–40 min · Prérequis : niveau intermédiaire (B1)</p>
+  </div>
+  <div class="objectifs" data-lv="b2" hidden>
+    <p class="t">Parcours B2 — Nuances</p>
+    <p>Débattre avec nuance : le lexique du débat (un péril imminent, une dérive, tirer son épingle du jeu…), les connecteurs de cause (vu que, étant donné que) et l'art de nuancer son opinion.</p>
+    <p class="dur">Durée estimée : 45–50 min · Prérequis : niveau avancé (B2)</p>
+  </div>
+</section>
+
+<section id="comprehension">
+  <h2><span class="num">1</span>Compréhension orale</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Écoutez la vidéo, puis répondez avec des phrases simples.</p>
+    <ol>
+      <li>Qu'est-ce que la journaliste demande aux passants ?</li>
+      <li>L'enseignante de sciences utilise-t-elle l'IA ? Pourquoi ?</li>
+      <li><em>« Étant donné que c'est gratuit pour moi, j'utilise. »</em> Qui dit ça, et pour quel logiciel ?</li>
+    </ol>
+    <details>
+      <summary>Contrôlez vos réponses</summary>
+      <ol>
+        <li>Si <span class="answer">elles utilisent l'intelligence artificielle dans leur vie de tous les jours</span>.</li>
+        <li><span class="answer">Non</span>, parce qu'elle enseigne <span class="answer">les sciences</span> et que « c'est pas très adapté ».</li>
+        <li>Une femme <span class="answer">chargée de communication dans une librairie</span> ; elle utilise <span class="answer">ChatGPT</span> (et un peu Canva) pour les réseaux sociaux.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Écoutez la vidéo, puis répondez (phrases simples, pas besoin de détails).</p>
+    <ol>
+      <li>Comment la personne qui travaille dans le marketing justifie-t-elle le fait de ne pas utiliser l'IA ?</li>
+      <li>Que fait la femme de la librairie avec l'IA dans son travail ?</li>
+      <li>Pourquoi une passante trouve-t-elle l'IA « effrayante » ?</li>
+    </ol>
+    <details>
+      <summary>Contrôlez vos réponses</summary>
+      <ol>
+        <li><span class="answer">Elle n'en voit pas l'utilité</span> pour l'instant — mais elle n'est <span class="answer">pas réfractaire</span>, l'occasion ne s'est pas présentée.</li>
+        <li>Elle s'en sert pour <span class="answer">faire des posts</span> et <span class="answer">se tenir au courant des trends</span> sur les réseaux sociaux.</li>
+        <li>Parce que l'IA peut <span class="answer">rédiger des articles entiers ou écrire des poèmes</span> — « c'est ce qui nous restait » aux humains.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Analyse. Répondez en quelques phrases et justifiez avec des extraits.</p>
+    <ol>
+      <li>Le juriste parle d'un « paradoxe » pour sa profession face à l'IA, puis se dit optimiste. Expliquez : que veut-il dire par « les juristes ont toujours su tirer leur épingle du jeu » ?</li>
+      <li>Une passante dit de l'IA qui écrit : « c'est effrayant… c'est un peu ce qui nous reste de beau ». Qu'est-ce que cette phrase révèle sur sa vision de l'art et de l'écriture ?</li>
+    </ol>
+    <details>
+      <summary>Réponses possibles</summary>
+      <ol>
+        <li>Il suggère que les juristes <span class="answer">survivent toujours aux changements</span> (technologiques, institutionnels) parce qu'ils « <span class="answer">compliquent les choses</span> » : là où l'IA simplifie, le droit devient plus complexe. Il le dit avec humour — en les appelant « les arnaqueurs principaux de la civilisation humaine ».</li>
+        <li>Pour elle, <span class="answer">l'art est la dernière chose proprement humaine</span> (« humainement, c'est ce qui nous reste de beau ») : si une machine peut écrire des poèmes, elle craint d'y perdre <span class="answer">le vécu et les sensations</span> qui font la valeur d'une œuvre.</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<section id="vocabulaire">
+  <h2><span class="num">2</span>Vocabulaire</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Dix mots pour parler de l'IA et de la vie quotidienne, tous entendus dans la vidéo. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot</th><th>Sens (anglais)</th><th>Exemple de la vidéo</th></tr>
+      <tr><td>l'intelligence artificielle <em>(nf)</em><button class="say" type="button" data-say="l&#x27;intelligence artificielle" data-say2="Est-ce que vous avez déjà utilisé l&#x27;intelligence artificielle ?" data-yt="35.68,40.3" data-audio="audio-ai/v001.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>artificial intelligence (AI)</td><td class="ex">« Est-ce que vous avez déjà utilisé l'intelligence artificielle ? »</td></tr>
+      <tr><td>les passants <em>(nm)</em><button class="say" type="button" data-say="les passants" data-say2="On va aller demander aux passants s&#x27;ils utilisent l&#x27;intelligence artificielle dans leur vie de tous les jours." data-yt="14.38,20.55" data-audio="audio-ai/v002.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>passers-by</td><td class="ex">« On va aller demander aux passants s'ils utilisent l'intelligence artificielle dans leur vie de tous les jours. »</td></tr>
+      <tr><td>poser une question<button class="say" type="button" data-say="poser une question" data-say2="Vous avez jamais posé de questions à ChatGPT ?" data-yt="196.88,199.75" data-audio="audio-ai/v003.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to ask a question</td><td class="ex">« Vous avez jamais posé de questions à ChatGPT ? »</td></tr>
+      <tr><td>les devoirs <em>(nm)</em><button class="say" type="button" data-say="les devoirs" data-say2="Est-ce que ça vous est déjà arrivé de faire des devoirs…" data-yt="310.0,312.95" data-audio="audio-ai/v004.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>homework</td><td class="ex">« Est-ce que ça vous est déjà arrivé de faire des devoirs… »</td></tr>
+      <tr><td>les études <em>(nf)</em><button class="say" type="button" data-say="les études" data-say2="Ça vous aide pour les études ?" data-yt="60.38,62.49" data-audio="audio-ai/v005.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>studies</td><td class="ex">« Ça vous aide pour les études ? »</td></tr>
+      <tr><td>gratuit / gratuite<button class="say" type="button" data-say="gratuit" data-say2="Étant donné que c&#x27;est gratuit pour moi, j&#x27;utilise." data-yt="183.3,186.77" data-audio="audio-ai/v006.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>free (no cost)</td><td class="ex">« Étant donné que c'est gratuit pour moi, j'utilise. »</td></tr>
+      <tr><td>un logiciel <em>(nm)</em><button class="say" type="button" data-say="un logiciel" data-say2="Qu&#x27;est-ce que vous connaissez comme logiciel d&#x27;intelligence artificielle ?" data-yt="369.98,372.75" data-audio="audio-ai/v007.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a software</td><td class="ex">« Qu'est-ce que vous connaissez comme logiciel d'intelligence artificielle ? »</td></tr>
+      <tr><td>effrayant<button class="say" type="button" data-say="effrayant" data-say2="Déjà, je trouve ça effrayant." data-yt="232.38,234.15" data-audio="audio-ai/v008.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>scary, frightening</td><td class="ex">« Déjà, je trouve ça effrayant. »</td></tr>
+      <tr><td>les réseaux sociaux <em>(nm)</em><button class="say" type="button" data-say="les réseaux sociaux" data-say2="Des trends sur les réseaux sociaux, c&#x27;est assez pratique pour ça." data-yt="163.78,168.05" data-audio="audio-ai/v009.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>social media</td><td class="ex">« Des trends sur les réseaux sociaux, c'est assez pratique pour ça. »</td></tr>
+      <tr><td>la vie de tous les jours<button class="say" type="button" data-say="la vie de tous les jours" data-say2="Est-ce que vous utilisez l&#x27;intelligence artificielle dans la vie de tous les jours ?" data-yt="187.14,190.69" data-audio="audio-ai/v010.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>everyday life</td><td class="ex">« Est-ce que vous utilisez l'intelligence artificielle dans la vie de tous les jours ? »</td></tr>
+    </table>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Dix mots pour raconter son travail et ses études — comme dans la vidéo. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot / expression</th><th>Sens (anglais)</th><th>Exemple de la vidéo</th></tr>
+      <tr><td><span class="verb">s'en servir<span class="conj"><span class="c-title">s'en servir <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>m'en sers</span><span>m'en suis servi(e)</span><span>m'en servais</span><span>m'en servirai</span><span>m'en serve</span><span class="c-p">tu</span><span>t'en sers</span><span>t'en es servi(e)</span><span>t'en servais</span><span>t'en serviras</span><span>t'en serves</span><span class="c-p">il/elle</span><span>s'en sert</span><span>s'en est servi(e)</span><span>s'en servait</span><span>s'en servira</span><span>s'en serve</span><span class="c-p">nous</span><span>nous en servons</span><span>nous en sommes servi(e)s</span><span>nous en servions</span><span>nous en servirons</span><span>nous en servions</span><span class="c-p">vous</span><span>vous en servez</span><span>vous en êtes servi(e)(s)</span><span>vous en serviez</span><span>vous en servirez</span><span>vous en serviez</span><span class="c-p">ils/elles</span><span>s'en servent</span><span>s'en sont servi(e)s</span><span>s'en servaient</span><span>s'en serviront</span><span>s'en servent</span></span></span></span><button class="say" type="button" data-say="s&#x27;en servir" data-say2="Je m&#x27;en sers un petit peu dans mon travail." data-yt="137.06,138.97" data-audio="audio-ai/v011.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to use it</td><td class="ex">« Je m'en sers un petit peu dans mon travail. »</td></tr>
+      <tr><td><span class="verb">se tenir<span class="conj"><span class="c-title">se tenir (au courant) <em>· auxiliaire : être</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>me tiens</span><span>me suis tenu(e)</span><span>me tenais</span><span>me tiendrai</span><span>me tienne</span><span class="c-p">tu</span><span>te tiens</span><span>t'es tenu(e)</span><span>te tenais</span><span>te tiendras</span><span>te tiennes</span><span class="c-p">il/elle</span><span>se tient</span><span>s'est tenu(e)</span><span>se tenait</span><span>se tiendra</span><span>se tienne</span><span class="c-p">nous</span><span>nous tenons</span><span>nous sommes tenu(e)s</span><span>nous tenions</span><span>nous tiendrons</span><span>nous tenions</span><span class="c-p">vous</span><span>vous tenez</span><span>vous êtes tenu(e)(s)</span><span>vous teniez</span><span>vous tiendrez</span><span>vous teniez</span><span class="c-p">ils/elles</span><span>se tiennent</span><span>se sont tenu(e)s</span><span>se tenaient</span><span>se tiendront</span><span>se tiennent</span></span></span></span> au courant<button class="say" type="button" data-say="se tenir au courant" data-say2="Des posts pour me tenir au courant." data-yt="157.88,160.85" data-audio="audio-ai/v012.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to keep up to date</td><td class="ex">« Des posts pour me tenir au courant. »</td></tr>
+      <tr><td>les trends <em>(nm)</em><button class="say" type="button" data-say="les trends" data-say2="Bah aussi des… comment dire… des trends." data-yt="160.78,165.55" data-audio="audio-ai/v013.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>trends</td><td class="ex">« Bah aussi des… comment dire… des trends. »</td></tr>
+      <tr><td>une librairie <em>(nf)</em><button class="say" type="button" data-say="une librairie" data-say2="Je suis chargée de communication dans une librairie." data-yt="146.28,149.3" data-audio="audio-ai/v014.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a bookshop <em>(faux ami ! = library → une bibliothèque)</em></td><td class="ex">« Je suis chargée de communication dans une librairie. »</td></tr>
+      <tr><td>un avis tranché<button class="say" type="button" data-say="un avis tranché" data-say2="J&#x27;ai pas forcément d&#x27;avis tranché." data-yt="433.78,436.61" data-audio="audio-ai/v015.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a strong, clear-cut opinion</td><td class="ex">« J'ai pas forcément d'avis tranché. »</td></tr>
+      <tr><td>la page blanche<button class="say" type="button" data-say="la page blanche" data-say2="Ça peut empêcher le syndrome de la page blanche." data-yt="428.64,431.65" data-audio="audio-ai/v016.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the blank page (writer's block)</td><td class="ex">« Ça peut empêcher le syndrome de la page blanche. »</td></tr>
+      <tr><td><span class="verb">remplacer<span class="conj"><span class="c-title">remplacer <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>remplace</span><span>ai remplacé</span><span>remplaçais</span><span>remplacerai</span><span>remplace</span><span class="c-p">tu</span><span>remplaces</span><span>as remplacé</span><span>remplaçais</span><span>remplaceras</span><span>remplaces</span><span class="c-p">il/elle</span><span>remplace</span><span>a remplacé</span><span>remplaçait</span><span>remplacera</span><span>remplace</span><span class="c-p">nous</span><span>remplaçons</span><span>avons remplacé</span><span>remplacions</span><span>remplacerons</span><span>remplacions</span><span class="c-p">vous</span><span>remplacez</span><span>avez remplacé</span><span>remplaciez</span><span>remplacerez</span><span>remplaciez</span><span class="c-p">ils/elles</span><span>remplacent</span><span>ont remplacé</span><span>remplaçaient</span><span>remplaceront</span><span>remplacent</span></span></span></span> (qqn)<button class="say" type="button" data-say="remplacer" data-say2="Ça pourrait du coup remplacer des écrivains ?" data-yt="473.78,476.63" data-audio="audio-ai/v017.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to replace (someone)</td><td class="ex">« Ça pourrait du coup remplacer des écrivains ? »</td></tr>
+      <tr><td><span class="verb">menacer<span class="conj"><span class="c-title">menacer <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>menace</span><span>ai menacé</span><span>menaçais</span><span>menacerai</span><span>menace</span><span class="c-p">tu</span><span>menaces</span><span>as menacé</span><span>menaçais</span><span>menaceras</span><span>menaces</span><span class="c-p">il/elle</span><span>menace</span><span>a menacé</span><span>menaçait</span><span>menacera</span><span>menace</span><span class="c-p">nous</span><span>menaçons</span><span>avons menacé</span><span>menacions</span><span>menacerons</span><span>menacions</span><span class="c-p">vous</span><span>menacez</span><span>avez menacé</span><span>menaciez</span><span>menacerez</span><span>menaciez</span><span class="c-p">ils/elles</span><span>menacent</span><span>ont menacé</span><span>menaçaient</span><span>menaceront</span><span>menacent</span></span></span></span><button class="say" type="button" data-say="menacer" data-say2="Et quelles sont les professions alors qui pourraient être menacées ?" data-yt="492.68,495.75" data-audio="audio-ai/v018.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to threaten</td><td class="ex">« Et quelles sont les professions alors qui pourraient être menacées ? »</td></tr>
+      <tr><td><span class="verb">rédiger<span class="conj"><span class="c-title">rédiger <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>rédige</span><span>ai rédigé</span><span>rédigeais</span><span>rédigerai</span><span>rédige</span><span class="c-p">tu</span><span>rédiges</span><span>as rédigé</span><span>rédigeais</span><span>rédigeras</span><span>rédiges</span><span class="c-p">il/elle</span><span>rédige</span><span>a rédigé</span><span>rédigeait</span><span>rédigera</span><span>rédige</span><span class="c-p">nous</span><span>rédigeons</span><span>avons rédigé</span><span>rédigions</span><span>rédigerons</span><span>rédigions</span><span class="c-p">vous</span><span>rédigez</span><span>avez rédigé</span><span>rédigiez</span><span>rédigerez</span><span>rédigiez</span><span class="c-p">ils/elles</span><span>rédigent</span><span>ont rédigé</span><span>rédigeaient</span><span>rédigeront</span><span>rédigent</span></span></span></span><button class="say" type="button" data-say="rédiger" data-say2="Ça peut rédiger des articles entiers." data-yt="240.6,242.65" data-audio="audio-ai/v019.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to write (a text)</td><td class="ex">« Ça peut rédiger des articles entiers. »</td></tr>
+      <tr><td>un DM <span class="badge familier">familier</span><button class="say" type="button" data-say="un DM" data-say2="En terminale, j&#x27;ai dû faire un DM de philo." data-yt="331.42,333.63" data-audio="audio-ai/v020.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a homework assignment (« devoir maison »)</td><td class="ex">« En terminale, j'ai dû faire un DM de philo. »</td></tr>
+    </table>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Dix mots pour débattre du futur du travail et de l'art. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot / expression</th><th>Sens (anglais)</th><th>Exemple de la vidéo</th></tr>
+      <tr><td>réfractaire<button class="say" type="button" data-say="réfractaire" data-say2="Pas réfractaire, mais pas d&#x27;occasion pour l&#x27;instant." data-yt="129.68,132.0" data-audio="audio-ai/v021.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>resistant (to), against</td><td class="ex">« Pas réfractaire, mais pas d'occasion pour l'instant. »</td></tr>
+      <tr><td>un péril imminent<button class="say" type="button" data-say="un péril imminent" data-say2="Un péril imminent pour eux." data-yt="536.95,538.8" data-audio="audio-ai/v022.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>an imminent peril</td><td class="ex">« Un péril imminent pour eux. »</td></tr>
+      <tr><td>écorcher un mot<button class="say" type="button" data-say="écorcher un mot" data-say2="Si je n&#x27;écorche pas le mot." data-yt="564.6,568.29" data-audio="audio-ai/v023.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to mispronounce / garble a word</td><td class="ex">« Si je n'écorche pas le mot. »</td></tr>
+      <tr><td>une dérive <em>(nf)</em><button class="say" type="button" data-say="une dérive" data-say2="Vous pensez que ça peut avoir des dérives ?" data-yt="399.14,401.29" data-audio="audio-ai/v024.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a drift, a harmful excess</td><td class="ex">« Vous pensez que ça peut avoir des dérives ? »</td></tr>
+      <tr><td>le vécu<button class="say" type="button" data-say="le vécu" data-say2="Il nous reste notre vécu, nos sensations." data-yt="479.48,482.99" data-audio="audio-ai/v025.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>lived experience</td><td class="ex">« Il nous reste notre vécu, nos sensations. »</td></tr>
+      <tr><td>une dissertation <em>(nf)</em><button class="say" type="button" data-say="une dissertation" data-say2="Si c&#x27;est pour faire des dissertations, ce genre de choses, ça empêche de réfléchir." data-yt="405.14,410.41" data-audio="audio-ai/v026.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a (French-style) essay</td><td class="ex">« Si c'est pour faire des dissertations, ce genre de choses, ça empêche de réfléchir. »</td></tr>
+      <tr><td>un juriste<button class="say" type="button" data-say="un juriste" data-say2="En premier lieu, les juristes aussi." data-yt="541.18,543.25" data-audio="audio-ai/v027.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a legal professional</td><td class="ex">« En premier lieu, les juristes aussi. »</td></tr>
+      <tr><td><span class="verb">se pencher<span class="conj"><span class="c-title">se pencher (sur qch) <em>· auxiliaire : être</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>me penche</span><span>me suis penché(e)</span><span>me penchais</span><span>me pencherai</span><span>me penche</span><span class="c-p">tu</span><span>te penches</span><span>t'es penché(e)</span><span>te penchais</span><span>te pencheras</span><span>te penches</span><span class="c-p">il/elle</span><span>se penche</span><span>s'est penché(e)</span><span>se penchait</span><span>se penchera</span><span>se penche</span><span class="c-p">nous</span><span>nous penchons</span><span>nous sommes penché(e)s</span><span>nous penchions</span><span>nous pencherons</span><span>nous penchions</span><span class="c-p">vous</span><span>vous penchez</span><span>vous êtes penché(e)(s)</span><span>vous penchiez</span><span>vous pencherez</span><span>vous penchiez</span><span class="c-p">ils/elles</span><span>se penchent</span><span>se sont penché(e)s</span><span>se penchaient</span><span>se pencheront</span><span>se penchent</span></span></span></span> sur (qch)<button class="say" type="button" data-say="se pencher sur" data-say2="Je m&#x27;y penche pas plus que ça." data-yt="235.76,237.25" data-audio="audio-ai/v028.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to look into (something)</td><td class="ex">« Je m'y penche pas plus que ça. »</td></tr>
+      <tr><td>un arnaqueur<button class="say" type="button" data-say="un arnaqueur" data-say2="Les arnaqueurs principaux, en fait, de la civilisation humaine." data-yt="568.66,573.39" data-audio="audio-ai/v029.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a crook, a hustler</td><td class="ex">« Les arnaqueurs principaux, en fait, de la civilisation humaine. »</td></tr>
+      <tr><td>le boulot <span class="badge familier">familier</span><button class="say" type="button" data-say="le boulot" data-say2="Pour le boulot, ou les études ?" data-yt="442.08,444.0" data-audio="audio-ai/v030.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>work, the job</td><td class="ex">« Pour le boulot, ou les études ? »</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="expressions">
+  <h2><span class="num">3</span>Expressions</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Quatre expressions pour poser des questions et dire « non » clairement.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Est-ce que vous utilisez… ?</div><button class="say" type="button" data-say="Est-ce que vous utilisez…" data-say2="Est-ce que vous avez déjà utilisé l&#x27;intelligence artificielle ?" data-yt="35.68,40.3" data-audio="audio-ai/v031.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">Do you use…? (polite question with est-ce que)</div>
+        <div class="usage">« Est-ce que vous avez déjà utilisé l'intelligence artificielle ? »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Pas du tout</div><button class="say" type="button" data-say="Pas du tout" data-say2="Non, pas du tout." data-yt="75.48,76.42" data-audio="audio-ai/v032.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">Not at all</div>
+        <div class="usage">« Non, pas du tout. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Jamais</div><button class="say" type="button" data-say="Jamais" data-say2="Non, jamais posé une question à ChatGPT." data-yt="97.28,100.15" data-audio="audio-ai/v033.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">Never</div>
+        <div class="usage">« Non, jamais posé une question à ChatGPT. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">J'en vois pas l'utilité</div><button class="say" type="button" data-say="J&#x27;en vois pas l&#x27;utilité" data-say2="Pour l&#x27;instant, j&#x27;en vois pas l&#x27;utilité." data-yt="106.84,108.39" data-audio="audio-ai/v034.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">I don't see the point</div>
+        <div class="usage">« Pour l'instant, j'en vois pas l'utilité. »</div>
+      </div>
+    </div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Six expressions de conversation courante, apprises dans la rue.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">J'en suis pas là</div><button class="say" type="button" data-say="J&#x27;en suis pas là" data-say2="Pour l&#x27;instant, j&#x27;en suis pas là." data-yt="115.82,117.08" data-audio="audio-ai/v035.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">I'm not there yet</div>
+        <div class="usage">« Pour l'instant, j'en suis pas là. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Pas plus que ça</div><button class="say" type="button" data-say="Pas plus que ça" data-say2="Non, pas spécialement. Pas plus que ça." data-yt="191.08,194.05" data-audio="audio-ai/v036.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">Not more than that, not really</div>
+        <div class="usage">« Non, pas spécialement. Pas plus que ça. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Ça sert à quoi ?</div><button class="say" type="button" data-say="Ça sert à quoi ?" data-say2="Mais ça sert à quoi, Midjourney ?" data-yt="381.06,382.81" data-audio="audio-ai/v037.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">What's it for? What's the point?</div>
+        <div class="usage">« Mais ça sert à quoi, Midjourney ? »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">En général</div><button class="say" type="button" data-say="En général" data-say2="En général, vous faites quoi comme travail ?" data-yt="143.98,145.91" data-audio="audio-ai/v038.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">Generally, usually</div>
+        <div class="usage">« En général, vous faites quoi comme travail ? »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Mettre un petit like</div><button class="say" type="button" data-say="Mettre un petit like" data-say2="N&#x27;oubliez pas de mettre un petit like." data-yt="588.32,591.03" data-audio="audio-ai/v039.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">To leave a like</div>
+        <div class="usage">« N'oubliez pas de mettre un petit like. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Je suis votre mauvais client</div><button class="say" type="button" data-say="Je suis votre mauvais client" data-say2="Je suis votre mauvais client aujourd&#x27;hui." data-yt="90.62,92.21" data-audio="audio-ai/v040.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">I'm not your ideal customer <em>(playful line, said by someone who doesn't buy/use the product)</em></div>
+        <div class="usage">« Je suis votre mauvais client aujourd'hui. »</div>
+      </div>
+    </div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Six expressions pour débattre comme un juriste… ou comme un artiste.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">tirer son épingle du jeu</div><button class="say" type="button" data-say="tirer son épingle du jeu" data-say2="Les juristes ont toujours été ceux qui ont su tirer leur épingle du jeu." data-yt="551.55,557.85" data-audio="audio-ai/v041.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to come out on top, to survive cleverly</div>
+        <div class="usage">« Les juristes ont toujours été ceux qui ont su tirer leur épingle du jeu. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">tant qu'à le faire…</div><button class="say" type="button" data-say="tant qu&#x27;à le faire…" data-say2="Tant qu&#x27;à le faire nous-mêmes, ça va plus vite." data-yt="325.78,327.2" data-audio="audio-ai/v042.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">since we're doing it anyway…</div>
+        <div class="usage">« Tant qu'à le faire nous-mêmes, ça va plus vite. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">ça fait le travail à la place de…</div><button class="say" type="button" data-say="ça fait le travail à la place de…" data-say2="Ça fait le travail à la place de l&#x27;étudiant." data-yt="417.02,419.27" data-audio="audio-ai/v043.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">it does the work in someone's place</div>
+        <div class="usage">« Ça fait le travail à la place de l'étudiant. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">empêcher de réfléchir par soi-même</div><button class="say" type="button" data-say="empêcher de réfléchir par soi-même" data-say2="Ça empêche de réfléchir par soi-même." data-yt="408.5,410.93" data-audio="audio-ai/v044.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to prevent someone from thinking for themselves</div>
+        <div class="usage">« Ça empêche de réfléchir par soi-même. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">être sur le point de…</div><button class="say" type="button" data-say="être sur le point de…" data-say2="Ce sont tous des métiers qui sont sur le point…" data-yt="525.98,529.28" data-audio="audio-ai/v045.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to be about to (do something)</div>
+        <div class="usage">« Ce sont tous des métiers qui sont sur le point… »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">se dire que…</div><button class="say" type="button" data-say="se dire que…" data-say2="Ça peut paraître effrayant de se dire qu&#x27;il y a un logiciel qui peut faire des choses similaires." data-yt="451.18,455.0" data-audio="audio-ai/v046.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to face the fact that…, to tell oneself…</div>
+        <div class="usage">« Ça peut paraître effrayant de se dire qu'il y a un logiciel qui peut faire des choses similaires. »</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="grammaire">
+  <h2><span class="num">4</span>Grammaire</h2>
+
+  <div data-lv="a2">
+    <h3>G1 — Poser une question avec « est-ce que »</h3>
+    <div class="gram-box">
+      <p>La structure la plus simple et la plus polie pour poser une question :</p>
+      <div class="formule">Est-ce que + sujet + verbe ? → Est-ce que vous utilisez l'IA ?</div>
+      <ul class="compact">
+        <li>« <b>Est-ce que</b> vous utilisez l'intelligence artificielle ? »</li>
+        <li>« <b>Est-ce que</b> ça vous aide pour les études ? »</li>
+      </ul>
+      <p>À l'oral, l'intonation suffit souvent (on monte la voix) — très fréquent dans la rue :</p>
+      <ul class="compact">
+        <li>« Vous faites quoi dans la vie ? » « Ça s'écrit comment ? »</li>
+      </ul>
+    </div>
+    <h3>G2 — Les négations : pas du tout, jamais, pas plus que ça</h3>
+    <div class="gram-box">
+      <p>Trois façons de dire « non », du plus doux au plus catégorique :</p>
+      <ul class="compact">
+        <li><b>pas du tout</b> : « Non, <b>pas du tout</b>. » (= absolument pas)</li>
+        <li><b>jamais</b> : « Non, <b>jamais</b> posé une question à ChatGPT. »</li>
+        <li><b>pas plus que ça</b> : « Non, <b>pas plus que ça</b>. » (= un peu, sans plus)</li>
+      </ul>
+      <p>À l'oral, on omet presque toujours « ne » — voir la section 5 !</p>
+    </div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <h3>G1 — Les pronoms en et y</h3>
+    <div class="gram-box">
+      <p><b>en</b> remplace « de + chose » ou une quantité ; <b>y</b> remplace « à + chose » ou un lieu. Tous les deux se placent devant le verbe.</p>
+      <div class="formule">je me sers de l'IA → je m'en sers / je pense à l'IA → j'y pense</div>
+      <ul class="compact">
+        <li>« Je m'<b>en</b> sers un petit peu dans mon travail. » (= je me sers de l'IA)</li>
+        <li>« J'<b>en</b> vois pas l'utilité. » (= je ne vois pas l'utilité de l'IA)</li>
+        <li>« Je m'<b>y</b> penche pas plus que ça. » (= je ne me penche pas sur l'IA)</li>
+        <li>« Les médecins, on <b>y</b> pense jamais. » (= on ne pense jamais aux médecins)</li>
+      </ul>
+    </div>
+    <h3>G2 — Le gérondif : « en » + participe présent</h3>
+    <div class="gram-box">
+      <p>Pour exprimer la manière ou la simultanéité : <b>en + radical de « nous » + -ant</b>.</p>
+      <div class="formule">nous compliquons → en compliquant / nous utilisons → en utilisant</div>
+      <ul class="compact">
+        <li>« Les juristes compliquent les choses » → « …ils survivent <b>en compliquant</b> les choses. »</li>
+        <li>« On progresse <b>en demandant</b> des explications et <b>en utilisant</b> un logiciel. »</li>
+      </ul>
+    </div>
+    <h3>G3 — Le conditionnel présent : la possibilité</h3>
+    <div class="gram-box">
+      <p>Pour parler d'une possibilité ou d'une hypothèse : <b>infinitif + -ais, -ait, -ions, -iez, -aient</b>.</p>
+      <div class="formule">ça peut servir → ça pourrait servir</div>
+      <ul class="compact">
+        <li>« Ça <b>pourrait</b> servir » / « Ça <b>pourrait</b> être utile. »</li>
+        <li>« Ça <b>pourrait</b> remplacer des écrivains ? »</li>
+        <li>« Les professions qui <b>pourraient</b> être menacées. »</li>
+      </ul>
+    </div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <h3>G1 — Exprimer la cause : vu que, étant donné que, puisque, comme</h3>
+    <div class="gram-box">
+      <p>Quatre connecteurs pour justifier — de plus en plus formels. <b>Vu que</b> et <b>étant donné que</b> sont très fréquents à l'oral.</p>
+      <ul class="compact">
+        <li>« <b>Vu que</b> j'enseigne les sciences, c'est pas très adapté. »</li>
+        <li>« <b>Étant donné que</b> c'est gratuit pour moi, j'utilise. »</li>
+        <li>« C'est terrible <b>parce que</b> c'est ce qui nous restait. » (le plus neutre)</li>
+      </ul>
+      <div class="astuce"><strong>Astuce</strong> <b>Comme</b> se place toujours en début de phrase : « <b>Comme</b> j'enseigne les sciences, c'est pas adapté. » — jamais en fin.</div>
+    </div>
+    <h3>G2 — « il doit y avoir » et l'imminence</h3>
+    <div class="gram-box">
+      <p><b>devoir</b> exprime ici une forte probabilité : « il doit y avoir » = « il y a sûrement ».</p>
+      <ul class="compact">
+        <li>« <b>Il doit y avoir</b> PhotoMath — ça doit être une IA, je pense. »</li>
+        <li>« Ça <b>doit</b> être une IA. » (= probablement)</li>
+      </ul>
+      <p>Et pour ce qui va arriver très bientôt :</p>
+      <div class="formule">être sur le point de + infinitif → sur le point d'être menacés</div>
+      <ul class="compact">
+        <li>« Ce sont des métiers qui sont <b>sur le point d'être menacés</b>. »</li>
+      </ul>
+    </div>
+    <h3>G3 — Nuancer son opinion</h3>
+    <div class="gram-box">
+      <p>Pour ne pas avoir l'air trop catégorique, les francophones adoucissent leur avis :</p>
+      <ul class="compact">
+        <li><b>il me semble que</b> : « Il me semble que récemment il y a un logiciel qui génère des vidéos. »</li>
+        <li><b>j'ai pas forcément d'avis tranché</b> : « Je sais pas, j'ai pas forcément d'avis tranché. »</li>
+        <li><b>enfin / je sais pas</b> : « Enfin… ouais, ça fait le travail à la place de l'étudiant, c'est pas forcément super. »</li>
+        <li><b>j'espère pas</b> : « Est-ce que ça pourrait remplacer des écrivains ? — Ah, j'espère pas ! »</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="parle">
+  <h2><span class="num">5</span>Français parlé</h2>
+
+  <div data-lv="a2">
+    <h3>La chute du « ne » : le secret n° 1 de l'oral</h3>
+    <div class="oral">
+      <strong>À l'oral, on oublie presque toujours « ne »</strong>
+      <ul class="compact">
+        <li>« C'est pas très adapté. »<button class="say" type="button" data-say="C&#x27;est pas très adapté." data-yt="209.24,211.33" data-audio="audio-ai/v047.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+        <li>« J'en vois pas l'utilité. »<button class="say" type="button" data-say="J&#x27;en vois pas l&#x27;utilité." data-yt="107.16,108.39" data-audio="audio-ai/v048.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+        <li>« Je sais pas comment ça s'appelle. »<button class="say" type="button" data-say="Je sais pas comment ça s&#x27;appelle." data-yt="222.22,223.43" data-audio="audio-ai/v049.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+      </ul>
+      À l'écrit, gardez « ne ». À l'oral, sa chute est la norme : c'est ainsi que parlent tous les Français, même très cultivés.
+    </div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <h3>Les petits mots du français oral</h3>
+    <table>
+      <tr><th>Mot</th><th>Fonction</th><th>Exemple</th></tr>
+      <tr><td>en fait</td><td>actually, in fact</td><td class="ex">« C'est pas très adapté en fait. »<button class="say" type="button" data-say="C&#x27;est pas très adapté en fait." data-yt="209.24,211.67" data-audio="audio-ai/v050.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+      <tr><td>du coup</td><td>so, therefore</td><td class="ex">« Ça doit être une IA, je pense. Du coup, ouais. »<button class="say" type="button" data-say="C&#x27;est une IA, je pense. Du coup… ouais." data-yt="342.62,344.45" data-audio="audio-ai/v051.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+      <tr><td>bah</td><td>well (variant of « ben »)</td><td class="ex">« Bah, c'est sûr que si c'est pour faire des dissertations… »<button class="say" type="button" data-say="C&#x27;est sûr que si c&#x27;est pour faire des dissertations…" data-yt="403.64,407.21" data-audio="audio-ai/v052.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+      <tr><td>quoi</td><td>filler, like « you know » (fin de phrase)</td><td class="ex">« J'utilise ce qu'ils m'ont dit, quoi. »<button class="say" type="button" data-say="J&#x27;utilise ce qu&#x27;ils m&#x27;ont dit, quoi." data-yt="64.58,67.4" data-audio="audio-ai/v053.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+      <tr><td>voilà</td><td>filler qui clôt une phrase (« et voilà »)</td><td class="ex">« Certains amis, mais voilà. »<button class="say" type="button" data-say="Certains amis, mais voilà." data-yt="123.48,124.85" data-audio="audio-ai/v054.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+    </table>
+    <div class="astuce"><strong>Astuce</strong> Ces mots ne portent pas de sens fort : ils donnent le rythme. Placez-les avec parcimonie — un « du coup » ou un « en fait » de temps en temps suffit.</div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <h3>La dislocation</h3>
+    <div class="oral">
+      <strong>Annoncer le thème, puis le reprendre par un pronom</strong>
+      <ul class="compact">
+        <li>« Les profs, <b>ils</b> ont un logiciel pour cramer. »<button class="say" type="button" data-say="Les profs, ils ont un logiciel pour cramer." data-yt="317.06,319.5" data-audio="audio-ai/v055.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+        <li>« Les médecins, d'abord, <b>on</b> y pense jamais. »<button class="say" type="button" data-say="Les médecins, d&#x27;abord, on y pense jamais." data-yt="504.78,507.1" data-audio="audio-ai/v056.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+        <li>« L'art en général, <b>c'est</b> un peu ce qui nous reste de beau. »<button class="say" type="button" data-say="L&#x27;art en général, humainement, c&#x27;est un peu ce qu&#x27;on a, ce qui nous reste de beau." data-yt="458.48,463.78" data-audio="audio-ai/v057.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+      </ul>
+      Très fréquent à l'oral, rare à l'écrit soutenu.
+    </div>
+    <h3>L'échelle des registres — et l'argot étudiant</h3>
+    <table>
+      <tr><th>Argot / vulgaire</th><th>Familier (ok entre amis)</th><th>Standard / poli</th></tr>
+      <tr><td>cramer (= attraper, démasquer)</td><td>griller</td><td>repérer, démasquer</td></tr>
+      <tr><td>ça m'emmerde</td><td>ça me soûle / ça me prend la tête</td><td>ça me complique la vie</td></tr>
+      <tr><td>un truc</td><td>un machin</td><td>une chose</td></tr>
+      <tr><td>ouais</td><td>ouais</td><td>oui</td></tr>
+    </table>
+    <div class="attention">
+      <strong>Attention</strong>
+      « Cramer » est de l'argot (on le dit entre élèves, pas au travail). « Ça m'emmerde » est vulgaire — mais indispensable à <em>comprendre</em> : « Les profs ont un logiciel pour cramer si on utilise ChatGPT » et « des besognes quotidiennes qui m'emmerdent » sont des phrases typiques de la vidéo.
+    </div>
+  </div>
+</section>
+
+<section id="exercices">
+  <h2><span class="num">6</span>Exercices</h2>
+
+  <div data-lv="a2">
+    <h3>Exercice 1 — Associez le mot à sa définition</h3>
+    <ol class="exos">
+      <li>l'intelligence artificielle</li>
+      <li>les devoirs</li>
+      <li>gratuit</li>
+      <li>effrayant</li>
+      <li>un logiciel</li>
+      <li>les réseaux sociaux</li>
+    </ol>
+    <p><b>Définitions :</b></p>
+    <ul class="compact">
+      <li>A. Le travail donné par les profs à faire à la maison</li>
+      <li>B. Une technologie qui apprend et répond, comme ChatGPT</li>
+      <li>C. Qui ne coûte rien</li>
+      <li>D. Instagram, TikTok, X…</li>
+      <li>E. Un programme sur un ordinateur</li>
+      <li>F. Qui fait peur</li>
+    </ul>
+    <h3>Exercice 2 — Transformez en question avec « est-ce que »</h3>
+    <ol class="exos">
+      <li>« Vous utilisez l'IA. »</li>
+      <li>« Ça vous aide pour les études. »</li>
+      <li>« C'est gratuit. »</li>
+      <li>« Vous connaissez d'autres logiciels. »</li>
+    </ol>
+    <h3>Exercice 3 — Réécrivez à l'oral (sans « ne »)</h3>
+    <ol class="exos">
+      <li>« Je ne comprends pas. »</li>
+      <li>« Ce n'est pas très adapté. »</li>
+      <li>« Je ne sais pas comment ça s'appelle. »</li>
+      <li>« Ça ne me sert pas beaucoup. »</li>
+    </ol>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <h3>Exercice 1 — Associez le mot à sa définition</h3>
+    <ol class="exos">
+      <li>s'en servir</li>
+      <li>se tenir au courant</li>
+      <li>un avis tranché</li>
+      <li>la page blanche</li>
+      <li>menacer</li>
+      <li>rédiger</li>
+      <li>une librairie</li>
+      <li>un DM</li>
+    </ol>
+    <p><b>Définitions :</b></p>
+    <ul class="compact">
+      <li>A. Un magasin où l'on vend des livres</li>
+      <li>B. Utiliser quelque chose (me servir de…)</li>
+      <li>C. Une opinion très claire, définitive</li>
+      <li>D. Écrire un texte</li>
+      <li>E. Suivre les nouveautés</li>
+      <li>F. Le moment où l'on commence à écrire… sans aucune idée</li>
+      <li>G. Dire (ou laisser entendre) qu'on va faire du mal</li>
+      <li>H. Un « devoir maison » : un travail noté à faire chez soi</li>
+    </ul>
+    <h3>Exercice 2 — <em>en</em> ou <em>y</em> ?</h3>
+    <ol class="exos">
+      <li>L'IA ? Je m'___ sers un petit peu dans mon travail.</li>
+      <li>ChatGPT ? J'___ vois pas l'utilité.</li>
+      <li>L'IA générative ? Je m'___ penche pas plus que ça.</li>
+      <li>Les médecins ? On ___ pense jamais.</li>
+      <li>Des logiciels gratuits ? J'___ connais quelques-uns.</li>
+    </ol>
+    <h3>Exercice 3 — Gérondif et conditionnel</h3>
+    <p>a) Transformez avec « en + participe présent ».</p>
+    <ol class="exos">
+      <li>Il complique les choses, et il survit. → Il survit…</li>
+      <li>On progresse. On demande des explications. → On progresse…</li>
+      <li>On apprend. On utilise un logiciel. → On apprend…</li>
+    </ol>
+    <p>b) Transformez au conditionnel présent.</p>
+    <ol class="exos">
+      <li>Ça peut servir. → Ça ___ servir.</li>
+      <li>Ce n'est pas utile. → Ce ___ pas utile.</li>
+      <li>Les métiers sont menacés. → Les métiers ___ être menacés.</li>
+    </ol>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <h3>Exercice 1 — Reformulez la cause</h3>
+    <p>Réécrivez chaque phrase avec le connecteur indiqué.</p>
+    <ol class="exos">
+      <li>« J'enseigne les sciences, donc c'est pas très adapté. » (<b>vu que</b>)</li>
+      <li>« C'est gratuit, donc j'utilise. » (<b>étant donné que</b>)</li>
+      <li>« Il n'a pas d'occasion, donc il n'utilise pas encore. » (<b>comme</b> — attention à la place !)</li>
+    </ol>
+    <h3>Exercice 2 — Probabilité et imminence</h3>
+    <ol class="exos">
+      <li>C'est une IA. → Ça ___ être une IA.</li>
+      <li>Il y a un logiciel pour générer des vidéos. → Il ___ un logiciel pour générer des vidéos.</li>
+      <li>Les métiers vont disparaître. → Les métiers sont ___ disparaître.</li>
+      <li>Adoucissez avec « il me semble que » : « L'IA est dangereuse. »</li>
+    </ol>
+  </div>
+</section>
+
+<section id="corrige">
+  <h2><span class="num">7</span>Corrigés</h2>
+
+  <div data-lv="a2">
+    <details>
+      <summary>Exercice 1 — Corrigé</summary>
+      <ol>
+        <li>l'intelligence artificielle → <span class="answer">B</span></li>
+        <li>les devoirs → <span class="answer">A</span></li>
+        <li>gratuit → <span class="answer">C</span></li>
+        <li>effrayant → <span class="answer">F</span></li>
+        <li>un logiciel → <span class="answer">E</span></li>
+        <li>les réseaux sociaux → <span class="answer">D</span></li>
+      </ol>
+    </details>
+    <details>
+      <summary>Exercice 2 — Corrigé</summary>
+      <ol>
+        <li>« <span class="answer">Est-ce que vous utilisez</span> l'IA ? »</li>
+        <li>« <span class="answer">Est-ce que ça vous aide</span> pour les études ? »</li>
+        <li>« <span class="answer">Est-ce que c'est</span> gratuit ? »</li>
+        <li>« <span class="answer">Est-ce que vous connaissez</span> d'autres logiciels ? »</li>
+      </ol>
+    </details>
+    <details>
+      <summary>Exercice 3 — Corrigé</summary>
+      <ol>
+        <li><span class="answer">Je comprends pas.</span></li>
+        <li><span class="answer">C'est pas très adapté.</span></li>
+        <li><span class="answer">Je sais pas comment ça s'appelle.</span></li>
+        <li><span class="answer">Ça me sert pas beaucoup.</span></li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <details>
+      <summary>Exercice 1 — Corrigé</summary>
+      <ol>
+        <li>s'en servir → <span class="answer">B</span></li>
+        <li>se tenir au courant → <span class="answer">E</span></li>
+        <li>un avis tranché → <span class="answer">C</span></li>
+        <li>la page blanche → <span class="answer">F</span></li>
+        <li>menacer → <span class="answer">G</span></li>
+        <li>rédiger → <span class="answer">D</span></li>
+        <li>une librairie → <span class="answer">A</span></li>
+        <li>un DM → <span class="answer">H</span></li>
+      </ol>
+    </details>
+    <details>
+      <summary>Exercice 2 — Corrigé (en / y)</summary>
+      <ol>
+        <li>je m'<span class="answer">en</span> sers</li>
+        <li>j'<span class="answer">en</span> vois pas l'utilité</li>
+        <li>je m'<span class="answer">y</span> penche pas</li>
+        <li>on <span class="answer">y</span> pense jamais</li>
+        <li>j'<span class="answer">en</span> connais quelques-uns</li>
+      </ol>
+    </details>
+    <details>
+      <summary>Exercice 3 — Corrigé (gérondif et conditionnel)</summary>
+      <ol>
+        <li>Il survit <span class="answer">en compliquant</span> les choses.</li>
+        <li>On progresse <span class="answer">en demandant</span> des explications.</li>
+        <li>On apprend <span class="answer">en utilisant</span> un logiciel.</li>
+        <li>Ça <span class="answer">pourrait</span> servir.</li>
+        <li>Ce <span class="answer">serait</span> pas utile.</li>
+        <li>Les métiers <span class="answer">pourraient</span> être menacés.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <details>
+      <summary>Exercice 1 — Corrigé (cause)</summary>
+      <ol>
+        <li>« <span class="answer">Vu que</span> j'enseigne les sciences, c'est pas très adapté. »</li>
+        <li>« <span class="answer">Étant donné que</span> c'est gratuit, j'utilise. »</li>
+        <li>« <span class="answer">Comme</span> il n'a pas d'occasion, il n'utilise pas encore. » (comme = toujours en début de phrase)</li>
+      </ol>
+    </details>
+    <details>
+      <summary>Exercice 2 — Corrigé (probabilité et imminence)</summary>
+      <ol>
+        <li>Ça <span class="answer">doit</span> être une IA.</li>
+        <li>Il <span class="answer">doit y avoir</span> un logiciel pour générer des vidéos.</li>
+        <li>Les métiers sont <span class="answer">sur le point de</span> disparaître.</li>
+        <li>« <span class="answer">Il me semble que</span> l'IA est dangereuse. » — on peut aussi adoucir avec « j'ai pas forcément d'avis tranché, mais… » ou « j'espère pas, en tout cas ».</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<section id="avous">
+  <h2><span class="num">8</span>À vous !</h2>
+
+  <div data-lv="a2">
+    <div class="speak">
+      <strong>Défi A2 — 5 phrases sur ta vie numérique</strong>
+      <p>Écris puis dis à voix haute : deux choses que tu utilises (j'utilise / je me sers de…), une chose que tu n'utilises pas (pas du tout), une chose que tu ne comprends pas (je comprends pas…), et une question avec « est-ce que ».</p>
+    </div>
+    <details>
+      <summary>Exemples de réponses</summary>
+      <ul class="compact">
+        <li>« J'utilise ChatGPT pour traduire des mots. »</li>
+        <li>« J'utilise beaucoup les réseaux sociaux. »</li>
+        <li>« Je n'utilise pas TikTok. Pas du tout ! »</li>
+        <li>« Je comprends pas comment ça marche. »</li>
+        <li>« Est-ce que tu utilises l'IA pour tes études ? »</li>
+      </ul>
+    </details>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <div class="speak">
+      <strong>Défi B1 — Tes habitudes</strong>
+      <p>Écris trois phrases avec <em>en</em> ou <em>y</em> (« je m'en sers… », « j'y pense… »), une phrase au gérondif (« j'apprends en… ») et une possibilité au conditionnel (« ça pourrait… »).</p>
+    </div>
+    <details>
+      <summary>Exemples de réponses</summary>
+      <ul class="compact">
+        <li>« Les applications de langue ? Je m'en sers chaque jour. »</li>
+        <li>« ChatGPT ? J'y pense quand j'écris un mail compliqué. »</li>
+        <li>« J'apprends le français en écoutant des podcasts. »</li>
+        <li>« Ça pourrait m'aider pour le travail, mais j'en vois pas encore l'utilité. »</li>
+      </ul>
+    </details>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <div class="speak">
+      <strong>Défi B2 — Un monologue de 1 minute</strong>
+      <p>« L'IA : menace ou outil ? » Parle une minute en utilisant <em>il me semble que · vu que / étant donné que · sur le point de · tirer son épingle du jeu</em>. Enregistre-toi et réécoute.</p>
+    </div>
+    <div class="speak">
+      <strong>Débat — Faut-il laisser l'IA faire nos devoirs ?</strong>
+      <p>Défends ta position en nuancant : <em>« Vu que… », « Étant donné que… », « J'ai pas forcément d'avis tranché, mais… », « Il me semble que… »</em>. Termine par une concession : <em>« Ça peut aider comme point de départ, cela dit… »</em></p>
+    </div>
+    <details>
+      <summary>Éléments de réponse pour le débat</summary>
+      <ul class="compact">
+        <li>Contre : « Vu que ça empêche de réfléchir par soi-même, ça fait le travail à la place de l'étudiant. »</li>
+        <li>Pour (avec nuance) : « Il me semble que c'est un bon point de départ — ça empêche le syndrome de la page blanche. »</li>
+        <li>Concession élégante : « J'ai pas forcément d'avis tranché : ça dépend de la matière et de l'usage. »</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="tricolore"></div>
+  <p><strong>Sources :</strong> vidéo « Do French People Use AI? | Easy French 199 », chaîne YouTube <em>Easy French</em> — <a href="https://www.youtube.com/watch?v=6xrRoIYZ6A0">youtube.com/watch?v=6xrRoIYZ6A0</a>. Leçon créée à partir de la transcription française (sous-titres automatiques, alignés sur l'audio).</p>
+  <p>Un contenu adapté à votre niveau : changez de parcours (A2 · B1 · B2) à tout moment. Fichiers associés : <code>transcript-ai.txt</code>, <code>transcript-ai.json</code>, <code>audio-ai/</code> (extraits), <code>video_src-ai/lesson_video.mp4</code> (vidéo locale).</p>
+
+<!--LESSONS_NAV_FOOT-->
+  <p style="margin-top:.6rem;">Autres leçons : <a href="index.html">Toutes les leçons</a> · <a href="lecon-opinions-impopulaires.html">259 · Les opinions impopulaires</a></p>
+  <!--/LESSONS_NAV_FOOT-->
+</footer>
+
+<script>
+  var radios = document.querySelectorAll("input[name='niveau']");
+  function applyLevel(lv) {
+    document.body.dataset.niveau = lv;
+    document.querySelectorAll('[data-lv]').forEach(function (el) {
+      el.hidden = el.dataset.lv !== lv;
+    });
+  }
+  radios.forEach(function (r) {
+    r.addEventListener('change', function () { applyLevel(r.value); });
+  });
+  applyLevel(document.querySelector("input[name='niveau']:checked").value);
+
+  var panel = document.getElementById('sidepanel');
+  var toggle = document.getElementById('spToggle');
+  function closePanel() {
+    document.body.classList.remove('sp-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+  toggle.addEventListener('click', function () {
+    var open = !document.body.classList.contains('sp-open');
+    document.body.classList.toggle('sp-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  panel.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', closePanel);
+  });
+  document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('sp-open')) return;
+    if (!panel.contains(e.target) && !toggle.contains(e.target)) closePanel();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePanel();
+  });
+
+  var navLinks = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+  var navSections = navLinks.map(function (a) {
+    return document.querySelector(a.getAttribute('href'));
+  });
+  function spy() {
+    var current = null;
+    navSections.forEach(function (s) {
+      if (s && s.getBoundingClientRect().top <= 140) current = s.id;
+    });
+    navLinks.forEach(function (a) {
+      var active = current !== null && a.getAttribute('href') === '#' + current;
+      a.classList.toggle('active', active);
+      if (active) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  spy();
+
+  var speechOK = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+  var frVoice = null;
+  function pickVoice(voices) {
+    var preferred = ['Eddy', 'Amélie', 'Amelie', 'Thomas', 'Flo', 'Audrey', 'Aurélie'];
+    var fr = voices.filter(function (v) { return /^fr/i.test(v.lang); });
+    if (!fr.length) return null;
+    var frFR = fr.filter(function (v) { return /fr[-_]FR/i.test(v.lang); });
+    var pool = frFR.length ? frFR : fr;
+    for (var i = 0; i < preferred.length; i++) {
+      for (var j = 0; j < pool.length; j++) {
+        if (pool[j].name.indexOf(preferred[i]) !== -1) return pool[j];
+      }
+    }
+    return pool[0];
+  }
+  function refreshVoice() {
+    if (speechOK) frVoice = pickVoice(window.speechSynthesis.getVoices());
+  }
+  if (speechOK) {
+    refreshVoice();
+    if ('onvoiceschanged' in window.speechSynthesis) {
+      window.speechSynthesis.onvoiceschanged = refreshVoice;
+    }
+  }
+  document.querySelectorAll('.say').forEach(function (b) {
+    if (!b.getAttribute('data-audio') && !speechOK) b.hidden = true;
+  });
+
+  var sayToken = 0;
+  var currentBtn = null;
+  var currentAudio = null;
+  function stopPlayback() {
+    sayToken++;
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    if (ytVideo && !ytVideo.paused) ytVideo.pause();
+    ytFinish = null;
+    if (speechOK) window.speechSynthesis.cancel();
+    if (currentBtn) {
+      currentBtn.classList.remove('playing');
+      currentBtn = null;
+    }
+  }
+  function speakText(text, rate, token, onDone) {
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'fr-FR';
+    if (frVoice) u.voice = frVoice;
+    u.rate = rate;
+    u.onend = onDone;
+    u.onerror = onDone;
+    window.speechSynthesis.speak(u);
+  }
+  function speakItem(btn, token, finish) {
+    if (!frVoice) refreshVoice();
+    var t1 = btn.getAttribute('data-say') || '';
+    var t2 = btn.getAttribute('data-say2') || '';
+    if (!t1) { finish(); return; }
+    speakText(t1, 0.95, token, function () {
+      if (token !== sayToken) return;
+      if (t2) {
+        setTimeout(function () {
+          if (token !== sayToken) return;
+          speakText(t2, 0.9, token, finish);
+        }, 400);
+      } else {
+        finish();
+      }
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.say');
+    if (!btn || btn.hidden) return;
+    stopPlayback();
+    var token = sayToken;
+    currentBtn = btn;
+    btn.classList.add('playing');
+    function finish() {
+      if (token !== sayToken) return;
+      btn.classList.remove('playing');
+      if (currentBtn === btn) currentBtn = null;
+    }
+    var file = btn.getAttribute('data-audio');
+    var ytSpan = btn.getAttribute('data-yt');
+    var usedYt = false;
+    if (ytSpan && ytReady && !ytBroken) {
+      var yparts = ytSpan.split(',');
+      usedYt = playYtSegment(parseFloat(yparts[0]), parseFloat(yparts[1]), finish);
+    }
+    if (!usedYt && file) {
+      var failed = false;
+      var fallback = function () {
+        if (failed || token !== sayToken) return;
+        failed = true;
+        currentAudio = null;
+        if (speechOK) speakItem(btn, token, finish);
+        else finish();
+      };
+      var a = new Audio(file);
+      currentAudio = a;
+      a.onended = function () {
+        if (token === sayToken) { currentAudio = null; finish(); }
+      };
+      a.onerror = fallback;
+      var p = a.play();
+      if (p && p.catch) p.catch(fallback);
+    } else if (!usedYt && speechOK) {
+      speakItem(btn, token, finish);
+    } else if (!usedYt) {
+      finish();
+    }
+  });
+
+  // ---- Floating video (local copy of the source video) ----
+  var ytVideo = document.getElementById('ytplayer');
+  var ytReady = false;
+  var ytBroken = false;
+  var ytPoll = null;
+  var ytFinish = null;
+
+  if (ytVideo) {
+    ytVideo.addEventListener('loadedmetadata', function () { ytReady = true; });
+    ytVideo.addEventListener('error', function () { ytBroken = true; });
+    if (ytVideo.readyState >= 1) ytReady = true;
+  }
+
+  function stopYtSegment() {
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    if (ytVideo && !ytVideo.paused) ytVideo.pause();
+    var f = ytFinish;
+    ytFinish = null;
+    if (f) f();
+  }
+  function playYtSegment(start, end, onDone) {
+    if (!ytReady || ytBroken || !ytVideo) return false;
+    var s = Math.max(0, start - 0.2);
+    var e = end + 0.2;
+    try {
+      ytVideo.currentTime = s;
+      var pr = ytVideo.play();
+      if (pr && pr.catch) pr.catch(function () { ytBroken = true; stopYtSegment(); });
+    } catch (err) {
+      return false;
+    }
+    ytFinish = onDone;
+    var t0 = Date.now();
+    ytPoll = setInterval(function () {
+      if (!ytVideo) { stopYtSegment(); return; }
+      var t = ytVideo.currentTime;
+      var elapsed = Date.now() - t0;
+      if (elapsed > 450 && t >= e) stopYtSegment();
+      else if (elapsed > (e - s) * 1000 + 6000) stopYtSegment();
+    }, 100);
+    return true;
+  }
+
+  // ---- Custom hover-only video controls ----
+  function detachYtSegment() {
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    ytFinish = null;
+    if (currentBtn) { currentBtn.classList.remove('playing'); currentBtn = null; }
+  }
+  var ytvWrap = document.getElementById('ytv');
+  var ytvSeek = document.getElementById('ytvSeek');
+  var ytvCur = document.getElementById('ytvCur');
+  var ytvDur = document.getElementById('ytvDur');
+  var ytvPlay = document.querySelector('.ytv-play');
+  var ytvFull = document.querySelector('.ytv-full');
+  var ytvDragging = false;
+
+  function fmtTime(t) {
+    t = Math.max(0, Math.floor(t || 0));
+    var m = Math.floor(t / 60), s = t % 60;
+    return m + ':' + (s < 10 ? '0' + s : s);
+  }
+  function syncYtv() {
+    if (!ytvWrap || !ytVideo) return;
+    ytvWrap.classList.toggle('playing', !ytVideo.paused && !ytVideo.ended);
+    if (!ytvDragging && ytVideo.duration) {
+      ytvSeek.value = Math.round(1000 * ytVideo.currentTime / ytVideo.duration);
+      ytvCur.textContent = fmtTime(ytVideo.currentTime);
+    }
+  }
+  function ytvToggle() {
+    detachYtSegment();
+    if (ytVideo.paused) {
+      var pr = ytVideo.play();
+      if (pr && pr.catch) pr.catch(function () {});
+    } else {
+      ytVideo.pause();
+    }
+  }
+  if (ytVideo && ytvWrap) {
+    ['play', 'pause', 'ended', 'loadedmetadata', 'timeupdate'].forEach(function (ev) {
+      ytVideo.addEventListener(ev, syncYtv);
+    });
+    if (ytVideo.duration) ytvDur.textContent = fmtTime(ytVideo.duration);
+    ytVideo.addEventListener('loadedmetadata', function () {
+      ytvDur.textContent = fmtTime(ytVideo.duration);
+    });
+    ytVideo.addEventListener('click', ytvToggle);
+    ytvPlay.addEventListener('click', ytvToggle);
+    ytvSeek.addEventListener('pointerdown', function () { ytvDragging = true; detachYtSegment(); });
+    ytvSeek.addEventListener('input', function () {
+      if (ytVideo.duration) ytVideo.currentTime = ytvSeek.value * ytVideo.duration / 1000;
+      ytvCur.textContent = fmtTime(ytVideo.currentTime);
+    });
+    window.addEventListener('pointerup', function () { ytvDragging = false; syncYtv(); });
+    window.addEventListener('pointercancel', function () { ytvDragging = false; syncYtv(); });
+    ytvFull.addEventListener('click', function () {
+      if (document.fullscreenElement) { document.exitFullscreen(); return; }
+      if (ytvWrap.requestFullscreen) ytvWrap.requestFullscreen();
+      else if (ytvWrap.webkitRequestFullscreen) ytvWrap.webkitRequestFullscreen();
+      else if (ytVideo.webkitEnterFullscreen) ytVideo.webkitEnterFullscreen();
+    });
+    syncYtv();
+  }
+
+  // ---- Keep the floating panels below the sticky level bar ----
+  var levelbarEl = document.querySelector('.levelbar');
+  function updatePanelTop() {
+    if (!levelbarEl) return;
+    var bottom = levelbarEl.getBoundingClientRect().bottom;
+    document.documentElement.style.setProperty('--panel-top', Math.max(12, Math.round(bottom + 12)) + 'px');
+  }
+  function updateShift() {
+    var s = Math.max(0, Math.min(130, window.innerWidth / 2 - 642));
+    document.documentElement.style.setProperty('--shift', Math.round(s) + 'px');
+  }
+  window.addEventListener('scroll', updatePanelTop, { passive: true });
+  window.addEventListener('resize', function () { updatePanelTop(); updateShift(); });
+  updatePanelTop();
+  updateShift();
+</script>
+
+</body>
+</html>

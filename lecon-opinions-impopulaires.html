@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon de français par niveau — Les opinions impopulaires (Easy French 259)</title>
+<style>
+  :root {
+    --bleu: #16357a;
+    --bleu-clair: #e8eefb;
+    --rouge: #c8102e;
+    --vert: #1e7a46;
+    --violet: #6b3fa0;
+    --texte: #22262e;
+    --gris: #5c6470;
+    --fond: #f6f7fb;
+    --carte: #ffffff;
+    --bordure: #dde3ee;
+    --accent: #16357a;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--fond);
+    color: var(--texte);
+    line-height: 1.65;
+    font-size: 16.5px;
+  }
+  body[data-niveau="a2"] { --accent: var(--vert); }
+  body[data-niveau="b1"] { --accent: var(--bleu); }
+  body[data-niveau="b2"] { --accent: var(--violet); }
+  header {
+    background: linear-gradient(135deg, #16357a 0%, #1d4aa3 60%, #2a5cc4 100%);
+    color: #fff;
+    padding: 2.4rem 1.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--bleu) 0 33%, #fff 33% 66%, var(--rouge) 66% 100%);
+    opacity: .9;
+  }
+  .header-inner { max-width: 900px; margin-left: max(0px, calc(50% - 450px - var(--shift, 0px))); margin-right: auto; position: relative; z-index: 1; }
+  .kicker {
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: .78rem;
+    font-weight: 700;
+    color: #bcd0f7;
+    margin: 0 0 .6rem;
+  }
+  header h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.6rem, 4.2vw, 2.4rem);
+    margin: 0 0 .7rem;
+    line-height: 1.15;
+  }
+  header p.sub { margin: 0; color: #dbe5fa; max-width: 62ch; }
+  .levelbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--bordure);
+    box-shadow: 0 2px 10px rgba(20,40,90,.06);
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: .65rem 1rem;
+    padding-right: calc(1rem + 2 * var(--shift, 0px));
+  }
+  .levelbar .lbl {
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--gris);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+  .seg {
+    position: relative;
+    border: 2px solid var(--bordure);
+    border-radius: 12px;
+    padding: .4rem .95rem;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--gris);
+    display: inline-flex;
+    gap: .5rem;
+    align-items: baseline;
+    transition: all .15s ease;
+    background: #fff;
+    user-select: none;
+  }
+  .seg small { font-weight: 500; font-size: .74rem; opacity: .85; }
+  .seg input { position: absolute; opacity: 0; pointer-events: none; }
+  .seg:has(input:checked) { color: #fff; border-color: transparent; box-shadow: 0 2px 8px rgba(20,40,90,.18); }
+  .seg[data-n="a2"]:has(input:checked) { background: var(--vert); }
+  .seg[data-n="b1"]:has(input:checked) { background: var(--bleu); }
+  .seg[data-n="b2"]:has(input:checked) { background: var(--violet); }
+  .seg:has(input:focus-visible) { outline: 3px solid #9db8ef; outline-offset: 2px; }
+  main { max-width: 900px; margin-left: max(1.25rem, calc(50% - 450px - var(--shift, 0px))); margin-right: auto; padding: 1.6rem 1.25rem 4rem; }
+  section {
+    background: var(--carte);
+    border: 1px solid var(--bordure);
+    border-radius: 14px;
+    padding: 1.6rem 1.8rem 1.8rem;
+    margin: 1.4rem 0;
+    scroll-margin-top: 84px;
+    box-shadow: 0 1px 3px rgba(20,40,90,.06);
+  }
+  h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin: 0 0 .35rem;
+    display: flex;
+    align-items: baseline;
+    gap: .6rem;
+  }
+  h2 .num {
+    font-size: .95rem;
+    font-family: system-ui, sans-serif;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 8px;
+    padding: .1rem .55rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  h3 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin: 1.5rem 0 .5rem;
+    border-bottom: 2px solid var(--bleu-clair);
+    padding-bottom: .25rem;
+  }
+  .lead { color: var(--gris); margin-top: .2rem; }
+  table { width: 100%; border-collapse: collapse; margin: .8rem 0 1.2rem; font-size: .95rem; }
+  th {
+    text-align: left;
+    background: var(--bleu-clair);
+    color: var(--bleu);
+    padding: .55rem .7rem;
+    border-bottom: 2px solid #c9d6f2;
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  td { padding: .55rem .7rem; border-bottom: 1px solid var(--bordure); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+  .ex { color: var(--gris); font-style: italic; }
+  ul.compact { margin: .4rem 0 .8rem; padding-left: 1.3rem; }
+  ul.compact li { margin: .35rem 0; }
+  ol.exos > li { margin: .55rem 0; }
+  .objectifs {
+    border-left: 5px solid var(--accent);
+    background: linear-gradient(90deg, rgba(22,53,122,.06), rgba(22,53,122,.015));
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0 0;
+  }
+  body[data-niveau="a2"] .objectifs { background: linear-gradient(90deg, rgba(30,122,70,.09), rgba(30,122,70,.02)); }
+  body[data-niveau="b2"] .objectifs { background: linear-gradient(90deg, rgba(107,63,160,.09), rgba(107,63,160,.02)); }
+  .objectifs .t { font-weight: 800; color: var(--accent); margin: 0 0 .2rem; }
+  .objectifs p { margin: .2rem 0; }
+  .objectifs .dur { font-size: .85rem; color: var(--gris); }
+  .astuce, .attention, .oral {
+    border-radius: 10px;
+    padding: .8rem 1rem;
+    margin: 1rem 0;
+    font-size: .95rem;
+  }
+  .astuce { background: #f0f7f1; border-left: 4px solid var(--vert); }
+  .attention { background: #fdf1f2; border-left: 4px solid var(--rouge); }
+  .oral { background: #f5f1fb; border-left: 4px solid var(--violet); }
+  .astuce strong:first-child, .attention strong:first-child, .oral strong:first-child { display: block; margin-bottom: .2rem; }
+  .badge {
+    display: inline-block;
+    border-radius: 999px;
+    padding: .05rem .5rem;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: .35rem;
+  }
+  .badge.familier { background: #fdf3dc; color: #8a5a00; border: 1px solid #f2d998; }
+  .badge.vulgaire { background: #fde3e6; color: #a3081f; border: 1px solid #f2b6bd; }
+  .gram-box {
+    background: #f8faff;
+    border: 1px solid var(--bordure);
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+    margin: 1rem 0;
+  }
+  .gram-box .formule {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    background: #eef3ff;
+    border: 1px dashed #b9c9ef;
+    border-radius: 8px;
+    padding: .5rem .8rem;
+    margin: .5rem 0;
+    font-size: .92rem;
+    display: inline-block;
+  }
+  .expr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: .9rem;
+    margin-top: 1rem;
+  }
+  .expr {
+    background: #fbfcfe;
+    border: 1px solid var(--bordure);
+    border-radius: 10px;
+    padding: .85rem 1rem;
+  }
+  .expr .titre-row { display: flex; align-items: flex-start; justify-content: space-between; gap: .6rem; }
+  .expr .titre { flex: 1; font-weight: 700; color: var(--bleu); }
+  .expr .sens { font-size: .9rem; color: var(--gris); }
+  .expr .usage { font-size: .87rem; font-style: italic; margin-top: .35rem; }
+  .say {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: var(--bleu-clair);
+    color: var(--bleu);
+    cursor: pointer;
+    flex-shrink: 0;
+    vertical-align: middle;
+    transition: background .12s ease, color .12s ease, transform .12s ease;
+  }
+  .say svg { width: 1rem; height: 1rem; }
+  .say:hover { background: var(--bleu); color: #fff; }
+  .say:focus-visible { outline: 3px solid #9db8ef; outline-offset: 2px; }
+  .say.playing { background: var(--accent); color: #fff; }
+  .say.playing svg { animation: say-pulse .9s ease-in-out infinite; }
+  @keyframes say-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18); }
+  }
+  td .say, .oral .say { margin-left: .45rem; }
+  .expr .say { margin-top: .15rem; }
+  .verb { position: relative; cursor: help; border-bottom: 1px dotted #9aa9c9; }
+  .verb .conj {
+    display: none;
+    position: absolute;
+    left: -0.35rem;
+    top: calc(100% + 0.55rem);
+    z-index: 40;
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(20,40,90,.20);
+    padding: .7rem .8rem .75rem;
+    font-size: .76rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--texte);
+    white-space: normal;
+    cursor: default;
+  }
+  .verb:hover .conj { display: block; }
+  .verb:hover::after {
+    content: "";
+    position: absolute;
+    left: -0.35rem;
+    top: 100%;
+    width: 5rem;
+    height: 0.7rem;
+  }
+  .verb .conj .c-title { display: block; font-weight: 800; color: var(--bleu); margin-bottom: .45rem; }
+  .verb .conj .c-title em { font-style: normal; font-weight: 600; color: var(--gris); font-size: .72rem; }
+  .verb .conj .c-grid { display: grid; grid-template-columns: auto repeat(5, auto); column-gap: .75rem; }
+  .verb .conj .c-grid > span { padding: .16rem 0; border-bottom: 1px solid #f0f3f9; }
+  .verb .conj .c-h { font-size: .64rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--bleu); border-bottom: 1px solid var(--bleu-clair); }
+  .verb .conj .c-p { color: var(--gris); font-weight: 700; padding-right: .2rem; }
+  .sidepanel {
+    position: fixed;
+    top: var(--panel-top, 84px);
+    left: max(1rem, calc(50vw - 630px - var(--shift, 0px)));
+    width: 10.5rem;
+    max-height: calc(100vh - var(--panel-top, 84px) - 20px);
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: 14px;
+    padding: .75rem .7rem;
+    box-shadow: 0 4px 18px rgba(20,40,90,.10);
+    z-index: 60;
+  }
+  .sidepanel .sp-title {
+    font-size: .72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--gris);
+    padding: 0 .55rem .45rem;
+    border-bottom: 1px solid var(--bordure);
+    margin-bottom: .4rem;
+  }
+  .sidepanel nav { display: flex; flex-direction: column; gap: 1px; }
+  .sidepanel a {
+    display: block;
+    padding: .34rem .45rem;
+    color: var(--texte);
+    text-decoration: none;
+    font-size: .86rem;
+    line-height: 1.3;
+    border-left: 3px solid transparent;
+    transition: background .12s ease, color .12s ease;
+  }
+  .sidepanel a:hover { background: #f2f6ff; color: var(--bleu); }
+  .sidepanel a.active {
+    background: var(--bleu-clair);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 700;
+  }
+  .sp-toggle {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 70;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--bleu);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: .6rem 1rem;
+    font: inherit;
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(20,40,90,.28);
+  }
+  .sp-toggle::before {
+    content: "";
+    width: 14px;
+    height: 2px;
+    background: #fff;
+    box-shadow: 0 -5px 0 #fff, 0 5px 0 #fff;
+    border-radius: 1px;
+  }
+  @media (max-width: 1399px) {
+    .sidepanel {
+      left: 1rem;
+      transform: translateX(calc(-100% - 2rem));
+      transition: transform .25s ease;
+    }
+    body.sp-open .sidepanel { transform: translateX(0); }
+  }
+  @media (min-width: 1400px) {
+    .sp-toggle { display: none; }
+  }
+  .ytpanel {
+    --ytw: clamp(260px, calc(50vw + var(--shift, 0px) - 474px), 640px);
+    position: fixed;
+    top: var(--panel-top, 84px);
+    right: max(12px, calc(50vw + var(--shift, 0px) - 462px - var(--ytw)));
+    width: var(--ytw);
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: 12px;
+    padding: .3rem .3rem .4rem;
+    box-shadow: 0 4px 18px rgba(20,40,90,.10);
+    z-index: 60;
+  }
+  .ytpanel .yt-title {
+    font-size: .68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--gris);
+    padding: .05rem .25rem .3rem;
+  }
+  .ytv { position: relative; border-radius: 8px; overflow: hidden; background: #0b1220; }
+  #ytplayer {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: #0b1220;
+    border: 0;
+  }
+  .ytv-ui {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .3rem .45rem .4rem;
+    background: linear-gradient(180deg, rgba(6,12,26,0), rgba(6,12,26,.82));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .15s ease;
+  }
+  .ytv:hover .ytv-ui, .ytv-ui:focus-within { opacity: 1; pointer-events: auto; }
+  .ytv-btn {
+    flex-shrink: 0;
+    width: 1.55rem;
+    height: 1.55rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: #fff;
+    cursor: pointer;
+    opacity: .9;
+    transition: opacity .12s ease;
+  }
+  .ytv-btn:hover { opacity: 1; }
+  .ytv-btn svg { width: 1rem; height: 1rem; }
+  .ytv .ic-pause { display: none; }
+  .ytv.playing .ic-play { display: none; }
+  .ytv.playing .ic-pause { display: inline; }
+  .ytv-seek { flex: 1; min-width: 0; height: 1rem; accent-color: var(--rouge); cursor: pointer; }
+  .ytv-time {
+    flex-shrink: 0;
+    font-size: .66rem;
+    color: #e8edf7;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .02em;
+  }
+  .ytpanel .yt-hint {
+    font-size: .68rem;
+    color: var(--gris);
+    padding: .35rem .25rem 0;
+    line-height: 1.4;
+  }
+  details {
+    background: #f2f6ff;
+    border: 1px solid #ccd9f5;
+    border-radius: 10px;
+    padding: .7rem 1rem;
+    margin: .9rem 0;
+  }
+  details summary { cursor: pointer; font-weight: 700; color: var(--bleu); font-size: .92rem; }
+  details[open] summary { margin-bottom: .5rem; }
+  details ol { margin: .3rem 0; padding-left: 1.3rem; }
+  details li { margin: .3rem 0; }
+  .answer { color: var(--vert); font-weight: 600; }
+  .speak {
+    background: #fffaf0;
+    border: 1px solid #f0dfb4;
+    border-radius: 10px;
+    padding: .9rem 1.1rem;
+    margin: .8rem 0;
+  }
+  footer {
+    max-width: 900px;
+    margin-left: max(1.25rem, calc(50% - 450px - var(--shift, 0px)));
+    margin-right: auto;
+    padding: 0 1.25rem 3rem;
+    color: var(--gris);
+    font-size: .85rem;
+  }
+  footer a { color: var(--bleu); }
+  .tricolore {
+    height: 4px;
+    border-radius: 2px;
+    margin-bottom: .8rem;
+    background: linear-gradient(90deg, var(--bleu) 0 33%, #e6e9f2 33% 66%, var(--rouge) 66% 100%);
+  }
+  @media (max-width: 620px) {
+    td:first-child { white-space: normal; }
+    section { padding: 1.2rem 1rem 1.4rem; }
+    .levelbar .lbl { display: none; }
+    .seg { padding: .35rem .7rem; font-size: .9rem; }
+    .seg small { display: none; }
+  }
+  @media print {
+    header { background: #16357a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .levelbar { position: static; }
+    section { box-shadow: none; break-inside: avoid; }
+    details { break-inside: avoid; background: #fff; }
+    details:not([open]) > *:not(summary) { display: block; }
+    .sidepanel, .sp-toggle, .say, .ytpanel { display: none !important; }
+  }
+</style>
+</head>
+<body data-niveau="a2">
+
+<header>
+  <div class="header-inner">
+    <p class="kicker">Français avec un tuteur · Parcours par niveau</p>
+    <h1>Les opinions impopulaires — Leçon guidée</h1>
+    <p class="sub">D'après la vidéo de micro-trottoir d'<strong>Easy French</strong> : « The French Share Their Unpopular Opinions » (n° 259). Choisissez votre niveau : vous ne verrez que le contenu fait pour vous — vocabulaire, expressions, grammaire et exercices calibrés.</p>
+  </div>
+</header>
+
+<div class="levelbar" role="radiogroup" aria-label="Choisissez votre niveau">
+  <span class="lbl">Niveau</span>
+  <label class="seg" data-n="a2" for="lv-a2"><input type="radio" id="lv-a2" name="niveau" value="a2" checked> A2 <small>Les bases</small></label>
+  <label class="seg" data-n="b1" for="lv-b1"><input type="radio" id="lv-b1" name="niveau" value="b1"> B1 <small>Conversation</small></label>
+  <label class="seg" data-n="b2" for="lv-b2"><input type="radio" id="lv-b2" name="niveau" value="b2"> B2 <small>Nuances</small></label>
+</div>
+
+<aside class="sidepanel" id="sidepanel" aria-label="Sommaire de la leçon">
+  <div class="sp-title">Sommaire</div>
+  <nav>
+    <a href="#intro">Votre parcours</a>
+    <a href="#comprehension">1 · Compréhension orale</a>
+    <a href="#vocabulaire">2 · Vocabulaire</a>
+    <a href="#expressions">3 · Expressions</a>
+    <a href="#grammaire">4 · Grammaire</a>
+    <a href="#parle">5 · Français parlé</a>
+    <a href="#exercices">6 · Exercices</a>
+    <a href="#corrige">7 · Corrigés</a>
+    <a href="#avous">8 · À vous !</a>
+  </nav>
+
+<!--LESSONS_NAV-->
+  <div class="sp-title" style="margin-top:.6rem;border-top:1px solid var(--bordure);padding-top:.6rem;">Leçons</div>
+  <nav>
+      <a href="index.html">Toutes les leçons</a>
+      <a href="lecon-ai.html">199 · L'IA au quotidien</a>
+  </nav>
+  <!--/LESSONS_NAV-->
+</aside>
+<button class="sp-toggle" id="spToggle" type="button" aria-controls="sidepanel" aria-expanded="false">Sommaire</button>
+
+<aside class="ytpanel" id="ytpanel" aria-label="Vidéo — extraits de la leçon">
+  <div class="yt-title">Vidéo · Easy French 259</div>
+  <div class="ytv" id="ytv">
+    <video id="ytplayer" src="video_src/lesson_video.mp4" preload="metadata" playsinline></video>
+    <div class="ytv-ui">
+      <button class="ytv-btn ytv-play" type="button" aria-label="Lecture / pause">
+        <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z" fill="currentColor"/></svg>
+      </button>
+      <span class="ytv-time" id="ytvCur">0:00</span>
+      <input class="ytv-seek" id="ytvSeek" type="range" min="0" max="1000" step="1" value="0" aria-label="Position dans la vidéo">
+      <span class="ytv-time" id="ytvDur">0:00</span>
+      <button class="ytv-btn ytv-full" type="button" aria-label="Plein écran">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm14 0h2v6h-6v-2h4v-4z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="yt-hint">Cliquez sur un haut-parleur : la vidéo joue le passage et s'arrête à la fin. Contrôles : survolez la vidéo.</div>
+</aside>
+
+<main>
+
+<section class="intro" id="intro">
+  <h2>Votre parcours</h2>
+  <div class="tricolore"></div>
+  <div class="astuce">
+    <strong>Méthode conseillée</strong>
+    Regardez la vidéo une fois, puis faites le parcours de votre niveau sans cliquer sur les corrigés. Re-regardez ensuite la vidéo : vous entendrez tout ce que vous venez d'apprendre.
+  </div>
+
+  <div class="objectifs" data-lv="a2">
+    <p class="t">Parcours A2 — Les bases</p>
+    <p>Parler de ce qu'on aime et de ce qu'on n'aime pas avec des phrases simples : 10 mots essentiels, 4 expressions faciles, 2 points de grammaire, et le secret de la négation à l'oral.</p>
+    <p class="dur">Durée estimée : 20–25 min · Prérequis : niveau débutant (A1–A2)</p>
+  </div>
+  <div class="objectifs" data-lv="b1" hidden>
+    <p class="t">Parcours B1 — Conversation</p>
+    <p>Donner son avis sur la nourriture, la ville, la musique et la mode : 12 mots, 7 expressions, 3 points de grammaire (y / en, même si / alors que, se faire + infinitif) et les petits mots du français oral.</p>
+    <p class="dur">Durée estimée : 35–40 min · Prérequis : niveau intermédiaire (B1)</p>
+  </div>
+  <div class="objectifs" data-lv="b2" hidden>
+    <p class="t">Parcours B2 — Nuances</p>
+    <p>Argumenter et nuancer comme un francophone : lexique soutenu et familier, subjonctif, conditionnel passé, dislocation et registres de langue. Vous analysez ce que vous entendez.</p>
+    <p class="dur">Durée estimée : 45–50 min · Prérequis : niveau avancé (B2)</p>
+  </div>
+</section>
+
+<section id="comprehension">
+  <h2><span class="num">1</span>Compréhension orale</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Écoutez la vidéo, puis répondez avec des phrases simples.</p>
+    <ol>
+      <li>Qu'est-ce qu'Axel (le présentateur) n'aime pas manger ?</li>
+      <li>La personne qui aime le métro : qu'est-ce qu'elle aime dans le métro ?</li>
+      <li>La personne qui déteste la house : qu'est-ce qu'elle ressent avec la house ?</li>
+    </ol>
+    <details>
+      <summary>Contrôlez vos réponses</summary>
+      <ol>
+        <li>Il déteste <span class="answer">les œufs</span> : « Je ne peux pas les digérer. »</li>
+        <li>Elle aime <span class="answer">l'intimité</span> : « Même si on ne se parle pas, on est proche. »</li>
+        <li><span class="answer">Elle s'ennuie</span> : « Moi, je m'ennuie avec la house. »</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Écoutez la vidéo, puis répondez (phrases simples, pas besoin de détails).</p>
+    <ol>
+      <li>Pourquoi la personne bretonne a-t-elle « un peu la honte » de ses goûts ?</li>
+      <li>Qu'est-ce qu'un « boomer », selon la vidéo ?</li>
+      <li>Pourquoi n'aime-t-elle pas les « romans de gare » comme <em>La Femme de ménage</em> ?</li>
+    </ol>
+    <details>
+      <summary>Contrôlez vos réponses</summary>
+      <ol>
+        <li>Parce qu'elle n'aime <span class="answer">ni le poisson ni les fruits de mer</span> — un comble pour une Bretonne !</li>
+        <li>Quelqu'un qui <span class="answer">n'est plus à la page</span> : « Faut accepter de devenir vieux. »</li>
+        <li>Parce que c'est <span class="answer">vite écrit</span> : pas très appliqué, attendu, « il n'y a pas assez de temps de maturation. »</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Analyse. Répondez en quelques phrases et justifiez avec des extraits.</p>
+    <ol>
+      <li>Une personne dit : « J'associe la house aux musiques de Zara »… puis reconnaît que « c'est un peu méprisant ». Expliquez la nuance : pourquoi cette phrase peut-elle être perçue comme méprisante ?</li>
+      <li>Le présentateur rappelle que Jean-Jacques Goldman est « le personnage préféré des Français » et qu'« il faut faire très attention avec ce que vous dites ». Que révèle cette remarque sur la manière de donner son avis en France ?</li>
+    </ol>
+    <details>
+      <summary>Réponses possibles</summary>
+      <ol>
+        <li>Elle réduit un genre musical entier à la <span class="answer">musique d'ambiance d'un magasin de vêtements</span> : c'est un jugement de valeur qui dévalorise les fans de house. Elle le reconnaît elle-même et fait le parallèle avec ceux qui disent que « le jazz, c'est la musique d'ascenseur » — le même mécanisme méprisant.</li>
+        <li>Certaines opinions touchent à des <span class="answer">figures consensuelles</span> : dire qu'on n'aime pas un artiste adoré de tous peut surprendre, voire choquer. En France, on pèse ses mots avec les « personnages préférés des Français » — c'est presque un tabou social.</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<section id="vocabulaire">
+  <h2><span class="num">2</span>Vocabulaire</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Dix mots pour parler de vos goûts, tous entendus dans la vidéo. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot</th><th>Sens (anglais)</th><th>Exemple de la vidéo</th></tr>
+      <tr><td>les œufs<button class="say" type="button" data-say="les œufs" data-say2="Je déteste les œufs." data-yt="13.68,15.79" data-audio="audio/v001.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>eggs</td><td class="ex">« Je déteste les œufs. »</td></tr>
+      <tr><td><span class="verb">digérer<span class="conj"><span class="c-title">digérer <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>digère</span><span>ai digéré</span><span>digérais</span><span>digérerai</span><span>digère</span><span class="c-p">tu</span><span>digères</span><span>as digéré</span><span>digérais</span><span>digéreras</span><span>digères</span><span class="c-p">il/elle</span><span>digère</span><span>a digéré</span><span>digérait</span><span>digérera</span><span>digère</span><span class="c-p">nous</span><span>digérons</span><span>avons digéré</span><span>digérions</span><span>digérerons</span><span>digérions</span><span class="c-p">vous</span><span>digérez</span><span>avez digéré</span><span>digériez</span><span>digérerez</span><span>digériez</span><span class="c-p">ils/elles</span><span>digèrent</span><span>ont digéré</span><span>digéraient</span><span>digéreront</span><span>digèrent</span></span></span></span><button class="say" type="button" data-say="digérer" data-say2="Je ne peux pas les digérer." data-yt="15.72,17.65" data-audio="audio/v002.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to digest</td><td class="ex">« Je ne peux pas les digérer. »</td></tr>
+      <tr><td>la salle de sport<button class="say" type="button" data-say="la salle de sport" data-say2="J&#x27;aime pas la salle de sport, alors que tout le monde y va." data-yt="62.58,66.33" data-audio="audio/v003.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the gym</td><td class="ex">« J'aime pas la salle de sport, alors que tout le monde y va. »</td></tr>
+      <tr><td>sympa <span class="badge familier">familier</span><button class="say" type="button" data-say="sympa" data-say2="Je la trouve sympa." data-yt="115.35,116.42" data-audio="audio/v004.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>nice, friendly</td><td class="ex">« Je la trouve sympa. »</td></tr>
+      <tr><td>moche <span class="badge familier">familier</span><button class="say" type="button" data-say="moche" data-say2="C&#x27;est moche, les crocs." data-yt="553.96,555.1" data-audio="audio/v005.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>ugly</td><td class="ex">« C'est moche, les crocs. »</td></tr>
+      <tr><td>un film d'horreur<button class="say" type="button" data-say="un film d&#x27;horreur" data-say2="Je déteste les films d&#x27;horreur." data-yt="582.12,583.45" data-audio="audio/v006.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a horror film</td><td class="ex">« Je déteste les films d'horreur. »</td></tr>
+      <tr><td><span class="verb">avoir peur<span class="conj"><span class="c-title">avoir peur <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>ai peur</span><span>ai eu peur</span><span>avais peur</span><span>aurai peur</span><span>aie peur</span><span class="c-p">tu</span><span>as peur</span><span>as eu peur</span><span>avais peur</span><span>auras peur</span><span>aies peur</span><span class="c-p">il/elle</span><span>a peur</span><span>a eu peur</span><span>avait peur</span><span>aura peur</span><span>ait peur</span><span class="c-p">nous</span><span>avons peur</span><span>avons eu peur</span><span>avions peur</span><span>aurons peur</span><span>ayons peur</span><span class="c-p">vous</span><span>avez peur</span><span>avez eu peur</span><span>aviez peur</span><span>aurez peur</span><span>ayez peur</span><span class="c-p">ils/elles</span><span>ont peur</span><span>ont eu peur</span><span>avaient peur</span><span>auront peur</span><span>aient peur</span></span></span></span><button class="say" type="button" data-say="avoir peur" data-say2="Je n&#x27;aime pas avoir peur." data-yt="585.4,586.2" data-audio="audio/v007.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to be scared</td><td class="ex">« Je n'aime pas avoir peur. »</td></tr>
+      <tr><td>la honte<button class="say" type="button" data-say="la honte" data-say2="Pour un Breton, c&#x27;est un peu la honte." data-yt="188.34,190.64" data-audio="audio/v008.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>shame, embarrassment</td><td class="ex">« Pour un Breton, c'est un peu la honte. »</td></tr>
+      <tr><td>les cornichons<button class="say" type="button" data-say="les cornichons" data-say2="Les cornichons sont beaucoup critiqués." data-yt="133.56,135.65" data-audio="audio/v009.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>gherkins, pickles</td><td class="ex">« Les cornichons sont beaucoup critiqués. »</td></tr>
+      <tr><td>un passant / une passante<button class="say" type="button" data-say="un passant, une passante" data-say2="Nous allons demander aux passants de nous partager, de vous partager leurs opinions impopulaires." data-yt="23.05,29.85" data-audio="audio/v010.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a passer-by</td><td class="ex">« Nous allons demander aux passants de nous partager, de vous partager leurs opinions impopulaires. »</td></tr>
+    </table>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Douze mots pour raconter la ville, la musique et la mode — comme dans la vidéo. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot / expression</th><th>Sens (anglais)</th><th>Exemple de la vidéo</th></tr>
+      <tr><td><span class="verb">grignoter<span class="conj"><span class="c-title">grignoter <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>grignote</span><span>ai grignoté</span><span>grignotais</span><span>grignoterai</span><span>grignote</span><span class="c-p">tu</span><span>grignotes</span><span>as grignoté</span><span>grignotais</span><span>grignoteras</span><span>grignotes</span><span class="c-p">il/elle</span><span>grignote</span><span>a grignoté</span><span>grignotait</span><span>grignotera</span><span>grignote</span><span class="c-p">nous</span><span>grignotons</span><span>avons grignoté</span><span>grignotions</span><span>grignoterons</span><span>grignotions</span><span class="c-p">vous</span><span>grignotez</span><span>avez grignoté</span><span>grignotiez</span><span>grignoterez</span><span>grignotiez</span><span class="c-p">ils/elles</span><span>grignotent</span><span>ont grignoté</span><span>grignotaient</span><span>grignoteront</span><span>grignotent</span></span></span></span><button class="say" type="button" data-say="grignoter" data-say2="J&#x27;adore prendre des petits sachets de radis dans le train, par exemple, et les grignoter." data-yt="154.44,158.82" data-audio="audio/v011.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to nibble, to snack</td><td class="ex">« J'adore prendre des petits sachets de radis dans le train, par exemple, et les grignoter. »</td></tr>
+      <tr><td>les fruits de mer<button class="say" type="button" data-say="les fruits de mer" data-say2="Les fruits de mer, pour moi, c&#x27;est un peu aussi… trop, trop. Trop surcoté." data-yt="175.98,183.98" data-audio="audio/v012.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>seafood</td><td class="ex">« Les fruits de mer, pour moi, c'est un peu aussi… trop, trop. Trop surcoté. »</td></tr>
+      <tr><td>surcoté<button class="say" type="button" data-say="surcoté" data-say2="Trop surcoté." data-yt="182.5,183.98" data-audio="audio/v013.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>overrated</td><td class="ex">« Trop surcoté. »</td></tr>
+      <tr><td>un calvaire <em>(nm)</em><button class="say" type="button" data-say="un calvaire" data-say2="Pour beaucoup de Parisiens, c&#x27;est un calvaire." data-yt="95.14,98.33" data-audio="audio/v014.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>an ordeal, a nightmare</td><td class="ex">« Pour beaucoup de Parisiens, c'est un calvaire. »</td></tr>
+      <tr><td>l'intimité <em>(nf)</em><button class="say" type="button" data-say="l&#x27;intimité" data-say2="Des endroits où il y a de l&#x27;intimité." data-yt="80.26,81.73" data-audio="audio/v015.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>intimacy, closeness</td><td class="ex">« Des endroits où il y a de l'intimité. »</td></tr>
+      <tr><td>la solitude <em>(nf)</em><button class="say" type="button" data-say="la solitude" data-say2="Je vis seul, donc je suis confronté à la solitude." data-yt="86.26,88.93" data-audio="audio/v016.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>loneliness</td><td class="ex">« Je vis seul, donc je suis confronté à la solitude. »</td></tr>
+      <tr><td><span class="verb">s'ennuyer<span class="conj"><span class="c-title">s'ennuyer <em>· auxiliaire : être</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>m'ennuie</span><span>me suis ennuyé(e)</span><span>m'ennuyais</span><span>m'ennuierai</span><span>m'ennuie</span><span class="c-p">tu</span><span>t'ennuies</span><span>t'es ennuyé(e)</span><span>t'ennuyais</span><span>t'ennuieras</span><span>t'ennuies</span><span class="c-p">il/elle</span><span>s'ennuie</span><span>s'est ennuyé(e)</span><span>s'ennuyait</span><span>s'ennuiera</span><span>s'ennuie</span><span class="c-p">nous</span><span>nous ennuyons</span><span>nous sommes ennuyé(e)s</span><span>nous ennuyions</span><span>nous ennuierons</span><span>nous ennuyions</span><span class="c-p">vous</span><span>vous ennuyez</span><span>vous êtes ennuyé(e)(s)</span><span>vous ennuyiez</span><span>vous ennuierez</span><span>vous ennuyiez</span><span class="c-p">ils/elles</span><span>s'ennuient</span><span>se sont ennuyé(e)s</span><span>s'ennuyaient</span><span>s'ennuieront</span><span>s'ennuient</span></span></span></span><button class="say" type="button" data-say="s&#x27;ennuyer" data-say2="Moi, je m&#x27;ennuie en fait avec la house." data-yt="433.62,435.71" data-audio="audio/v017.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to get bored</td><td class="ex">« Moi, je m'ennuie en fait avec la house. »</td></tr>
+      <tr><td>les bermudas <em>(nm)</em><button class="say" type="button" data-say="les bermudas" data-say2="Les bermudas… oui, ça revient hyper à la mode." data-yt="507.5,511.01" data-audio="audio/v018.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>Bermuda shorts</td><td class="ex">« Les bermudas… oui, ça revient hyper à la mode. »</td></tr>
+      <tr><td>une doudoune<button class="say" type="button" data-say="une doudoune" data-say2="Les doudounes sans manches. Je capte pas." data-yt="521.68,523.59" data-audio="audio/v019.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a puffer jacket</td><td class="ex">« Les doudounes sans manches. Je capte pas. »</td></tr>
+      <tr><td><span class="verb">revenir<span class="conj"><span class="c-title">revenir (à la mode) <em>· auxiliaire : être</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>reviens</span><span>suis revenu(e)</span><span>revenais</span><span>reviendrai</span><span>revienne</span><span class="c-p">tu</span><span>reviens</span><span>es revenu(e)</span><span>revenais</span><span>reviendras</span><span>reviennes</span><span class="c-p">il/elle</span><span>revient</span><span>est revenu(e)</span><span>revenait</span><span>reviendra</span><span>revienne</span><span class="c-p">nous</span><span>revenons</span><span>sommes revenu(e)s</span><span>revenions</span><span>reviendrons</span><span>revenions</span><span class="c-p">vous</span><span>revenez</span><span>êtes revenu(e)(s)</span><span>reveniez</span><span>reviendrez</span><span>reveniez</span><span class="c-p">ils/elles</span><span>reviennent</span><span>sont revenu(e)s</span><span>revenaient</span><span>reviendront</span><span>reviennent</span></span></span></span> à la mode<button class="say" type="button" data-say="revenir à la mode" data-say2="Ça revient hyper à la mode." data-yt="509.28,511.01" data-audio="audio/v020.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to come back in style</td><td class="ex">« Ça revient hyper à la mode. »</td></tr>
+      <tr><td>les extrémités <em>(nf)</em><button class="say" type="button" data-say="les extrémités" data-say2="Là où on a le plus froid, c&#x27;est vraiment les extrémités." data-yt="535.86,537.68" data-audio="audio/v021.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>extremities (hands, feet…)</td><td class="ex">« Là où on a le plus froid, c'est vraiment les extrémités. »</td></tr>
+      <tr><td><span class="verb">rater<span class="conj"><span class="c-title">rater <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>rate</span><span>ai raté</span><span>ratais</span><span>raterai</span><span>rate</span><span class="c-p">tu</span><span>rates</span><span>as raté</span><span>ratais</span><span>rateras</span><span>rates</span><span class="c-p">il/elle</span><span>rate</span><span>a raté</span><span>ratait</span><span>ratera</span><span>rate</span><span class="c-p">nous</span><span>ratons</span><span>avons raté</span><span>rations</span><span>raterons</span><span>rations</span><span class="c-p">vous</span><span>ratez</span><span>avez raté</span><span>ratiez</span><span>raterez</span><span>ratiez</span><span class="c-p">ils/elles</span><span>ratent</span><span>ont raté</span><span>rataient</span><span>rateront</span><span>ratent</span></span></span></span><button class="say" type="button" data-say="rater" data-say2="Abonnez-vous pour ne rater aucun de nos futurs épisodes." data-yt="724.08,728.13" data-audio="audio/v022.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to miss (an episode)</td><td class="ex">« Abonnez-vous pour ne rater aucun de nos futurs épisodes. »</td></tr>
+    </table>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Douze mots pour passer du « je n'aime pas » à une vraie discussion littéraire, musicale ou mode. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot / expression</th><th>Sens (anglais)</th><th>Exemple de la vidéo</th></tr>
+      <tr><td>un roman de gare<button class="say" type="button" data-say="un roman de gare" data-say2="Ce genre de trucs. Des romans de gare. On peut peut-être appeler ça comme ça." data-yt="643.18,647.94" data-audio="audio/v023.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a pulp / airport novel</td><td class="ex">« Ce genre de trucs. Des romans de gare. On peut peut-être appeler ça comme ça. »</td></tr>
+      <tr><td>appliqué<button class="say" type="button" data-say="appliqué" data-say2="Je trouve que c&#x27;est pas très appliqué." data-yt="652.06,654.0" data-audio="audio/v024.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>careful, diligent</td><td class="ex">« Je trouve que c'est pas très appliqué. »</td></tr>
+      <tr><td><span class="verb">rédiger<span class="conj"><span class="c-title">rédiger <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>rédige</span><span>ai rédigé</span><span>rédigeais</span><span>rédigerai</span><span>rédige</span><span class="c-p">tu</span><span>rédiges</span><span>as rédigé</span><span>rédigeais</span><span>rédigeras</span><span>rédiges</span><span class="c-p">il/elle</span><span>rédige</span><span>a rédigé</span><span>rédigeait</span><span>rédigera</span><span>rédige</span><span class="c-p">nous</span><span>rédigeons</span><span>avons rédigé</span><span>rédigions</span><span>rédigerons</span><span>rédigions</span><span class="c-p">vous</span><span>rédigez</span><span>avez rédigé</span><span>rédigiez</span><span>rédigerez</span><span>rédigiez</span><span class="c-p">ils/elles</span><span>rédigent</span><span>ont rédigé</span><span>rédigeaient</span><span>rédigeront</span><span>rédigent</span></span></span></span><button class="say" type="button" data-say="rédiger" data-say2="Pas très appliqué dans la façon de rédiger." data-yt="652.66,656.13" data-audio="audio/v025.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to write (a text)</td><td class="ex">« Pas très appliqué dans la façon de rédiger. »</td></tr>
+      <tr><td>les péripéties <em>(nf)</em><button class="say" type="button" data-say="les péripéties" data-say2="C&#x27;est attendu au niveau du style, au niveau des péripéties." data-yt="661.18,665.53" data-audio="audio/v026.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>plot twists, ups and downs</td><td class="ex">« C'est attendu au niveau du style, au niveau des péripéties. »</td></tr>
+      <tr><td>avec les tripes<button class="say" type="button" data-say="avec les tripes" data-say2="J&#x27;aime bien la littérature qui est faite avec les tripes." data-yt="668.24,672.95" data-audio="audio/v027.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>with guts, with real feeling</td><td class="ex">« J'aime bien la littérature qui est faite avec les tripes. »</td></tr>
+      <tr><td>la maturation <em>(nf)</em><button class="say" type="button" data-say="la maturation" data-say2="Il n&#x27;y a pas assez de temps de fabrication, de maturation." data-yt="694.08,698.3" data-audio="audio/v028.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>maturing (process)</td><td class="ex">« Il n'y a pas assez de temps de fabrication, de maturation. »</td></tr>
+      <tr><td>méprisant<button class="say" type="button" data-say="méprisant" data-say2="C&#x27;est un peu méprisant, parce que c&#x27;est le même argument de ceux qui disent que le jazz, c&#x27;est la musique d&#x27;ascenseur." data-yt="450.12,454.7" data-audio="audio/v029.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>disdainful, contemptuous</td><td class="ex">« C'est un peu méprisant, parce que c'est le même argument de ceux qui disent que le jazz, c'est la musique d'ascenseur. »</td></tr>
+      <tr><td>une armature <em>(nf)</em><button class="say" type="button" data-say="une armature" data-say2="Un peu comme la tour Eiffel, des armatures." data-yt="121.8,123.56" data-audio="audio/v030.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a (metal) framework</td><td class="ex">« Un peu comme la tour Eiffel, des armatures. »</td></tr>
+      <tr><td><span class="verb">être confronté à<span class="conj"><span class="c-title">être confronté à <em>· auxiliaire : être</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>suis confronté(e)</span><span>ai été confronté(e)</span><span>étais confronté(e)</span><span>serai confronté(e)</span><span>sois confronté(e)</span><span class="c-p">tu</span><span>es confronté(e)</span><span>as été confronté(e)</span><span>étais confronté(e)</span><span>seras confronté(e)</span><span>sois confronté(e)</span><span class="c-p">il/elle</span><span>est confronté(e)</span><span>a été confronté(e)</span><span>était confronté(e)</span><span>sera confronté(e)</span><span>soit confronté(e)</span><span class="c-p">nous</span><span>sommes confronté(e)s</span><span>avons été confronté(e)s</span><span>étions confronté(e)s</span><span>serons confronté(e)s</span><span>soyons confronté(e)s</span><span class="c-p">vous</span><span>êtes confronté(e)(s)</span><span>avez été confronté(e)(s)</span><span>étiez confronté(e)(s)</span><span>serez confronté(e)(s)</span><span>soyez confronté(e)(s)</span><span class="c-p">ils/elles</span><span>sont confronté(e)s</span><span>ont été confronté(e)s</span><span>étaient confronté(e)s</span><span>seront confronté(e)s</span><span>soient confronté(e)s</span></span></span></span><button class="say" type="button" data-say="être confronté à" data-say2="Je suis confronté à la solitude." data-yt="87.44,88.93" data-audio="audio/v031.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to be faced with</td><td class="ex">« Je suis confronté à la solitude. »</td></tr>
+      <tr><td>casanier / casanière<button class="say" type="button" data-say="casanier, casanière" data-say2="Je préfère quand c&#x27;est cosy, quand c&#x27;est plus serré. Donc un petit peu plus casanière." data-yt="248.52,257.05" data-audio="audio/v032.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a homebody</td><td class="ex">« Je préfère quand c'est cosy, quand c'est plus serré. Donc un petit peu plus casanière. »</td></tr>
+      <tr><td>les rythmiques <em>(nf)</em><button class="say" type="button" data-say="les rythmiques" data-say2="Il y a des rythmiques aussi, comme ça, un peu électro." data-yt="479.08,482.1" data-audio="audio/v033.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>rhythms, grooves</td><td class="ex">« Il y a des rythmiques aussi, comme ça, un peu électro. »</td></tr>
+      <tr><td>la musique d'ascenseur<button class="say" type="button" data-say="la musique d&#x27;ascenseur" data-say2="Le jazz, c&#x27;est la musique d&#x27;ascenseur." data-yt="453.22,454.85" data-audio="audio/v034.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>elevator music</td><td class="ex">« Le jazz, c'est la musique d'ascenseur. »</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="expressions">
+  <h2><span class="num">3</span>Expressions</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Quatre expressions simples pour dire ce que vous aimez… ou pas.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">C'est pas mon truc</div><button class="say" type="button" data-say="C&#x27;est pas mon truc" data-yt="200.08,201.23" data-audio="audio/v035.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">It's not my thing</div>
+        <div class="usage">« C'est pas mon truc. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">C'est vraiment génial</div><button class="say" type="button" data-say="C&#x27;est vraiment génial" data-say2="Les radis, c&#x27;est vraiment génial !" data-yt="148.26,150.55" data-audio="audio/v036.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">It's really great</div>
+        <div class="usage">« Les radis, c'est vraiment génial ! »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">J'ai du mal (avec…)</div><button class="say" type="button" data-say="J&#x27;ai du mal avec" data-say2="Faire du sport à la salle, j&#x27;ai du mal." data-yt="71.26,73.43" data-audio="audio/v037.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">I struggle with…</div>
+        <div class="usage">« Faire du sport à la salle, j'ai du mal. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Ça me plaît / Ça me plaît pas</div><button class="say" type="button" data-say="Ça me plaît, Ça me plaît pas" data-say2="Est-ce qu&#x27;elle me plaît ? Est-ce qu&#x27;elle me plaît pas ?" data-yt="110.76,113.15" data-audio="audio/v038.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">I like it / I don't like it</div>
+        <div class="usage">« Est-ce qu'elle me plaît ? Est-ce qu'elle me plaît pas ? »</div>
+      </div>
+    </div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Sept expressions de conversation courante, apprises dans la rue.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">C'est un calvaire</div><button class="say" type="button" data-say="C&#x27;est un calvaire" data-say2="Pour beaucoup de Parisiens, c&#x27;est un calvaire." data-yt="95.14,98.33" data-audio="audio/v039.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">It's a nightmare / an ordeal</div>
+        <div class="usage">« Pour beaucoup de Parisiens, c'est un calvaire. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">J'avoue que…</div><button class="say" type="button" data-say="J&#x27;avoue que…" data-say2="J&#x27;avoue que j&#x27;ai pris la une aujourd&#x27;hui." data-yt="113.52,115.21" data-audio="audio/v040.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">I admit that… <span class="badge familier">familier</span></div>
+        <div class="usage">« J'avoue que j'ai pris la une aujourd'hui. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Je capte pas (le délire)</div><button class="say" type="button" data-say="Je capte pas le délire" data-say2="Je capte pas du tout le délire." data-yt="522.68,524.79" data-audio="audio/v041.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">I don't get it <span class="badge familier">familier</span></div>
+        <div class="usage">« Je capte pas du tout le délire. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Ça fait débat</div><button class="say" type="button" data-say="Ça fait débat" data-say2="Mais ça, ça fait débat." data-yt="560.32,561.33" data-audio="audio/v042.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">It's debatable, it divides people</div>
+        <div class="usage">« Mais ça, ça fait débat. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Ça va à personne</div><button class="say" type="button" data-say="Ça va à personne" data-say2="Ça va à personne, ça." data-yt="516.12,517.31" data-audio="audio/v043.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">It suits nobody</div>
+        <div class="usage">« Ça va à personne, ça. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Être à la page</div><button class="say" type="button" data-say="Être à la page" data-say2="Un boomer, c&#x27;est quand on est… quand on est plus à la page." data-yt="568.2,570.68" data-audio="audio/v044.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">To be with it, up to date</div>
+        <div class="usage">« Un boomer, c'est quand on est… quand on est plus à la page. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">C'est un peu la honte</div><button class="say" type="button" data-say="C&#x27;est un peu la honte" data-say2="Pour un Breton, c&#x27;est un peu la honte." data-yt="188.34,190.64" data-audio="audio/v045.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">It's kind of embarrassing</div>
+        <div class="usage">« Pour un Breton, c'est un peu la honte. »</div>
+      </div>
+    </div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Six expressions idiomatiques et nuancées — dont une vulgaire, à comprendre plus qu'à utiliser.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">crier qch sur tous les toits</div><button class="say" type="button" data-say="crier quelque chose sur tous les toits" data-say2="Je vais pas crier sur tous les toits." data-yt="704.78,706.1" data-audio="audio/v046.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to shout sth from the rooftops</div>
+        <div class="usage">« Je vais pas crier sur tous les toits. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">faire qch avec les tripes</div><button class="say" type="button" data-say="faire quelque chose avec les tripes" data-say2="J&#x27;aime bien la littérature qui est faite avec les tripes." data-yt="668.24,672.95" data-audio="audio/v047.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to do sth with guts, with real feeling</div>
+        <div class="usage">« J'aime bien la littérature qui est faite avec les tripes. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Ça se trouve…</div><button class="say" type="button" data-say="Ça se trouve…" data-say2="Ça se trouve, c&#x27;est juste moi qui perçois pas le truc." data-yt="456.12,459.83" data-audio="audio/v048.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">Maybe, possibly… <span class="badge familier">familier</span></div>
+        <div class="usage">« Ça se trouve, c'est juste moi qui perçois pas le truc. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">J'arrive pas à accrocher</div><button class="say" type="button" data-say="J&#x27;arrive pas à accrocher" data-say2="Tous les films dans l&#x27;espace, je supporte pas. J&#x27;arrive pas à accrocher." data-yt="616.58,620.55" data-audio="audio/v049.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">I can't get into it <span class="badge familier">familier</span></div>
+        <div class="usage">« Tous les films dans l'espace, je supporte pas. J'arrive pas à accrocher. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Je peux comprendre que…</div><button class="say" type="button" data-say="Je peux comprendre que…" data-say2="Je peux comprendre que ça gêne mes voisins." data-yt="160.04,161.95" data-audio="audio/v050.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">I can understand that… (diplomatic concession)</div>
+        <div class="usage">« Je peux comprendre que ça gêne mes voisins. » — suivi du subjonctif.</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Ça me fait chier <span class="badge vulgaire">vulgaire</span></div><button class="say" type="button" data-say="Ça me fait chier" data-yt="667.3,667.88" data-audio="audio/v051.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">It pisses me off</div>
+        <div class="usage">« Ça me fait chier. » — À reconnaître, pas à répéter : préférez « ça me soûle » (familier) ou « ça m'embête » (poli).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="grammaire">
+  <h2><span class="num">4</span>Grammaire</h2>
+
+  <div data-lv="a2">
+    <h3>G1 — Dire ses goûts : l'échelle des verbes</h3>
+    <div class="gram-box">
+      <table>
+        <tr><th>Verbe</th><th>Force</th><th>Exemple</th></tr>
+        <tr><td>j'adore</td><td>+++</td><td class="ex">« J'adore prendre le métro. »</td></tr>
+        <tr><td>j'aime bien</td><td>++</td><td class="ex">« J'aime bien rester chez moi. »</td></tr>
+        <tr><td>je n'aime pas (trop)</td><td>–</td><td class="ex">« J'aime pas trop le rap. »</td></tr>
+        <tr><td>je déteste</td><td>––</td><td class="ex">« Je déteste les œufs. »</td></tr>
+      </table>
+      <p>Devant un nom, n'oubliez pas l'article : <em>j'adore <b>le</b> métro</em>, <em>j'aime <b>les</b> radis</em>, <em>je déteste <b>les</b> œufs</em>. Devant un verbe, l'infinitif : <em>j'aime <b>grignoter</b></em>.</p>
+    </div>
+    <h3>G2 — Poser la question avec l'intonation</h3>
+    <div class="gram-box">
+      <p>À l'oral, pas besoin de « est-ce que » : on monte la voix à la fin.</p>
+      <ul class="compact">
+        <li>« <b>Tu aimes</b> la house ? » « <b>Vous aimez</b> les crocs ? »</li>
+        <li>Pour demander l'avis général, il suffit de nommer le thème : « Et Star Wars ? » « Et la mode ? »</li>
+      </ul>
+    </div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <h3>G1 — Les pronoms y et en</h3>
+    <div class="gram-box">
+      <p><b>y</b> remplace un lieu ou une chose « à… » ; <b>en</b> remplace une quantité (du, des, quelques…). Les deux se placent devant le verbe.</p>
+      <div class="formule">tout le monde + y + va → tout le monde y va</div>
+      <ul class="compact">
+        <li>« J'aime pas la salle de sport, alors que tout le monde <b>y</b> va. »</li>
+        <li>« J'aime pas trop le rap… j'<b>en</b> ai pas beaucoup écouté. »</li>
+        <li>« Il y <b>en</b> a quelques-unes que j'aime bien. » (= quelques lignes de métro)</li>
+      </ul>
+    </div>
+    <h3>G2 — même si vs alors que</h3>
+    <div class="gram-box">
+      <p><b>même si</b> = concession ; <b>alors que</b> = opposition, contraste (« whereas »).</p>
+      <ul class="compact">
+        <li>« Même si on ne se parle pas, on est proche. »</li>
+        <li>« J'adore le métro, <b>alors que</b> pour beaucoup de Parisiens, c'est un calvaire. »</li>
+      </ul>
+    </div>
+    <h3>G3 — se faire + infinitif</h3>
+    <div class="gram-box">
+      <p>Pour dire qu'on subit une action : le sujet <b>reçoit</b> l'action.</p>
+      <div class="formule">se faire + infinitif → je me fais engueuler = I get told off</div>
+      <ul class="compact">
+        <li>« Je déteste <b>me faire engueuler</b>. »</li>
+        <li>« Dans le rap, souvent, on a l'impression de <b>se faire engueuler</b>. »</li>
+        <li>Au passé : « Je <b>me suis fait</b> gronder. » Le participe « fait » ne s'accorde pas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <h3>G1 — il faut que + subjonctif</h3>
+    <div class="gram-box">
+      <p>« il faut que » est toujours suivi du <b>subjonctif</b>. À l'oral, on omet souvent « il » et on utilise l'infinitif.</p>
+      <div class="formule">il faudrait que j'en écoute (subjonctif)</div>
+      <ul class="compact">
+        <li>« Peut-être qu'<b>il faudrait que j'en écoute</b> pour apprécier. »</li>
+        <li>« <b>Faut se forcer</b> » = il faut se forcer (infinitif, sans « que »).</li>
+        <li>« Il faut faire très attention avec <b>ce que</b> vous dites. »</li>
+      </ul>
+    </div>
+    <h3>G2 — Le conditionnel passé : aurait dû / aurait pu</h3>
+    <div class="gram-box">
+      <p>Pour le regret ou le reproche : <em>avoir</em> au conditionnel + participe passé (+ infinitif après dû / pu).</p>
+      <div class="formule">ça (n')aurait pas dû l'être = it shouldn't have been</div>
+      <ul class="compact">
+        <li>« Les crocs ? <b>Ça aurait pas dû l'être</b> [à la mode]. » — le petit <b>l'</b> = « populaire ».</li>
+        <li>« J'aurais dû partir plus tôt. » « On aurait pu aller au cinéma. »</li>
+      </ul>
+    </div>
+    <h3>G3 — Varier les verbes d'opinion</h3>
+    <div class="gram-box">
+      <p>Un avis nuancé, c'est d'abord un avis formulé de plusieurs façons :</p>
+      <ul class="compact">
+        <li><b>je trouve ça</b> + adjectif : « Je trouve ça marrant. »</li>
+        <li><b>je trouve que</b> + phrase : « Je trouve que c'est pas très appliqué. »</li>
+        <li><b>j'ai l'impression que / de</b> : « On a l'impression de se faire engueuler. »</li>
+        <li><b>j'avoue que</b> : « J'avoue que j'ai pris la ligne 1 aujourd'hui. »</li>
+        <li><b>je peux comprendre que</b> + subjonctif : « Je peux comprendre que ça gêne mes voisins. »</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="parle">
+  <h2><span class="num">5</span>Français parlé</h2>
+
+  <div data-lv="a2">
+    <h3>La chute du « ne » : le secret n° 1 de l'oral</h3>
+    <div class="oral">
+      <strong>À l'oral, on oublie presque toujours « ne »</strong>
+      <ul class="compact">
+        <li>« Moi, je suis pas sur Paris depuis longtemps. »<button class="say" type="button" data-say="Moi, je suis pas sur Paris depuis longtemps." data-yt="106.1,107.36" data-audio="audio/v052.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+        <li>« J'aime pas la salle de sport. »<button class="say" type="button" data-say="J&#x27;aime pas la salle de sport." data-yt="62.48,63.8" data-audio="audio/v053.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+        <li>« C'est pas mon truc. »<button class="say" type="button" data-say="C&#x27;est pas mon truc." data-yt="200.08,201.23" data-audio="audio/v054.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+      </ul>
+      À l'écrit, gardez « ne ». À l'oral, sa chute est la norme : c'est ainsi que parlent tous les Français, même très cultivés.
+    </div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <h3>Les petits mots du français oral</h3>
+    <table>
+      <tr><th>Mot</th><th>Fonction</th><th>Exemple</th></tr>
+      <tr><td>du coup</td><td>so, therefore</td><td class="ex">« Du coup, moi là, je me suis un peu forcée. »<button class="say" type="button" data-say="Du coup, moi là, je me suis un peu forcée." data-yt="602.86,604.14" data-audio="audio/v055.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+      <tr><td>en vrai</td><td>honestly</td><td class="ex">« En vrai, c'est pas mal quand même. »<button class="say" type="button" data-say="En vrai, c&#x27;est pas mal quand même." data-yt="607.88,609.05" data-audio="audio/v056.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+      <tr><td>quoi</td><td>filler, like « you know » (en fin de phrase)</td><td class="ex">« Quand c'est plus serré, quoi. »<button class="say" type="button" data-say="Quand c&#x27;est plus serré, quoi." data-yt="251.45,253.62" data-audio="audio/v057.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+      <tr><td>hyper</td><td>very (intensifieur)</td><td class="ex">« Ça revient hyper à la mode. »<button class="say" type="button" data-say="Ça revient hyper à la mode." data-yt="509.62,511.01" data-audio="audio/v058.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+      <tr><td>un truc</td><td>a thing <span class="badge familier">familier</span></td><td class="ex">« C'est juste moi qui perçois pas le truc de la house. »<button class="say" type="button" data-say="C&#x27;est juste moi qui perçois pas le truc de la house." data-yt="457.0,460.35" data-audio="audio/v059.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+    </table>
+    <div class="astuce"><strong>Astuce</strong> Ces mots ne portent pas de sens fort : ils donnent le rythme. Placez-les avec parcimonie — un « du coup » ou un « en vrai » de temps en temps suffit.</div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <h3>La dislocation</h3>
+    <div class="oral">
+      <strong>Annoncer le thème, puis le reprendre par un pronom</strong>
+      <ul class="compact">
+        <li>« Les hommes, <b>ils</b> peuvent aussi être très sensibles. »<button class="say" type="button" data-say="Les hommes, ils peuvent aussi être très sensibles." data-yt="52.8,55.82" data-audio="audio/v060.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+        <li>« Les crocs, c'est la mode, <b>ça</b>. »<button class="say" type="button" data-say="Les crocs, c&#x27;est la mode, ça." data-yt="545.8,547.3" data-audio="audio/v061.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button> « Moi, <b>je</b> m'ennuie en fait avec la house. »<button class="say" type="button" data-say="Moi, je m&#x27;ennuie en fait avec la house." data-yt="433.62,435.71" data-audio="audio/v062.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+      </ul>
+      Très fréquent à l'oral, rare à l'écrit soutenu.
+    </div>
+    <h3>L'échelle des registres</h3>
+    <table>
+      <tr><th>Vulgaire</th><th>Familier (ok entre amis)</th><th>Standard / poli</th></tr>
+      <tr><td>ça me fait chier</td><td>ça m'énerve / ça me soûle</td><td>ça m'embête / ça me dérange</td></tr>
+      <tr><td>engueuler</td><td>gronder</td><td>réprimander, faire des reproches</td></tr>
+      <tr><td>moche</td><td>pas beau</td><td>laid / disgracieux</td></tr>
+      <tr><td>je capte pas</td><td>je comprends pas</td><td>je ne saisis pas</td></tr>
+    </table>
+    <div class="attention">
+      <strong>Attention</strong>
+      « Ça me fait chier » est vulgaire : à éviter en cours, au travail, avec des inconnus. Mais il faut le comprendre — on l'entend beaucoup dans les séries.
+    </div>
+  </div>
+</section>
+
+<section id="exercices">
+  <h2><span class="num">6</span>Exercices</h2>
+
+  <div data-lv="a2">
+    <h3>Exercice 1 — Choisissez le bon verbe</h3>
+    <p>Complétez avec : <b>j'adore · j'aime bien · je n'aime pas · je déteste</b> (chaque verbe peut servir plusieurs fois).</p>
+    <ol class="exos">
+      <li>Axel : « ___ les œufs. Je ne peux pas les digérer ! »</li>
+      <li>« ___ prendre le métro : il y a de l'intimité. »</li>
+      <li>« Le rap ? ___ trop, j'en écoute peu. »</li>
+      <li>« Les radis ? ___, c'est vraiment génial ! »</li>
+      <li>« Le sport à la salle ? ___, j'ai du mal. »</li>
+    </ol>
+    <h3>Exercice 2 — Associez le mot à sa définition</h3>
+    <ol class="exos">
+      <li>sympa</li>
+      <li>moche</li>
+      <li>la honte</li>
+      <li>un passant</li>
+      <li>avoir peur</li>
+      <li>la salle de sport</li>
+    </ol>
+    <p><b>Définitions :</b></p>
+    <ul class="compact">
+      <li>A. Le lieu où l'on fait du sport</li>
+      <li>B. Agréable, gentil, cool</li>
+      <li>C. Une personne qui marche dans la rue</li>
+      <li>D. Pas beau</li>
+      <li>E. Un sentiment de gêne, d'embarras</li>
+      <li>F. Ne pas se sentir rassuré</li>
+    </ul>
+    <h3>Exercice 3 — Réécrivez à l'oral (sans « ne »)</h3>
+    <ol class="exos">
+      <li>« Je n'aime pas la salle de sport. »</li>
+      <li>« On n'a pas conscience de ça. »</li>
+      <li>« Ce n'est pas mon truc. »</li>
+      <li>« Je n'aime pas avoir peur. »</li>
+    </ol>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <h3>Exercice 1 — Associez le mot à sa définition</h3>
+    <ol class="exos">
+      <li>grignoter</li>
+      <li>surcoté</li>
+      <li>un calvaire</li>
+      <li>s'ennuyer</li>
+      <li>revenir à la mode</li>
+      <li>être à la page</li>
+      <li>les extrémités</li>
+      <li>rater</li>
+      <li>une doudoune</li>
+      <li>l'intimité</li>
+    </ol>
+    <p><b>Définitions :</b></p>
+    <ul class="compact">
+      <li>A. Être de nouveau tendance</li>
+      <li>B. Manger de petites choses entre les repas</li>
+      <li>C. Un endroit calme où l'on se sent proche des gens</li>
+      <li>D. Être au courant des dernières tendances</li>
+      <li>E. Ne pas voir, manquer (un épisode)</li>
+      <li>F. Considéré comme meilleur qu'il ne l'est vraiment</li>
+      <li>G. Une expérience très désagréable, un cauchemar</li>
+      <li>H. Un manteau chaud et gonflé</li>
+      <li>I. Les mains, les pieds, la tête : les parties du corps les plus éloignées</li>
+      <li>J. Trouver le temps long, ne pas s'intéresser</li>
+    </ul>
+    <h3>Exercice 2 — y ou en ?</h3>
+    <ol class="exos">
+      <li>La salle de sport ? Tout le monde ___ va, mais moi, j'ai du mal.</li>
+      <li>Tu écoutes du rap ? — Pas trop, j'___ écoute peu.</li>
+      <li>Des lignes de métro préférées ? — Oui, il y ___ a quelques-unes que j'adore.</li>
+      <li>Vous allez souvent au festival de techno ? — Non, j'___ vais jamais.</li>
+      <li>Des opinions impopulaires ? — J'___ ai plein !</li>
+    </ol>
+    <h3>Exercice 3 — Transformez avec « se faire »</h3>
+    <p>Modèle : <em>Le prof gronde les élèves.</em> → <em>Les élèves se font gronder.</em></p>
+    <ol class="exos">
+      <li>Les médias critiquent beaucoup les Birkenstock. → Les Birkenstock…</li>
+      <li>Le dentiste a arraché une dent à Paul. → Paul…</li>
+      <li>Maman coupe les cheveux de Léa. → Léa…</li>
+      <li>On a volé le vélo de Marc. → Marc…</li>
+      <li>Le médecin va examiner Julie demain. → Julie…</li>
+    </ol>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <h3>Exercice 1 — Le conditionnel passé (regret et reproche)</h3>
+    <ol class="exos">
+      <li>Les crocs, ça (devoir) ___ ne jamais être à la mode ! → « Ça ___ pas dû l'être. »</li>
+      <li>Tu es arrivé en retard : tu (partir) ___ plus tôt.</li>
+      <li>On s'est ennuyés au festival : on (aller) ___ au cinéma à la place.</li>
+      <li>Je n'ai pas aimé ce roman : il (être) ___ plus travaillé, plus appliqué.</li>
+      <li>Elle a parlé trop vite : elle (réfléchir) ___ avant de répondre.</li>
+    </ol>
+    <h3>Exercice 2 — Du soutenu à l'oral : réécrivez</h3>
+    <p>Réécrivez chaque phrase en français parlé, en utilisant le procédé indiqué.</p>
+    <ol class="exos">
+      <li>« Cela ne me plaît pas du tout. » (chute du « ne »)</li>
+      <li>« Les doudounes sans manches ? Je ne comprends pas l'intérêt. » (familier : « je capte pas le délire »)</li>
+      <li>« Cette musique m'irrite fortement. » (familier, puis vulgaire)</li>
+      <li>« Les hommes peuvent aussi être sensibles. » (dislocation)</li>
+      <li>« Je ne vais pas annoncer cette opinion partout. » (utilisez « crier… sur tous les toits »)</li>
+      <li>« Il est possible que ce soit juste moi. » (utilisez « ça se trouve »)</li>
+    </ol>
+  </div>
+</section>
+
+<section id="corrige">
+  <h2><span class="num">7</span>Corrigés</h2>
+
+  <div data-lv="a2">
+    <details>
+      <summary>Exercice 1 — Corrigé</summary>
+      <ol>
+        <li>« <span class="answer">Je déteste</span> les œufs. »</li>
+        <li>« <span class="answer">J'adore</span> prendre le métro. »</li>
+        <li>« Le rap ? <span class="answer">Je n'aime pas</span> trop. » / à l'oral : « J'aime pas trop. »</li>
+        <li>« Les radis ? <span class="answer">J'adore</span> / <span class="answer">J'aime bien</span>. »</li>
+        <li>« Le sport à la salle ? <span class="answer">Je n'aime pas</span>, j'ai du mal. »</li>
+      </ol>
+    </details>
+    <details>
+      <summary>Exercice 2 — Corrigé</summary>
+      <ol>
+        <li>sympa → <span class="answer">B</span></li>
+        <li>moche → <span class="answer">D</span></li>
+        <li>la honte → <span class="answer">E</span></li>
+        <li>un passant → <span class="answer">C</span></li>
+        <li>avoir peur → <span class="answer">F</span></li>
+        <li>la salle de sport → <span class="answer">A</span></li>
+      </ol>
+    </details>
+    <details>
+      <summary>Exercice 3 — Corrigé</summary>
+      <ol>
+        <li><span class="answer">J'aime pas</span> la salle de sport.</li>
+        <li><span class="answer">On a pas</span> conscience de ça.</li>
+        <li><span class="answer">C'est pas</span> mon truc.</li>
+        <li><span class="answer">J'aime pas</span> avoir peur.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <details>
+      <summary>Exercice 1 — Corrigé</summary>
+      <ol>
+        <li>grignoter → <span class="answer">B</span></li>
+        <li>surcoté → <span class="answer">F</span></li>
+        <li>un calvaire → <span class="answer">G</span></li>
+        <li>s'ennuyer → <span class="answer">J</span></li>
+        <li>revenir à la mode → <span class="answer">A</span></li>
+        <li>être à la page → <span class="answer">D</span></li>
+        <li>les extrémités → <span class="answer">I</span></li>
+        <li>rater → <span class="answer">E</span></li>
+        <li>une doudoune → <span class="answer">H</span></li>
+        <li>l'intimité → <span class="answer">C</span></li>
+      </ol>
+    </details>
+    <details>
+      <summary>Exercice 2 — Corrigé (y / en)</summary>
+      <ol>
+        <li>tout le monde <span class="answer">y</span> va</li>
+        <li>j'<span class="answer">en</span> écoute peu</li>
+        <li>il y <span class="answer">en</span> a quelques-unes</li>
+        <li>j'<span class="answer">y</span> vais jamais</li>
+        <li>j'<span class="answer">en</span> ai plein</li>
+      </ol>
+    </details>
+    <details>
+      <summary>Exercice 3 — Corrigé (se faire + infinitif)</summary>
+      <ol>
+        <li>Les Birkenstock <span class="answer">se font beaucoup critiquer</span>.</li>
+        <li>Paul <span class="answer">s'est fait arracher</span> une dent.</li>
+        <li>Léa <span class="answer">se fait couper</span> les cheveux.</li>
+        <li>Marc <span class="answer">s'est fait voler</span> son vélo.</li>
+        <li>Julie <span class="answer">va se faire examiner</span> demain.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <details>
+      <summary>Exercice 1 — Corrigé (conditionnel passé)</summary>
+      <ol>
+        <li>Ça <span class="answer">n'aurait</span> pas dû l'être. (à l'oral : « ça <span class="answer">aurait</span> pas dû l'être »)</li>
+        <li>tu <span class="answer">aurais dû partir</span> plus tôt.</li>
+        <li>on <span class="answer">aurait pu aller</span> au cinéma.</li>
+        <li>il <span class="answer">aurait dû être</span> plus travaillé.</li>
+        <li>elle <span class="answer">aurait dû réfléchir</span> avant de répondre.</li>
+      </ol>
+    </details>
+    <details>
+      <summary>Exercice 2 — Corrigé (oral et registres)</summary>
+      <ol>
+        <li>« <span class="answer">Ça me plaît pas du tout.</span> »</li>
+        <li>« Les doudounes sans manches, <span class="answer">je capte pas le délire</span>. »</li>
+        <li>Familier : « <span class="answer">Ça me soûle.</span> » Vulgaire : « <span class="answer">Ça me fait chier.</span> »</li>
+        <li>« <span class="answer">Les hommes, ils peuvent</span> aussi être très sensibles. »</li>
+        <li>« Je vais pas <span class="answer">le crier sur tous les toits</span>. »</li>
+        <li>« <span class="answer">Ça se trouve</span>, c'est juste moi. »</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<section id="avous">
+  <h2><span class="num">8</span>À vous !</h2>
+
+  <div data-lv="a2">
+    <div class="speak">
+      <strong>Défi A2 — 5 phrases pour parler de vous</strong>
+      <p>Écrivez puis dites à voix haute : deux choses que vous adorez, une chose que vous n'aimez pas, une chose que vous détestez, et une phrase avec « j'ai du mal avec… ».</p>
+    </div>
+    <details>
+      <summary>Exemples de réponses</summary>
+      <ul class="compact">
+        <li>« J'adore le café le matin. »</li>
+        <li>« J'adore regarder des séries le soir. »</li>
+        <li>« Je n'aime pas attendre le bus. »</li>
+        <li>« Je déteste les films d'horreur. »</li>
+        <li>« J'ai du mal avec les gens qui parlent fort dans le métro. »</li>
+      </ul>
+    </details>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <div class="speak">
+      <strong>Défi B1 — Vos opinions impopulaires</strong>
+      <p>Écrivez trois opinions impopulaires en utilisant au moins trois expressions de la leçon : <em>j'avoue que, je capte pas, ça fait débat, être à la page, c'est un calvaire…</em> Puis utilisez une fois <em>même si</em> ou <em>alors que</em>.</p>
+    </div>
+    <details>
+      <summary>Exemples de réponses</summary>
+      <ul class="compact">
+        <li>« J'avoue que je n'aime pas les crocs… et je capte pas le délire des doudounes sans manches. »</li>
+        <li>« Je déteste les festivals : il y a trop de monde, alors que tout le monde adore ça. »</li>
+        <li>« Même si je comprends que le rap plaise, j'ai du mal avec ce style. Mais bon, ça fait débat ! »</li>
+      </ul>
+    </details>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <div class="speak">
+      <strong>Défi B2 — Un monologue de 1 minute</strong>
+      <p>« Une chose que tout le monde aime et que moi, je déteste… » Parlez une minute en utilisant <em>je peux comprendre que · ça se trouve · j'arrive pas à accrocher · crier sur tous les toits · aurait dû / aurait pu</em>. Enregistrez-vous et réécoutez.</p>
+    </div>
+    <div class="speak">
+      <strong>Débat — Pour ou contre les crocs ?</strong>
+      <p>Défendez votre position en concédant quelque chose à l'autre camp : <em>« Je peux comprendre que…, même si… »</em>, puis nuancez avec <em>« Ça se trouve… »</em> et un conditionnel passé : <em>« Elles n'auraient jamais dû revenir à la mode ! »</em></p>
+    </div>
+    <details>
+      <summary>Éléments de réponse pour le débat</summary>
+      <ul class="compact">
+        <li>Pour : pratique, confortable, facile à mettre : « Ça se trouve, ceux qui détestent n'en ont jamais porté. »</li>
+        <li>Contre : « Pardon, mais ça aurait jamais dû revenir à la mode : je trouve ça moche. »</li>
+        <li>Concession élégante : « Je peux comprendre que ce soit confortable, même si je trouve ça laid. »</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="tricolore"></div>
+  <p><strong>Sources :</strong> vidéo « The French Share Their Unpopular Opinions | Easy French 259 », chaîne YouTube <em>Easy French</em> — <a href="https://www.youtube.com/watch?v=-VWMMfdLw0U">youtube.com/watch?v=-VWMMfdLw0U</a>. Leçon créée à partir de la transcription française (sous-titres automatiques, nettoyés pour la lecture).</p>
+  <p>Un contenu adapté à votre niveau : changez de parcours (A2 · B1 · B2) à tout moment. Fichiers associés : <code>transcript.txt</code>, <code>transcript_raw.json</code>, <code>audio/</code> (extraits), <code>video_src/lesson_video.mp4</code> (vidéo locale).</p>
+
+<!--LESSONS_NAV_FOOT-->
+  <p style="margin-top:.6rem;">Autres leçons : <a href="index.html">Toutes les leçons</a> · <a href="lecon-ai.html">199 · L'IA au quotidien</a></p>
+  <!--/LESSONS_NAV_FOOT-->
+</footer>
+
+<script>
+  var radios = document.querySelectorAll("input[name='niveau']");
+  function applyLevel(lv) {
+    document.body.dataset.niveau = lv;
+    document.querySelectorAll('[data-lv]').forEach(function (el) {
+      el.hidden = el.dataset.lv !== lv;
+    });
+  }
+  radios.forEach(function (r) {
+    r.addEventListener('change', function () { applyLevel(r.value); });
+  });
+  applyLevel(document.querySelector("input[name='niveau']:checked").value);
+
+  var panel = document.getElementById('sidepanel');
+  var toggle = document.getElementById('spToggle');
+  function closePanel() {
+    document.body.classList.remove('sp-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+  toggle.addEventListener('click', function () {
+    var open = !document.body.classList.contains('sp-open');
+    document.body.classList.toggle('sp-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  panel.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', closePanel);
+  });
+  document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('sp-open')) return;
+    if (!panel.contains(e.target) && !toggle.contains(e.target)) closePanel();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePanel();
+  });
+
+  var navLinks = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+  var navSections = navLinks.map(function (a) {
+    return document.querySelector(a.getAttribute('href'));
+  });
+  function spy() {
+    var current = null;
+    navSections.forEach(function (s) {
+      if (s && s.getBoundingClientRect().top <= 140) current = s.id;
+    });
+    navLinks.forEach(function (a) {
+      var active = current !== null && a.getAttribute('href') === '#' + current;
+      a.classList.toggle('active', active);
+      if (active) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  spy();
+
+  var speechOK = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+  var frVoice = null;
+  function pickVoice(voices) {
+    var preferred = ['Eddy', 'Amélie', 'Amelie', 'Thomas', 'Flo', 'Audrey', 'Aurélie'];
+    var fr = voices.filter(function (v) { return /^fr/i.test(v.lang); });
+    if (!fr.length) return null;
+    var frFR = fr.filter(function (v) { return /fr[-_]FR/i.test(v.lang); });
+    var pool = frFR.length ? frFR : fr;
+    for (var i = 0; i < preferred.length; i++) {
+      for (var j = 0; j < pool.length; j++) {
+        if (pool[j].name.indexOf(preferred[i]) !== -1) return pool[j];
+      }
+    }
+    return pool[0];
+  }
+  function refreshVoice() {
+    if (speechOK) frVoice = pickVoice(window.speechSynthesis.getVoices());
+  }
+  if (speechOK) {
+    refreshVoice();
+    if ('onvoiceschanged' in window.speechSynthesis) {
+      window.speechSynthesis.onvoiceschanged = refreshVoice;
+    }
+  }
+  document.querySelectorAll('.say').forEach(function (b) {
+    if (!b.getAttribute('data-audio') && !speechOK) b.hidden = true;
+  });
+
+  var sayToken = 0;
+  var currentBtn = null;
+  var currentAudio = null;
+  function stopPlayback() {
+    sayToken++;
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    if (ytVideo && !ytVideo.paused) ytVideo.pause();
+    ytFinish = null;
+    if (speechOK) window.speechSynthesis.cancel();
+    if (currentBtn) {
+      currentBtn.classList.remove('playing');
+      currentBtn = null;
+    }
+  }
+  function speakText(text, rate, token, onDone) {
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'fr-FR';
+    if (frVoice) u.voice = frVoice;
+    u.rate = rate;
+    u.onend = onDone;
+    u.onerror = onDone;
+    window.speechSynthesis.speak(u);
+  }
+  function speakItem(btn, token, finish) {
+    if (!frVoice) refreshVoice();
+    var t1 = btn.getAttribute('data-say') || '';
+    var t2 = btn.getAttribute('data-say2') || '';
+    if (!t1) { finish(); return; }
+    speakText(t1, 0.95, token, function () {
+      if (token !== sayToken) return;
+      if (t2) {
+        setTimeout(function () {
+          if (token !== sayToken) return;
+          speakText(t2, 0.9, token, finish);
+        }, 400);
+      } else {
+        finish();
+      }
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.say');
+    if (!btn || btn.hidden) return;
+    stopPlayback();
+    var token = sayToken;
+    currentBtn = btn;
+    btn.classList.add('playing');
+    function finish() {
+      if (token !== sayToken) return;
+      btn.classList.remove('playing');
+      if (currentBtn === btn) currentBtn = null;
+    }
+    var file = btn.getAttribute('data-audio');
+    var ytSpan = btn.getAttribute('data-yt');
+    var usedYt = false;
+    if (ytSpan && ytReady && !ytBroken) {
+      var yparts = ytSpan.split(',');
+      usedYt = playYtSegment(parseFloat(yparts[0]), parseFloat(yparts[1]), finish);
+    }
+    if (!usedYt && file) {
+      var failed = false;
+      var fallback = function () {
+        if (failed || token !== sayToken) return;
+        failed = true;
+        currentAudio = null;
+        if (speechOK) speakItem(btn, token, finish);
+        else finish();
+      };
+      var a = new Audio(file);
+      currentAudio = a;
+      a.onended = function () {
+        if (token === sayToken) { currentAudio = null; finish(); }
+      };
+      a.onerror = fallback;
+      var p = a.play();
+      if (p && p.catch) p.catch(fallback);
+    } else if (!usedYt && speechOK) {
+      speakItem(btn, token, finish);
+    } else if (!usedYt) {
+      finish();
+    }
+  });
+
+  // ---- Floating video (local copy of the source video) ----
+  var ytVideo = document.getElementById('ytplayer');
+  var ytReady = false;
+  var ytBroken = false;
+  var ytPoll = null;
+  var ytFinish = null;
+
+  if (ytVideo) {
+    ytVideo.addEventListener('loadedmetadata', function () { ytReady = true; });
+    ytVideo.addEventListener('error', function () { ytBroken = true; });
+    if (ytVideo.readyState >= 1) ytReady = true;
+  }
+
+  function stopYtSegment() {
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    if (ytVideo && !ytVideo.paused) ytVideo.pause();
+    var f = ytFinish;
+    ytFinish = null;
+    if (f) f();
+  }
+  function playYtSegment(start, end, onDone) {
+    if (!ytReady || ytBroken || !ytVideo) return false;
+    var s = Math.max(0, start - 0.2);
+    var e = end + 0.2;
+    try {
+      ytVideo.currentTime = s;
+      var pr = ytVideo.play();
+      if (pr && pr.catch) pr.catch(function () { ytBroken = true; stopYtSegment(); });
+    } catch (err) {
+      return false;
+    }
+    ytFinish = onDone;
+    var t0 = Date.now();
+    ytPoll = setInterval(function () {
+      if (!ytVideo) { stopYtSegment(); return; }
+      var t = ytVideo.currentTime;
+      var elapsed = Date.now() - t0;
+      if (elapsed > 450 && t >= e) stopYtSegment();
+      else if (elapsed > (e - s) * 1000 + 6000) stopYtSegment();
+    }, 100);
+    return true;
+  }
+
+  // ---- Custom hover-only video controls ----
+  function detachYtSegment() {
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    ytFinish = null;
+    if (currentBtn) { currentBtn.classList.remove('playing'); currentBtn = null; }
+  }
+  var ytvWrap = document.getElementById('ytv');
+  var ytvSeek = document.getElementById('ytvSeek');
+  var ytvCur = document.getElementById('ytvCur');
+  var ytvDur = document.getElementById('ytvDur');
+  var ytvPlay = document.querySelector('.ytv-play');
+  var ytvFull = document.querySelector('.ytv-full');
+  var ytvDragging = false;
+
+  function fmtTime(t) {
+    t = Math.max(0, Math.floor(t || 0));
+    var m = Math.floor(t / 60), s = t % 60;
+    return m + ':' + (s < 10 ? '0' + s : s);
+  }
+  function syncYtv() {
+    if (!ytvWrap || !ytVideo) return;
+    ytvWrap.classList.toggle('playing', !ytVideo.paused && !ytVideo.ended);
+    if (!ytvDragging && ytVideo.duration) {
+      ytvSeek.value = Math.round(1000 * ytVideo.currentTime / ytVideo.duration);
+      ytvCur.textContent = fmtTime(ytVideo.currentTime);
+    }
+  }
+  function ytvToggle() {
+    detachYtSegment();
+    if (ytVideo.paused) {
+      var pr = ytVideo.play();
+      if (pr && pr.catch) pr.catch(function () {});
+    } else {
+      ytVideo.pause();
+    }
+  }
+  if (ytVideo && ytvWrap) {
+    ['play', 'pause', 'ended', 'loadedmetadata', 'timeupdate'].forEach(function (ev) {
+      ytVideo.addEventListener(ev, syncYtv);
+    });
+    if (ytVideo.duration) ytvDur.textContent = fmtTime(ytVideo.duration);
+    ytVideo.addEventListener('loadedmetadata', function () {
+      ytvDur.textContent = fmtTime(ytVideo.duration);
+    });
+    ytVideo.addEventListener('click', ytvToggle);
+    ytvPlay.addEventListener('click', ytvToggle);
+    ytvSeek.addEventListener('pointerdown', function () { ytvDragging = true; detachYtSegment(); });
+    ytvSeek.addEventListener('input', function () {
+      if (ytVideo.duration) ytVideo.currentTime = ytvSeek.value * ytVideo.duration / 1000;
+      ytvCur.textContent = fmtTime(ytVideo.currentTime);
+    });
+    window.addEventListener('pointerup', function () { ytvDragging = false; syncYtv(); });
+    window.addEventListener('pointercancel', function () { ytvDragging = false; syncYtv(); });
+    ytvFull.addEventListener('click', function () {
+      if (document.fullscreenElement) { document.exitFullscreen(); return; }
+      if (ytvWrap.requestFullscreen) ytvWrap.requestFullscreen();
+      else if (ytvWrap.webkitRequestFullscreen) ytvWrap.webkitRequestFullscreen();
+      else if (ytVideo.webkitEnterFullscreen) ytVideo.webkitEnterFullscreen();
+    });
+    syncYtv();
+  }
+
+  // ---- Keep the floating panels below the sticky level bar ----
+  var levelbarEl = document.querySelector('.levelbar');
+  function updatePanelTop() {
+    if (!levelbarEl) return;
+    var bottom = levelbarEl.getBoundingClientRect().bottom;
+    document.documentElement.style.setProperty('--panel-top', Math.max(12, Math.round(bottom + 12)) + 'px');
+  }
+  function updateShift() {
+    var s = Math.max(0, Math.min(130, window.innerWidth / 2 - 642));
+    document.documentElement.style.setProperty('--shift', Math.round(s) + 'px');
+  }
+  window.addEventListener('scroll', updatePanelTop, { passive: true });
+  window.addEventListener('resize', function () { updatePanelTop(); updateShift(); });
+  updatePanelTop();
+  updateShift();
+</script>
+
+</body>
+</html>

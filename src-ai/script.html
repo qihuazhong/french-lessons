@@ -1,0 +1,290 @@
+<script>
+  var radios = document.querySelectorAll("input[name='niveau']");
+  function applyLevel(lv) {
+    document.body.dataset.niveau = lv;
+    document.querySelectorAll('[data-lv]').forEach(function (el) {
+      el.hidden = el.dataset.lv !== lv;
+    });
+  }
+  radios.forEach(function (r) {
+    r.addEventListener('change', function () { applyLevel(r.value); });
+  });
+  applyLevel(document.querySelector("input[name='niveau']:checked").value);
+
+  var panel = document.getElementById('sidepanel');
+  var toggle = document.getElementById('spToggle');
+  function closePanel() {
+    document.body.classList.remove('sp-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+  toggle.addEventListener('click', function () {
+    var open = !document.body.classList.contains('sp-open');
+    document.body.classList.toggle('sp-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  panel.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', closePanel);
+  });
+  document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('sp-open')) return;
+    if (!panel.contains(e.target) && !toggle.contains(e.target)) closePanel();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePanel();
+  });
+
+  var navLinks = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+  var navSections = navLinks.map(function (a) {
+    return document.querySelector(a.getAttribute('href'));
+  });
+  function spy() {
+    var current = null;
+    navSections.forEach(function (s) {
+      if (s && s.getBoundingClientRect().top <= 140) current = s.id;
+    });
+    navLinks.forEach(function (a) {
+      var active = current !== null && a.getAttribute('href') === '#' + current;
+      a.classList.toggle('active', active);
+      if (active) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  spy();
+
+  var speechOK = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+  var frVoice = null;
+  function pickVoice(voices) {
+    var preferred = ['Eddy', 'Amélie', 'Amelie', 'Thomas', 'Flo', 'Audrey', 'Aurélie'];
+    var fr = voices.filter(function (v) { return /^fr/i.test(v.lang); });
+    if (!fr.length) return null;
+    var frFR = fr.filter(function (v) { return /fr[-_]FR/i.test(v.lang); });
+    var pool = frFR.length ? frFR : fr;
+    for (var i = 0; i < preferred.length; i++) {
+      for (var j = 0; j < pool.length; j++) {
+        if (pool[j].name.indexOf(preferred[i]) !== -1) return pool[j];
+      }
+    }
+    return pool[0];
+  }
+  function refreshVoice() {
+    if (speechOK) frVoice = pickVoice(window.speechSynthesis.getVoices());
+  }
+  if (speechOK) {
+    refreshVoice();
+    if ('onvoiceschanged' in window.speechSynthesis) {
+      window.speechSynthesis.onvoiceschanged = refreshVoice;
+    }
+  }
+  document.querySelectorAll('.say').forEach(function (b) {
+    if (!b.getAttribute('data-audio') && !speechOK) b.hidden = true;
+  });
+
+  var sayToken = 0;
+  var currentBtn = null;
+  var currentAudio = null;
+  function stopPlayback() {
+    sayToken++;
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    if (ytVideo && !ytVideo.paused) ytVideo.pause();
+    ytFinish = null;
+    if (speechOK) window.speechSynthesis.cancel();
+    if (currentBtn) {
+      currentBtn.classList.remove('playing');
+      currentBtn = null;
+    }
+  }
+  function speakText(text, rate, token, onDone) {
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'fr-FR';
+    if (frVoice) u.voice = frVoice;
+    u.rate = rate;
+    u.onend = onDone;
+    u.onerror = onDone;
+    window.speechSynthesis.speak(u);
+  }
+  function speakItem(btn, token, finish) {
+    if (!frVoice) refreshVoice();
+    var t1 = btn.getAttribute('data-say') || '';
+    var t2 = btn.getAttribute('data-say2') || '';
+    if (!t1) { finish(); return; }
+    speakText(t1, 0.95, token, function () {
+      if (token !== sayToken) return;
+      if (t2) {
+        setTimeout(function () {
+          if (token !== sayToken) return;
+          speakText(t2, 0.9, token, finish);
+        }, 400);
+      } else {
+        finish();
+      }
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.say');
+    if (!btn || btn.hidden) return;
+    stopPlayback();
+    var token = sayToken;
+    currentBtn = btn;
+    btn.classList.add('playing');
+    function finish() {
+      if (token !== sayToken) return;
+      btn.classList.remove('playing');
+      if (currentBtn === btn) currentBtn = null;
+    }
+    var file = btn.getAttribute('data-audio');
+    var ytSpan = btn.getAttribute('data-yt');
+    var usedYt = false;
+    if (ytSpan && ytReady && !ytBroken) {
+      var yparts = ytSpan.split(',');
+      usedYt = playYtSegment(parseFloat(yparts[0]), parseFloat(yparts[1]), finish);
+    }
+    if (!usedYt && file) {
+      var failed = false;
+      var fallback = function () {
+        if (failed || token !== sayToken) return;
+        failed = true;
+        currentAudio = null;
+        if (speechOK) speakItem(btn, token, finish);
+        else finish();
+      };
+      var a = new Audio(file);
+      currentAudio = a;
+      a.onended = function () {
+        if (token === sayToken) { currentAudio = null; finish(); }
+      };
+      a.onerror = fallback;
+      var p = a.play();
+      if (p && p.catch) p.catch(fallback);
+    } else if (!usedYt && speechOK) {
+      speakItem(btn, token, finish);
+    } else if (!usedYt) {
+      finish();
+    }
+  });
+
+  // ---- Floating video (local copy of the source video) ----
+  var ytVideo = document.getElementById('ytplayer');
+  var ytReady = false;
+  var ytBroken = false;
+  var ytPoll = null;
+  var ytFinish = null;
+
+  if (ytVideo) {
+    ytVideo.addEventListener('loadedmetadata', function () { ytReady = true; });
+    ytVideo.addEventListener('error', function () { ytBroken = true; });
+    if (ytVideo.readyState >= 1) ytReady = true;
+  }
+
+  function stopYtSegment() {
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    if (ytVideo && !ytVideo.paused) ytVideo.pause();
+    var f = ytFinish;
+    ytFinish = null;
+    if (f) f();
+  }
+  function playYtSegment(start, end, onDone) {
+    if (!ytReady || ytBroken || !ytVideo) return false;
+    var s = Math.max(0, start - 0.2);
+    var e = end + 0.2;
+    try {
+      ytVideo.currentTime = s;
+      var pr = ytVideo.play();
+      if (pr && pr.catch) pr.catch(function () { ytBroken = true; stopYtSegment(); });
+    } catch (err) {
+      return false;
+    }
+    ytFinish = onDone;
+    var t0 = Date.now();
+    ytPoll = setInterval(function () {
+      if (!ytVideo) { stopYtSegment(); return; }
+      var t = ytVideo.currentTime;
+      var elapsed = Date.now() - t0;
+      if (elapsed > 450 && t >= e) stopYtSegment();
+      else if (elapsed > (e - s) * 1000 + 6000) stopYtSegment();
+    }, 100);
+    return true;
+  }
+
+  // ---- Custom hover-only video controls ----
+  function detachYtSegment() {
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    ytFinish = null;
+    if (currentBtn) { currentBtn.classList.remove('playing'); currentBtn = null; }
+  }
+  var ytvWrap = document.getElementById('ytv');
+  var ytvSeek = document.getElementById('ytvSeek');
+  var ytvCur = document.getElementById('ytvCur');
+  var ytvDur = document.getElementById('ytvDur');
+  var ytvPlay = document.querySelector('.ytv-play');
+  var ytvFull = document.querySelector('.ytv-full');
+  var ytvDragging = false;
+
+  function fmtTime(t) {
+    t = Math.max(0, Math.floor(t || 0));
+    var m = Math.floor(t / 60), s = t % 60;
+    return m + ':' + (s < 10 ? '0' + s : s);
+  }
+  function syncYtv() {
+    if (!ytvWrap || !ytVideo) return;
+    ytvWrap.classList.toggle('playing', !ytVideo.paused && !ytVideo.ended);
+    if (!ytvDragging && ytVideo.duration) {
+      ytvSeek.value = Math.round(1000 * ytVideo.currentTime / ytVideo.duration);
+      ytvCur.textContent = fmtTime(ytVideo.currentTime);
+    }
+  }
+  function ytvToggle() {
+    detachYtSegment();
+    if (ytVideo.paused) {
+      var pr = ytVideo.play();
+      if (pr && pr.catch) pr.catch(function () {});
+    } else {
+      ytVideo.pause();
+    }
+  }
+  if (ytVideo && ytvWrap) {
+    ['play', 'pause', 'ended', 'loadedmetadata', 'timeupdate'].forEach(function (ev) {
+      ytVideo.addEventListener(ev, syncYtv);
+    });
+    if (ytVideo.duration) ytvDur.textContent = fmtTime(ytVideo.duration);
+    ytVideo.addEventListener('loadedmetadata', function () {
+      ytvDur.textContent = fmtTime(ytVideo.duration);
+    });
+    ytVideo.addEventListener('click', ytvToggle);
+    ytvPlay.addEventListener('click', ytvToggle);
+    ytvSeek.addEventListener('pointerdown', function () { ytvDragging = true; detachYtSegment(); });
+    ytvSeek.addEventListener('input', function () {
+      if (ytVideo.duration) ytVideo.currentTime = ytvSeek.value * ytVideo.duration / 1000;
+      ytvCur.textContent = fmtTime(ytVideo.currentTime);
+    });
+    window.addEventListener('pointerup', function () { ytvDragging = false; syncYtv(); });
+    window.addEventListener('pointercancel', function () { ytvDragging = false; syncYtv(); });
+    ytvFull.addEventListener('click', function () {
+      if (document.fullscreenElement) { document.exitFullscreen(); return; }
+      if (ytvWrap.requestFullscreen) ytvWrap.requestFullscreen();
+      else if (ytvWrap.webkitRequestFullscreen) ytvWrap.webkitRequestFullscreen();
+      else if (ytVideo.webkitEnterFullscreen) ytVideo.webkitEnterFullscreen();
+    });
+    syncYtv();
+  }
+
+  // ---- Keep the floating panels below the sticky level bar ----
+  var levelbarEl = document.querySelector('.levelbar');
+  function updatePanelTop() {
+    if (!levelbarEl) return;
+    var bottom = levelbarEl.getBoundingClientRect().bottom;
+    document.documentElement.style.setProperty('--panel-top', Math.max(12, Math.round(bottom + 12)) + 'px');
+  }
+  function updateShift() {
+    var s = Math.max(0, Math.min(130, window.innerWidth / 2 - 642));
+    document.documentElement.style.setProperty('--shift', Math.round(s) + 'px');
+  }
+  window.addEventListener('scroll', updatePanelTop, { passive: true });
+  window.addEventListener('resize', function () { updatePanelTop(); updateShift(); });
+  updatePanelTop();
+  updateShift();
+</script>
