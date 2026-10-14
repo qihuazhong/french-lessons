@@ -46,7 +46,7 @@ def main():
     p3 = parts[2].split('<!--PART4-->')[0]
     p4 = parts[3].split('<!--PART5-->')[0]
     p5 = parts[4].replace('<!--SCRIPT_HERE-->', script)
-    doc = p1.replace('</head>', style + '\n</head>') + p2 + p3 + p4 + p5
+    doc = p1.replace('</head>', style + '\n<link rel="stylesheet" href="exos.css">\n</head>') + p2 + p3 + p4 + p5
     doc = re.sub(r'\[\[SAY2?:([^\]]+)\]\]', expand, doc)
     assert '[[' not in doc.replace('[[slnc', ''), 'unexpanded placeholder remains'
     open(OUT, 'w', encoding='utf-8').write(doc)
