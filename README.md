@@ -78,8 +78,11 @@ Full recipe with commands: **docs/PIPELINE.md**.
 review deck **explicitly** — opening a lesson registers nothing: click the
 speaker of a vocab row / expression card, or the « + Ajouter ces N mots à mes
 révisions » button injected above each visible level — it opens a checkbox per
-item so you can include/exclude before confirming (« Annuler » or Échap). **progres.html** is the
-review page: spaced repetition (Encore / Difficile / Bien / Facile, keys 1-4),
+item so you can include/exclude before confirming (« Annuler » or Échap).
+**progres.html** is an Anki-style review page: a big centered card (click or
+space to flip), solid graded buttons in Anki colours each showing the simulated
+next interval (Encore 10 min · Difficile 15 min · Bien 1 j · Facile 4 j on new
+cards; keys 1-4), a due forecast chart (Auj. / Demain / 2-3 j / 4-7 j / +7 j),
 due counts, streak, activity log, JSON export/import, and a reset button.
 
 Everything is **localStorage-first** (free, offline, no account). Optional $0

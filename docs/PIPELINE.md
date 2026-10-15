@@ -128,7 +128,7 @@ python3 - <<'EOF'   # HTML well-formedness + spec JSON validity (adapted from ea
 EOF
 node --check <(python3 -c "import re;print(re.search(r'<script>(.*?)</script>', open('lecon-<slug>.html').read(), re.S).group(1))")
 cd tools && npm i jsdom && node test_exos.js   # exercise engine smoke test (24 assertions)
-cd tools && node test_srs.js                   # scheduler + review page + sélection (36 assertions)
+cd tools && node test_srs.js                   # révisions Anki + sélection (43 assertions)
 ```
 
 Spot-play a few clips: `afplay audio-<slug>/v001.m4a` — and click around in the

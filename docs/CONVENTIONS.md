@@ -156,6 +156,12 @@ the "Leçons" side-panel block + footer line into **every** registered page
 - `progres.html` never auto-registers either: an empty deck shows a button to
   add the whole catalog (205 cards), and a « Réinitialiser » button clears the
   local doc.
+- Review UI is Anki-style: centered card (front = gloss, click/space flips),
+  solid graded buttons (g0..g3 red/orange/green/blue) whose `.ivl` span shows
+  the simulated next interval (`previewIvl` clones the item and calls
+  `SRS.grade`). « À venir » forecast = 5 CSS-bar buckets over `doc.items` due
+  dates: Auj. (≤ 23:59 today, overdue included), Demain, 2-3 j, 4-7 j, +7 j;
+  the Auj. bar gets `.hot` (red) when non-zero; respects the lesson filter.
 - Grades 0–3 (Encore / Difficile / Bien / Facile): SM-2-lite — learning steps
   10/15 min, review interval ×ease, ease clamped 1.3–2.8, max 365 days.
 - Lesson pages log `exo-graded` results into the activity log.
