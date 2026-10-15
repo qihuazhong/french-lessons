@@ -102,6 +102,11 @@ def build_index(lessons):
   header p { margin: 0; color: #dbe5fa; max-width: 66ch; }
   main { max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.2rem; }
+  .review-banner { display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    background: #eef3ff; border: 1px solid #c9d6f2; border-radius: 14px; padding: .9rem 1.2rem;
+    margin-bottom: 1.3rem; text-decoration: none; color: var(--bleu); font-weight: 600; flex-wrap: wrap; }
+  .review-banner:hover { background: var(--bleu-clair); }
+  .review-banner strong { font-weight: 800; }
   .card { display: block; background: var(--carte); border: 1px solid var(--bordure);
           border-radius: 14px; padding: 1.4rem 1.5rem 1.2rem; text-decoration: none;
           color: inherit; box-shadow: 0 1px 3px rgba(20,40,90,.06);
@@ -133,6 +138,10 @@ def build_index(lessons):
   </div>
 </header>
 <main>
+  <a class="review-banner" href="progres.html">
+    <span>Révisions espacées : vos mots et expressions reviennent au bon moment.</span>
+    <strong>Mes progrès →</strong>
+  </a>
   <div class="grid">
 {cards}
   </div>
