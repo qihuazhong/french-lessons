@@ -159,7 +159,8 @@ the "Leçons" side-panel block + footer line into **every** registered page
 - Review UI is Anki-style: centered card (front = gloss, click/space flips),
   solid graded buttons (g0..g3 red/orange/green/blue) whose `.ivl` span shows
   the simulated next interval (`previewIvl` clones the item and calls
-  `SRS.grade`). « À venir » forecast = 5 CSS-bar buckets over `doc.items` due
+  `SRS.grade`). Keyboard: space/click flips, 1-4 grade, R replays the audio
+  (only once flipped, so the French term isn't spoiled). « À venir » forecast = 5 CSS-bar buckets over `doc.items` due
   dates: Auj. (≤ 23:59 today, overdue included), Demain, 2-3 j, 4-7 j, +7 j;
   the Auj. bar gets `.hot` (red) when non-zero; respects the lesson filter.
 - Grades 0–3 (Encore / Difficile / Bien / Facile): SM-2-lite — learning steps

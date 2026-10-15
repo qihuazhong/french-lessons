@@ -82,7 +82,7 @@ item so you can include/exclude before confirming (« Annuler » or Échap).
 **progres.html** is an Anki-style review page: a big centered card (click or
 space to flip), solid graded buttons in Anki colours each showing the simulated
 next interval (Encore 10 min · Difficile 15 min · Bien 1 j · Facile 4 j on new
-cards; keys 1-4), a due forecast chart (Auj. / Demain / 2-3 j / 4-7 j / +7 j),
+cards; keys 1-4, and R replays the audio once flipped), a due forecast chart (Auj. / Demain / 2-3 j / 4-7 j / +7 j),
 due counts, streak, activity log, JSON export/import, and a reset button.
 
 Everything is **localStorage-first** (free, offline, no account). Optional $0

@@ -372,8 +372,15 @@ TEMPLATE = '''<!DOCTYPE html>
     });
   }
 
+  var audioEl = null;
   function playAudio(path) {
-    try { new Audio(path).play(); } catch (e) {}
+    if (!path) return;
+    try {
+      if (audioEl) audioEl.pause();
+      audioEl = new Audio(path);
+      var pr = audioEl.play();
+      if (pr && pr.catch) pr.catch(function () {});
+    } catch (e) {}
   }
 
   function renderCard() {
@@ -473,7 +480,7 @@ TEMPLATE = '''<!DOCTYPE html>
     body.appendChild(grade);
     var keys = document.createElement('div');
     keys.className = 'keys';
-    keys.textContent = 'raccourcis : espace = afficher · 1-4 = noter';
+    keys.textContent = 'raccourcis : espace = afficher · 1-4 = noter · R = écouter';
     body.appendChild(keys);
     if (flipped) showBack();
   }
@@ -582,7 +589,11 @@ TEMPLATE = '''<!DOCTYPE html>
   document.addEventListener('keydown', function (e) {
     if (e.target && /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
     if (e.key === ' ' && !flipped) { e.preventDefault(); flip(); return; }
-    if (flipped && e.key >= '1' && e.key <= '4') { e.preventDefault(); doGrade(parseInt(e.key, 10) - 1); }
+    if (flipped && e.key >= '1' && e.key <= '4') { e.preventDefault(); doGrade(parseInt(e.key, 10) - 1); return; }
+    if (flipped && (e.key === 'r' || e.key === 'R')) {
+      var key = queue[pos];
+      if (key && doc.items[key] && doc.items[key].meta) playAudio(doc.items[key].meta.audio);
+    }
   });
 
   buildQueue();
