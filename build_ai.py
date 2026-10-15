@@ -38,8 +38,8 @@ def expand(m):
 
 
 def main():
-    style = open('src-ai/style.html', encoding='utf-8').read()
-    script = open('src-ai/script.html', encoding='utf-8').read()
+    style = open('framework/style.html', encoding='utf-8').read()
+    script = open('framework/script.html', encoding='utf-8').read()
     parts = [open(p, encoding='utf-8').read() for p in PARTS]
     p1 = parts[0].split('<!--PART2-->')[0]
     p2 = parts[1].split('<!--PART3-->')[0]

@@ -27,6 +27,7 @@ JSON_PATH = sys.argv[3] if len(sys.argv) > 3 else 'transcript_raw.json'
 SRC_AUDIO = sys.argv[4] if len(sys.argv) > 4 else 'audio_src/video_audio.webm'
 OVER_JSON = sys.argv[5] if len(sys.argv) > 5 else 'clip_overrides.json'
 SPANS_OUT = sys.argv[6] if len(sys.argv) > 6 else 'spans.json'
+BITRATE = sys.argv[7] if len(sys.argv) > 7 else '64k'
 
 PRE_PAD = 0.25
 POST_PAD = 0.45
@@ -81,7 +82,7 @@ def cut(seg_window, out_path, idx):
         '-ss', '%.3f' % start, '-to', '%.3f' % end,
         '-i', SRC_AUDIO,
         '-af', 'highpass=f=80,loudnorm=I=-16:TP=-1.5:LRA=11',
-        '-vn', '-ac', '1', '-ar', '44100', '-c:a', 'aac', '-b:a', '64k',
+        '-vn', '-ac', '1', '-ar', '44100', '-c:a', 'aac', '-b:a', BITRATE,
         out_path,
     ]
     subprocess.run(cmd, check=True)
@@ -121,7 +122,7 @@ def main():
             cmd = ['ffmpeg', '-y', '-loglevel', 'error', '-ss', '%.3f' % start,
                    '-to', '%.3f' % end, '-i', SRC_AUDIO,
                    '-af', 'highpass=f=80,loudnorm=I=-16:TP=-1.5:LRA=11',
-                   '-vn', '-ac', '1', '-ar', '44100', '-c:a', 'aac', '-b:a', '64k', out_path]
+                   '-vn', '-ac', '1', '-ar', '44100', '-c:a', 'aac', '-b:a', BITRATE, out_path]
             subprocess.run(cmd, check=True)
             ratio, txt = 1.0, '[manual override]'
         else:

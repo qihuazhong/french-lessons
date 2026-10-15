@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon de français par niveau — « Dommage » de Bigflo &amp; Oli</title>
+<style>
+  :root {
+    --bleu: #16357a;
+    --bleu-clair: #e8eefb;
+    --rouge: #c8102e;
+    --vert: #1e7a46;
+    --violet: #6b3fa0;
+    --texte: #22262e;
+    --gris: #5c6470;
+    --fond: #f6f7fb;
+    --carte: #ffffff;
+    --bordure: #dde3ee;
+    --accent: #16357a;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--fond);
+    color: var(--texte);
+    line-height: 1.65;
+    font-size: 16.5px;
+  }
+  body[data-niveau="a2"] { --accent: var(--vert); }
+  body[data-niveau="b1"] { --accent: var(--bleu); }
+  body[data-niveau="b2"] { --accent: var(--violet); }
+  header {
+    background: linear-gradient(135deg, #16357a 0%, #1d4aa3 60%, #2a5cc4 100%);
+    color: #fff;
+    padding: 2.4rem 1.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--bleu) 0 33%, #fff 33% 66%, var(--rouge) 66% 100%);
+    opacity: .9;
+  }
+  .header-inner { max-width: 900px; margin-left: max(0px, calc(50% - 450px - var(--shift, 0px))); margin-right: auto; position: relative; z-index: 1; }
+  .kicker {
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: .78rem;
+    font-weight: 700;
+    color: #bcd0f7;
+    margin: 0 0 .6rem;
+  }
+  header h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.6rem, 4.2vw, 2.4rem);
+    margin: 0 0 .7rem;
+    line-height: 1.15;
+  }
+  header p.sub { margin: 0; color: #dbe5fa; max-width: 62ch; }
+  .levelbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--bordure);
+    box-shadow: 0 2px 10px rgba(20,40,90,.06);
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: .65rem 1rem;
+    padding-right: calc(1rem + 2 * var(--shift, 0px));
+  }
+  .levelbar .lbl {
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--gris);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+  .seg {
+    position: relative;
+    border: 2px solid var(--bordure);
+    border-radius: 12px;
+    padding: .4rem .95rem;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--gris);
+    display: inline-flex;
+    gap: .5rem;
+    align-items: baseline;
+    transition: all .15s ease;
+    background: #fff;
+    user-select: none;
+  }
+  .seg small { font-weight: 500; font-size: .74rem; opacity: .85; }
+  .seg input { position: absolute; opacity: 0; pointer-events: none; }
+  .seg:has(input:checked) { color: #fff; border-color: transparent; box-shadow: 0 2px 8px rgba(20,40,90,.18); }
+  .seg[data-n="a2"]:has(input:checked) { background: var(--vert); }
+  .seg[data-n="b1"]:has(input:checked) { background: var(--bleu); }
+  .seg[data-n="b2"]:has(input:checked) { background: var(--violet); }
+  .seg:has(input:focus-visible) { outline: 3px solid #9db8ef; outline-offset: 2px; }
+  main { max-width: 900px; margin-left: max(1.25rem, calc(50% - 450px - var(--shift, 0px))); margin-right: auto; padding: 1.6rem 1.25rem 4rem; }
+  section {
+    background: var(--carte);
+    border: 1px solid var(--bordure);
+    border-radius: 14px;
+    padding: 1.6rem 1.8rem 1.8rem;
+    margin: 1.4rem 0;
+    scroll-margin-top: 84px;
+    box-shadow: 0 1px 3px rgba(20,40,90,.06);
+  }
+  h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin: 0 0 .35rem;
+    display: flex;
+    align-items: baseline;
+    gap: .6rem;
+  }
+  h2 .num {
+    font-size: .95rem;
+    font-family: system-ui, sans-serif;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 8px;
+    padding: .1rem .55rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  h3 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin: 1.5rem 0 .5rem;
+    border-bottom: 2px solid var(--bleu-clair);
+    padding-bottom: .25rem;
+  }
+  .lead { color: var(--gris); margin-top: .2rem; }
+  table { width: 100%; border-collapse: collapse; margin: .8rem 0 1.2rem; font-size: .95rem; }
+  th {
+    text-align: left;
+    background: var(--bleu-clair);
+    color: var(--bleu);
+    padding: .55rem .7rem;
+    border-bottom: 2px solid #c9d6f2;
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  td { padding: .55rem .7rem; border-bottom: 1px solid var(--bordure); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+  .ex { color: var(--gris); font-style: italic; }
+  ul.compact { margin: .4rem 0 .8rem; padding-left: 1.3rem; }
+  ul.compact li { margin: .35rem 0; }
+  ol.exos > li { margin: .55rem 0; }
+  .objectifs {
+    border-left: 5px solid var(--accent);
+    background: linear-gradient(90deg, rgba(22,53,122,.06), rgba(22,53,122,.015));
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0 0;
+  }
+  body[data-niveau="a2"] .objectifs { background: linear-gradient(90deg, rgba(30,122,70,.09), rgba(30,122,70,.02)); }
+  body[data-niveau="b2"] .objectifs { background: linear-gradient(90deg, rgba(107,63,160,.09), rgba(107,63,160,.02)); }
+  .objectifs .t { font-weight: 800; color: var(--accent); margin: 0 0 .2rem; }
+  .objectifs p { margin: .2rem 0; }
+  .objectifs .dur { font-size: .85rem; color: var(--gris); }
+  .astuce, .attention, .oral {
+    border-radius: 10px;
+    padding: .8rem 1rem;
+    margin: 1rem 0;
+    font-size: .95rem;
+  }
+  .astuce { background: #f0f7f1; border-left: 4px solid var(--vert); }
+  .attention { background: #fdf1f2; border-left: 4px solid var(--rouge); }
+  .oral { background: #f5f1fb; border-left: 4px solid var(--violet); }
+  .astuce strong:first-child, .attention strong:first-child, .oral strong:first-child { display: block; margin-bottom: .2rem; }
+  .badge {
+    display: inline-block;
+    border-radius: 999px;
+    padding: .05rem .5rem;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: .35rem;
+  }
+  .badge.familier { background: #fdf3dc; color: #8a5a00; border: 1px solid #f2d998; }
+  .badge.vulgaire { background: #fde3e6; color: #a3081f; border: 1px solid #f2b6bd; }
+  .gram-box {
+    background: #f8faff;
+    border: 1px solid var(--bordure);
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+    margin: 1rem 0;
+  }
+  .gram-box .formule {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    background: #eef3ff;
+    border: 1px dashed #b9c9ef;
+    border-radius: 8px;
+    padding: .5rem .8rem;
+    margin: .5rem 0;
+    font-size: .92rem;
+    display: inline-block;
+  }
+  .expr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: .9rem;
+    margin-top: 1rem;
+  }
+  .expr {
+    background: #fbfcfe;
+    border: 1px solid var(--bordure);
+    border-radius: 10px;
+    padding: .85rem 1rem;
+  }
+  .expr .titre-row { display: flex; align-items: flex-start; justify-content: space-between; gap: .6rem; }
+  .expr .titre { flex: 1; font-weight: 700; color: var(--bleu); }
+  .expr .sens { font-size: .9rem; color: var(--gris); }
+  .expr .usage { font-size: .87rem; font-style: italic; margin-top: .35rem; }
+  .say {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: var(--bleu-clair);
+    color: var(--bleu);
+    cursor: pointer;
+    flex-shrink: 0;
+    vertical-align: middle;
+    transition: background .12s ease, color .12s ease, transform .12s ease;
+  }
+  .say svg { width: 1rem; height: 1rem; }
+  .say:hover { background: var(--bleu); color: #fff; }
+  .say:focus-visible { outline: 3px solid #9db8ef; outline-offset: 2px; }
+  .say.playing { background: var(--accent); color: #fff; }
+  .say.playing svg { animation: say-pulse .9s ease-in-out infinite; }
+  @keyframes say-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18); }
+  }
+  td .say, .oral .say { margin-left: .45rem; }
+  .expr .say { margin-top: .15rem; }
+  .verb { position: relative; cursor: help; border-bottom: 1px dotted #9aa9c9; }
+  .verb .conj {
+    display: none;
+    position: absolute;
+    left: -0.35rem;
+    top: calc(100% + 0.55rem);
+    z-index: 40;
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(20,40,90,.20);
+    padding: .7rem .8rem .75rem;
+    font-size: .76rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--texte);
+    white-space: normal;
+    cursor: default;
+  }
+  .verb:hover .conj { display: block; }
+  .verb:hover::after {
+    content: "";
+    position: absolute;
+    left: -0.35rem;
+    top: 100%;
+    width: 5rem;
+    height: 0.7rem;
+  }
+  .verb .conj .c-title { display: block; font-weight: 800; color: var(--bleu); margin-bottom: .45rem; }
+  .verb .conj .c-title em { font-style: normal; font-weight: 600; color: var(--gris); font-size: .72rem; }
+  .verb .conj .c-grid { display: grid; grid-template-columns: auto repeat(5, auto); column-gap: .75rem; }
+  .verb .conj .c-grid > span { padding: .16rem 0; border-bottom: 1px solid #f0f3f9; }
+  .verb .conj .c-h { font-size: .64rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--bleu); border-bottom: 1px solid var(--bleu-clair); }
+  .verb .conj .c-p { color: var(--gris); font-weight: 700; padding-right: .2rem; }
+  .sidepanel {
+    position: fixed;
+    top: var(--panel-top, 84px);
+    left: max(1rem, calc(50vw - 630px - var(--shift, 0px)));
+    width: 10.5rem;
+    max-height: calc(100vh - var(--panel-top, 84px) - 20px);
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: 14px;
+    padding: .75rem .7rem;
+    box-shadow: 0 4px 18px rgba(20,40,90,.10);
+    z-index: 60;
+  }
+  .sidepanel .sp-title {
+    font-size: .72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--gris);
+    padding: 0 .55rem .45rem;
+    border-bottom: 1px solid var(--bordure);
+    margin-bottom: .4rem;
+  }
+  .sidepanel nav { display: flex; flex-direction: column; gap: 1px; }
+  .sidepanel a {
+    display: block;
+    padding: .34rem .45rem;
+    color: var(--texte);
+    text-decoration: none;
+    font-size: .86rem;
+    line-height: 1.3;
+    border-left: 3px solid transparent;
+    transition: background .12s ease, color .12s ease;
+  }
+  .sidepanel a:hover { background: #f2f6ff; color: var(--bleu); }
+  .sidepanel a.active {
+    background: var(--bleu-clair);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 700;
+  }
+  .sp-toggle {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 70;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--bleu);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: .6rem 1rem;
+    font: inherit;
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(20,40,90,.28);
+  }
+  .sp-toggle::before {
+    content: "";
+    width: 14px;
+    height: 2px;
+    background: #fff;
+    box-shadow: 0 -5px 0 #fff, 0 5px 0 #fff;
+    border-radius: 1px;
+  }
+  @media (max-width: 1399px) {
+    .sidepanel {
+      left: 1rem;
+      transform: translateX(calc(-100% - 2rem));
+      transition: transform .25s ease;
+    }
+    body.sp-open .sidepanel { transform: translateX(0); }
+  }
+  @media (min-width: 1400px) {
+    .sp-toggle { display: none; }
+  }
+  .ytpanel {
+    --ytw: clamp(260px, calc(50vw + var(--shift, 0px) - 474px), 640px);
+    position: fixed;
+    top: var(--panel-top, 84px);
+    right: max(12px, calc(50vw + var(--shift, 0px) - 462px - var(--ytw)));
+    width: var(--ytw);
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: 12px;
+    padding: .3rem .3rem .4rem;
+    box-shadow: 0 4px 18px rgba(20,40,90,.10);
+    z-index: 60;
+  }
+  .ytpanel .yt-title {
+    font-size: .68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--gris);
+    padding: .05rem .25rem .3rem;
+  }
+  .ytv { position: relative; border-radius: 8px; overflow: hidden; background: #0b1220; }
+  #ytplayer {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: #0b1220;
+    border: 0;
+  }
+  .ytv-ui {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .3rem .45rem .4rem;
+    background: linear-gradient(180deg, rgba(6,12,26,0), rgba(6,12,26,.82));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .15s ease;
+  }
+  .ytv:hover .ytv-ui, .ytv-ui:focus-within { opacity: 1; pointer-events: auto; }
+  .ytv-btn {
+    flex-shrink: 0;
+    width: 1.55rem;
+    height: 1.55rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: #fff;
+    cursor: pointer;
+    opacity: .9;
+    transition: opacity .12s ease;
+  }
+  .ytv-btn:hover { opacity: 1; }
+  .ytv-btn svg { width: 1rem; height: 1rem; }
+  .ytv .ic-pause { display: none; }
+  .ytv.playing .ic-play { display: none; }
+  .ytv.playing .ic-pause { display: inline; }
+  .ytv-seek { flex: 1; min-width: 0; height: 1rem; accent-color: var(--rouge); cursor: pointer; }
+  .ytv-time {
+    flex-shrink: 0;
+    font-size: .66rem;
+    color: #e8edf7;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .02em;
+  }
+  .ytpanel .yt-hint {
+    font-size: .68rem;
+    color: var(--gris);
+    padding: .35rem .25rem 0;
+    line-height: 1.4;
+  }
+  details {
+    background: #f2f6ff;
+    border: 1px solid #ccd9f5;
+    border-radius: 10px;
+    padding: .7rem 1rem;
+    margin: .9rem 0;
+  }
+  details summary { cursor: pointer; font-weight: 700; color: var(--bleu); font-size: .92rem; }
+  details[open] summary { margin-bottom: .5rem; }
+  details ol { margin: .3rem 0; padding-left: 1.3rem; }
+  details li { margin: .3rem 0; }
+  .answer { color: var(--vert); font-weight: 600; }
+  .speak {
+    background: #fffaf0;
+    border: 1px solid #f0dfb4;
+    border-radius: 10px;
+    padding: .9rem 1.1rem;
+    margin: .8rem 0;
+  }
+  footer {
+    max-width: 900px;
+    margin-left: max(1.25rem, calc(50% - 450px - var(--shift, 0px)));
+    margin-right: auto;
+    padding: 0 1.25rem 3rem;
+    color: var(--gris);
+    font-size: .85rem;
+  }
+  footer a { color: var(--bleu); }
+  .tricolore {
+    height: 4px;
+    border-radius: 2px;
+    margin-bottom: .8rem;
+    background: linear-gradient(90deg, var(--bleu) 0 33%, #e6e9f2 33% 66%, var(--rouge) 66% 100%);
+  }
+  @media (max-width: 620px) {
+    td:first-child { white-space: normal; }
+    section { padding: 1.2rem 1rem 1.4rem; }
+    .levelbar .lbl { display: none; }
+    .seg { padding: .35rem .7rem; font-size: .9rem; }
+    .seg small { display: none; }
+  }
+  @media print {
+    header { background: #16357a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .levelbar { position: static; }
+    section { box-shadow: none; break-inside: avoid; }
+    details { break-inside: avoid; background: #fff; }
+    details:not([open]) > *:not(summary) { display: block; }
+    .sidepanel, .sp-toggle, .say, .ytpanel { display: none !important; }
+  }
+</style>
+<link rel="stylesheet" href="exos.css">
+</head>
+<body data-niveau="a2">
+
+<header>
+  <div class="header-inner">
+    <p class="kicker">Français avec un tuteur · Parcours par niveau</p>
+    <h1>Les regrets — « Dommage » (Bigflo &amp; Oli)</h1>
+    <p class="sub">D'après la chanson <strong>« Dommage »</strong> de Bigflo &amp; Oli : quatre histoires de occasions manquées. Une leçon guidée pour apprendre le <em>conditionnel passé</em>, les <em>métaphores</em> et le français des chansons.</p>
+  </div>
+</header>
+
+<div class="levelbar" role="radiogroup" aria-label="Choisissez votre niveau">
+  <span class="lbl">Niveau</span>
+  <label class="seg" data-n="a2" for="lv-a2"><input type="radio" id="lv-a2" name="niveau" value="a2" checked> A2 <small>Les bases</small></label>
+  <label class="seg" data-n="b1" for="lv-b1"><input type="radio" id="lv-b1" name="niveau" value="b1"> B1 <small>Conversation</small></label>
+  <label class="seg" data-n="b2" for="lv-b2"><input type="radio" id="lv-b2" name="niveau" value="b2"> B2 <small>Nuances</small></label>
+</div>
+
+<aside class="sidepanel" id="sidepanel" aria-label="Sommaire de la leçon">
+  <div class="sp-title">Sommaire</div>
+  <nav>
+    <a href="#intro">Votre parcours</a>
+    <a href="#comprehension">1 · Compréhension orale</a>
+    <a href="#vocabulaire">2 · Vocabulaire</a>
+    <a href="#expressions">3 · Expressions</a>
+    <a href="#grammaire">4 · Grammaire</a>
+    <a href="#parle">5 · Français parlé</a>
+    <a href="#exercices">6 · Exercices</a>
+    <a href="#avous">7 · À vous !</a>
+  </nav>
+<!--LESSONS_NAV-->
+  <div class="sp-title" style="margin-top:.6rem;border-top:1px solid var(--bordure);padding-top:.6rem;">Leçons</div>
+  <nav>
+      <a href="index.html">Toutes les leçons</a>
+      <a href="lecon-opinions-impopulaires.html">259 · Les opinions impopulaires</a>
+      <a href="lecon-ai.html">199 · L'IA au quotidien</a>
+  </nav>
+  <!--/LESSONS_NAV-->
+</aside>
+<button class="sp-toggle" id="spToggle" type="button" aria-controls="sidepanel" aria-expanded="false">Sommaire</button>
+
+<aside class="ytpanel" id="ytpanel" aria-label="Vidéo — extraits de la leçon">
+  <div class="yt-title">Vidéo · Bigflo &amp; Oli — Dommage</div>
+  <div class="ytv" id="ytv">
+    <video id="ytplayer" src="video_src-dommage/lesson_video.mp4" preload="metadata" playsinline></video>
+    <div class="ytv-ui">
+      <button class="ytv-btn ytv-play" type="button" aria-label="Lecture / pause">
+        <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z" fill="currentColor"/></svg>
+      </button>
+      <span class="ytv-time" id="ytvCur">0:00</span>
+      <input class="ytv-seek" id="ytvSeek" type="range" min="0" max="1000" step="1" value="0" aria-label="Position dans la vidéo">
+      <span class="ytv-time" id="ytvDur">0:00</span>
+      <button class="ytv-btn ytv-full" type="button" aria-label="Plein écran">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm14 0h2v6h-6v-2h4v-4z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="yt-hint">Cliquez sur un haut-parleur : la vidéo joue le passage et s'arrête à la fin. Contrôles : survolez la vidéo.</div>
+</aside>
+
+<main>
+
+<section class="intro" id="intro">
+  <h2>Votre parcours</h2>
+  <div class="tricolore"></div>
+  <div class="astuce">
+    <strong>Méthode conseillée</strong>
+    Écoutez la chanson une ou deux fois, puis faites le parcours de votre niveau — les exercices se corrigent automatiquement quand vous cliquez sur « Corriger ». Réécoutez ensuite : vous entendrez tout ce que vous venez d'apprendre.
+  </div>
+
+  <div class="objectifs" data-lv="a2">
+    <p class="t">Parcours A2 — Les bases</p>
+    <p>Suivre l'histoire de Louis et Diego : 10 mots, 4 expressions, le pronom <em>y</em> (y aller, y penser) et le passé composé — avec les paroles chantées.</p>
+    <p class="dur">Durée estimée : 20–25 min · Prérequis : niveau débutant (A1–A2)</p>
+  </div>
+  <div class="objectifs" data-lv="b1" hidden>
+    <p class="t">Parcours B1 — Conversation</p>
+    <p>Raconter des regrets : le conditionnel passé (« il aurait dû… »), le présent de narration, 10 mots et 6 expressions de la chanson.</p>
+    <p class="dur">Durée estimée : 35–40 min · Prérequis : niveau intermédiaire (B1)</p>
+  </div>
+  <div class="objectifs" data-lv="b2" hidden>
+    <p class="t">Parcours B2 — Nuances</p>
+    <p>Analyser une chanson : les métaphores (la bouée, la tempête, être rouillé), la différence entre <em>remords</em> et <em>regrets</em>, et le français des chansons.</p>
+    <p class="dur">Durée estimée : 45–50 min · Prérequis : niveau avancé (B2)</p>
+  </div>
+</section>
+
+<section id="comprehension">
+  <h2><span class="num">1</span>Compréhension orale</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Écoutez la chanson, puis répondez avec des phrases simples.</p>
+    <ol>
+      <li>Pourquoi Louis ne parle-t-il pas à la fille du bus ?</li>
+      <li>Que répétait le père de Yasmine ?</li>
+      <li>Où est Diego pendant que ses amis sont sortis ?</li>
+    </ol>
+    <details>
+      <summary>Contrôlez vos réponses</summary>
+      <ol>
+        <li>Parce qu'il est <span class="answer">timide</span> : il est « collé au fond de son siège ».</li>
+        <li>« <span class="answer">Trouve-toi un vrai métier</span> » — la musique n'était pas un vrai métier pour lui.</li>
+        <li><span class="answer">Chez lui, affalé au fond du canapé</span>, seul avec la Lune.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Écoutez la chanson, puis répondez (phrases simples, pas besoin de détails).</p>
+    <ol>
+      <li>Que répète le refrain des quatre histoires ?</li>
+      <li>Pourquoi la soirée de Diego est-elle ironique ?</li>
+      <li>Que veut dire la phrase finale : « Vaut mieux vivre avec des remords qu'avec des regrets » ?</li>
+    </ol>
+    <details>
+      <summary>Contrôlez vos réponses</summary>
+      <ol>
+        <li>« <span class="answer">Il aurait dû y aller, il aurait dû le faire, crois-moi</span> » — les quatre personnages ont laissé passer une occasion.</li>
+        <li>Parce que c'était <span class="answer">à cette soirée qu'il allait rencontrer la femme de sa vie</span>.</li>
+        <li>Il vaut mieux <span class="answer">agir et se tromper</span> que ne rien faire et regretter toute sa vie.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Analyse. Répondez en quelques phrases et justifiez avec des extraits.</p>
+    <ol>
+      <li>Le refrain revient comme un avertissement : « C'est p't'être la dernière fois ». Pourquoi ce choix pour parler des regrets ?</li>
+      <li>Pauline : la chanson raconte son histoire à mots couverts — « des taches de la couleur du ciel », « après la dernière danse, elle s'est pas relevée ». Qu'évoquent ces métaphores, et pourquoi la chanson ne dit-elle pas les choses directement ?</li>
+    </ol>
+    <details>
+      <summary>Réponses possibles</summary>
+      <ol>
+        <li>L'avertissement rend le regret <span class="answer">universel et urgent</span> : ce que Louis, Yasmine, Diego (et l'auditeur) n'ont pas encore manqué peut l'être aujourd'hui. Le refrain transforme un constat (« c'est dommage ») en appel à agir.</li>
+        <li>Les « taches de la couleur du ciel » évoquent des <span class="answer">bleus sur le corps</span>, et « le bras » pris par le mari « c'est pas pour la faire danser » : la chanson parle de <span class="answer">violences conjugales</span>. La suggestion (plutôt que la description) crée une <span class="answer">émotion pudique</span> et dénonce sans faire spectacle — c'est aussi la marque de la pudeur du personnage : « elle oublie qu'elle est belle ».</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<section id="vocabulaire">
+  <h2><span class="num">2</span>Vocabulaire</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Dix mots pour suivre l'histoire de Louis, Yasmine et Diego, tous chantés dans la chanson. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot</th><th>Sens (anglais)</th><th>Exemple de la chanson</th></tr>
+      <tr><td>dommage<button class="say" type="button" data-say="dommage" data-say2="On a tous dit : “Ah c&#x27;est dommage, ah c&#x27;est dommage…”" data-yt="38.16,41.87" data-audio="audio-dommage/v001.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a pity, too bad</td><td class="ex">« On a tous dit : “Ah c'est dommage, ah c'est dommage…” »</td></tr>
+      <tr><td>timide<button class="say" type="button" data-say="timide" data-say2="Mais Louis, il est timide et elle, elle est si belle." data-yt="21.24,24.35" data-audio="audio-dommage/v002.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>shy</td><td class="ex">« Mais Louis, il est timide et elle, elle est si belle. »</td></tr>
+      <tr><td><span class="verb">sourire<span class="conj"><span class="c-title">sourire <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>souris</span><span>ai souri</span><span>souriais</span><span>sourirai</span><span>sourie</span><span class="c-p">tu</span><span>souris</span><span>as souri</span><span>souriais</span><span>souriras</span><span>souries</span><span class="c-p">il/elle</span><span>sourit</span><span>a souri</span><span>souriait</span><span>sourira</span><span>sourie</span><span class="c-p">nous</span><span>sourions</span><span>avons souri</span><span>souriions</span><span>sourirons</span><span>souriions</span><span class="c-p">vous</span><span>souriez</span><span>avez souri</span><span>souriiez</span><span>sourirez</span><span>souriiez</span><span class="c-p">ils/elles</span><span>sourient</span><span>ont souri</span><span>souriaient</span><span>souriront</span><span>sourient</span></span></span></span> (verbe)<button class="say" type="button" data-say="sourire" data-say2="Une fois elle lui a souri quand elle est descendue." data-yt="27.0,30.11" data-audio="audio-dommage/v003.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to smile</td><td class="ex">« Une fois elle lui a souri quand elle est descendue. »</td></tr>
+      <tr><td>une voix<button class="say" type="button" data-say="une voix" data-say2="Yasmine a une belle voix, elle sait qu&#x27;elle est douée." data-yt="43.56,46.63" data-audio="audio-dommage/v004.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a voice</td><td class="ex">« Yasmine a une belle voix, elle sait qu'elle est douée. »</td></tr>
+      <tr><td>un métier<button class="say" type="button" data-say="un métier" data-say2="Mais son père lui répétait : “Trouve-toi un vrai métier.”" data-yt="51.92,54.95" data-audio="audio-dommage/v005.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a job, a profession</td><td class="ex">« Mais son père lui répétait : “Trouve-toi un vrai métier.” »</td></tr>
+      <tr><td>le canapé<button class="say" type="button" data-say="le canapé" data-say2="Diego est affalé au fond du canapé." data-yt="88.32,91.27" data-audio="audio-dommage/v006.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the sofa</td><td class="ex">« Diego est affalé au fond du canapé. »</td></tr>
+      <tr><td>triste<button class="say" type="button" data-say="triste" data-say2="Diego est triste, il ne veut rien faire de sa nuit." data-yt="99.84,102.47" data-audio="audio-dommage/v007.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>sad</td><td class="ex">« Diego est triste, il ne veut rien faire de sa nuit. »</td></tr>
+      <tr><td>la lune<button class="say" type="button" data-say="la lune" data-say2="Comme souvent, seule la Lune viendra lui tenir compagnie." data-yt="96.64,99.67" data-audio="audio-dommage/v008.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the moon</td><td class="ex">« Comme souvent, seule la Lune viendra lui tenir compagnie. »</td></tr>
+      <tr><td>une soirée<button class="say" type="button" data-say="une soirée" data-say2="C&#x27;était à cette soirée que t&#x27;allais la rencontrer." data-yt="107.76,110.67" data-audio="audio-dommage/v009.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a party, an evening out</td><td class="ex">« C'était à cette soirée que t'allais la rencontrer. »</td></tr>
+      <tr><td>la dernière fois<button class="say" type="button" data-say="la dernière fois" data-say2="Ah c&#x27;est dommage, c&#x27;est p&#x27;t&#x27;être la dernière fois !" data-yt="85.04,88.43" data-audio="audio-dommage/v010.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the last time</td><td class="ex">« Ah c'est dommage, c'est p't'être la dernière fois ! »</td></tr>
+    </table>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Dix mots pour raconter la vie de tous les jours — comme dans la chanson. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot / expression</th><th>Sens (anglais)</th><th>Exemple de la chanson</th></tr>
+      <tr><td>affalé <span class="badge familier">familier</span><button class="say" type="button" data-say="affalé" data-say2="Diego est affalé au fond du canapé." data-yt="88.32,91.27" data-audio="audio-dommage/v011.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>slumped, sprawled</td><td class="ex">« Diego est affalé au fond du canapé. »</td></tr>
+      <tr><td><span class="verb">engueuler<span class="conj"><span class="c-title">engueuler <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>engueule</span><span>ai engueulé</span><span>engueulais</span><span>engueulerai</span><span>engueule</span><span class="c-p">tu</span><span>engueules</span><span>as engueulé</span><span>engueulais</span><span>engueuleras</span><span>engueules</span><span class="c-p">il/elle</span><span>engueule</span><span>a engueulé</span><span>engueulait</span><span>engueulera</span><span>engueule</span><span class="c-p">nous</span><span>engueulons</span><span>avons engueulé</span><span>engueulions</span><span>engueulerons</span><span>engueulions</span><span class="c-p">vous</span><span>engueulez</span><span>avez engueulé</span><span>engueuliez</span><span>engueulerez</span><span>engueuliez</span><span class="c-p">ils/elles</span><span>engueulent</span><span>ont engueulé</span><span>engueulaient</span><span>engueuleront</span><span>engueulent</span></span></span></span> (qqn) <span class="badge familier">familier</span><button class="say" type="button" data-say="engueuler" data-say2="Il engueule son p&#x27;tit frère quand il passe devant la télé." data-yt="91.04,94.07" data-audio="audio-dommage/v012.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to tell off, to yell at</td><td class="ex">« Il engueule son p'tit frère quand il passe devant la télé. »</td></tr>
+      <tr><td><span class="verb">suivre<span class="conj"><span class="c-title">suivre <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>suis</span><span>ai suivi</span><span>suivais</span><span>suivrai</span><span>suive</span><span class="c-p">tu</span><span>suis</span><span>as suivi</span><span>suivais</span><span>suivras</span><span>suives</span><span class="c-p">il/elle</span><span>suit</span><span>a suivi</span><span>suivait</span><span>suivra</span><span>suive</span><span class="c-p">nous</span><span>suivons</span><span>avons suivi</span><span>suivions</span><span>suivrons</span><span>suivions</span><span class="c-p">vous</span><span>suivez</span><span>avez suivi</span><span>suiviez</span><span>suivrez</span><span>suiviez</span><span class="c-p">ils/elles</span><span>suivent</span><span>ont suivi</span><span>suivaient</span><span>suivront</span><span>suivent</span></span></span></span> (qqn)<button class="say" type="button" data-say="suivre" data-say2="Ses amis sont sortis, il ne les a pas suivis." data-yt="93.84,96.87" data-audio="audio-dommage/v013.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to follow</td><td class="ex">« Ses amis sont sortis, il ne les a pas suivis. »</td></tr>
+      <tr><td><span class="verb">déprimer<span class="conj"><span class="c-title">déprimer <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>déprime</span><span>ai déprimé</span><span>déprimais</span><span>déprimerai</span><span>déprime</span><span class="c-p">tu</span><span>déprimes</span><span>as déprimé</span><span>déprimais</span><span>déprimeras</span><span>déprimes</span><span class="c-p">il/elle</span><span>déprime</span><span>a déprimé</span><span>déprimait</span><span>déprimera</span><span>déprime</span><span class="c-p">nous</span><span>déprimons</span><span>avons déprimé</span><span>déprimions</span><span>déprimerons</span><span>déprimions</span><span class="c-p">vous</span><span>déprimez</span><span>avez déprimé</span><span>déprimiez</span><span>déprimerez</span><span>déprimiez</span><span class="c-p">ils/elles</span><span>dépriment</span><span>ont déprimé</span><span>déprimaient</span><span>déprimeront</span><span>dépriment</span></span></span></span><button class="say" type="button" data-say="déprimer" data-say2="Il déprime de ne pas trouver la femme de sa vie." data-yt="102.44,105.31" data-audio="audio-dommage/v014.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to feel down, to be depressed</td><td class="ex">« Il déprime de ne pas trouver la femme de sa vie. »</td></tr>
+      <tr><td><span class="verb">se tromper<span class="conj"><span class="c-title">se tromper <em>· auxiliaire : être</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>me trompe</span><span>me suis trompé(e)</span><span>me trompais</span><span>me tromperai</span><span>me trompe</span><span class="c-p">tu</span><span>te trompes</span><span>t'es trompé(e)</span><span>te trompais</span><span>te tromperas</span><span>te trompes</span><span class="c-p">il/elle</span><span>se trompe</span><span>s'est trompé(e)</span><span>se trompait</span><span>se trompera</span><span>se trompe</span><span class="c-p">nous</span><span>nous trompons</span><span>nous sommes trompé(e)s</span><span>nous trompions</span><span>nous tromperons</span><span>nous trompions</span><span class="c-p">vous</span><span>vous trompez</span><span>vous êtes trompé(e)(s)</span><span>vous trompiez</span><span>vous tromperez</span><span>vous trompiez</span><span class="c-p">ils/elles</span><span>se trompent</span><span>se sont trompé(e)s</span><span>se trompaient</span><span>se tromperont</span><span>se trompent</span></span></span></span><button class="say" type="button" data-say="se tromper" data-say2="Mais mon pauvre Diego, tu t&#x27;es tellement trompé." data-yt="105.08,107.99" data-audio="audio-dommage/v015.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to be wrong, to make a mistake</td><td class="ex">« Mais mon pauvre Diego, tu t'es tellement trompé. »</td></tr>
+      <tr><td>doué<button class="say" type="button" data-say="doué" data-say2="Yasmine a une belle voix, elle sait qu&#x27;elle est douée." data-yt="43.56,46.63" data-audio="audio-dommage/v016.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>gifted, talented</td><td class="ex">« Yasmine a une belle voix, elle sait qu'elle est douée. »</td></tr>
+      <tr><td>une usine <em>(nf)</em><button class="say" type="button" data-say="une usine" data-say2="Ça lui arrive de chanter quand elle travaille à l&#x27;usine." data-yt="63.16,66.03" data-audio="audio-dommage/v017.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a factory</td><td class="ex">« Ça lui arrive de chanter quand elle travaille à l'usine. »</td></tr>
+      <tr><td>les projecteurs <em>(nm)</em><button class="say" type="button" data-say="les projecteurs" data-say2="Parfois elle s&#x27;imagine sous la lumière des projecteurs." data-yt="54.72,57.87" data-audio="audio-dommage/v018.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>stage lights, spotlights</td><td class="ex">« Parfois elle s'imagine sous la lumière des projecteurs. »</td></tr>
+      <tr><td>la routine <em>(nf)</em><button class="say" type="button" data-say="la routine" data-say2="Mais Yasmine est rouillée, coincée dans la routine." data-yt="60.52,63.39" data-audio="audio-dommage/v019.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the routine</td><td class="ex">« Mais Yasmine est rouillée, coincée dans la routine. »</td></tr>
+      <tr><td>un compliment<button class="say" type="button" data-say="un compliment" data-say2="Sur la scène à recevoir les compliments et les jets de fleurs." data-yt="57.64,60.75" data-audio="audio-dommage/v020.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a compliment</td><td class="ex">« Sur la scène à recevoir les compliments et les jets de fleurs. »</td></tr>
+    </table>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Dix mots pour analyser le texte — images, émotions et vie quotidienne. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot / expression</th><th>Sens (anglais)</th><th>Exemple de la chanson</th></tr>
+      <tr><td>un remords <em>(nm)</em><button class="say" type="button" data-say="un remords" data-say2="Vaut mieux vivre avec des remords qu&#x27;avec des regrets." data-yt="188.72,191.59" data-audio="audio-dommage/v021.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>remorse, guilt (about something done)</td><td class="ex">« Vaut mieux vivre avec des remords qu'avec des regrets. »</td></tr>
+      <tr><td>un regret <em>(nm)</em><button class="say" type="button" data-say="un regret" data-say2="Vaut mieux vivre avec des remords qu&#x27;avec des regrets." data-yt="194.2,197.19" data-audio="audio-dommage/v022.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a regret (about something not done)</td><td class="ex">« Vaut mieux vivre avec des remords qu'avec des regrets. »</td></tr>
+      <tr><td>un parfum <em>(nm)</em><button class="say" type="button" data-say="un parfum" data-say2="Il croisa cette même fille, avec son doux parfum." data-yt="13.08,15.83" data-audio="audio-dommage/v023.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a perfume, a scent</td><td class="ex">« Il croisa cette même fille, avec son doux parfum. »</td></tr>
+      <tr><td>une bouée <em>(nf)</em><button class="say" type="button" data-say="une bouée" data-say2="Dans la tempête de sa vie, la musique est sa bouée." data-yt="46.4,49.35" data-audio="audio-dommage/v024.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a lifebuoy <em>(ici : ce qui sauve)</em></td><td class="ex">« Dans la tempête de sa vie, la musique est sa bouée. »</td></tr>
+      <tr><td>rouillé<button class="say" type="button" data-say="rouillé" data-say2="Mais Yasmine est rouillée." data-yt="61.06,62.24" data-audio="audio-dommage/v025.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>rusty <em>(ici : qui a perdu l'habitude)</em></td><td class="ex">« Mais Yasmine est rouillée. »</td></tr>
+      <tr><td>coincé (dans)<button class="say" type="button" data-say="coincé" data-say2="Coincée dans la routine." data-yt="62.22,63.62" data-audio="audio-dommage/v026.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>stuck (in)</td><td class="ex">« Coincée dans la routine. »</td></tr>
+      <tr><td>la mairie <em>(nf)</em><button class="say" type="button" data-say="la mairie" data-say2="Elle repense à la mairie, cette décision qu&#x27;elle a prise." data-yt="133.0,135.99" data-audio="audio-dommage/v027.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the town hall <em>(où l'on se marie en France)</em></td><td class="ex">« Elle repense à la mairie, cette décision qu'elle a prise. »</td></tr>
+      <tr><td><span class="verb">élever<span class="conj"><span class="c-title">élever <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>élève</span><span>ai élevé</span><span>élevais</span><span>élèverai</span><span>élève</span><span class="c-p">tu</span><span>élèves</span><span>as élevé</span><span>élevais</span><span>élèveras</span><span>élèves</span><span class="c-p">il/elle</span><span>élève</span><span>a élevé</span><span>élevait</span><span>élèvera</span><span>élève</span><span class="c-p">nous</span><span>élevons</span><span>avons élevé</span><span>élevions</span><span>élèverons</span><span>élevions</span><span class="c-p">vous</span><span>élevez</span><span>avez élevé</span><span>éleviez</span><span>élèverez</span><span>éléviez</span><span class="c-p">ils/elles</span><span>élèvent</span><span>ont élevé</span><span>élevaient</span><span>élèveront</span><span>élèvent</span></span></span></span> (un enfant)<button class="say" type="button" data-say="élever" data-say2="Elle avait un avenir, un fils à élever." data-yt="138.52,141.51" data-audio="audio-dommage/v028.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to raise (a child)</td><td class="ex">« Elle avait un avenir, un fils à élever. »</td></tr>
+      <tr><td>la scène <em>(nf)</em><button class="say" type="button" data-say="la scène" data-say2="Sur la scène à recevoir les compliments et les jets de fleurs." data-yt="57.64,60.75" data-audio="audio-dommage/v029.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the stage</td><td class="ex">« Sur la scène à recevoir les compliments et les jets de fleurs. »</td></tr>
+      <tr><td>les mélodies <em>(nf)</em><button class="say" type="button" data-say="les mélodies" data-say2="Face à ses mélodies, le monde est à ses pieds." data-yt="49.12,52.15" data-audio="audio-dommage/v030.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>melodies, tunes</td><td class="ex">« Face à ses mélodies, le monde est à ses pieds. »</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="expressions">
+  <h2><span class="num">3</span>Expressions</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Quatre expressions simples, chantées par Bigflo &amp; Oli.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">C'est dommage !</div><button class="say" type="button" data-say="C&#x27;est dommage !" data-say2="On a tous dit : “Ah c&#x27;est dommage…”" data-yt="71.56,74.07" data-audio="audio-dommage/v031.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">That's too bad! What a pity!</div>
+        <div class="usage">« On a tous dit : “Ah c'est dommage…” »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">C'est p't'être la dernière fois</div><button class="say" type="button" data-say="C&#x27;est p&#x27;t&#x27;être la dernière fois" data-say2="C&#x27;est p&#x27;t&#x27;être la dernière fois." data-yt="41.64,43.79" data-audio="audio-dommage/v032.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">It might be the last time <em>(p't'être = « peut-être » à l'oral)</em></div>
+        <div class="usage">« C'est p't'être la dernière fois. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Trouve-toi un vrai métier !</div><button class="say" type="button" data-say="Trouve-toi un vrai métier !" data-say2="Mais son père lui répétait : “Trouve-toi un vrai métier.”" data-yt="51.92,54.95" data-audio="audio-dommage/v033.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">Get yourself a real job! <em>(impératif pronominal : trouve-toi)</em></div>
+        <div class="usage">« Mais son père lui répétait : “Trouve-toi un vrai métier.” »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Mon pauvre !</div><button class="say" type="button" data-say="Mon pauvre !" data-say2="Mais mon pauvre Diego, tu t&#x27;es tellement trompé." data-yt="105.08,107.99" data-audio="audio-dommage/v034.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">You poor thing! (sympathy)</div>
+        <div class="usage">« Mais mon pauvre Diego, tu t'es tellement trompé. »</div>
+      </div>
+    </div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Six expressions pour raconter le quotidien et les occasions manquées.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">au fond de lui</div><button class="say" type="button" data-say="au fond de lui" data-say2="Ce qu&#x27;il ressent au fond d&#x27;lui, c&#x27;est ce qu&#x27;on appelle l&#x27;amour." data-yt="18.44,21.47" data-audio="audio-dommage/v035.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">deep down (inside him) <em>(chanté : au fond d'lui)</em></div>
+        <div class="usage">« Ce qu'il ressent au fond d'lui, c'est ce qu'on appelle l'amour. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">y aller</div><button class="say" type="button" data-say="y aller" data-say2="Il ne veut pas y aller, il est collé au fond d&#x27;son siège." data-yt="24.12,27.23" data-audio="audio-dommage/v036.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to go (there), to dare to go</div>
+        <div class="usage">« Il ne veut pas y aller, il est collé au fond d'son siège. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">ça lui arrive de…</div><button class="say" type="button" data-say="ça lui arrive de" data-say2="Ça lui arrive de chanter quand elle travaille à l&#x27;usine." data-yt="63.16,66.03" data-audio="audio-dommage/v037.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">she sometimes does…, it happens to her to…</div>
+        <div class="usage">« Ça lui arrive de chanter quand elle travaille à l'usine. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">trouver la femme de sa vie</div><button class="say" type="button" data-say="trouver la femme de sa vie" data-say2="Il déprime de ne pas trouver la femme de sa vie." data-yt="102.44,105.31" data-audio="audio-dommage/v038.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to find the woman of one's life</div>
+        <div class="usage">« Il déprime de ne pas trouver la femme de sa vie. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">comme tous les matins</div><button class="say" type="button" data-say="comme tous les matins" data-say2="Louis prend son bus, comme tous les matins." data-yt="10.32,13.07" data-audio="audio-dommage/v039.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">like every morning</div>
+        <div class="usage">« Louis prend son bus, comme tous les matins. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">recevoir des jets de fleurs</div><button class="say" type="button" data-say="recevoir des jets de fleurs" data-say2="Sur la scène à recevoir les compliments et les jets de fleurs." data-yt="57.64,60.75" data-audio="audio-dommage/v040.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to receive showers of flowers</div>
+        <div class="usage">« Sur la scène à recevoir les compliments et les jets de fleurs. »</div>
+      </div>
+    </div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Six expressions pour analyser et nuancer — dont le message final de la chanson.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Vaut mieux… que…</div><button class="say" type="button" data-say="Vaut mieux… que…" data-say2="Vaut mieux vivre avec des remords, c&#x27;est ça le secret." data-yt="196.96,200.03" data-audio="audio-dommage/v041.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">it's better to… than… <em>(= il vaut mieux)</em></div>
+        <div class="usage">« Vaut mieux vivre avec des remords, c'est ça le secret. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">crois-moi</div><button class="say" type="button" data-say="crois-moi" data-say2="Il aurait dû le faire, crois-moi." data-yt="35.28,38.39" data-audio="audio-dommage/v042.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">believe me, take my word for it</div>
+        <div class="usage">« Il aurait dû le faire, crois-moi. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">collé au fond de son siège</div><button class="say" type="button" data-say="collé au fond de son siège" data-say2="Il ne veut pas y aller, il est collé au fond d&#x27;son siège." data-yt="24.12,27.23" data-audio="audio-dommage/v043.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">glued to the back of one's seat <em>(immobilisé par la timidité)</em></div>
+        <div class="usage">« Il ne veut pas y aller, il est collé au fond d'son siège. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">le monde est à ses pieds</div><button class="say" type="button" data-say="le monde est à ses pieds" data-say2="Face à ses mélodies, le monde est à ses pieds." data-yt="49.12,52.15" data-audio="audio-dommage/v044.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">the world is at one's feet</div>
+        <div class="usage">« Face à ses mélodies, le monde est à ses pieds. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">s'imaginer</div><button class="say" type="button" data-say="s&#x27;imaginer" data-say2="Parfois elle s&#x27;imagine sous la lumière des projecteurs." data-yt="54.72,57.87" data-audio="audio-dommage/v045.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to picture oneself, to imagine oneself</div>
+        <div class="usage">« Parfois elle s'imagine sous la lumière des projecteurs. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">tenir compagnie à quelqu'un</div><button class="say" type="button" data-say="tenir compagnie à quelqu&#x27;un" data-say2="Comme souvent, seule la Lune viendra lui tenir compagnie." data-yt="96.64,99.67" data-audio="audio-dommage/v046.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to keep someone company</div>
+        <div class="usage">« Comme souvent, seule la Lune viendra lui tenir compagnie. »</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="grammaire">
+  <h2><span class="num">4</span>Grammaire</h2>
+
+  <div data-lv="a2">
+    <h3>G1 — Le pronom y : y aller, y penser</h3>
+    <div class="gram-box">
+      <p><b>y</b> remplace un lieu ou une idée déjà connue (« à ça », « à cet endroit »). Il se place <b>devant le verbe</b>.</p>
+      <div class="formule">aller + y → y aller / penser + y → y penser</div>
+      <ul class="compact">
+        <li>« Il ne veut pas <b>y</b> aller. » (= aller parler à la fille, aller à la soirée)</li>
+        <li>« Elle veut même pas <b>y</b> penser. » (= penser à ça)</li>
+      </ul>
+    </div>
+    <h3>G2 — Le passé composé des verbes du quotidien</h3>
+    <div class="gram-box">
+      <p>La chanson raconte avec des verbes très courants : <b>sourire</b> (avec avoir), <b>descendre</b> (avec être !) et <b>revoir</b>.</p>
+      <ul class="compact">
+        <li>« Une fois, elle lui <b>a souri</b>. » (sourire → auxiliaire avoir)</li>
+        <li>« Quand elle <b>est descendue</b> du bus… » (descendre → auxiliaire être + accord : descendu<b>e</b>)</li>
+        <li>« Il ne l'<b>a jamais revue</b>. » (le « l' » = la fille → revu<b>e</b>)</li>
+      </ul>
+      <div class="astuce"><strong>Astuce</strong> Descendre se conjugue avec <b>être</b> quand il n'y a pas de complément d'objet : « elle est descendue » — mais « elle a descendu la poubelle ».</div>
+    </div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <h3>G1 — Le conditionnel passé : il aurait dû… (le regret)</h3>
+    <div class="gram-box">
+      <p>Toute la chanson tourne autour de cette structure. Formation : <b>avoir au conditionnel + dû + infinitif</b>.</p>
+      <div class="formule">il aurait dû y aller / elle aurait dû le faire</div>
+      <table>
+        <tr><th>Personne</th><th>Forme</th><th>Exemple</th></tr>
+        <tr><td>je</td><td>j'aurais dû</td><td class="ex">« J'aurais dû lui parler. »</td></tr>
+        <tr><td>tu</td><td>tu aurais dû</td><td class="ex">« Tu t'es trompé ? Tu aurais dû essayer. »</td></tr>
+        <tr><td>il/elle</td><td>il/elle aurait dû</td><td class="ex">« Il aurait dû y aller. » (la chanson !)</td></tr>
+        <tr><td>nous</td><td>nous aurions dû</td><td class="ex">« Nous aurions dû y penser. »</td></tr>
+        <tr><td>vous</td><td>vous auriez dû</td><td class="ex">« Vous auriez dû venir ! »</td></tr>
+        <tr><td>ils/elles</td><td>ils/elles auraient dû</td><td class="ex">« Ils auraient dû se parler. »</td></tr>
+      </table>
+      <p>Les petits pronoms (y, le, la) se placent <b>devant l'infinitif</b> : « il aurait dû <b>y</b> aller », « elle aurait dû <b>le</b> faire ».</p>
+    </div>
+    <h3>G2 — Le présent de narration</h3>
+    <div class="gram-box">
+      <p>Pour raconter une histoire de façon vivante, on peut tout dire au <b>présent</b> — même des choses passées. La chanson le fait :</p>
+      <ul class="compact">
+        <li>« Louis <b>prend</b> son bus, comme tous les matins. »</li>
+        <li>« Diego <b>est</b> affalé au fond du canapé. Il <b>engueule</b> son petit frère. »</li>
+      </ul>
+      <p>Puis pour un événement précis : « Une fois, elle lui <b>a souri</b>. » = passé composé. Le mélange présent (décor) + passé composé (événement) raconte toute l'histoire.</p>
+    </div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <h3>G1 — Les métaphores du quotidien</h3>
+    <div class="gram-box">
+      <p>La chanson transforme des images simples en émotions. Table des métaphores :</p>
+      <table>
+        <tr><th>L'image</th><th>Ce qu'elle veut dire</th></tr>
+        <tr><td>« la musique est sa <b>bouée</b> »</td><td class="ex">La musique la sauve, comme une bouée sauve de la noyade.</td></tr>
+        <tr><td>« Yasmine est <b>rouillée</b> »</td><td class="ex">Elle a perdu l'habitude, elle n'ose plus chanter (comme un objet rouillé).</td></tr>
+        <tr><td>« <b>coincée</b> dans la routine »</td><td class="ex">Elle est bloquée, elle ne peut plus avancer.</td></tr>
+        <tr><td>« dans la <b>tempête</b> de sa vie »</td><td class="ex">Dans les difficultés de sa vie.</td></tr>
+        <tr><td>« collé au fond de son siège »</td><td class="ex">Immobilisé par la timidité — impossible de bouger.</td></tr>
+        <tr><td>« le monde est à ses pieds »</td><td class="ex">Elle pourrait tout réussir, tout le monde l'admire.</td></tr>
+      </table>
+    </div>
+    <h3>G2 — Remords ou regrets ?</h3>
+    <div class="gram-box">
+      <p>La phrase finale joue sur une différence importante :</p>
+      <ul class="compact">
+        <li><b>un remords</b> : on l'a <b>fait</b>, et on se sent coupable. « Il a menti, et il a des remords. »</li>
+        <li><b>un regret</b> : on ne l'a <b>pas fait</b>, et on est triste de ne pas l'avoir fait. « Elle n'a jamais osé chanter : quel regret ! »</li>
+      </ul>
+      <p>Le message de la chanson : entre les deux, <b>vaut mieux agir</b> et vivre avec des remords, que rester passif et vivre avec des regrets.</p>
+    </div>
+    <h3>G3 — « Vaut mieux X que Y »</h3>
+    <div class="gram-box">
+      <p>Comparer deux actions avec des infinitifs (à l'oral, on omet « il ») :</p>
+      <div class="formule">(Il) vaut mieux + infinitif + que + infinitif</div>
+      <ul class="compact">
+        <li>« <b>Vaut mieux</b> vivre avec des remords <b>qu'avec</b> des regrets. » (le vers final !)</li>
+        <li>« <b>Vaut mieux</b> essayer et se tromper <b>que</b> ne rien faire. »</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="parle">
+  <h2><span class="num">5</span>Français parlé</h2>
+
+  <div data-lv="a2">
+    <h3>Les élisions : p't'être, p'tit, d'lui</h3>
+    <div class="oral">
+      <strong>À l'oral — et encore plus en chanson — les petits mots se collent et se raccourcissent</strong>
+      <ul class="compact">
+        <li>« <b>p't'être</b> » = peut-être : « C'est p't'être la dernière fois. »<button class="say" type="button" data-say="C&#x27;est p&#x27;t&#x27;être la dernière fois." data-yt="41.64,43.79" data-audio="audio-dommage/v047.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+        <li>« <b>son p'tit frère</b> » = son petit frère : « Il engueule son p'tit frère. »<button class="say" type="button" data-say="Il engueule son p&#x27;tit frère." data-yt="91.56,92.95" data-audio="audio-dommage/v048.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+        <li>« au fond <b>d'lui</b> » = au fond de lui : « Ce qu'il ressent au fond d'lui. »<button class="say" type="button" data-say="Ce qu&#x27;il ressent au fond d&#x27;lui." data-yt="19.14,20.42" data-audio="audio-dommage/v049.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+      </ul>
+      À l'écrit, on garde les mots complets : <em>peut-être, petit, de lui</em>. À l'écoute, entraînez votre oreille à reconnaître ces formes collées.
+    </div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <h3>Le parler de la chanson : les élisions</h3>
+    <table>
+      <tr><th>Ce qu'on entend</th><th>Ce qu'on écrit</th></tr>
+      <tr><td>p't'être</td><td>peut-être</td></tr>
+      <tr><td>d'lui / d'son siège</td><td>de lui / de son siège</td></tr>
+      <tr><td>son p'tit frère</td><td>son petit frère</td></tr>
+      <tr><td>t'allais (la rencontrer)</td><td>tu allais</td></tr>
+    </table>
+    <div class="astuce"><strong>Astuce</strong> Les chanteurs gardent aussi souvent le « ne » de la négation pour le rythme : « Il <b>ne</b> veut pas y aller », « il <b>ne</b> l'a jamais revue ». Ce n'est pas le français de tous les jours — voir la section 5 du parcours B2 !</div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <h3>Chanson ou français parlé ? Le cas du « ne »</h3>
+    <div class="oral">
+      <strong>La chanson garde souvent « ne » — la conversation le supprime</strong>
+      <ul class="compact">
+        <li>Chanté : « Il <b>ne</b> veut pas y aller… »<button class="say" type="button" data-say="Il ne veut pas y aller, il est collé au fond d&#x27;son siège." data-yt="24.12,27.23" data-audio="audio-dommage/v050.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button> — à l'oral : « Il veut pas y aller. »</li>
+        <li>Mais la chanson elle-même le supprime quand elle veut du naturel : « Elle veut même <b>pas</b> y penser. »<button class="say" type="button" data-say="Son mari rentre bientôt, elle veut même pas y penser." data-yt="127.4,130.43" data-audio="audio-dommage/v051.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+      </ul>
+      Retenez : chanter avec « ne », parler sans — et les chansons font un peu des deux, selon le rythme.
+    </div>
+  </div>
+</section>
+
+<section id="exercices">
+  <h2><span class="num">6</span>Exercices</h2>
+  <p class="lead">Répondez, puis cliquez sur « Corriger » — la correction est automatique. « Recommencer » efface vos réponses.</p>
+
+  <div data-lv="a2">
+    <div class="exo"><script type="application/json">{
+      "id": "do-a2-1",
+      "type": "match",
+      "title": "Exercice 1 — Associez le mot à sa définition",
+      "instructions": "Cliquez un mot, puis sa définition. Cliquez une paire pour la défaire.",
+      "pairs": [
+        {"left": "dommage", "right": "Trop tard, quelle malchance — un regret"},
+        {"left": "timide", "right": "Qui n'ose pas parler aux autres"},
+        {"left": "un métier", "right": "Un travail, une profession"},
+        {"left": "une voix", "right": "On chante avec ça"},
+        {"left": "le canapé", "right": "Le meuble du salon où l'on s'assoit"},
+        {"left": "la lune", "right": "Elle brille dans le ciel, la nuit"}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "do-a2-2",
+      "type": "choice",
+      "title": "Exercice 2 — y, le ou les ?",
+      "instructions": "Choisissez le bon pronom.",
+      "options": ["y", "le", "les"],
+      "items": [
+        {"prompt": "« Louis ne veut pas ___ aller. » (aller parler à la fille)", "correct": ["y"]},
+        {"prompt": "« Elle aurait dû ___ faire. » (faire = chanter)", "correct": ["le"]},
+        {"prompt": "« Diego ne veut même pas ___ penser. » (penser à la soirée)", "correct": ["y"]},
+        {"prompt": "« Ses amis ? Il ne ___ a pas suivis. »", "correct": ["les"]}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "do-a2-3",
+      "type": "fill",
+      "title": "Exercice 3 — Le passé composé de la chanson",
+      "instructions": "Complétez (attention aux auxiliaires et aux accords).",
+      "items": [
+        {"prompt": "« Une fois, elle lui ___ (sourire). »", "answers": ["a souri"]},
+        {"prompt": "« Elle ___ (descendre) du bus. »", "answers": ["est descendue"]},
+        {"prompt": "« Il ne l'a jamais ___ (revoir). » (l' = la fille)", "answers": ["revue"]}
+      ]}</script></div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <div class="exo"><script type="application/json">{
+      "id": "do-b1-1",
+      "type": "match",
+      "title": "Exercice 1 — Associez le mot à sa définition",
+      "instructions": "Cliquez un mot, puis sa définition. Cliquez une paire pour la défaire.",
+      "pairs": [
+        {"left": "affalé", "right": "Effondré, avachi sur le canapé"},
+        {"left": "engueuler", "right": "Gronder fort quelqu'un"},
+        {"left": "déprimer", "right": "Être triste, broyer du noir"},
+        {"left": "doué", "right": "Qui a du talent naturel"},
+        {"left": "se tromper", "right": "Faire une erreur"},
+        {"left": "une usine", "right": "Un lieu où l'on fabrique des objets"},
+        {"left": "la routine", "right": "La même chose, tous les jours"},
+        {"left": "les projecteurs", "right": "Les grandes lumières de la scène"},
+        {"left": "tenir compagnie", "right": "Rester avec quelqu'un pour qu'il ne soit pas seul"},
+        {"left": "un compliment", "right": "Une parole gentille pour féliciter"}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "do-b1-2",
+      "type": "fill",
+      "title": "Exercice 2 — Le regret : il aurait dû…",
+      "instructions": "Complétez avec le conditionnel passé de « devoir » (aurais / aurait / aurions… + dû).",
+      "items": [
+        {"prompt": "« Il ___ y aller. »", "answers": ["aurait dû"]},
+        {"prompt": "« Elle ___ le faire. »", "answers": ["aurait dû"]},
+        {"prompt": "« Diego ___ suivre ses amis. »", "answers": ["aurait dû"]},
+        {"prompt": "« Tu ___ lui sourire ! »", "answers": ["aurais dû"]},
+        {"prompt": "« Nous ___ y penser. »", "answers": ["aurions dû"]}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "do-b1-3",
+      "type": "fill",
+      "title": "Exercice 3 — Le présent de narration",
+      "instructions": "Racontez au présent, comme la chanson.",
+      "items": [
+        {"prompt": "« Louis a pris son bus. » → Louis…", "answers": ["Louis prend son bus."]},
+        {"prompt": "« Yasmine a travaillé à l'usine. » → Yasmine…", "answers": ["Yasmine travaille à l'usine."]},
+        {"prompt": "« Diego a engueulé son frère. » → Diego…", "answers": ["Diego engueule son frère."]}
+      ]}</script></div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <div class="exo"><script type="application/json">{
+      "id": "do-b2-1",
+      "type": "match",
+      "title": "Exercice 1 — Associez la métaphore à son sens",
+      "instructions": "Cliquez l'image, puis ce qu'elle veut dire. Cliquez une paire pour la défaire.",
+      "pairs": [
+        {"left": "« la musique est sa bouée »", "right": "La musique la sauve dans les moments difficiles"},
+        {"left": "« Yasmine est rouillée »", "right": "Elle a perdu l'habitude, elle n'est plus prête"},
+        {"left": "« coincée dans la routine »", "right": "Bloquée dans la même vie, les mêmes habitudes"},
+        {"left": "« dans la tempête de sa vie »", "right": "Dans les difficultés de sa vie"}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "do-b2-2",
+      "type": "choice",
+      "title": "Exercice 2 — Remords ou regrets ?",
+      "instructions": "Choisissez le mot qui convient.",
+      "options": ["un remords", "un regret"],
+      "items": [
+        {"prompt": "« Elle a menti à son ami, et depuis, elle a des ___. » (elle se sent coupable)", "correct": ["un remords"]},
+        {"prompt": "« Il n'est pas allé à la soirée, et il a des ___. » (triste de ne pas y être allé)", "correct": ["un regret"]},
+        {"prompt": "« Il a volé de l'argent : il est rongé par les ___. »", "correct": ["un remords"]},
+        {"prompt": "« Elle a des ___ : elle n'a jamais osé faire de la musique. »", "correct": ["un regret"]}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "do-b2-3",
+      "type": "fill",
+      "title": "Exercice 3 — Vaut mieux… que…",
+      "instructions": "Complétez ou reformulez avec « vaut mieux… que… ».",
+      "items": [
+        {"prompt": "« Vaut mieux vivre avec des ___ qu'avec des regrets. »", "answers": ["remords"]},
+        {"prompt": "« Vaut mieux vivre avec des remords qu'avec des ___. »", "answers": ["regrets"]},
+        {"prompt": "« Essayer et se tromper, c'est mieux que ne rien faire. » → Vaut mieux…", "answers": ["Vaut mieux essayer et se tromper que ne rien faire."]}
+      ]}</script></div>
+  </div>
+</section>
+
+<section id="avous">
+  <h2><span class="num">7</span>À vous !</h2>
+
+  <div data-lv="a2">
+    <div class="speak">
+      <strong>Défi A2 — Ton bus, ton sourire</strong>
+      <p>Écris puis dis à voix haute : deux choses que tu fais « comme tous les matins », une chose que tu n'oses pas faire (timide !), et une phrase avec « y aller » ou « y penser ».</p>
+    </div>
+    <details>
+      <summary>Exemples de réponses</summary>
+      <ul class="compact">
+        <li>« Je prends le métro, comme tous les matins. »</li>
+        <li>« Je bois un café, comme tous les matins. »</li>
+        <li>« Je suis timide : je n'ose pas parler aux inconnus. »</li>
+        <li>« Il y a une soirée samedi : je veux y aller ! »</li>
+      </ul>
+    </details>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <div class="speak">
+      <strong>Défi B1 — Tes regrets… et tes non-regrets</strong>
+      <p>Écris trois phrases avec <em>j'aurais dû…</em> (un vrai regret, un petit regret, un regret pour rire), puis une phrase avec <em>je suis content(e) d'avoir…</em> (ce que tu as osé faire).</p>
+    </div>
+    <details>
+      <summary>Exemples de réponses</summary>
+      <ul class="compact">
+        <li>« J'aurais dû apprendre le piano quand j'étais petit. »</li>
+        <li>« J'aurais dû lui dire bonjour, mais j'étais timide. »</li>
+        <li>« J'aurais dû dormir plus tôt hier soir ! »</li>
+        <li>« Je suis contente d'avoir osé partir à l'étranger. »</li>
+      </ul>
+    </details>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <div class="speak">
+      <strong>Défi B2 — Une mini-histoire à la Bigflo &amp; Oli</strong>
+      <p>Raconte en 5-6 phrases l'histoire d'une occasion manquée (toi ou un personnage inventé) : au <em>présent de narration</em>, avec un <em>aurait dû</em>, une <em>métaphore</em> (« sa bouée », « coincé dans… »), et termine par <em>« Vaut mieux… »</em>.</p>
+    </div>
+    <div class="speak">
+      <strong>Débat — Remords ou regrets ?</strong>
+      <p>« Vaut mieux vivre avec des remords qu'avec des regrets. » Es-tu d'accord ? Nuance avec : <em>« d'un côté… de l'autre… », « ça dépend si… », « je trouve que la chanson exagère quand… »</em></p>
+    </div>
+    <details>
+      <summary>Éléments de réponse pour le débat</summary>
+      <ul class="compact">
+        <li>Pour : « Agir, c'est rester vivant — un remords se répare, un regret ne se répare jamais. »</li>
+        <li>Nuance : « Ça dépend des conséquences : certaines erreurs font du mal aux autres, et là le remords est plus grave qu'un regret. »</li>
+        <li>Métaphore possible : « Un regret, c'est une porte fermée pour toujours. »</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="tricolore"></div>
+  <p><strong>Sources :</strong> chanson « Dommage » de Bigflo &amp; Oli (extrait officiel) — <a href="https://www.youtube.com/watch?v=8AF-Sm8d8yk">youtube.com/watch?v=8AF-Sm8d8yk</a>. Paroles citées à des fins pédagogiques ; extraits audio alignés sur les sous-titres officiels.</p>
+  <p>Un contenu adapté à votre niveau : changez de parcours (A2 · B1 · B2) à tout moment. Fichiers associés : <code>transcript-dommage.txt</code>, <code>transcript-dommage.json</code>, <code>audio-dommage/</code> (extraits), <code>video_src-dommage/lesson_video.mp4</code> (vidéo locale).</p>
+<!--LESSONS_NAV_FOOT-->
+  <p style="margin-top:.6rem;">Autres leçons : <a href="index.html">Toutes les leçons</a> · <a href="lecon-opinions-impopulaires.html">259 · Les opinions impopulaires</a> · <a href="lecon-ai.html">199 · L'IA au quotidien</a></p>
+  <!--/LESSONS_NAV_FOOT-->
+</footer>
+
+<script>
+  var radios = document.querySelectorAll("input[name='niveau']");
+  function applyLevel(lv) {
+    document.body.dataset.niveau = lv;
+    document.querySelectorAll('[data-lv]').forEach(function (el) {
+      el.hidden = el.dataset.lv !== lv;
+    });
+  }
+  radios.forEach(function (r) {
+    r.addEventListener('change', function () { applyLevel(r.value); });
+  });
+  applyLevel(document.querySelector("input[name='niveau']:checked").value);
+
+  var panel = document.getElementById('sidepanel');
+  var toggle = document.getElementById('spToggle');
+  function closePanel() {
+    document.body.classList.remove('sp-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+  toggle.addEventListener('click', function () {
+    var open = !document.body.classList.contains('sp-open');
+    document.body.classList.toggle('sp-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  panel.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', closePanel);
+  });
+  document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('sp-open')) return;
+    if (!panel.contains(e.target) && !toggle.contains(e.target)) closePanel();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePanel();
+  });
+
+  var navLinks = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+  var navSections = navLinks.map(function (a) {
+    return document.querySelector(a.getAttribute('href'));
+  });
+  function spy() {
+    var current = null;
+    navSections.forEach(function (s) {
+      if (s && s.getBoundingClientRect().top <= 140) current = s.id;
+    });
+    navLinks.forEach(function (a) {
+      var active = current !== null && a.getAttribute('href') === '#' + current;
+      a.classList.toggle('active', active);
+      if (active) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  spy();
+
+  var speechOK = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+  var frVoice = null;
+  function pickVoice(voices) {
+    var preferred = ['Eddy', 'Amélie', 'Amelie', 'Thomas', 'Flo', 'Audrey', 'Aurélie'];
+    var fr = voices.filter(function (v) { return /^fr/i.test(v.lang); });
+    if (!fr.length) return null;
+    var frFR = fr.filter(function (v) { return /fr[-_]FR/i.test(v.lang); });
+    var pool = frFR.length ? frFR : fr;
+    for (var i = 0; i < preferred.length; i++) {
+      for (var j = 0; j < pool.length; j++) {
+        if (pool[j].name.indexOf(preferred[i]) !== -1) return pool[j];
+      }
+    }
+    return pool[0];
+  }
+  function refreshVoice() {
+    if (speechOK) frVoice = pickVoice(window.speechSynthesis.getVoices());
+  }
+  if (speechOK) {
+    refreshVoice();
+    if ('onvoiceschanged' in window.speechSynthesis) {
+      window.speechSynthesis.onvoiceschanged = refreshVoice;
+    }
+  }
+  document.querySelectorAll('.say').forEach(function (b) {
+    if (!b.getAttribute('data-audio') && !speechOK) b.hidden = true;
+  });
+
+  var sayToken = 0;
+  var currentBtn = null;
+  var currentAudio = null;
+  function stopPlayback() {
+    sayToken++;
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    if (ytVideo && !ytVideo.paused) ytVideo.pause();
+    ytFinish = null;
+    if (speechOK) window.speechSynthesis.cancel();
+    if (currentBtn) {
+      currentBtn.classList.remove('playing');
+      currentBtn = null;
+    }
+  }
+  function speakText(text, rate, token, onDone) {
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'fr-FR';
+    if (frVoice) u.voice = frVoice;
+    u.rate = rate;
+    u.onend = onDone;
+    u.onerror = onDone;
+    window.speechSynthesis.speak(u);
+  }
+  function speakItem(btn, token, finish) {
+    if (!frVoice) refreshVoice();
+    var t1 = btn.getAttribute('data-say') || '';
+    var t2 = btn.getAttribute('data-say2') || '';
+    if (!t1) { finish(); return; }
+    speakText(t1, 0.95, token, function () {
+      if (token !== sayToken) return;
+      if (t2) {
+        setTimeout(function () {
+          if (token !== sayToken) return;
+          speakText(t2, 0.9, token, finish);
+        }, 400);
+      } else {
+        finish();
+      }
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.say');
+    if (!btn || btn.hidden) return;
+    stopPlayback();
+    var token = sayToken;
+    currentBtn = btn;
+    btn.classList.add('playing');
+    function finish() {
+      if (token !== sayToken) return;
+      btn.classList.remove('playing');
+      if (currentBtn === btn) currentBtn = null;
+    }
+    var file = btn.getAttribute('data-audio');
+    var ytSpan = btn.getAttribute('data-yt');
+    var usedYt = false;
+    if (ytSpan && ytReady && !ytBroken) {
+      var yparts = ytSpan.split(',');
+      usedYt = playYtSegment(parseFloat(yparts[0]), parseFloat(yparts[1]), finish);
+    }
+    if (!usedYt && file) {
+      var failed = false;
+      var fallback = function () {
+        if (failed || token !== sayToken) return;
+        failed = true;
+        currentAudio = null;
+        if (speechOK) speakItem(btn, token, finish);
+        else finish();
+      };
+      var a = new Audio(file);
+      currentAudio = a;
+      a.onended = function () {
+        if (token === sayToken) { currentAudio = null; finish(); }
+      };
+      a.onerror = fallback;
+      var p = a.play();
+      if (p && p.catch) p.catch(fallback);
+    } else if (!usedYt && speechOK) {
+      speakItem(btn, token, finish);
+    } else if (!usedYt) {
+      finish();
+    }
+  });
+
+  // ---- Floating video (local copy of the source video) ----
+  var ytVideo = document.getElementById('ytplayer');
+  var ytReady = false;
+  var ytBroken = false;
+  var ytPoll = null;
+  var ytFinish = null;
+
+  if (ytVideo) {
+    ytVideo.addEventListener('loadedmetadata', function () { ytReady = true; });
+    ytVideo.addEventListener('error', function () { ytBroken = true; });
+    if (ytVideo.readyState >= 1) ytReady = true;
+  }
+
+  function stopYtSegment() {
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    if (ytVideo && !ytVideo.paused) ytVideo.pause();
+    var f = ytFinish;
+    ytFinish = null;
+    if (f) f();
+  }
+  function playYtSegment(start, end, onDone) {
+    if (!ytReady || ytBroken || !ytVideo) return false;
+    var s = Math.max(0, start - 0.2);
+    var e = end + 0.2;
+    try {
+      ytVideo.currentTime = s;
+      var pr = ytVideo.play();
+      if (pr && pr.catch) pr.catch(function () { ytBroken = true; stopYtSegment(); });
+    } catch (err) {
+      return false;
+    }
+    ytFinish = onDone;
+    var t0 = Date.now();
+    ytPoll = setInterval(function () {
+      if (!ytVideo) { stopYtSegment(); return; }
+      var t = ytVideo.currentTime;
+      var elapsed = Date.now() - t0;
+      if (elapsed > 450 && t >= e) stopYtSegment();
+      else if (elapsed > (e - s) * 1000 + 6000) stopYtSegment();
+    }, 100);
+    return true;
+  }
+
+  // ---- Custom hover-only video controls ----
+  function detachYtSegment() {
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    ytFinish = null;
+    if (currentBtn) { currentBtn.classList.remove('playing'); currentBtn = null; }
+  }
+  var ytvWrap = document.getElementById('ytv');
+  var ytvSeek = document.getElementById('ytvSeek');
+  var ytvCur = document.getElementById('ytvCur');
+  var ytvDur = document.getElementById('ytvDur');
+  var ytvPlay = document.querySelector('.ytv-play');
+  var ytvFull = document.querySelector('.ytv-full');
+  var ytvDragging = false;
+
+  function fmtTime(t) {
+    t = Math.max(0, Math.floor(t || 0));
+    var m = Math.floor(t / 60), s = t % 60;
+    return m + ':' + (s < 10 ? '0' + s : s);
+  }
+  function syncYtv() {
+    if (!ytvWrap || !ytVideo) return;
+    ytvWrap.classList.toggle('playing', !ytVideo.paused && !ytVideo.ended);
+    if (!ytvDragging && ytVideo.duration) {
+      ytvSeek.value = Math.round(1000 * ytVideo.currentTime / ytVideo.duration);
+      ytvCur.textContent = fmtTime(ytVideo.currentTime);
+    }
+  }
+  function ytvToggle() {
+    detachYtSegment();
+    if (ytVideo.paused) {
+      var pr = ytVideo.play();
+      if (pr && pr.catch) pr.catch(function () {});
+    } else {
+      ytVideo.pause();
+    }
+  }
+  if (ytVideo && ytvWrap) {
+    ['play', 'pause', 'ended', 'loadedmetadata', 'timeupdate'].forEach(function (ev) {
+      ytVideo.addEventListener(ev, syncYtv);
+    });
+    if (ytVideo.duration) ytvDur.textContent = fmtTime(ytVideo.duration);
+    ytVideo.addEventListener('loadedmetadata', function () {
+      ytvDur.textContent = fmtTime(ytVideo.duration);
+    });
+    ytVideo.addEventListener('click', ytvToggle);
+    ytvPlay.addEventListener('click', ytvToggle);
+    ytvSeek.addEventListener('pointerdown', function () { ytvDragging = true; detachYtSegment(); });
+    ytvSeek.addEventListener('input', function () {
+      if (ytVideo.duration) ytVideo.currentTime = ytvSeek.value * ytVideo.duration / 1000;
+      ytvCur.textContent = fmtTime(ytVideo.currentTime);
+    });
+    window.addEventListener('pointerup', function () { ytvDragging = false; syncYtv(); });
+    window.addEventListener('pointercancel', function () { ytvDragging = false; syncYtv(); });
+    ytvFull.addEventListener('click', function () {
+      if (document.fullscreenElement) { document.exitFullscreen(); return; }
+      if (ytvWrap.requestFullscreen) ytvWrap.requestFullscreen();
+      else if (ytvWrap.webkitRequestFullscreen) ytvWrap.webkitRequestFullscreen();
+      else if (ytVideo.webkitEnterFullscreen) ytVideo.webkitEnterFullscreen();
+    });
+    syncYtv();
+  }
+
+  // ---- Keep the floating panels below the sticky level bar ----
+  var levelbarEl = document.querySelector('.levelbar');
+  function updatePanelTop() {
+    if (!levelbarEl) return;
+    var bottom = levelbarEl.getBoundingClientRect().bottom;
+    document.documentElement.style.setProperty('--panel-top', Math.max(12, Math.round(bottom + 12)) + 'px');
+  }
+  function updateShift() {
+    var s = Math.max(0, Math.min(130, window.innerWidth / 2 - 642));
+    document.documentElement.style.setProperty('--shift', Math.round(s) + 'px');
+  }
+  window.addEventListener('scroll', updatePanelTop, { passive: true });
+  window.addEventListener('resize', function () { updatePanelTop(); updateShift(); });
+  updatePanelTop();
+  updateShift();
+</script>
+<script src="exos.js"></script>
+
+</body>
+</html>
