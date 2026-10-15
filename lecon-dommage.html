@@ -11,6 +11,7 @@
     --rouge: #c8102e;
     --vert: #1e7a46;
     --violet: #6b3fa0;
+    --teal: #0e6b62;
     --texte: #22262e;
     --gris: #5c6470;
     --fond: #f6f7fb;
@@ -32,6 +33,7 @@
   body[data-niveau="a2"] { --accent: var(--vert); }
   body[data-niveau="b1"] { --accent: var(--bleu); }
   body[data-niveau="b2"] { --accent: var(--violet); }
+  body[data-niveau="c1"] { --accent: var(--teal); }
   header {
     background: linear-gradient(135deg, #16357a 0%, #1d4aa3 60%, #2a5cc4 100%);
     color: #fff;
@@ -108,6 +110,7 @@
   .seg[data-n="a2"]:has(input:checked) { background: var(--vert); }
   .seg[data-n="b1"]:has(input:checked) { background: var(--bleu); }
   .seg[data-n="b2"]:has(input:checked) { background: var(--violet); }
+  .seg[data-n="c1"]:has(input:checked) { background: var(--teal); }
   .seg:has(input:focus-visible) { outline: 3px solid #9db8ef; outline-offset: 2px; }
   main { max-width: 900px; margin-left: max(1.25rem, calc(50% - 450px - var(--shift, 0px))); margin-right: auto; padding: 1.6rem 1.25rem 4rem; }
   section {
@@ -173,6 +176,7 @@
   }
   body[data-niveau="a2"] .objectifs { background: linear-gradient(90deg, rgba(30,122,70,.09), rgba(30,122,70,.02)); }
   body[data-niveau="b2"] .objectifs { background: linear-gradient(90deg, rgba(107,63,160,.09), rgba(107,63,160,.02)); }
+  body[data-niveau="c1"] .objectifs { background: linear-gradient(90deg, rgba(14,107,98,.10), rgba(14,107,98,.02)); }
   .objectifs .t { font-weight: 800; color: var(--accent); margin: 0 0 .2rem; }
   .objectifs p { margin: .2rem 0; }
   .objectifs .dur { font-size: .85rem; color: var(--gris); }
@@ -533,6 +537,7 @@
     <a href="#exercices">6 · Exercices</a>
     <a href="#avous">7 · À vous !</a>
   </nav>
+
 
 <!--LESSONS_NAV-->
   <div class="sp-title" style="margin-top:.6rem;border-top:1px solid var(--bordure);padding-top:.6rem;">Leçons</div>
@@ -1119,6 +1124,7 @@
   <div class="tricolore"></div>
   <p><strong>Sources :</strong> chanson « Dommage » de Bigflo &amp; Oli (extrait officiel) — <a href="https://www.youtube.com/watch?v=8AF-Sm8d8yk">youtube.com/watch?v=8AF-Sm8d8yk</a>. Paroles citées à des fins pédagogiques ; extraits audio alignés sur les sous-titres officiels.</p>
   <p>Un contenu adapté à votre niveau : changez de parcours (A2 · B1 · B2) à tout moment. Fichiers associés : <code>transcript-dommage.txt</code>, <code>transcript-dommage.json</code>, <code>audio-dommage/</code> (extraits), <code>video_src-dommage/lesson_video.mp4</code> (vidéo locale).</p>
+
 
 <!--LESSONS_NAV_FOOT-->
   <p style="margin-top:.6rem;">Autres leçons : <a href="index.html">Toutes les leçons</a> · <a href="lecon-opinions-impopulaires.html">259 · Les opinions impopulaires</a> · <a href="lecon-ai.html">199 · L'IA au quotidien</a> · <a href="lecon-france.html">Actualité · La colère des lycéens</a></p>

@@ -7,7 +7,7 @@ import re
 import sys
 
 PAGE = sys.argv[1] if len(sys.argv) > 1 else 'lecon-opinions-impopulaires.html'
-OVER_JSON = sys.argv[2] if len(sys.argv) > 2 else 'clip_overrides.json'
+OVER_JSON = sys.argv[2] if len(sys.argv) > 2 else 'content/opinions/clip_overrides.json'
 spans = json.load(open(OVER_JSON, encoding='utf-8'))
 src = open(PAGE, encoding='utf-8').read()
 

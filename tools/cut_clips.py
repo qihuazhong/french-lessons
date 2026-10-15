@@ -23,10 +23,10 @@ import unicodedata
 #   python3 cut_clips.py [page.html] [out_dir] [transcript.json] [src_audio] [overrides.json] [spans_out.json]
 PAGE = sys.argv[1] if len(sys.argv) > 1 else 'lecon-opinions-impopulaires.html'
 OUT_DIR = sys.argv[2] if len(sys.argv) > 2 else 'audio'
-JSON_PATH = sys.argv[3] if len(sys.argv) > 3 else 'transcript_raw.json'
-SRC_AUDIO = sys.argv[4] if len(sys.argv) > 4 else 'audio_src/video_audio.webm'
-OVER_JSON = sys.argv[5] if len(sys.argv) > 5 else 'clip_overrides.json'
-SPANS_OUT = sys.argv[6] if len(sys.argv) > 6 else 'spans.json'
+JSON_PATH = sys.argv[3] if len(sys.argv) > 3 else 'content/opinions/transcript_raw.json'
+SRC_AUDIO = sys.argv[4] if len(sys.argv) > 4 else 'content/opinions/video_audio.webm'
+OVER_JSON = sys.argv[5] if len(sys.argv) > 5 else 'content/opinions/clip_overrides.json'
+SPANS_OUT = sys.argv[6] if len(sys.argv) > 6 else 'content/opinions/spans.json'
 BITRATE = sys.argv[7] if len(sys.argv) > 7 else '64k'
 
 PRE_PAD = 0.25
