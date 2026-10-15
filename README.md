@@ -74,10 +74,12 @@ Full recipe with commands: **docs/PIPELINE.md**.
 
 ## Progress & reviews
 
-`srs.js` (loaded by every lesson page) records exercise results and ingests the
-vocabulary/expressions of whichever level you are studying. **progres.html** is
-the review page: spaced repetition (Encore / Difficile / Bien / Facile, keys
-1-4), due counts, streak, activity log, and JSON export/import for backups.
+`srs.js` (loaded by every lesson page) records exercise results. Cards enter the
+review deck **explicitly** — opening a lesson registers nothing: click the
+speaker of a vocab row / expression card, or the « + Ajouter ces N mots à mes
+révisions » button injected above each visible level. **progres.html** is the
+review page: spaced repetition (Encore / Difficile / Bien / Facile, keys 1-4),
+due counts, streak, activity log, JSON export/import, and a reset button.
 
 Everything is **localStorage-first** (free, offline, no account). Optional $0
 cloud sync lives in `cloudflare/` — a Worker + D1 you can deploy in ~5 minutes;

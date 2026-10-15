@@ -49,6 +49,7 @@
   .btn { font: inherit; font-weight: 700; font-size: .9rem; border-radius: 999px; padding: .45rem 1.1rem;
          cursor: pointer; border: 1.5px solid transparent; background: var(--bleu); color: #fff; }
   .btn.ghost { background: transparent; color: var(--bleu); border-color: #c9d6f2; }
+  .btn.danger { background: transparent; color: #a3081f; border-color: #f0c3ca; }
   .play { font: inherit; border: 1.5px solid #c9d6f2; background: #fff; color: var(--bleu);
           border-radius: 999px; padding: .25rem .7rem; font-weight: 700; cursor: pointer; }
   .empty { text-align: center; color: var(--gris); padding: 1.2rem 0 .4rem; }
@@ -102,6 +103,7 @@
       <input type="file" id="import" accept="application/json" style="display:none;">
     </label>
     <span id="backup-msg" class="note"></span>
+    <button class="btn danger" id="reset" style="margin-left:.5rem;">Réinitialiser</button>
     <details class="sync">
       <summary>Synchronisation Cloudflare (optionnel)</summary>
       <p class="note">Après avoir déployé le Worker (voir <code>cloudflare/README.md</code>), collez son URL et votre jeton secret.
@@ -125,11 +127,13 @@
   var lessonFilter = '';
   var doc = SRS.load();
 
-  DECK.lessons.forEach(function (L) {
-    SRS.registerItems(doc, L.f, DECK.items.filter(function (it) { return it.l === L.f; })
-      .map(function (it) { return { key: it.t, type: it.ty, term: it.t, gloss: it.g, example: it.e, audio: it.a, level: it.lv }; }));
-  });
-  SRS.save(doc);
+  function catalogOf(lessonFile) {
+    return DECK.items.filter(function (it) { return it.l === lessonFile; })
+      .map(function (it) { return { key: it.t, type: it.ty, term: it.t, gloss: it.g, example: it.e, audio: it.a, level: it.lv }; });
+  }
+  function addLessonToDeck(lessonFile) {
+    return SRS.registerItems(doc, lessonFile, catalogOf(lessonFile));
+  }
 
   SRS.pull(function (remote) {
     if (remote && Object.keys(remote).length) {
@@ -194,7 +198,24 @@
     var bar = document.getElementById('qbar');
     var next = document.getElementById('qnext');
     if (!queue.length) {
-      body.innerHTML = '<div class="empty">Rien à réviser pour le moment — revenez plus tard !</div>';
+      var deckSize = Object.keys(doc.items).length;
+      if (deckSize === 0) {
+        body.innerHTML = '<div class="empty">Votre paquet est vide.<br>'
+          + 'Ouvrez une leçon et ajoutez des mots : bouton <b>« + Ajouter ces N ... »</b> au-dessus d’un tableau,'
+          + ' ou cliquez simplement le haut-parleur d’un mot écouté.'
+          + '<br><br><button class="btn" id="add-all">Ou ajouter tout le catalogue (' + DECK.items.length + ' cartes)</button></div>';
+        var ab = document.getElementById('add-all');
+        if (ab) {
+          ab.addEventListener('click', function () {
+            DECK.lessons.forEach(function (L) { addLessonToDeck(L.f); });
+            SRS.save(doc);
+            buildQueue();
+            renderAll();
+          });
+        }
+      } else {
+        body.innerHTML = '<div class="empty">Rien à réviser pour le moment — revenez plus tard !</div>';
+      }
       count.textContent = '';
       bar.style.width = '100%';
       next.textContent = '';
@@ -353,6 +374,13 @@
   document.getElementById('sync-off').addEventListener('click', function () {
     SRS.setSync(null);
     document.getElementById('sync-msg').textContent = 'Synchronisation désactivée.';
+  });
+  document.getElementById('reset').addEventListener('click', function () {
+    if (!confirm('Effacer tout votre historique de révision ?')) return;
+    doc = SRS.reset();
+    document.getElementById('backup-msg').textContent = 'Progrès réinitialisés.';
+    buildQueue();
+    renderAll();
   });
 
   document.addEventListener('keydown', function (e) {

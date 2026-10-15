@@ -115,9 +115,10 @@ Append an entry to `lessons.json` (schema in CONVENTIONS §6), then:
 python3 tools/add_lessons_nav.py
 ```
 
-Regenerates `index.html`, the review page `progres.html` (deck = all vocab
-rows + expression cards with `data-say`), and re-injects the side-panel +
-footer navs on all pages (idempotent).
+Regenerates `index.html`, the review page `progres.html` (embedded catalog =
+all vocab rows + expression cards with `data-say`; users add cards explicitly
+from lesson pages — 🔊 click or « + Ajouter … » button), and re-injects the
+side-panel + footer navs on all pages (idempotent).
 
 ## Step 10 — validate
 
@@ -127,7 +128,7 @@ python3 - <<'EOF'   # HTML well-formedness + spec JSON validity (adapted from ea
 EOF
 node --check <(python3 -c "import re;print(re.search(r'<script>(.*?)</script>', open('lecon-<slug>.html').read(), re.S).group(1))")
 cd tools && npm i jsdom && node test_exos.js   # exercise engine smoke test (24 assertions)
-cd tools && node test_srs.js                   # scheduler + review page (19 assertions)
+cd tools && node test_srs.js                   # scheduler + review page (26 assertions)
 ```
 
 Spot-play a few clips: `afplay audio-<slug>/v001.m4a` — and click around in the

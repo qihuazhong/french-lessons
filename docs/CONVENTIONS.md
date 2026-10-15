@@ -144,9 +144,14 @@ the "Leçons" side-panel block + footer line into **every** registered page
 - Storage: localStorage key `fr-lessons-progress-v1`, doc =
   `{v, created, lastOpen, items: {"<lessonFile>|<data-say>": {st, due, ivl,
   ease, reps, lapses, last, meta}}, activity: [...]}`.
-- Item sources: lesson pages ingest the vocab rows + expression cards of the
-  **active level** (re-ingested on level change) — keys are the `data-say`
-  strings, so keep them unique within a lesson.
+- Item sources: cards enter the deck **explicitly** — nothing registers on page
+  open or level change. Two triggers: (a) clicking a `.say` on a vocab row /
+  expression card adds that one card; (b) the « + Ajouter ces N … » button that
+  `srs.js` injects into each visible level's `.lead` bulk-adds that block's
+  section. Keys are the `data-say` strings, so keep them unique within a lesson.
+- `progres.html` never auto-registers either: an empty deck shows a button to
+  add the whole catalog (205 cards), and a « Réinitialiser » button clears the
+  local doc.
 - Grades 0–3 (Encore / Difficile / Bien / Facile): SM-2-lite — learning steps
   10/15 min, review interval ×ease, ease clamped 1.3–2.8, max 365 days.
 - Lesson pages log `exo-graded` results into the activity log.

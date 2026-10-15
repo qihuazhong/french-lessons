@@ -36,6 +36,13 @@
     return doc;
   }
 
+  function reset() {
+    var doc = emptyDoc();
+    try { localStorage.setItem(KEY, JSON.stringify(doc)); } catch (e) {}
+    scheduleSync(doc);
+    return doc;
+  }
+
   function newItem(meta) {
     return { st: 0, due: 0, ivl: 0, ease: 2.5, reps: 0, lapses: 0, last: 0, meta: meta || null };
   }
@@ -219,61 +226,136 @@
     return (location.pathname.split('/').pop() || 'index.html');
   }
 
-  function collectFromDom() {
+  function sectionOf(el) {
+    var s = el.closest ? el.closest('section') : null;
+    return s ? s.id : '';
+  }
+
+  function itemFromRow(tr, level) {
+    var btn = tr.querySelector('.say[data-say]');
+    if (!btn) return null;
+    var tds = tr.querySelectorAll('td');
+    return {
+      key: btn.getAttribute('data-say'), type: 'mot',
+      term: btn.getAttribute('data-say'),
+      gloss: tds[1] ? tds[1].textContent.trim() : '',
+      example: btn.getAttribute('data-say2') || (tds[2] ? tds[2].textContent.trim() : ''),
+      audio: btn.getAttribute('data-audio') || '',
+      level: level || null
+    };
+  }
+
+  function itemFromCard(card, level) {
+    var btn = card.querySelector('.say[data-say]');
+    if (!btn) return null;
+    var sens = card.querySelector('.sens');
+    var usage = card.querySelector('.usage');
+    return {
+      key: btn.getAttribute('data-say'), type: 'expression',
+      term: btn.getAttribute('data-say'),
+      gloss: sens ? sens.textContent.trim() : '',
+      example: usage ? usage.textContent.trim() : (btn.getAttribute('data-say2') || ''),
+      audio: btn.getAttribute('data-audio') || '',
+      level: level || null
+    };
+  }
+
+  function itemFromButton(btn) {
+    var blk = btn.closest ? btn.closest('[data-lv]') : null;
+    var level = blk ? blk.getAttribute('data-lv') : null;
+    if (btn.closest('#vocabulaire')) {
+      var tr = btn.closest('tr');
+      return tr ? itemFromRow(tr, level) : null;
+    }
+    if (btn.closest('#expressions')) {
+      var card = btn.closest('.expr');
+      return card ? itemFromCard(card, level) : null;
+    }
+    return null;
+  }
+
+  function collectFromRoot(blk) {
     var out = [];
     var seen = {};
     function push(it) {
-      if (!it.key || seen[it.key]) return;
-      seen[it.key] = 1;
-      out.push(it);
+      if (it && it.key && !seen[it.key]) { seen[it.key] = 1; out.push(it); }
     }
-    Array.prototype.forEach.call(document.querySelectorAll('#vocabulaire [data-lv]'), function (blk) {
-      if (blk.hidden) return;
-      Array.prototype.forEach.call(blk.querySelectorAll('tr'), function (tr) {
-        var btn = tr.querySelector('.say[data-say]');
-        if (!btn) return;
-        var tds = tr.querySelectorAll('td');
-        push({
-          key: btn.getAttribute('data-say'), type: 'mot',
-          term: btn.getAttribute('data-say'),
-          gloss: tds[1] ? tds[1].textContent.trim() : '',
-          example: btn.getAttribute('data-say2') || (tds[2] ? tds[2].textContent.trim() : ''),
-          audio: btn.getAttribute('data-audio') || '',
-          level: blk.getAttribute('data-lv')
-        });
-      });
-    });
-    Array.prototype.forEach.call(document.querySelectorAll('#expressions [data-lv]'), function (blk) {
-      if (blk.hidden) return;
-      Array.prototype.forEach.call(blk.querySelectorAll('.expr'), function (card) {
-        var btn = card.querySelector('.say[data-say]');
-        if (!btn) return;
-        var usage = card.querySelector('.usage');
-        push({
-          key: btn.getAttribute('data-say'), type: 'expression',
-          term: btn.getAttribute('data-say'),
-          gloss: (card.querySelector('.sens') || {}).textContent ? card.querySelector('.sens').textContent.trim() : '',
-          example: usage ? usage.textContent.trim() : (btn.getAttribute('data-say2') || ''),
-          audio: btn.getAttribute('data-audio') || '',
-          level: blk.getAttribute('data-lv')
-        });
-      });
-    });
+    var lv = blk.getAttribute('data-lv');
+    var sec = sectionOf(blk);
+    if (sec === 'vocabulaire') {
+      Array.prototype.forEach.call(blk.querySelectorAll('tr'), function (tr) { push(itemFromRow(tr, lv)); });
+    } else if (sec === 'expressions') {
+      Array.prototype.forEach.call(blk.querySelectorAll('.expr'), function (card) { push(itemFromCard(card, lv)); });
+    }
     return out;
   }
+
+  function collectFromDom() {
+    var out = [];
+    Array.prototype.forEach.call(
+      document.querySelectorAll('#vocabulaire [data-lv], #expressions [data-lv]'),
+      function (blk) {
+        if (blk.hidden) return;
+        out = out.concat(collectFromRoot(blk));
+      });
+    return out;
+  }
+
+  var STYLE = '.add-deck{background:#fff;border:1.5px solid #c9d6f2;color:#16357a;border-radius:999px;' +
+    'padding:.12rem .65rem;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer;margin-left:.35rem;' +
+    'white-space:nowrap}.add-deck:hover{background:#e8eefb}' +
+    '.add-deck:disabled{opacity:.85;cursor:default;background:#f0f7f1;border-color:#bfe0cb;color:#1e7a46}';
 
   function initLessonPage() {
     if (typeof document === 'undefined') return;
     var lesson = lessonFile();
-    function ingest() {
+
+    var st = document.createElement('style');
+    st.textContent = STYLE;
+    document.head.appendChild(st);
+
+    function addToDeck(list) {
       var doc = load();
-      registerItems(doc, lesson, collectFromDom());
+      var added = registerItems(doc, lesson, list);
       save(doc);
+      return added;
     }
-    ingest();
-    document.addEventListener('change', function (e) {
-      if (e.target && e.target.name === 'niveau') ingest();
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('.say') : null;
+      if (!btn) return;
+      var it = itemFromButton(btn);
+      if (it) addToDeck([it]);
     });
+
+    function injectAddButtons() {
+      Array.prototype.forEach.call(
+        document.querySelectorAll('#vocabulaire [data-lv], #expressions [data-lv]'),
+        function (blk) {
+          if (blk.hidden) return;
+          var lead = blk.querySelector('.lead');
+          if (!lead || lead.querySelector('.add-deck')) return;
+          var items = collectFromRoot(blk);
+          if (!items.length) return;
+          var kind = sectionOf(blk) === 'expressions' ? 'expression(s)' : 'mot(s)';
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'add-deck';
+          b.textContent = '+ Ajouter ces ' + items.length + ' ' + kind + ' à mes révisions';
+          b.addEventListener('click', function () {
+            var added = addToDeck(items);
+            b.textContent = added > 0 ? '+' + added + ' carte(s) ajoutée(s) — bonne révision !' : 'Déjà dans vos révisions';
+            b.disabled = true;
+          });
+          lead.appendChild(document.createTextNode(' '));
+          lead.appendChild(b);
+        });
+    }
+    injectAddButtons();
+    document.addEventListener('change', function (e) {
+      if (e.target && e.target.name === 'niveau') setTimeout(injectAddButtons, 0);
+    });
+
     document.addEventListener('exo-graded', function (e) {
       var d = e.detail || {};
       var doc = load();
@@ -289,12 +371,13 @@
 
   return {
     KEY: KEY,
-    load: load, save: save, emptyDoc: emptyDoc,
+    load: load, save: save, emptyDoc: emptyDoc, reset: reset,
     newItem: newItem, grade: grade,
     itemKey: itemKey, registerItems: registerItems, recordActivity: recordActivity,
     dueItems: dueItems, stats: stats, streak: streak, merge: merge,
     exportJSON: exportJSON, importJSON: importJSON,
     syncCfg: syncCfg, setSync: setSync, pull: pull,
-    collectFromDom: collectFromDom, initLessonPage: initLessonPage
+    itemFromButton: itemFromButton, collectFromRoot: collectFromRoot, collectFromDom: collectFromDom,
+    initLessonPage: initLessonPage
   };
 }));
