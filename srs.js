@@ -274,19 +274,30 @@
     return null;
   }
 
-  function collectFromRoot(blk) {
+  function elementsOfRoot(blk) {
     var out = [];
-    var seen = {};
-    function push(it) {
-      if (it && it.key && !seen[it.key]) { seen[it.key] = 1; out.push(it); }
-    }
     var lv = blk.getAttribute('data-lv');
     var sec = sectionOf(blk);
     if (sec === 'vocabulaire') {
-      Array.prototype.forEach.call(blk.querySelectorAll('tr'), function (tr) { push(itemFromRow(tr, lv)); });
+      Array.prototype.forEach.call(blk.querySelectorAll('tr'), function (tr) {
+        var it = itemFromRow(tr, lv);
+        if (it && it.key) out.push({ item: it, target: tr.querySelector('td') || tr });
+      });
     } else if (sec === 'expressions') {
-      Array.prototype.forEach.call(blk.querySelectorAll('.expr'), function (card) { push(itemFromCard(card, lv)); });
+      Array.prototype.forEach.call(blk.querySelectorAll('.expr'), function (card) {
+        var it = itemFromCard(card, lv);
+        if (it && it.key) out.push({ item: it, target: card.querySelector('.titre-row') || card });
+      });
     }
+    return out;
+  }
+
+  function collectFromRoot(blk) {
+    var out = [];
+    var seen = {};
+    elementsOfRoot(blk).forEach(function (p) {
+      if (!seen[p.item.key]) { seen[p.item.key] = 1; out.push(p.item); }
+    });
     return out;
   }
 
@@ -304,11 +315,15 @@
   var STYLE = '.add-deck{background:#fff;border:1.5px solid #c9d6f2;color:#16357a;border-radius:999px;' +
     'padding:.12rem .65rem;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer;margin-left:.35rem;' +
     'white-space:nowrap}.add-deck:hover{background:#e8eefb}' +
-    '.add-deck:disabled{opacity:.85;cursor:default;background:#f0f7f1;border-color:#bfe0cb;color:#1e7a46}';
+    '.add-deck:disabled{opacity:.85;cursor:default;background:#f0f7f1;border-color:#bfe0cb;color:#1e7a46}' +
+    '.pick{margin-right:.45rem;accent-color:#16357a;cursor:pointer}' +
+    '.add-deck-cancel{background:none;border:none;color:#5a6b8c;font:inherit;font-size:.82rem;' +
+    'cursor:pointer;text-decoration:underline;margin-left:.4rem}';
 
   function initLessonPage() {
     if (typeof document === 'undefined') return;
     var lesson = lessonFile();
+    var active = null;
 
     var st = document.createElement('style');
     st.textContent = STYLE;
@@ -321,11 +336,109 @@
       return added;
     }
 
+    function inDeck(key) {
+      return !!load().items[itemKey(lesson, key)];
+    }
+
+    function kindOf(blk) {
+      return sectionOf(blk) === 'expressions' ? 'expression(s)' : 'mot(s)';
+    }
+
+    function remainingIn(blk) {
+      return collectFromRoot(blk).filter(function (it) { return !inDeck(it.key); }).length;
+    }
+
+    function refreshLabel(blk, btn) {
+      if (active && active.blk === blk) return;
+      var n = remainingIn(blk);
+      if (n === 0) {
+        btn.textContent = 'Déjà dans vos révisions';
+        btn.disabled = true;
+      } else {
+        btn.textContent = '+ Ajouter ces ' + n + ' ' + kindOf(blk) + ' à mes révisions';
+        btn.disabled = false;
+      }
+    }
+
+    function exitSelect() {
+      if (!active) return;
+      var a = active;
+      active = null;
+      a.rows.forEach(function (r) { if (r.cb.parentNode) r.cb.parentNode.removeChild(r.cb); });
+      if (a.cancelBtn.parentNode) a.cancelBtn.parentNode.removeChild(a.cancelBtn);
+      refreshLabel(a.blk, a.btn);
+    }
+
+    function enterSelect(blk, btn) {
+      exitSelect();
+      var pairs = elementsOfRoot(blk);
+      if (!pairs.length) return;
+      var rows = [];
+      pairs.forEach(function (p) {
+        var exists = inDeck(p.item.key);
+        var cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.className = 'pick';
+        cb.checked = true;
+        cb.setAttribute('aria-label', p.item.term);
+        if (exists) { cb.disabled = true; cb.title = 'Déjà dans vos révisions'; }
+        rows.push({ cb: cb, item: p.item });
+        p.target.insertBefore(cb, p.target.firstChild);
+      });
+
+      var cancelBtn = document.createElement('button');
+      cancelBtn.type = 'button';
+      cancelBtn.className = 'add-deck-cancel';
+      cancelBtn.textContent = 'Annuler';
+      cancelBtn.addEventListener('click', function () { exitSelect(); });
+
+      function update() {
+        var n = rows.filter(function (r) { return r.cb.checked && !r.cb.disabled; }).length;
+        btn.textContent = 'Ajouter la sélection (' + n + ')';
+        btn.disabled = n === 0;
+      }
+      function confirm() {
+        var list = rows.filter(function (r) { return r.cb.checked && !r.cb.disabled; })
+          .map(function (r) { return r.item; });
+        var added = addToDeck(list);
+        var rem = remainingIn(blk);
+        exitSelect();
+        if (rem === 0) {
+          btn.textContent = '+' + added + ' carte(s) ajoutée(s) — bonne révision !';
+          btn.disabled = true;
+        }
+      }
+      rows.forEach(function (r) { r.cb.addEventListener('change', update); });
+
+      active = { blk: blk, btn: btn, rows: rows, cancelBtn: cancelBtn, update: update, confirm: confirm };
+      btn.parentNode.insertBefore(cancelBtn, btn.nextSibling);
+      update();
+    }
+
     document.addEventListener('click', function (e) {
       var btn = e.target && e.target.closest ? e.target.closest('.say') : null;
       if (!btn) return;
       var it = itemFromButton(btn);
-      if (it) addToDeck([it]);
+      if (!it) return;
+      addToDeck([it]);
+      var blk = btn.closest('[data-lv]');
+      if (!blk) return;
+      if (active && active.blk === blk) {
+        active.rows.forEach(function (r) {
+          if (r.item.key === it.key && !r.cb.disabled) {
+            r.cb.disabled = true;
+            r.cb.title = 'Déjà dans vos révisions';
+          }
+        });
+        active.update();
+      } else {
+        var bulk = blk.querySelector('.add-deck');
+        if (bulk) refreshLabel(blk, bulk);
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') exitSelect();
     });
 
     function injectAddButtons() {
@@ -335,25 +448,25 @@
           if (blk.hidden) return;
           var lead = blk.querySelector('.lead');
           if (!lead || lead.querySelector('.add-deck')) return;
-          var items = collectFromRoot(blk);
-          if (!items.length) return;
-          var kind = sectionOf(blk) === 'expressions' ? 'expression(s)' : 'mot(s)';
+          if (!collectFromRoot(blk).length) return;
           var b = document.createElement('button');
           b.type = 'button';
           b.className = 'add-deck';
-          b.textContent = '+ Ajouter ces ' + items.length + ' ' + kind + ' à mes révisions';
           b.addEventListener('click', function () {
-            var added = addToDeck(items);
-            b.textContent = added > 0 ? '+' + added + ' carte(s) ajoutée(s) — bonne révision !' : 'Déjà dans vos révisions';
-            b.disabled = true;
+            if (active && active.blk === blk) active.confirm();
+            else enterSelect(blk, b);
           });
           lead.appendChild(document.createTextNode(' '));
           lead.appendChild(b);
+          refreshLabel(blk, b);
         });
     }
     injectAddButtons();
     document.addEventListener('change', function (e) {
-      if (e.target && e.target.name === 'niveau') setTimeout(injectAddButtons, 0);
+      if (e.target && e.target.name === 'niveau') {
+        exitSelect();
+        setTimeout(injectAddButtons, 0);
+      }
     });
 
     document.addEventListener('exo-graded', function (e) {
@@ -377,7 +490,8 @@
     dueItems: dueItems, stats: stats, streak: streak, merge: merge,
     exportJSON: exportJSON, importJSON: importJSON,
     syncCfg: syncCfg, setSync: setSync, pull: pull,
-    itemFromButton: itemFromButton, collectFromRoot: collectFromRoot, collectFromDom: collectFromDom,
+    itemFromButton: itemFromButton, elementsOfRoot: elementsOfRoot,
+    collectFromRoot: collectFromRoot, collectFromDom: collectFromDom,
     initLessonPage: initLessonPage
   };
 }));

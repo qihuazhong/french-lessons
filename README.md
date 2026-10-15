@@ -77,7 +77,8 @@ Full recipe with commands: **docs/PIPELINE.md**.
 `srs.js` (loaded by every lesson page) records exercise results. Cards enter the
 review deck **explicitly** — opening a lesson registers nothing: click the
 speaker of a vocab row / expression card, or the « + Ajouter ces N mots à mes
-révisions » button injected above each visible level. **progres.html** is the
+révisions » button injected above each visible level — it opens a checkbox per
+item so you can include/exclude before confirming (« Annuler » or Échap). **progres.html** is the
 review page: spaced repetition (Encore / Difficile / Bien / Facile, keys 1-4),
 due counts, streak, activity log, JSON export/import, and a reset button.
 
