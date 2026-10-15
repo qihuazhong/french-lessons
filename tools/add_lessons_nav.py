@@ -30,7 +30,7 @@ def strip_marked(src, start, end):
 
 
 def side_block(others):
-    links = ['<a href="index.html">Toutes les leçons</a>']
+    links = ['<a href="progres.html">Mes progrès</a>', '<a href="index.html">Toutes les leçons</a>']
     links += ['<a href="%s">%s</a>' % (x['file'], esc(x['nav'])) for x in others]
     inner = '\n      '.join(links)
     return (SIDE_S +
@@ -39,7 +39,7 @@ def side_block(others):
 
 
 def foot_block(others):
-    parts = ['<a href="index.html">Toutes les leçons</a>']
+    parts = ['<a href="progres.html">Mes progrès</a>', '<a href="index.html">Toutes les leçons</a>']
     parts += ['<a href="%s">%s</a>' % (x['file'], esc(x['nav'])) for x in others]
     return (FOOT_S + '\n  <p style="margin-top:.6rem;">Autres leçons : ' +
             ' · '.join(parts) + '</p>\n  ' + FOOT_E)
@@ -153,6 +153,8 @@ def main():
     for entry in lessons:
         inject(lessons, entry)
     build_index(lessons)
+    import build_review
+    build_review.main()
 
 
 if __name__ == '__main__':

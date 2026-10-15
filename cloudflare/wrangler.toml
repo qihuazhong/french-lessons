@@ -1,0 +1,8 @@
+name = "french-progress"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "french-progress"
+database_id = "REMPLACER_PAR_L_ID_D1"

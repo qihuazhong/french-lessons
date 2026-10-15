@@ -138,3 +138,21 @@ the "Leçons" side-panel block + footer line into **every** registered page
   without updating pages + `lessons.json` + scripts.
 - After any button (re)generation always run, in order:
   build → conjugations → cut_clips → add_youtube → add_lessons_nav.
+
+## 8. Progress & spaced repetition (`srs.js`, `progres.html`)
+
+- Storage: localStorage key `fr-lessons-progress-v1`, doc =
+  `{v, created, lastOpen, items: {"<lessonFile>|<data-say>": {st, due, ivl,
+  ease, reps, lapses, last, meta}}, activity: [...]}`.
+- Item sources: lesson pages ingest the vocab rows + expression cards of the
+  **active level** (re-ingested on level change) — keys are the `data-say`
+  strings, so keep them unique within a lesson.
+- Grades 0–3 (Encore / Difficile / Bien / Facile): SM-2-lite — learning steps
+  10/15 min, review interval ×ease, ease clamped 1.3–2.8, max 365 days.
+- Lesson pages log `exo-graded` results into the activity log.
+- Optional sync: PUT/GET the whole doc to the Worker in `cloudflare/` (D1);
+  URL + token live in localStorage `fr-lessons-sync`; merge = latest `last`
+  wins per item, activities are unioned.
+- `progres.html` is generated (deck embedded as JSON) by
+  `tools/build_review.py`; regenerate after any content edit (also run
+  automatically at the end of `tools/add_lessons_nav.py`).
