@@ -5,7 +5,8 @@
   'use strict';
 
   var KEY = 'fr-lessons-progress-v1';
-  var SYNC_KEY = 'fr-lessons-sync';
+  var SESSION_KEY = 'fr-lessons-session';
+  var LAST_KEY = 'fr-lessons-sync-last';
   var DAY = 86400000;
   var MIN = 60000;
   var MAX_ACTIVITY = 800;
@@ -29,16 +30,22 @@
     }
   }
 
-  function save(doc) {
+  function persist(doc) {
     doc.lastOpen = now();
     try { localStorage.setItem(KEY, JSON.stringify(doc)); } catch (e) {}
+    return doc;
+  }
+
+  function save(doc) {
+    persist(doc);
     scheduleSync(doc);
     return doc;
   }
 
   function reset() {
     var doc = emptyDoc();
-    try { localStorage.setItem(KEY, JSON.stringify(doc)); } catch (e) {}
+    doc.wipedAt = now();
+    persist(doc);
     scheduleSync(doc);
     return doc;
   }
@@ -93,6 +100,7 @@
           lesson: lesson, key: it.key, type: it.type, term: it.term,
           gloss: it.gloss, example: it.example, audio: it.audio, level: it.level
         });
+        doc.items[k].last = now();
         added++;
       } else {
         var m = doc.items[k].meta || {};
@@ -158,6 +166,7 @@
   function merge(a, b) {
     a = a || emptyDoc();
     b = b || emptyDoc();
+    var wiped = Math.max(a.wipedAt || 0, b.wipedAt || 0);
     var out = {
       v: 1,
       created: Math.min(a.created || now(), b.created || now()),
@@ -165,13 +174,17 @@
       items: {},
       activity: []
     };
+    if (wiped) out.wipedAt = wiped;
     [a, b].forEach(function (d) {
       Object.keys(d.items || {}).forEach(function (k) {
         var it = d.items[k];
+        if (wiped && (it.last || 0) <= wiped) return;
         if (!out.items[k] || (it.last || 0) > (out.items[k].last || 0)) out.items[k] = it;
       });
     });
-    var acts = (a.activity || []).concat(b.activity || []);
+    var acts = (a.activity || []).concat(b.activity || []).filter(function (e) {
+      return !wiped || e.t > wiped;
+    });
     acts.sort(function (x, y) { return x.t - y.t; });
     out.activity = acts.slice(-MAX_ACTIVITY);
     return out;
@@ -185,37 +198,129 @@
     return save(merged);
   }
 
-  function syncCfg() {
+  function config() {
+    var c = (typeof window !== 'undefined' && window.FR_CONFIG) || {};
+    return {
+      url: String(c.workerUrl || '').replace(/\/+$/, ''),
+      clientId: c.googleClientId || ''
+    };
+  }
+
+  function b64urlDecode(str) {
+    var s = String(str || '').replace(/-/g, '+').replace(/_/g, '/');
+    while (s.length % 4) s += '=';
+    if (typeof atob !== 'function') return '';
+    var bin = atob(s);
+    try { return decodeURIComponent(escape(bin)); } catch (e) { return bin; }
+  }
+
+  function decodeJwt(token) {
+    var parts = String(token || '').split('.');
+    if (parts.length !== 3) return null;
+    try { return JSON.parse(b64urlDecode(parts[1])); } catch (e) { return null; }
+  }
+
+  function session() {
     try {
-      var raw = (typeof localStorage !== 'undefined') && localStorage.getItem(SYNC_KEY);
-      return raw ? JSON.parse(raw) : null;
+      var raw = (typeof localStorage !== 'undefined') && localStorage.getItem(SESSION_KEY);
+      var s = raw ? JSON.parse(raw) : null;
+      if (!s || !s.idToken) return null;
+      return s;
     } catch (e) { return null; }
   }
 
-  function setSync(url, token) {
-    if (typeof localStorage === 'undefined') return;
-    if (url && token) localStorage.setItem(SYNC_KEY, JSON.stringify({ url: url.replace(/\/+$/, ''), token: token }));
-    else localStorage.removeItem(SYNC_KEY);
+  function setSession(idToken) {
+    var payload = decodeJwt(idToken);
+    if (!payload || !payload.sub) return null;
+    var s = { idToken: idToken, sub: payload.sub, email: payload.email || '', exp: payload.exp || 0 };
+    try { localStorage.setItem(SESSION_KEY, JSON.stringify(s)); } catch (e) {}
+    return s;
+  }
+
+  function clearSession() {
+    try { localStorage.removeItem(SESSION_KEY); } catch (e) {}
+  }
+
+  function auth() {
+    var c = config();
+    var s = session();
+    if (!c.url || !c.clientId || !s) return null;
+    if (s.exp && s.exp * 1000 <= now()) return null;
+    return { url: c.url, idToken: s.idToken, email: s.email };
   }
 
   var syncTimer = null;
-  function scheduleSync(doc) {
-    var cfg = syncCfg();
-    if (!cfg || !cfg.url || !cfg.token || typeof fetch === 'undefined') return;
-    clearTimeout(syncTimer);
-    syncTimer = setTimeout(function () {
-      fetch(cfg.url + '/progress', {
-        method: 'PUT',
-        headers: { 'Authorization': 'Bearer ' + cfg.token, 'Content-Type': 'application/json' },
-        body: JSON.stringify(doc)
-      }).catch(function () {});
-    }, 2500);
+  var syncing = false;
+  var syncQueued = null;
+
+  function setLastSync() {
+    try { localStorage.setItem(LAST_KEY, String(now())); } catch (e) {}
   }
 
+  function lastSync() {
+    try { return parseInt(localStorage.getItem(LAST_KEY) || '0', 10) || 0; } catch (e) { return 0; }
+  }
+
+  function scheduleSync(doc) {
+    if (!auth() || typeof fetch === 'undefined') return;
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(function () { runSync(doc, null); }, 2500);
+  }
+
+  function runSync(doc, cb) {
+    var a = auth();
+    if (!a || typeof fetch === 'undefined') {
+      if (cb) cb(doc || load(), null, false);
+      return;
+    }
+    if (syncing) { syncQueued = { doc: doc, cb: cb }; return; }
+    syncing = true;
+    fetch(a.url + '/progress', { headers: { 'Authorization': 'Bearer ' + a.idToken } })
+      .then(function (r) {
+        if (r.status === 401) throw { code: 'auth' };
+        if (!r.ok) throw { code: 'http' };
+        return r.json();
+      })
+      .then(function (remote) {
+        var merged = doc;
+        var changed = false;
+        var remoteHasData = remote && ((remote.items && Object.keys(remote.items).length) ||
+          (remote.wipedAt || 0) > ((doc && doc.wipedAt) || 0));
+        if (remoteHasData) {
+          merged = merge(doc, remote);
+          changed = true;
+        }
+        persist(merged);
+        return fetch(a.url + '/progress', {
+          method: 'PUT',
+          headers: { 'Authorization': 'Bearer ' + a.idToken, 'Content-Type': 'application/json' },
+          body: JSON.stringify(merged)
+        }).then(function (r2) {
+          if (r2.status === 401) throw { code: 'auth' };
+          if (!r2.ok) throw { code: 'http' };
+          setLastSync();
+          finish(merged, cb, null, changed);
+        });
+      })
+      .catch(function (e) { finish(doc, cb, (e && e.code) || 'err', false); });
+  }
+
+  function finish(doc, cb, err, changed) {
+    syncing = false;
+    if (cb) cb(doc, err, changed);
+    if (syncQueued) {
+      var q = syncQueued;
+      syncQueued = null;
+      setTimeout(function () { runSync(q.doc, q.cb); }, 300);
+    }
+  }
+
+  function syncNow(cb) { runSync(load(), cb); }
+
   function pull(cb) {
-    var cfg = syncCfg();
-    if (!cfg || !cfg.url || !cfg.token || typeof fetch === 'undefined') { if (cb) cb(null); return; }
-    fetch(cfg.url + '/progress', { headers: { 'Authorization': 'Bearer ' + cfg.token } })
+    var a = auth();
+    if (!a || typeof fetch === 'undefined') { if (cb) cb(null); return; }
+    fetch(a.url + '/progress', { headers: { 'Authorization': 'Bearer ' + a.idToken } })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (remote) { if (cb) cb(remote); })
       .catch(function () { if (cb) cb(null); });
@@ -469,6 +574,10 @@
       }
     });
 
+    if (auth() && typeof window !== 'undefined') {
+      window.addEventListener('focus', function () { runSync(load(), null); });
+    }
+
     document.addEventListener('exo-graded', function (e) {
       var d = e.detail || {};
       var doc = load();
@@ -489,7 +598,8 @@
     itemKey: itemKey, registerItems: registerItems, recordActivity: recordActivity,
     dueItems: dueItems, stats: stats, streak: streak, merge: merge,
     exportJSON: exportJSON, importJSON: importJSON,
-    syncCfg: syncCfg, setSync: setSync, pull: pull,
+    config: config, session: session, setSession: setSession, clearSession: clearSession,
+    auth: auth, decodeJwt: decodeJwt, pull: pull, syncNow: syncNow, lastSync: lastSync,
     itemFromButton: itemFromButton, elementsOfRoot: elementsOfRoot,
     collectFromRoot: collectFromRoot, collectFromDom: collectFromDom,
     initLessonPage: initLessonPage

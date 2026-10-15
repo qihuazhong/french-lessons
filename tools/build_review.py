@@ -240,13 +240,17 @@ TEMPLATE = '''<!DOCTYPE html>
     <span id="backup-msg" class="note"></span>
     <button class="btn danger" id="reset" style="margin-left:.5rem;">Réinitialiser</button>
     <details class="sync">
-      <summary>Synchronisation Cloudflare (optionnel)</summary>
-      <p class="note">Après avoir déployé le Worker (voir <code>cloudflare/README.md</code>), collez son URL et votre jeton secret.
-      Les progrès seront alors sauvegardés en ligne à chaque révision.</p>
-      <input id="sync-url" placeholder="https://french-progress.votre-compte.workers.dev">
-      <input id="sync-token" placeholder="jeton secret (40 caractères hex)">
-      <button class="btn" id="sync-save">Enregistrer</button>
-      <button class="btn ghost" id="sync-off">Déconnecter</button>
+      <summary>Synchronisation multi-appareils — Compte Google</summary>
+      <p class="note">Connectez-vous avec Google : vos progrès sont liés à votre compte et vous suivent sur tous vos appareils
+      (nécessite le Worker Cloudflare connecté, voir <code>cloudflare/README.md</code>).</p>
+      <p class="note" id="sync-note" style="display:none;"></p>
+      <div id="sync-out" style="display:none;">
+        <div id="gsi-btn"></div>
+      </div>
+      <div id="sync-in" style="display:none;">
+        <p class="note" style="margin:.2rem 0 .6rem;">Connecté : <b id="sync-email"></b><br><span id="sync-last"></span></p>
+        <button class="btn ghost" id="sync-off">Se déconnecter</button>
+      </div>
       <span id="sync-msg" class="note"></span>
     </details>
   </div>
@@ -271,12 +275,20 @@ TEMPLATE = '''<!DOCTYPE html>
     return SRS.registerItems(doc, lessonFile, catalogOf(lessonFile));
   }
 
-  SRS.pull(function (remote) {
-    if (remote && Object.keys(remote).length) {
-      doc = SRS.save(SRS.merge(doc, remote));
+  function onSync(d, err, changed) {
+    if (d) doc = d;
+    if (changed) {
+      if (pos === 0) buildQueue();
       renderAll();
     }
-  });
+    if (err === 'auth') {
+      SRS.clearSession();
+      document.getElementById('sync-msg').textContent = 'Session expirée — reconnectez-vous.';
+    }
+    renderAccount();
+  }
+  SRS.syncNow(onSync);
+  window.addEventListener('focus', function () { SRS.syncNow(onSync); });
 
   var queue = [];
   var pos = 0;
@@ -531,6 +543,75 @@ TEMPLATE = '''<!DOCTYPE html>
     });
   }
 
+  function renderAccount() {
+    var c = SRS.config();
+    var s = SRS.session();
+    var note = document.getElementById('sync-note');
+    var out = document.getElementById('sync-out');
+    var inn = document.getElementById('sync-in');
+    var configured = !!(c.url && c.clientId);
+    if (!configured) {
+      note.textContent = 'Synchronisation non configurée — renseignez workerUrl et googleClientId dans config.js (voir cloudflare/README.md). Vos progrès restent sur cet appareil.';
+      note.style.display = '';
+      out.style.display = 'none';
+      inn.style.display = 'none';
+      return { configured: false, valid: false };
+    }
+    note.style.display = 'none';
+    var valid = !!(s && (!s.exp || s.exp * 1000 > Date.now()));
+    if (valid) {
+      document.getElementById('sync-email').textContent = s.email || s.sub;
+      var t = SRS.lastSync();
+      document.getElementById('sync-last').textContent = t
+        ? 'Dernière synchro : ' + new Date(t).toLocaleString('fr-FR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
+        : 'Aucune synchro réussie pour le moment.';
+      out.style.display = 'none';
+      inn.style.display = '';
+    } else {
+      out.style.display = '';
+      inn.style.display = 'none';
+    }
+    return { configured: true, valid: valid };
+  }
+
+  function loadGis(cb) {
+    if (typeof google !== 'undefined' && google.accounts && google.accounts.id) { cb(); return; }
+    var s = document.createElement('script');
+    s.src = 'https://accounts.google.com/gsi/client';
+    s.async = true;
+    s.defer = true;
+    s.onload = cb;
+    s.onerror = function () {
+      var n = document.getElementById('sync-note');
+      n.textContent = 'Connexion Google indisponible (script bloqué ?).';
+      n.style.display = '';
+    };
+    document.head.appendChild(s);
+  }
+
+  function onCredential(resp) {
+    if (!resp || !resp.credential) return;
+    SRS.setSession(resp.credential);
+    document.getElementById('sync-msg').textContent = '';
+    renderAccount();
+    SRS.syncNow(onSync);
+  }
+
+  function initGoogle() {
+    var st = renderAccount();
+    if (!st.configured) return;
+    loadGis(function () {
+      google.accounts.id.initialize({
+        client_id: SRS.config().clientId,
+        callback: onCredential,
+        auto_select: false
+      });
+      google.accounts.id.renderButton(document.getElementById('gsi-btn'), {
+        theme: 'outline', size: 'large', text: 'signin_with', locale: 'fr', shape: 'pill'
+      });
+    });
+  }
+
   function renderAll() {
     renderStats();
     renderFilters();
@@ -562,21 +643,13 @@ TEMPLATE = '''<!DOCTYPE html>
     };
     r.readAsText(f);
   });
-  var cfg = SRS.syncCfg();
-  if (cfg) {
-    document.getElementById('sync-url').value = cfg.url || '';
-    document.getElementById('sync-token').value = cfg.token || '';
-  }
-  document.getElementById('sync-save').addEventListener('click', function () {
-    SRS.setSync(document.getElementById('sync-url').value.trim(), document.getElementById('sync-token').value.trim());
-    document.getElementById('sync-msg').textContent = ' Synchronisation enregistrée.'.trim();
-    SRS.pull(function (remote) {
-      if (remote && Object.keys(remote).length) { doc = SRS.save(SRS.merge(doc, remote)); renderAll(); }
-    });
-  });
   document.getElementById('sync-off').addEventListener('click', function () {
-    SRS.setSync(null);
-    document.getElementById('sync-msg').textContent = 'Synchronisation désactivée.';
+    try {
+      if (typeof google !== 'undefined' && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect();
+    } catch (e) {}
+    SRS.clearSession();
+    document.getElementById('sync-msg').textContent = 'Déconnecté.';
+    renderAccount();
   });
   document.getElementById('reset').addEventListener('click', function () {
     if (!confirm('Effacer tout votre historique de révision ?')) return;
@@ -598,6 +671,7 @@ TEMPLATE = '''<!DOCTYPE html>
 
   buildQueue();
   renderAll();
+  initGoogle();
 })();
 </script>
 </body>

@@ -2,6 +2,9 @@ name = "french-progress"
 main = "worker.js"
 compatibility_date = "2026-01-01"
 
+[vars]
+GOOGLE_CLIENT_ID = "REMPLACER_PAR_VOTRE_CLIENT_ID_GOOGLE"
+
 [[d1_databases]]
 binding = "DB"
 database_name = "french-progress"

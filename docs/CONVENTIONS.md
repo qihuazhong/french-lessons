@@ -166,9 +166,18 @@ the "Leçons" side-panel block + footer line into **every** registered page
 - Grades 0–3 (Encore / Difficile / Bien / Facile): SM-2-lite — learning steps
   10/15 min, review interval ×ease, ease clamped 1.3–2.8, max 365 days.
 - Lesson pages log `exo-graded` results into the activity log.
-- Optional sync: PUT/GET the whole doc to the Worker in `cloudflare/` (D1);
-  URL + token live in localStorage `fr-lessons-sync`; merge = latest `last`
-  wins per item, activities are unioned.
+- Optional sync, Google-account-based: `config.js` holds the public
+  `workerUrl` + `googleClientId`; the page obtains a Google ID token (GIS) and
+  stores it in localStorage `fr-lessons-session` (`{idToken, sub, email, exp}`).
+  `SRS.auth()` = config + non-expired session. Every push is **GET → merge →
+  PUT** (a stale device can't clobber the server), with a busy queue and a
+  401 → `auth` result that clears the session and asks to reconnect; sync runs
+  on save (debounced 2.5s), on progres.html load, and on window focus (both
+  pages). `fr-lessons-sync-last` holds the last successful sync time.
+  Merge = latest `last` wins per item, activities are unioned; `wipedAt`
+  (set by « Réinitialiser ») drops items/activity older than the wipe on every
+  device. The Worker (`cloudflare/worker.js`) verifies the Google JWT (JWKS
+  RS256, aud/iss/exp) and keys the D1 row by `sub`.
 - `progres.html` is generated (deck embedded as JSON) by
   `tools/build_review.py`; regenerate after any content edit (also run
   automatically at the end of `tools/add_lessons_nav.py`).

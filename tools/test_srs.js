@@ -51,6 +51,36 @@ const m = SRS.merge(a, b);
 ok(m.items['lecon-x.html|un truc'].last === 9999999999999, 'merge : dernière écriture gagne');
 ok(m.activity.length === 2 && m.activity[0].t === 1, 'merge : activité fusionnée et triée');
 
+console.log('== Google session');
+const mkJwt = (payload) => {
+  const b64 = (o) => Buffer.from(JSON.stringify(o)).toString('base64url');
+  return b64({ alg: 'RS256', kid: 'k1' }) + '.' + b64(payload) + '.sig';
+};
+const dec = SRS.decodeJwt(mkJwt({ email: 'a@example.com', sub: '123', exp: 9999999999 }));
+ok(dec && dec.email === 'a@example.com' && dec.sub === '123', 'decodeJwt : charge utile décodée');
+ok(SRS.decodeJwt('pas-un-jeton') === null, 'decodeJwt : jeton malformé → null');
+ok(SRS.auth() === null, 'auth : null sans configuration (config.js vide)');
+const r2 = SRS.reset();
+ok(r2.wipedAt > 0 && Object.keys(r2.items).length === 0, 'reset : pose wipedAt et vide le paquet');
+ok(SRS.lastSync() === 0 || typeof SRS.lastSync() === 'number', 'lastSync : horodatage numérique');
+
+console.log('== merge avec effacement (wipedAt)');
+const wa = SRS.emptyDoc();
+wa.items['lecon-x.html|ancien'] = SRS.newItem({});
+wa.items['lecon-x.html|ancien'].last = 100;
+wa.items['lecon-x.html|recent'] = SRS.newItem({});
+wa.items['lecon-x.html|recent'].last = 200;
+wa.activity.push({ t: 150, k: 'rev' });
+const wb = SRS.emptyDoc();
+wb.wipedAt = 180;
+const w = SRS.merge(wa, wb);
+ok(!w.items['lecon-x.html|ancien'] && !!w.items['lecon-x.html|recent'], 'merge : cartes antérieures au reset écartées, récentes gardées');
+ok(w.wipedAt === 180, 'merge : wipedAt conservé');
+ok(w.activity.length === 0, 'merge : activité antérieure au reset écartée');
+const reg = SRS.emptyDoc();
+SRS.registerItems(reg, 'lecon-x.html', [{ key: 'neuf', type: 'mot' }]);
+ok(reg.items['lecon-x.html|neuf'].last > 0, 'inscription : last horodaté (survit aux tombstones)');
+
 console.log('== jsdom integration');
 const { JSDOM } = require('jsdom');
 function loadPage(file) {
@@ -115,6 +145,8 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   ok(doc.querySelectorAll('.chip').length === 5, 'filtres : toutes + 4 leçons');
   ok(doc.querySelectorAll('.stat').length === 6, '6 cartes de stats');
   ok(doc.querySelectorAll('#forecast .fbar').length === 5, 'graphique « À venir » : 5 périodes');
+  ok(/non configurée/i.test(doc.getElementById('sync-note').textContent) && doc.getElementById('sync-note').style.display !== 'none', 'sync : note « non configurée » affichée sans config.js');
+  ok(doc.getElementById('sync-out').style.display === 'none', 'sync : bouton Google masqué sans configuration');
   const fN = () => Array.prototype.map.call(doc.querySelectorAll('#forecast .fbar-n'), e => parseInt(e.textContent, 10));
   ok(!doc.querySelector('#forecast .fbar').classList.contains('hot'), 'paquet vide : pas de pic « Auj. »');
   const addAll = doc.getElementById('add-all');
