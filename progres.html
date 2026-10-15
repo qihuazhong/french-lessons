@@ -34,18 +34,27 @@
           padding: 1.6rem 1.5rem; margin-bottom: 1.2rem; box-shadow: 0 1px 3px rgba(20,40,90,.06); }
   .card .tag { font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
                color: var(--gris); margin-bottom: .7rem; }
-  .front { font-size: 1.35rem; font-weight: 700; color: var(--bleu); min-height: 2.2rem; }
-  .back { margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--bordure); display: none; }
-  .back .term { font-size: 1.3rem; font-weight: 800; color: var(--vert); }
+  #review { padding: 2.2rem 1.6rem 1.8rem; }
+  #qbody { text-align: center; }
+  .front { font-size: 1.7rem; font-weight: 700; color: var(--bleu); min-height: 2.4rem; cursor: pointer; }
+  .hint { font-size: .82rem; color: var(--gris); margin-top: .45rem; }
+  .back { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px dashed var(--bordure); display: none; }
+  .back .term { font-size: 1.5rem; font-weight: 800; color: var(--vert); }
   .back .ex { color: var(--gris); font-style: italic; margin-top: .4rem; }
-  .reveal { margin-top: 1rem; }
-  .grade { display: none; gap: .5rem; flex-wrap: wrap; margin-top: 1.1rem; }
-  .grade button { font: inherit; font-weight: 700; font-size: .9rem; border-radius: 999px;
-                  padding: .45rem 1.05rem; cursor: pointer; border: 1.5px solid transparent; }
-  .g0 { background: #fdf1f2; color: #a3081f; border-color: #f0c3ca !important; }
-  .g1 { background: #fdf8ec; color: #8a5a00; border-color: #ecd9a8 !important; }
-  .g2 { background: #eef3ff; color: var(--bleu); border-color: #c9d6f2 !important; }
-  .g3 { background: #f0f7f1; color: var(--vert); border-color: #bfe0cb !important; }
+  .back .play { margin-top: .7rem; }
+  .reveal { margin-top: 1.2rem; }
+  .reveal .btn { padding: .6rem 2rem; font-size: .95rem; }
+  .grade { display: none; gap: .6rem; flex-wrap: wrap; margin-top: 1.3rem; }
+  .grade button { flex: 1 1 0; min-width: 84px; display: flex; flex-direction: column; align-items: center;
+                  gap: .1rem; font: inherit; color: #fff; border: none; border-radius: 12px;
+                  padding: .55rem .35rem .5rem; cursor: pointer; }
+  .grade button b { font-size: .95rem; }
+  .grade button .ivl { font-size: .78rem; opacity: .92; font-weight: 600; }
+  .g0 { background: #c0392b; } .g0:hover { background: #a93226; }
+  .g1 { background: #cf7a22; } .g1:hover { background: #b26a1e; }
+  .g2 { background: #2e8b57; } .g2:hover { background: #287a4c; }
+  .g3 { background: #2c6fbb; } .g3:hover { background: #266199; }
+  .keys { font-size: .78rem; color: var(--gris); margin-top: .8rem; }
   .btn { font: inherit; font-weight: 700; font-size: .9rem; border-radius: 999px; padding: .45rem 1.1rem;
          cursor: pointer; border: 1.5px solid transparent; background: var(--bleu); color: #fff; }
   .btn.ghost { background: transparent; color: var(--bleu); border-color: #c9d6f2; }
@@ -57,6 +66,16 @@
                    font-size: .85rem; color: var(--gris); margin-bottom: .6rem; }
   .bar { flex: 1; height: 8px; background: var(--bleu-clair); border-radius: 999px; overflow: hidden; }
   .bar i { display: block; height: 100%; background: var(--teal); width: 0; transition: width .2s ease; }
+  .chart { display: flex; align-items: flex-end; gap: .6rem; padding: .4rem 0 0; }
+  .fbar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: .3rem; }
+  .fbar-n { font-weight: 800; color: var(--bleu); font-size: .95rem; }
+  .fbar-track { width: 100%; max-width: 72px; height: 110px; background: #eef1f8; border-radius: 8px;
+                display: flex; align-items: flex-end; overflow: hidden; }
+  .fbar-track i { display: block; width: 100%; background: #6f8fd0; border-radius: 8px 8px 0 0;
+                  transition: height .25s ease; }
+  .fbar.hot .fbar-n { color: var(--rouge); }
+  .fbar.hot .fbar-track i { background: var(--rouge); }
+  .fbar-l { font-size: .76rem; color: var(--gris); }
   h2 { font-family: Georgia, "Times New Roman", serif; color: var(--bleu); font-size: 1.25rem; margin: 1.8rem 0 .6rem; }
   table.act { width: 100%; border-collapse: collapse; font-size: .88rem; }
   table.act td, table.act th { padding: .4rem .6rem; border-bottom: 1px solid var(--bordure); text-align: left; }
@@ -92,6 +111,12 @@
     <div id="qbody"></div>
   </div>
 
+  <h2>À venir</h2>
+  <div class="card">
+    <div class="chart" id="forecast"></div>
+    <p class="note">Cartes dues dans chaque période — les retards comptent dans « Auj. ».</p>
+  </div>
+
   <h2>Activité récente</h2>
   <div class="card"><table class="act" id="activity"><tbody></tbody></table></div>
 
@@ -124,6 +149,7 @@
 (function () {
   var DECK = JSON.parse(document.getElementById('deck').textContent);
   var GRADES = ['Encore', 'Difficile', 'Bien', 'Facile'];
+  var DAY = 86400000;
   var lessonFilter = '';
   var doc = SRS.load();
 
@@ -188,6 +214,54 @@
     });
   }
 
+  function fmtIvl(ms) {
+    if (ms < 0) ms = 0;
+    var min = Math.round(ms / 60000);
+    if (min < 60) return min + ' min';
+    var h = Math.round(ms / 3600000);
+    if (h < 24) return h + ' h';
+    return Math.round(ms / DAY) + ' j';
+  }
+
+  function previewIvl(item, g) {
+    var c = {};
+    for (var k in item) c[k] = item[k];
+    SRS.grade(c, g);
+    return fmtIvl(c.due - Date.now());
+  }
+
+  function renderForecast() {
+    var el = document.getElementById('forecast');
+    var eod = new Date();
+    eod.setHours(23, 59, 59, 999);
+    var bounds = [
+      ['Auj.', eod.getTime(), 0],
+      ['Demain', eod.getTime() + DAY, 0],
+      ['2-3 j', eod.getTime() + 3 * DAY, 0],
+      ['4-7 j', eod.getTime() + 7 * DAY, 0],
+      ['+7 j', Infinity, 0]
+    ];
+    Object.keys(doc.items).forEach(function (k) {
+      var it = doc.items[k];
+      if (lessonFilter && it.meta && it.meta.lesson !== lessonFilter) return;
+      for (var i = 0; i < bounds.length; i++) {
+        if (it.due <= bounds[i][1]) { bounds[i][2]++; break; }
+      }
+    });
+    var max = 1;
+    bounds.forEach(function (b) { if (b[2] > max) max = b[2]; });
+    el.innerHTML = '';
+    bounds.forEach(function (b, i) {
+      var d = document.createElement('div');
+      d.className = 'fbar' + (i === 0 && b[2] > 0 ? ' hot' : '');
+      var pct = b[2] ? Math.max(6, Math.round(100 * b[2] / max)) : 0;
+      d.innerHTML = '<div class="fbar-n">' + b[2] + '</div>'
+        + '<div class="fbar-track"><i style="height:' + pct + '%"></i></div>'
+        + '<div class="fbar-l">' + b[0] + '</div>';
+      el.appendChild(d);
+    });
+  }
+
   function playAudio(path) {
     try { new Audio(path).play(); } catch (e) {}
   }
@@ -232,7 +306,6 @@
     var m = item.meta;
     count.textContent = (pos + 1) + ' / ' + queue.length;
     bar.style.width = (100 * pos / queue.length) + '%';
-    var soon = SRS.dueItems(doc).length - queue.length + pos;
     next.textContent = '';
     body.innerHTML = '';
     var tag = document.createElement('div');
@@ -242,7 +315,13 @@
     var front = document.createElement('div');
     front.className = 'front';
     front.textContent = m.gloss || m.term;
+    front.title = 'Cliquer pour afficher la réponse';
+    front.addEventListener('click', function () { flip(); });
     body.appendChild(front);
+    var hint = document.createElement('div');
+    hint.className = 'hint';
+    hint.textContent = m.type === 'expression' ? 'Retrouvez l’expression en français' : 'Dites ce mot en français';
+    body.appendChild(hint);
     var back = document.createElement('div');
     back.className = 'back';
     var term = document.createElement('div');
@@ -276,11 +355,16 @@
     GRADES.forEach(function (g, i) {
       var b = document.createElement('button');
       b.className = 'g' + i;
-      b.textContent = g + ' (' + (i + 1) + ')';
+      b.title = 'Touche ' + (i + 1);
+      b.innerHTML = '<b>' + g + '</b><span class="ivl">' + previewIvl(item, i) + '</span>';
       b.addEventListener('click', function () { doGrade(i); });
       grade.appendChild(b);
     });
     body.appendChild(grade);
+    var keys = document.createElement('div');
+    keys.className = 'keys';
+    keys.textContent = 'raccourcis : espace = afficher · 1-4 = noter';
+    body.appendChild(keys);
     if (flipped) showBack();
   }
 
@@ -306,6 +390,7 @@
     flipped = false;
     renderStats();
     renderCard();
+    renderForecast();
   }
 
   function renderActivity() {
@@ -333,6 +418,7 @@
     renderStats();
     renderFilters();
     renderCard();
+    renderForecast();
     renderActivity();
   }
 
