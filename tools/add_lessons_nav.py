@@ -26,7 +26,7 @@ def esc(s):
 
 
 def strip_marked(src, start, end):
-    return re.sub(re.escape(start) + r'[\s\S]*?' + re.escape(end), '', src)
+    return re.sub(r'\s*' + re.escape(start) + r'[\s\S]*?' + re.escape(end) + r'\s*', '', src)
 
 
 def side_block(others):
