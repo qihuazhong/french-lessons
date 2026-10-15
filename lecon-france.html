@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon de français par niveau — La colère des lycéens (Français avec Nelly)</title>
+<style>
+  :root {
+    --bleu: #16357a;
+    --bleu-clair: #e8eefb;
+    --rouge: #c8102e;
+    --vert: #1e7a46;
+    --violet: #6b3fa0;
+    --teal: #0e6b62;
+    --texte: #22262e;
+    --gris: #5c6470;
+    --fond: #f6f7fb;
+    --carte: #ffffff;
+    --bordure: #dde3ee;
+    --accent: #16357a;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--fond);
+    color: var(--texte);
+    line-height: 1.65;
+    font-size: 16.5px;
+  }
+  body[data-niveau="a2"] { --accent: var(--vert); }
+  body[data-niveau="b1"] { --accent: var(--bleu); }
+  body[data-niveau="b2"] { --accent: var(--violet); }
+  body[data-niveau="c1"] { --accent: var(--teal); }
+  header {
+    background: linear-gradient(135deg, #16357a 0%, #1d4aa3 60%, #2a5cc4 100%);
+    color: #fff;
+    padding: 2.4rem 1.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--bleu) 0 33%, #fff 33% 66%, var(--rouge) 66% 100%);
+    opacity: .9;
+  }
+  .header-inner { max-width: 900px; margin-left: max(0px, calc(50% - 450px - var(--shift, 0px))); margin-right: auto; position: relative; z-index: 1; }
+  .kicker {
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: .78rem;
+    font-weight: 700;
+    color: #bcd0f7;
+    margin: 0 0 .6rem;
+  }
+  header h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.6rem, 4.2vw, 2.4rem);
+    margin: 0 0 .7rem;
+    line-height: 1.15;
+  }
+  header p.sub { margin: 0; color: #dbe5fa; max-width: 62ch; }
+  .levelbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--bordure);
+    box-shadow: 0 2px 10px rgba(20,40,90,.06);
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: .65rem 1rem;
+    padding-right: calc(1rem + 2 * var(--shift, 0px));
+  }
+  .levelbar .lbl {
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--gris);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+  .seg {
+    position: relative;
+    border: 2px solid var(--bordure);
+    border-radius: 12px;
+    padding: .4rem .95rem;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--gris);
+    display: inline-flex;
+    gap: .5rem;
+    align-items: baseline;
+    transition: all .15s ease;
+    background: #fff;
+    user-select: none;
+  }
+  .seg small { font-weight: 500; font-size: .74rem; opacity: .85; }
+  .seg input { position: absolute; opacity: 0; pointer-events: none; }
+  .seg:has(input:checked) { color: #fff; border-color: transparent; box-shadow: 0 2px 8px rgba(20,40,90,.18); }
+  .seg[data-n="a2"]:has(input:checked) { background: var(--vert); }
+  .seg[data-n="b1"]:has(input:checked) { background: var(--bleu); }
+  .seg[data-n="b2"]:has(input:checked) { background: var(--violet); }
+  .seg[data-n="c1"]:has(input:checked) { background: var(--teal); }
+  .seg:has(input:focus-visible) { outline: 3px solid #9db8ef; outline-offset: 2px; }
+  main { max-width: 900px; margin-left: max(1.25rem, calc(50% - 450px - var(--shift, 0px))); margin-right: auto; padding: 1.6rem 1.25rem 4rem; }
+  section {
+    background: var(--carte);
+    border: 1px solid var(--bordure);
+    border-radius: 14px;
+    padding: 1.6rem 1.8rem 1.8rem;
+    margin: 1.4rem 0;
+    scroll-margin-top: 84px;
+    box-shadow: 0 1px 3px rgba(20,40,90,.06);
+  }
+  h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin: 0 0 .35rem;
+    display: flex;
+    align-items: baseline;
+    gap: .6rem;
+  }
+  h2 .num {
+    font-size: .95rem;
+    font-family: system-ui, sans-serif;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 8px;
+    padding: .1rem .55rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  h3 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin: 1.5rem 0 .5rem;
+    border-bottom: 2px solid var(--bleu-clair);
+    padding-bottom: .25rem;
+  }
+  .lead { color: var(--gris); margin-top: .2rem; }
+  table { width: 100%; border-collapse: collapse; margin: .8rem 0 1.2rem; font-size: .95rem; }
+  th {
+    text-align: left;
+    background: var(--bleu-clair);
+    color: var(--bleu);
+    padding: .55rem .7rem;
+    border-bottom: 2px solid #c9d6f2;
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  td { padding: .55rem .7rem; border-bottom: 1px solid var(--bordure); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+  .ex { color: var(--gris); font-style: italic; }
+  ul.compact { margin: .4rem 0 .8rem; padding-left: 1.3rem; }
+  ul.compact li { margin: .35rem 0; }
+  ol.exos > li { margin: .55rem 0; }
+  .objectifs {
+    border-left: 5px solid var(--accent);
+    background: linear-gradient(90deg, rgba(22,53,122,.06), rgba(22,53,122,.015));
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0 0;
+  }
+  body[data-niveau="a2"] .objectifs { background: linear-gradient(90deg, rgba(30,122,70,.09), rgba(30,122,70,.02)); }
+  body[data-niveau="b2"] .objectifs { background: linear-gradient(90deg, rgba(107,63,160,.09), rgba(107,63,160,.02)); }
+  body[data-niveau="c1"] .objectifs { background: linear-gradient(90deg, rgba(14,107,98,.10), rgba(14,107,98,.02)); }
+  .objectifs .t { font-weight: 800; color: var(--accent); margin: 0 0 .2rem; }
+  .objectifs p { margin: .2rem 0; }
+  .objectifs .dur { font-size: .85rem; color: var(--gris); }
+  .astuce, .attention, .oral {
+    border-radius: 10px;
+    padding: .8rem 1rem;
+    margin: 1rem 0;
+    font-size: .95rem;
+  }
+  .astuce { background: #f0f7f1; border-left: 4px solid var(--vert); }
+  .attention { background: #fdf1f2; border-left: 4px solid var(--rouge); }
+  .oral { background: #f5f1fb; border-left: 4px solid var(--violet); }
+  .astuce strong:first-child, .attention strong:first-child, .oral strong:first-child { display: block; margin-bottom: .2rem; }
+  .badge {
+    display: inline-block;
+    border-radius: 999px;
+    padding: .05rem .5rem;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: .35rem;
+  }
+  .badge.familier { background: #fdf3dc; color: #8a5a00; border: 1px solid #f2d998; }
+  .badge.vulgaire { background: #fde3e6; color: #a3081f; border: 1px solid #f2b6bd; }
+  .gram-box {
+    background: #f8faff;
+    border: 1px solid var(--bordure);
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+    margin: 1rem 0;
+  }
+  .gram-box .formule {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    background: #eef3ff;
+    border: 1px dashed #b9c9ef;
+    border-radius: 8px;
+    padding: .5rem .8rem;
+    margin: .5rem 0;
+    font-size: .92rem;
+    display: inline-block;
+  }
+  .expr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: .9rem;
+    margin-top: 1rem;
+  }
+  .expr {
+    background: #fbfcfe;
+    border: 1px solid var(--bordure);
+    border-radius: 10px;
+    padding: .85rem 1rem;
+  }
+  .expr .titre-row { display: flex; align-items: flex-start; justify-content: space-between; gap: .6rem; }
+  .expr .titre { flex: 1; font-weight: 700; color: var(--bleu); }
+  .expr .sens { font-size: .9rem; color: var(--gris); }
+  .expr .usage { font-size: .87rem; font-style: italic; margin-top: .35rem; }
+  .say {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: var(--bleu-clair);
+    color: var(--bleu);
+    cursor: pointer;
+    flex-shrink: 0;
+    vertical-align: middle;
+    transition: background .12s ease, color .12s ease, transform .12s ease;
+  }
+  .say svg { width: 1rem; height: 1rem; }
+  .say:hover { background: var(--bleu); color: #fff; }
+  .say:focus-visible { outline: 3px solid #9db8ef; outline-offset: 2px; }
+  .say.playing { background: var(--accent); color: #fff; }
+  .say.playing svg { animation: say-pulse .9s ease-in-out infinite; }
+  @keyframes say-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18); }
+  }
+  td .say, .oral .say { margin-left: .45rem; }
+  .expr .say { margin-top: .15rem; }
+  .verb { position: relative; cursor: help; border-bottom: 1px dotted #9aa9c9; }
+  .verb .conj {
+    display: none;
+    position: absolute;
+    left: -0.35rem;
+    top: calc(100% + 0.55rem);
+    z-index: 40;
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(20,40,90,.20);
+    padding: .7rem .8rem .75rem;
+    font-size: .76rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--texte);
+    white-space: normal;
+    cursor: default;
+  }
+  .verb:hover .conj { display: block; }
+  .verb:hover::after {
+    content: "";
+    position: absolute;
+    left: -0.35rem;
+    top: 100%;
+    width: 5rem;
+    height: 0.7rem;
+  }
+  .verb .conj .c-title { display: block; font-weight: 800; color: var(--bleu); margin-bottom: .45rem; }
+  .verb .conj .c-title em { font-style: normal; font-weight: 600; color: var(--gris); font-size: .72rem; }
+  .verb .conj .c-grid { display: grid; grid-template-columns: auto repeat(5, auto); column-gap: .75rem; }
+  .verb .conj .c-grid > span { padding: .16rem 0; border-bottom: 1px solid #f0f3f9; }
+  .verb .conj .c-h { font-size: .64rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--bleu); border-bottom: 1px solid var(--bleu-clair); }
+  .verb .conj .c-p { color: var(--gris); font-weight: 700; padding-right: .2rem; }
+  .sidepanel {
+    position: fixed;
+    top: var(--panel-top, 84px);
+    left: max(1rem, calc(50vw - 630px - var(--shift, 0px)));
+    width: 10.5rem;
+    max-height: calc(100vh - var(--panel-top, 84px) - 20px);
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: 14px;
+    padding: .75rem .7rem;
+    box-shadow: 0 4px 18px rgba(20,40,90,.10);
+    z-index: 60;
+  }
+  .sidepanel .sp-title {
+    font-size: .72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--gris);
+    padding: 0 .55rem .45rem;
+    border-bottom: 1px solid var(--bordure);
+    margin-bottom: .4rem;
+  }
+  .sidepanel nav { display: flex; flex-direction: column; gap: 1px; }
+  .sidepanel a {
+    display: block;
+    padding: .34rem .45rem;
+    color: var(--texte);
+    text-decoration: none;
+    font-size: .86rem;
+    line-height: 1.3;
+    border-left: 3px solid transparent;
+    transition: background .12s ease, color .12s ease;
+  }
+  .sidepanel a:hover { background: #f2f6ff; color: var(--bleu); }
+  .sidepanel a.active {
+    background: var(--bleu-clair);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 700;
+  }
+  .sp-toggle {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 70;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--bleu);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: .6rem 1rem;
+    font: inherit;
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(20,40,90,.28);
+  }
+  .sp-toggle::before {
+    content: "";
+    width: 14px;
+    height: 2px;
+    background: #fff;
+    box-shadow: 0 -5px 0 #fff, 0 5px 0 #fff;
+    border-radius: 1px;
+  }
+  @media (max-width: 1399px) {
+    .sidepanel {
+      left: 1rem;
+      transform: translateX(calc(-100% - 2rem));
+      transition: transform .25s ease;
+    }
+    body.sp-open .sidepanel { transform: translateX(0); }
+  }
+  @media (min-width: 1400px) {
+    .sp-toggle { display: none; }
+  }
+  .ytpanel {
+    --ytw: clamp(260px, calc(50vw + var(--shift, 0px) - 474px), 640px);
+    position: fixed;
+    top: var(--panel-top, 84px);
+    right: max(12px, calc(50vw + var(--shift, 0px) - 462px - var(--ytw)));
+    width: var(--ytw);
+    background: #fff;
+    border: 1px solid var(--bordure);
+    border-radius: 12px;
+    padding: .3rem .3rem .4rem;
+    box-shadow: 0 4px 18px rgba(20,40,90,.10);
+    z-index: 60;
+  }
+  .ytpanel .yt-title {
+    font-size: .68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--gris);
+    padding: .05rem .25rem .3rem;
+  }
+  .ytv { position: relative; border-radius: 8px; overflow: hidden; background: #0b1220; }
+  #ytplayer {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: #0b1220;
+    border: 0;
+  }
+  .ytv-ui {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .3rem .45rem .4rem;
+    background: linear-gradient(180deg, rgba(6,12,26,0), rgba(6,12,26,.82));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .15s ease;
+  }
+  .ytv:hover .ytv-ui, .ytv-ui:focus-within { opacity: 1; pointer-events: auto; }
+  .ytv-btn {
+    flex-shrink: 0;
+    width: 1.55rem;
+    height: 1.55rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: #fff;
+    cursor: pointer;
+    opacity: .9;
+    transition: opacity .12s ease;
+  }
+  .ytv-btn:hover { opacity: 1; }
+  .ytv-btn svg { width: 1rem; height: 1rem; }
+  .ytv .ic-pause { display: none; }
+  .ytv.playing .ic-play { display: none; }
+  .ytv.playing .ic-pause { display: inline; }
+  .ytv-seek { flex: 1; min-width: 0; height: 1rem; accent-color: var(--rouge); cursor: pointer; }
+  .ytv-time {
+    flex-shrink: 0;
+    font-size: .66rem;
+    color: #e8edf7;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .02em;
+  }
+  .ytpanel .yt-hint {
+    font-size: .68rem;
+    color: var(--gris);
+    padding: .35rem .25rem 0;
+    line-height: 1.4;
+  }
+  details {
+    background: #f2f6ff;
+    border: 1px solid #ccd9f5;
+    border-radius: 10px;
+    padding: .7rem 1rem;
+    margin: .9rem 0;
+  }
+  details summary { cursor: pointer; font-weight: 700; color: var(--bleu); font-size: .92rem; }
+  details[open] summary { margin-bottom: .5rem; }
+  details ol { margin: .3rem 0; padding-left: 1.3rem; }
+  details li { margin: .3rem 0; }
+  .answer { color: var(--vert); font-weight: 600; }
+  .speak {
+    background: #fffaf0;
+    border: 1px solid #f0dfb4;
+    border-radius: 10px;
+    padding: .9rem 1.1rem;
+    margin: .8rem 0;
+  }
+  footer {
+    max-width: 900px;
+    margin-left: max(1.25rem, calc(50% - 450px - var(--shift, 0px)));
+    margin-right: auto;
+    padding: 0 1.25rem 3rem;
+    color: var(--gris);
+    font-size: .85rem;
+  }
+  footer a { color: var(--bleu); }
+  .tricolore {
+    height: 4px;
+    border-radius: 2px;
+    margin-bottom: .8rem;
+    background: linear-gradient(90deg, var(--bleu) 0 33%, #e6e9f2 33% 66%, var(--rouge) 66% 100%);
+  }
+  @media (max-width: 620px) {
+    td:first-child { white-space: normal; }
+    section { padding: 1.2rem 1rem 1.4rem; }
+    .levelbar .lbl { display: none; }
+    .seg { padding: .35rem .7rem; font-size: .9rem; }
+    .seg small { display: none; }
+  }
+  @media print {
+    header { background: #16357a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .levelbar { position: static; }
+    section { box-shadow: none; break-inside: avoid; }
+    details { break-inside: avoid; background: #fff; }
+    details:not([open]) > *:not(summary) { display: block; }
+    .sidepanel, .sp-toggle, .say, .ytpanel { display: none !important; }
+  }
+</style>
+<link rel="stylesheet" href="exos.css">
+</head>
+<body data-niveau="a2">
+
+<header>
+  <div class="header-inner">
+    <p class="kicker">Français avec un tuteur · Parcours par niveau</p>
+    <h1>La colère des lycéens — leçon d'actualité</h1>
+    <p class="sub">D'après la vidéo <strong>« Is France Facing a Revolution? »</strong> de <strong>Français avec Nelly</strong> : pourquoi les lycéens français manifestent, ce qui s'est vraiment passé — et comment lire l'actualité avec un esprit critique.</p>
+  </div>
+</header>
+
+<div class="levelbar" role="radiogroup" aria-label="Choisissez votre niveau">
+  <span class="lbl">Niveau</span>
+  <label class="seg" data-n="a2" for="lv-a2"><input type="radio" id="lv-a2" name="niveau" value="a2" checked> A2 <small>Les bases</small></label>
+  <label class="seg" data-n="b1" for="lv-b1"><input type="radio" id="lv-b1" name="niveau" value="b1"> B1 <small>Conversation</small></label>
+  <label class="seg" data-n="b2" for="lv-b2"><input type="radio" id="lv-b2" name="niveau" value="b2"> B2 <small>Nuances</small></label>
+  <label class="seg" data-n="c1" for="lv-c1"><input type="radio" id="lv-c1" name="niveau" value="c1"> C1 <small>Analyse</small></label>
+</div>
+
+<aside class="sidepanel" id="sidepanel" aria-label="Sommaire de la leçon">
+  <div class="sp-title">Sommaire</div>
+  <nav>
+    <a href="#intro">Votre parcours</a>
+    <a href="#comprehension">1 · Compréhension orale</a>
+    <a href="#vocabulaire">2 · Vocabulaire</a>
+    <a href="#expressions">3 · Expressions</a>
+    <a href="#grammaire">4 · Grammaire</a>
+    <a href="#parle">5 · Français parlé</a>
+    <a href="#exercices">6 · Exercices</a>
+    <a href="#avous">7 · À vous !</a>
+  </nav>
+<!--LESSONS_NAV-->
+  <div class="sp-title" style="margin-top:.6rem;border-top:1px solid var(--bordure);padding-top:.6rem;">Leçons</div>
+  <nav>
+      <a href="index.html">Toutes les leçons</a>
+      <a href="lecon-opinions-impopulaires.html">259 · Les opinions impopulaires</a>
+      <a href="lecon-ai.html">199 · L'IA au quotidien</a>
+      <a href="lecon-dommage.html">Dommage · Bigflo &amp; Oli</a>
+  </nav>
+  <!--/LESSONS_NAV-->
+</aside>
+<button class="sp-toggle" id="spToggle" type="button" aria-controls="sidepanel" aria-expanded="false">Sommaire</button>
+
+<aside class="ytpanel" id="ytpanel" aria-label="Vidéo — extraits de la leçon">
+  <div class="yt-title">Vidéo · Français avec Nelly</div>
+  <div class="ytv" id="ytv">
+    <video id="ytplayer" src="video_src-france/lesson_video.mp4" preload="metadata" playsinline></video>
+    <div class="ytv-ui">
+      <button class="ytv-btn ytv-play" type="button" aria-label="Lecture / pause">
+        <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z" fill="currentColor"/></svg>
+      </button>
+      <span class="ytv-time" id="ytvCur">0:00</span>
+      <input class="ytv-seek" id="ytvSeek" type="range" min="0" max="1000" step="1" value="0" aria-label="Position dans la vidéo">
+      <span class="ytv-time" id="ytvDur">0:00</span>
+      <button class="ytv-btn ytv-full" type="button" aria-label="Plein écran">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm14 0h2v6h-6v-2h4v-4z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="yt-hint">Cliquez sur un haut-parleur : la vidéo joue le passage et s'arrête à la fin. Contrôles : survolez la vidéo.</div>
+</aside>
+
+<main>
+
+<section class="intro" id="intro">
+  <h2>Votre parcours</h2>
+  <div class="tricolore"></div>
+  <div class="astuce">
+    <strong>Méthode conseillée</strong>
+    Regardez la vidéo une fois, puis faites le parcours de votre niveau — les exercices se corrigent automatiquement quand vous cliquez sur « Corriger ». Re-regardez ensuite la vidéo : vous entendrez tout ce que vous venez d'apprendre.
+  </div>
+
+  <div class="objectifs" data-lv="a2">
+    <p class="t">Parcours A2 — Les bases</p>
+    <p>Comprendre une actualité simple : 10 mots du quotidien scolaire (lycée, professeur, manifestations…), les questions avec « pourquoi » et « comment », et le verbe « avoir » des situations de tous les jours.</p>
+    <p class="dur">Durée estimée : 20–25 min · Prérequis : niveau débutant (A1–A2)</p>
+  </div>
+  <div class="objectifs" data-lv="b1" hidden>
+    <p class="t">Parcours B1 — Conversation</p>
+    <p>Parler d'un mouvement social : 10 mots, 6 expressions, la négation avancée (ne… plus, aucun, depuis), le but (pour que + subjonctif) et le passif simple.</p>
+    <p class="dur">Durée estimée : 35–40 min · Prérequis : niveau intermédiaire (B1)</p>
+  </div>
+  <div class="objectifs" data-lv="b2" hidden>
+    <p class="t">Parcours B2 — Nuances</p>
+    <p>Débattre de sujets graves : le lexique du débat et de la contestation (l'enjeu, légitime, dégénérer…), la concession (malgré, alors que) et la nominalisation du style journalistique.</p>
+    <p class="dur">Durée estimée : 45–50 min · Prérequis : niveau avancé (B2)</p>
+  </div>
+  <div class="objectifs" data-lv="c1" hidden>
+    <p class="t">Parcours C1 — Analyse</p>
+    <p>Lire l'actualité comme un journaliste : le passif et la nominalisation de la presse, le subjonctif de la probabilité, la <em>modalisation</em> (nuancer sans mentir) et la mise en relief — avec le lexique de l'analyse (factuel, anxiogène, infime…).</p>
+    <p class="dur">Durée estimée : 50–60 min · Prérequis : niveau avancé (C1)</p>
+  </div>
+</section>
+
+<section id="comprehension">
+  <h2><span class="num">1</span>Compréhension orale</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Écoutez la vidéo, puis répondez avec des phrases simples.</p>
+    <ol>
+      <li>Pourquoi les lycéens manifestent-ils ?</li>
+      <li>Est-ce que toute la France est « en feu », comme on le voit à la télé ?</li>
+      <li>Est-ce que Nelly va bien ?</li>
+    </ol>
+    <details>
+      <summary>Contrôlez vos réponses</summary>
+      <ol>
+        <li>Il n'y a <span class="answer">pas assez de professeurs</span>, les classes sont trop pleines et les lycées sont dégradés.</li>
+        <li><span class="answer">Non</span> : les images montrent « quelques heures, quelques rues » — pas tout le pays.</li>
+        <li><span class="answer">Oui</span>, « tout va bien » : sa vie continue normalement à Paris.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Écoutez la vidéo, puis répondez (phrases simples).</p>
+    <ol>
+      <li>Qu'est-ce que Parcoursup ?</li>
+      <li>Pourquoi la réponse du ministre n'a-t-elle pas satisfait les lycéens ?</li>
+      <li>Pourquoi certains lycéens critiquent-ils les dégradations commises par d'autres manifestants ?</li>
+    </ol>
+    <details>
+      <summary>Contrôlez vos réponses</summary>
+      <ol>
+        <li>La <span class="answer">plateforme</span> où les élèves font des vœux et candidatent pour leurs formations <span class="answer">après le bac</span>.</li>
+        <li>Le ministre a créé un <span class="answer">questionnaire</span> — les lycéens ont l'impression de <span class="answer">ne pas être pris au sérieux</span>.</li>
+        <li>Parce que c'est <span class="answer">« se tirer une balle dans le pied »</span> : ils demandent de meilleurs locaux et certains viennent les casser.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Analyse. Répondez en quelques phrases et justifiez avec des extraits.</p>
+    <ol>
+      <li>« Ce n'est pas un exercice facile d'essayer d'être factuel » : comment Nelly procède-t-elle pour rester objective ?</li>
+      <li>Sur le sujet de la violence policière, quelles questions opposées pose-t-elle ? Quel est l'effet de cette méthode ?</li>
+    </ol>
+    <details>
+      <summary>Réponses possibles</summary>
+      <ol>
+        <li>Elle annonce qu'elle ne donne <span class="answer">pas son opinion politique</span>, expose les faits dans l'ordre, multiplie les <span class="answer">points de vue</span> (lycéens, citoyen critique, contexte) et rappelle que <span class="answer">plusieurs réalités coexistent</span>.</li>
+        <li>Elle demande : la force est-elle <span class="answer">nécessaire et proportionnée</span> ? Les manifestants sont-ils <span class="answer">armés ou agressifs</span> ? Ou certains policiers <span class="answer">abusent-ils de leur pouvoir</span> ? Et la violence est-elle <span class="answer">légitime pour se faire entendre</span> ? C'est une méthode « à charge et à décharge » qui évite de généraliser.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="c1" hidden>
+    <p class="lead">Analyse fine. Répondez en citant le texte.</p>
+    <ol>
+      <li>« Parfois les médias peuvent déformer ce qui se passe réellement. » De quels biais de perception Nelly parle-t-elle, et quelle démarche recommande-t-elle pour les corriger ?</li>
+      <li>Elle souligne un « paradoxe » : plus de 3 000 professeurs sans poste, alors que les lycées manquent de professeurs. Qu'est-ce que ce paradoxe révèle du système, et pourquoi est-ce un point si puissant pour les manifestants ?</li>
+    </ol>
+    <details>
+      <summary>Réponses possibles</summary>
+      <ol>
+        <li>Elle dénonce la <span class="answer">décontextualisation</span> : un événement local (une rue, deux heures) présenté comme la situation du pays entier — « on peut avoir l'impression […] que c'est la guerre ». Sa méthode : croiser les sources (« lisez plusieurs articles de sources différentes »), distinguer les faits des impressions, et se méfier de l'effet <span class="answer">anxiogène</span> des images.</li>
+        <li>Les postes existent (3 000 enseignants non affectés) mais l'allocation ne fonctionne pas — un problème <span class="answer">administratif et politique</span>, pas un manque de personnes. Pour les manifestants, c'est la preuve que le problème n'est pas une fatalité mais un <span class="answer">choix de gestion</span> : d'où la formule « la logique, il n'y en a pas ».</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<section id="vocabulaire">
+  <h2><span class="num">2</span>Vocabulaire</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Dix mots pour comprendre l'actualité scolaire, tous entendus dans la vidéo. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot</th><th>Sens (anglais)</th><th>Exemple de la vidéo</th></tr>
+      <tr><td>un lycée<button class="say" type="button" data-say="un lycée" data-say2="Le mouvement a commencé dans un lycée de la banlieue parisienne." data-yt="140.06,145.89" data-audio="audio-france/v001.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a high school (15–18 ans)</td><td class="ex">« Le mouvement a commencé dans un lycée de la banlieue parisienne. »</td></tr>
+      <tr><td>un lycéen / une lycéenne<button class="say" type="button" data-say="un lycéen" data-say2="Un lycéen ou une lycéenne, c&#x27;est un élève qui va au lycée." data-yt="115.04,125.55" data-audio="audio-france/v002.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a high-school student</td><td class="ex">« Un lycéen ou une lycéenne, c'est un élève qui va au lycée. »</td></tr>
+      <tr><td>un professeur / un prof<button class="say" type="button" data-say="un professeur" data-say2="On a plus de profs !" data-yt="158.12,159.62" data-audio="audio-france/v003.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a teacher <em>(prof = familier)</em></td><td class="ex">« On a plus de profs ! »</td></tr>
+      <tr><td><span class="verb">manifester<span class="conj"><span class="c-title">manifester <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>manifeste</span><span>ai manifesté</span><span>manifestais</span><span>manifesterai</span><span>manifeste</span><span class="c-p">tu</span><span>manifestes</span><span>as manifesté</span><span>manifestais</span><span>manifesteras</span><span>manifestes</span><span class="c-p">il/elle</span><span>manifeste</span><span>a manifesté</span><span>manifestait</span><span>manifestera</span><span>manifeste</span><span class="c-p">nous</span><span>manifestons</span><span>avons manifesté</span><span>manifestions</span><span>manifesterons</span><span>manifestions</span><span class="c-p">vous</span><span>manifestez</span><span>avez manifesté</span><span>manifestiez</span><span>manifesterez</span><span>manifestiez</span><span class="c-p">ils/elles</span><span>manifestent</span><span>ont manifesté</span><span>manifestaient</span><span>manifesteront</span><span>manifestent</span></span></span></span><button class="say" type="button" data-say="manifester" data-say2="Pourquoi ces lycéens manifestent ?" data-yt="137.12,140.01" data-audio="audio-france/v004.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to protest, to demonstrate</td><td class="ex">« Pourquoi ces lycéens manifestent ? »</td></tr>
+      <tr><td>en colère<button class="say" type="button" data-say="en colère" data-say2="On est vraiment en colère." data-yt="528.58,530.15" data-audio="audio-france/v005.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>angry</td><td class="ex">« On est vraiment en colère. »</td></tr>
+      <tr><td>fatigué<button class="say" type="button" data-say="fatigué" data-say2="Je suis vraiment fatigué tous les jours." data-yt="228.6,230.29" data-audio="audio-france/v006.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>tired</td><td class="ex">« Je suis vraiment fatigué tous les jours. »</td></tr>
+      <tr><td>les notes <em>(nf)</em><button class="say" type="button" data-say="les notes" data-say2="Nos notes sont sur nos téléphones." data-yt="166.2,167.68" data-audio="audio-france/v007.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>grades, marks</td><td class="ex">« Nos notes sont sur nos téléphones. »</td></tr>
+      <tr><td>un examen<button class="say" type="button" data-say="un examen" data-say2="Le baccalauréat, c&#x27;est l&#x27;examen le plus important de la vie d&#x27;un élève." data-yt="246.1,251.81" data-audio="audio-france/v008.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>an exam</td><td class="ex">« Le baccalauréat, c'est l'examen le plus important de la vie d'un élève. »</td></tr>
+      <tr><td>la police<button class="say" type="button" data-say="la police" data-say2="On parle beaucoup de la manière dont la police intervient." data-yt="81.14,84.85" data-audio="audio-france/v009.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the police</td><td class="ex">« On parle beaucoup de la manière dont la police intervient. »</td></tr>
+      <tr><td>faire peur<button class="say" type="button" data-say="faire peur" data-say2="Son regard fait un peu peur." data-yt="58.12,59.47" data-audio="audio-france/v010.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to be scary, to frighten</td><td class="ex">« Son regard fait un peu peur. »</td></tr>
+    </table>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Dix mots pour raconter un mouvement social. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot / expression</th><th>Sens (anglais)</th><th>Exemple de la vidéo</th></tr>
+      <tr><td>les revendications <em>(nf)</em><button class="say" type="button" data-say="les revendications" data-say2="Très vite, les revendications se sont multipliées." data-yt="183.46,186.67" data-audio="audio-france/v011.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>demands, claims</td><td class="ex">« Très vite, les revendications se sont multipliées. »</td></tr>
+      <tr><td>surchargé<button class="say" type="button" data-say="surchargé" data-say2="Les classes sont surchargées." data-yt="205.7,207.91" data-audio="audio-france/v012.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>overloaded, overcrowded</td><td class="ex">« Les classes sont surchargées. »</td></tr>
+      <tr><td>dégradé<button class="say" type="button" data-say="dégradé" data-say2="Mon lycée est dégradé." data-yt="282.24,283.89" data-audio="audio-france/v013.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>damaged, deteriorated</td><td class="ex">« Mon lycée est dégradé. »</td></tr>
+      <tr><td>des locaux <em>(nm)</em><button class="say" type="button" data-say="des locaux" data-say2="Certains manifestent pour qu&#x27;on ait de meilleurs locaux." data-yt="365.94,368.41" data-audio="audio-france/v014.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>premises, facilities</td><td class="ex">« Certains manifestent pour qu'on ait de meilleurs locaux. »</td></tr>
+      <tr><td>manquant<button class="say" type="button" data-say="manquant" data-say2="Des professeurs toujours manquants." data-yt="300.0,302.19" data-audio="audio-france/v015.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>missing</td><td class="ex">« Des professeurs toujours manquants. »</td></tr>
+      <tr><td><span class="verb">déformer<span class="conj"><span class="c-title">déformer <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>déforme</span><span>ai déformé</span><span>déformais</span><span>déformerai</span><span>déforme</span><span class="c-p">tu</span><span>déformes</span><span>as déformé</span><span>déformais</span><span>déformeras</span><span>déformes</span><span class="c-p">il/elle</span><span>déforme</span><span>a déformé</span><span>déformait</span><span>déformera</span><span>déforme</span><span class="c-p">nous</span><span>déformons</span><span>avons déformé</span><span>déformions</span><span>déformerons</span><span>déformions</span><span class="c-p">vous</span><span>déformez</span><span>avez déformé</span><span>déformiez</span><span>déformerez</span><span>déformiez</span><span class="c-p">ils/elles</span><span>déforment</span><span>ont déformé</span><span>déformaient</span><span>déformeront</span><span>déforment</span></span></span></span><button class="say" type="button" data-say="déformer" data-say2="Les médias peuvent déformer ce qui se passe réellement." data-yt="28.96,33.49" data-audio="audio-france/v016.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to distort</td><td class="ex">« Les médias peuvent déformer ce qui se passe réellement. »</td></tr>
+      <tr><td>la colère <em>(nf)</em><button class="say" type="button" data-say="la colère" data-say2="On sent la colère des lycéens." data-yt="330.44,332.39" data-audio="audio-france/v017.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>anger</td><td class="ex">« On sent la colère des lycéens. »</td></tr>
+      <tr><td>un affrontement<button class="say" type="button" data-say="un affrontement" data-say2="Des manifestants, des affrontements, beaucoup de révoltes." data-yt="66.72,71.05" data-audio="audio-france/v018.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a clash, a confrontation</td><td class="ex">« Des manifestants, des affrontements, beaucoup de révoltes. »</td></tr>
+      <tr><td>un blessé<button class="say" type="button" data-say="un blessé" data-say2="Il y a des policiers blessés, des lycéens blessés." data-yt="505.92,509.27" data-audio="audio-france/v019.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>an injured person</td><td class="ex">« Il y a des policiers blessés, des lycéens blessés. »</td></tr>
+      <tr><td>un budget<button class="say" type="button" data-say="un budget" data-say2="Il faudrait une réforme plus globale et surtout plus de budget." data-yt="547.8,551.71" data-audio="audio-france/v020.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a budget</td><td class="ex">« Il faudrait une réforme plus globale et surtout plus de budget. »</td></tr>
+    </table>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Dix mots pour débattre de sujets graves. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot / expression</th><th>Sens (anglais)</th><th>Exemple de la vidéo</th></tr>
+      <tr><td><span class="verb">dégénérer<span class="conj"><span class="c-title">dégénérer <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>dégénère</span><span>ai dégénéré</span><span>dégénérais</span><span>dégénérerai</span><span>dégénère</span><span class="c-p">tu</span><span>dégénères</span><span>as dégénéré</span><span>dégénérais</span><span>dégénéreras</span><span>dégénères</span><span class="c-p">il/elle</span><span>dégénère</span><span>a dégénéré</span><span>dégénérait</span><span>dégénérera</span><span>dégénère</span><span class="c-p">nous</span><span>dégénérons</span><span>avons dégénéré</span><span>dégénérerions</span><span>dégénérerons</span><span>dégénérerions</span><span class="c-p">vous</span><span>dégénérez</span><span>avez dégénéré</span><span>dégénériez</span><span>dégénérerez</span><span>dégénériez</span><span class="c-p">ils/elles</span><span>dégénèrent</span><span>ont dégénéré</span><span>dégénéraient</span><span>dégénéreront</span><span>dégénèrent</span></span></span></span><button class="say" type="button" data-say="dégénérer" data-say2="Pourquoi certaines manifestations ont dégénéré ?" data-yt="74.94,80.81" data-audio="audio-france/v021.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to turn violent, to degenerate</td><td class="ex">« Pourquoi certaines manifestations ont dégénéré ? »</td></tr>
+      <tr><td>les forces de l'ordre <em>(nf)</em><button class="say" type="button" data-say="les forces de l&#x27;ordre" data-say2="Une grenade utilisée par les forces de l&#x27;ordre." data-yt="387.24,390.69" data-audio="audio-france/v022.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the police, law enforcement</td><td class="ex">« Une grenade utilisée par les forces de l'ordre. »</td></tr>
+      <tr><td>les gaz lacrymogènes <em>(nm)</em><button class="say" type="button" data-say="les gaz lacrymogènes" data-say2="Des gaz lacrymogènes, des CRS qui portent des casques, des poubelles en feu…" data-yt="324.2,329.15" data-audio="audio-france/v023.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>tear gas</td><td class="ex">« Des gaz lacrymogènes, des CRS qui portent des casques, des poubelles en feu… »</td></tr>
+      <tr><td>vandalisé<button class="say" type="button" data-say="vandalisé" data-say2="Des établissements ont été vandalisés ou partiellement incendiés." data-yt="332.68,337.55" data-audio="audio-france/v024.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>vandalized</td><td class="ex">« Des établissements ont été vandalisés ou partiellement incendiés. »</td></tr>
+      <tr><td>un procureur<button class="say" type="button" data-say="un procureur" data-say2="Une réponse immédiate du procureur de la République." data-yt="342.92,345.83" data-audio="audio-france/v025.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a public prosecutor</td><td class="ex">« Une réponse immédiate du procureur de la République. »</td></tr>
+      <tr><td>déplorable<button class="say" type="button" data-say="déplorable" data-say2="Il y a certaines conditions de travail qui sont assez déplorables." data-yt="357.6,360.77" data-audio="audio-france/v026.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>deplorable, awful</td><td class="ex">« Il y a certaines conditions de travail qui sont assez déplorables. »</td></tr>
+      <tr><td>la légitimité <em>(nf)</em><button class="say" type="button" data-say="la légitimité" data-say2="…malgré la légitimité des revendications actuelles." data-yt="349.36,352.45" data-audio="audio-france/v027.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>legitimacy</td><td class="ex">« …malgré la légitimité des revendications actuelles. »</td></tr>
+      <tr><td>l'enjeu <em>(nm)</em><button class="say" type="button" data-say="l&#x27;enjeu" data-say2="Les problématiques, les enjeux et les revendications." data-yt="660.88,664.19" data-audio="audio-france/v028.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the stakes, the issue</td><td class="ex">« Les problématiques, les enjeux et les revendications. »</td></tr>
+      <tr><td>le bac<button class="say" type="button" data-say="le bac" data-say2="À 18 ans, on passe le bac." data-yt="243.06,245.17" data-audio="audio-france/v029.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the French high-school diploma</td><td class="ex">« À 18 ans, on passe le bac. »</td></tr>
+      <tr><td>une formation <em>(nf)</em><button class="say" type="button" data-say="une formation" data-say2="Candidater pour des formations après le bac." data-yt="239.4,242.09" data-audio="audio-france/v030.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a study programme, a training course</td><td class="ex">« Candidater pour des formations après le bac. »</td></tr>
+    </table>
+  </div>
+
+  <div data-lv="c1" hidden>
+    <p class="lead">Dix mots pour analyser l'information comme un journaliste. <em>Survolez les verbes soulignés pour afficher leurs conjugaisons fréquentes.</em></p>
+    <table>
+      <tr><th>Mot / expression</th><th>Sens (anglais)</th><th>Exemple de la vidéo</th></tr>
+      <tr><td>factuel<button class="say" type="button" data-say="factuel" data-say2="Ce n&#x27;est pas un exercice facile d&#x27;essayer d&#x27;être factuel." data-yt="98.22,101.31" data-audio="audio-france/v031.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>factual, based on facts</td><td class="ex">« Ce n'est pas un exercice facile d'essayer d'être factuel. »</td></tr>
+      <tr><td>insalubre<button class="say" type="button" data-say="insalubre" data-say2="Les bâtiments sont insalubres." data-yt="286.88,290.91" data-audio="audio-france/v032.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>unsanitary, unfit for use</td><td class="ex">« Les bâtiments sont insalubres. »</td></tr>
+      <tr><td><span class="verb">généraliser<span class="conj"><span class="c-title">généraliser <em>· auxiliaire : avoir</em></span><span class="c-grid"><span class="c-h"></span><span class="c-h">présent</span><span class="c-h">passé composé</span><span class="c-h">imparfait</span><span class="c-h">futur</span><span class="c-h">subjonctif</span><span class="c-p">je</span><span>généralise</span><span>ai généralisé</span><span>généralisais</span><span>généraliserai</span><span>généralise</span><span class="c-p">tu</span><span>généralises</span><span>as généralisé</span><span>généralisais</span><span>généraliseras</span><span>généralises</span><span class="c-p">il/elle</span><span>généralise</span><span>a généralisé</span><span>généralisait</span><span>généralisera</span><span>généralise</span><span class="c-p">nous</span><span>généralisons</span><span>avons généralisé</span><span>généralisions</span><span>généraliserons</span><span>généralisions</span><span class="c-p">vous</span><span>généralisez</span><span>avez généralisé</span><span>généralisiez</span><span>généraliserez</span><span>généralisiez</span><span class="c-p">ils/elles</span><span>généralisent</span><span>ont généralisé</span><span>généralisaient</span><span>généraliseront</span><span>généralisent</span></span></span></span><button class="say" type="button" data-say="généraliser" data-say2="Afin de ne pas généraliser." data-yt="482.92,485.47" data-audio="audio-france/v033.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to generalize</td><td class="ex">« Afin de ne pas généraliser. »</td></tr>
+      <tr><td>infime<button class="say" type="button" data-say="infime" data-say2="Juste une infime partie de ce qui se passe." data-yt="611.6,614.01" data-audio="audio-france/v034.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>tiny, minuscule</td><td class="ex">« Juste une infime partie de ce qui se passe. »</td></tr>
+      <tr><td>coexister<button class="say" type="button" data-say="coexister" data-say2="Il y a plusieurs réalités qui coexistent." data-yt="492.04,495.25" data-audio="audio-france/v035.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>to coexist</td><td class="ex">« Il y a plusieurs réalités qui coexistent. »</td></tr>
+      <tr><td>anxiogène<button class="say" type="button" data-say="anxiogène" data-say2="Ça peut être aussi assez anxiogène." data-yt="689.64,692.17" data-audio="audio-france/v036.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>anxiety-inducing</td><td class="ex">« Ça peut être aussi assez anxiogène. »</td></tr>
+      <tr><td>proportionné<button class="say" type="button" data-say="proportionné" data-say2="Nécessaire et proportionné." data-yt="429.12,431.65" data-audio="audio-france/v037.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>proportionate</td><td class="ex">« Nécessaire et proportionné. »</td></tr>
+      <tr><td>l'usage <em>(nm)</em><button class="say" type="button" data-say="l&#x27;usage" data-say2="Comment savoir si l&#x27;usage de la force est nécessaire et proportionné ?" data-yt="425.78,431.65" data-audio="audio-france/v038.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the use (of something)</td><td class="ex">« Comment savoir si l'usage de la force est nécessaire et proportionné ? »</td></tr>
+      <tr><td>la sensation <em>(nf)</em><button class="say" type="button" data-say="la sensation" data-say2="On a la sensation que la France entière est en train de brûler." data-yt="60.62,66.55" data-audio="audio-france/v039.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>the feeling, the impression</td><td class="ex">« On a la sensation que la France entière est en train de brûler. »</td></tr>
+      <tr><td>une réalité <em>(nf)</em><button class="say" type="button" data-say="une réalité" data-say2="Il y a plusieurs réalités qui coexistent." data-yt="492.04,495.25" data-audio="audio-france/v040.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td><td>a reality</td><td class="ex">« Il y a plusieurs réalités qui coexistent. »</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="expressions">
+  <h2><span class="num">3</span>Expressions</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Quatre expressions pour prendre des nouvelles et dire merci.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Est-ce que tout va bien ?</div><button class="say" type="button" data-say="Est-ce que tout va bien ?" data-say2="Nellie, est-ce que tout va bien ?" data-yt="13.12,14.37" data-audio="audio-france/v041.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">Is everything OK?</div>
+        <div class="usage">« Nellie, est-ce que tout va bien ? »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Tout va bien.</div><button class="say" type="button" data-say="Tout va bien." data-say2="Tout va bien." data-yt="13.56,14.37" data-audio="audio-france/v042.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">Everything is fine.</div>
+        <div class="usage">« Tout va bien. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">On n'a plus de profs !</div><button class="say" type="button" data-say="On n&#x27;a plus de profs !" data-say2="On a plus de profs !" data-yt="158.12,159.62" data-audio="audio-france/v043.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">We don't have any teachers left! <em>(à l'oral : « on a plus »)</em></div>
+        <div class="usage">« On a plus de profs ! »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">Je vous remercie.</div><button class="say" type="button" data-say="Je vous remercie." data-say2="Je vous remercie de vous inquiéter pour moi." data-yt="19.86,22.45" data-audio="audio-france/v044.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">Thank you. <em>(plus formel que « merci »)</em></div>
+        <div class="usage">« Je vous remercie de vous inquiéter pour moi. »</div>
+      </div>
+    </div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Six expressions pour raconter un mouvement et ses dégâts.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">tomber en ruine</div><button class="say" type="button" data-say="tomber en ruine" data-say2="On a un lycée qui tombe en ruine." data-yt="159.52,161.05" data-audio="audio-france/v045.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to be falling apart</div>
+        <div class="usage">« On a un lycée qui tombe en ruine. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">se faire entendre</div><button class="say" type="button" data-say="se faire entendre" data-say2="On va se faire entendre par tous les moyens." data-yt="542.84,545.07" data-audio="audio-france/v046.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to make one's voice heard</div>
+        <div class="usage">« On va se faire entendre par tous les moyens. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">être pris au sérieux</div><button class="say" type="button" data-say="être pris au sérieux" data-say2="Les lycéens ont l&#x27;impression de ne pas être pris au sérieux." data-yt="525.9,528.69" data-audio="audio-france/v047.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to be taken seriously</div>
+        <div class="usage">« Les lycéens ont l'impression de ne pas être pris au sérieux. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">prendre de l'ampleur</div><button class="say" type="button" data-say="prendre de l&#x27;ampleur" data-say2="Il prend de l&#x27;ampleur." data-yt="618.14,619.73" data-audio="audio-france/v048.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to grow, to gain momentum <em>(il = le mouvement)</em></div>
+        <div class="usage">« Il prend de l'ampleur. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">à répétition</div><button class="say" type="button" data-say="à répétition" data-say2="Avec les canicules à répétition, ça devient vraiment compliqué." data-yt="296.1,299.51" data-audio="audio-france/v049.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">repeated, one after another</div>
+        <div class="usage">« Avec les canicules à répétition, ça devient vraiment compliqué. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">profiter de</div><button class="say" type="button" data-say="profiter de" data-say2="Je dois profiter de ma famille et de mes amis." data-yt="222.48,224.39" data-audio="audio-france/v050.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to make the most of, to enjoy</div>
+        <div class="usage">« Je dois profiter de ma famille et de mes amis. »</div>
+      </div>
+    </div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Six expressions pour débattre et décrypter l'information.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">se tirer une balle dans le pied</div><button class="say" type="button" data-say="se tirer une balle dans le pied" data-say2="C&#x27;est un peu se tirer une balle dans le pied." data-yt="370.92,375.05" data-audio="audio-france/v051.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to shoot oneself in the foot</div>
+        <div class="usage">« C'est un peu se tirer une balle dans le pied. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">faire le tour du sujet</div><button class="say" type="button" data-say="faire le tour du sujet" data-say2="Je pense avoir fait le tour du sujet." data-yt="692.32,694.13" data-audio="audio-france/v052.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to cover the topic, to go over everything</div>
+        <div class="usage">« Je pense avoir fait le tour du sujet. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">garder un esprit critique</div><button class="say" type="button" data-say="garder un esprit critique" data-say2="Garder un esprit critique." data-yt="486.04,487.67" data-audio="audio-france/v053.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to keep a critical mind</div>
+        <div class="usage">« …garder un esprit critique. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">se faire son propre avis</div><button class="say" type="button" data-say="se faire son propre avis" data-say2="Pour vous faire votre propre avis." data-yt="673.82,676.25" data-audio="audio-france/v054.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to make up one's own mind</div>
+        <div class="usage">« Pour vous faire votre propre avis. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">ne pas se fier à</div><button class="say" type="button" data-say="ne pas se fier à" data-say2="Ne vous fiez pas toujours à ce que vous voyez dans les médias." data-yt="678.76,683.57" data-audio="audio-france/v055.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">not to trust, not to rely on</div>
+        <div class="usage">« Ne vous fiez pas toujours à ce que vous voyez dans les médias. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">prendre parti</div><button class="say" type="button" data-say="prendre parti" data-say2="Je ne suis pas là pour prendre partie." data-yt="88.32,92.17" data-audio="audio-france/v056.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to take sides</div>
+        <div class="usage">« Je ne suis pas là pour prendre partie. »</div>
+      </div>
+    </div>
+  </div>
+
+  <div data-lv="c1" hidden>
+    <p class="lead">Six expressions d'analyse — celles du journaliste et du commentateur.</p>
+    <div class="expr-grid">
+      <div class="expr">
+        <div class="titre-row"><div class="titre">à l'instant T</div><button class="say" type="button" data-say="à l&#x27;instant T" data-say2="Comprendre ce qui se passe à l&#x27;instant T dans ce pays." data-yt="656.34,660.73" data-audio="audio-france/v057.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">at the present moment, right now</div>
+        <div class="usage">« Comprendre ce qui se passe à l'instant T dans ce pays. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">être noyé d'informations</div><button class="say" type="button" data-say="être noyé d&#x27;informations" data-say2="On est noyé d&#x27;informations, d&#x27;images, de vidéos." data-yt="683.32,686.03" data-audio="audio-france/v058.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to be flooded with information</div>
+        <div class="usage">« On est noyé d'informations, d'images, de vidéos. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">tenir à (faire qch)</div><button class="say" type="button" data-say="tenir à" data-say2="Je tiens à vous rassurer là-dessus." data-yt="563.38,565.23" data-audio="audio-france/v059.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to be keen to, to insist on</div>
+        <div class="usage">« Je tiens à vous rassurer là-dessus. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">soulever des questions</div><button class="say" type="button" data-say="soulever des questions" data-say2="Ça soulève plusieurs questions." data-yt="407.14,409.19" data-audio="audio-france/v060.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">to raise questions</div>
+        <div class="usage">« Ça soulève plusieurs questions. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">il y a une forte probabilité pour que…</div><button class="say" type="button" data-say="il y a une forte probabilité pour que" data-say2="Il y a une forte probabilité pour que sa blessure ait été causée par une grenade." data-yt="383.02,388.25" data-audio="audio-france/v061.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">there is a strong probability that… <em>(+ subjonctif)</em></div>
+        <div class="usage">« Il y a une forte probabilité pour que sa blessure ait été causée par une grenade. »</div>
+      </div>
+      <div class="expr">
+        <div class="titre-row"><div class="titre">à l'origine</div><button class="say" type="button" data-say="à l&#x27;origine" data-say2="À l&#x27;origine, ces élèves protestaient." data-yt="146.0,148.65" data-audio="audio-france/v062.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+        <div class="sens">originally, at the beginning</div>
+        <div class="usage">« À l'origine, ces élèves protestaient. »</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="grammaire">
+  <h2><span class="num">4</span>Grammaire</h2>
+
+  <div data-lv="a2">
+    <h3>G1 — Poser des questions : pourquoi, comment, est-ce que</h3>
+    <div class="gram-box">
+      <p>Les mots interrogatifs de la vidéo, pour demander des explications :</p>
+      <div class="formule">Pourquoi + est-ce que… ? / Comment… ? / Est-ce que… ?</div>
+      <ul class="compact">
+        <li>« <b>Pourquoi</b> ces lycéens manifestent ? »</li>
+        <li>« <b>Est-ce que</b> tout va bien ? »</li>
+        <li>« <b>Comment</b> on est passé de la canicule à l'automne ? »</li>
+      </ul>
+    </div>
+    <h3>G2 — Le verbe avoir de la vie quotidienne</h3>
+    <div class="gram-box">
+      <p>« avoir » sert à tout dire, sans conjuguer un autre verbe :</p>
+      <ul class="compact">
+        <li><b>avoir</b> 15 ans : « Un lycéen, c'est un élève qui a généralement entre 15 et 18 ans. »</li>
+        <li><b>avoir</b> cours : « Les élèves avaient cours de 8h à 18h. »</li>
+        <li><b>avoir</b> besoin : « On a besoin de plus de budget. »</li>
+        <li><b>avoir</b> un contrôle : « On a énormément de contrôles. » (= des examens pendant l'année)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <h3>G1 — La négation avancée : plus, aucun, depuis</h3>
+    <div class="gram-box">
+      <p>La vidéo insiste sur ce qui <b>manque</b> — l'occasion de réviser la négation :</p>
+      <ul class="compact">
+        <li><b>ne… plus</b> : « On n'a <b>plus</b> de prof ! » (= avant, oui ; maintenant, non)</li>
+        <li><b>ne… aucun</b> : « Il n'y a absolument <b>aucun</b> danger à vivre à Paris. » (<em>aucun</em> s'accorde : aucune / aucun)</li>
+        <li><b>depuis</b> + présent négatif : « Je <b>n'ai pas</b> de professeur de français <b>depuis</b> 3 mois. » (= la situation continue)</li>
+      </ul>
+      <div class="astuce"><strong>Astuce</strong> À l'oral, le « ne » disparaît : « On a plus de prof ! » — c'est exactement ce que crient les lycéens.</div>
+    </div>
+    <h3>G2 — Exprimer le but : pour, pour que, afin de</h3>
+    <div class="gram-box">
+      <p>Trois structures, selon ce qui suit :</p>
+      <div class="formule">pour + infinitif · afin de + infinitif <em>(soutenu)</em> · pour que + subjonctif</div>
+      <ul class="compact">
+        <li>« Ils manifestent <b>pour</b> faire entendre leurs revendications. » (même sujet)</li>
+        <li>« <b>Afin de</b> ne pas généraliser… » (très soutenu, écrit)</li>
+        <li>« Le ministre a créé un formulaire <b>pour que</b> les lycéens <b>puissent</b> s'exprimer. » (sujets différents → subjonctif !)</li>
+      </ul>
+    </div>
+    <h3>G3 — Le passif : quand on ne dit pas qui agit</h3>
+    <div class="gram-box">
+      <p>Très utilisé dans l'actualité : <b>être + participe passé</b>.</p>
+      <div class="formule">Des élèves ont vandalisé des établissements. → Des établissements <b>ont été vandalisés</b>.</div>
+      <ul class="compact">
+        <li>« Des établissements ont <b>été</b> vandalisés ou partiellement incendiés. »</li>
+        <li>« L'utilisation de grenades n'était plus <b>autorisée</b>. »</li>
+        <li>« Une grenade <b>utilisée par</b> les forces de l'ordre. » (avec l'agent : <em>par + qqn</em>)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <h3>G1 — La concession : malgré, alors que, bien que, même si</h3>
+    <div class="gram-box">
+      <p>Pour admettre un fait tout en gardant son idée principale :</p>
+      <ul class="compact">
+        <li><b>malgré</b> + nom : « …<b>malgré</b> la légitimité des revendications actuelles. » (<em>malgré</em> ne prend jamais « que » ni le subjonctif !)</li>
+        <li><b>alors que</b> : « Ce n'est pas facile d'apprendre <b>alors que</b> les classes sont surchargées. » (contraste)</li>
+        <li><b>bien que</b> + subjonctif : « <b>Bien que</b> les revendications <b>soient</b> légitimes, les dégradations ne sont pas acceptables. » (soutenu)</li>
+        <li><b>même si</b> : « <b>Même si</b> l'usage de la force est parfois nécessaire, il doit rester proportionné. »</li>
+      </ul>
+    </div>
+    <h3>G2 — La nominalisation : le style de la presse</h3>
+    <div class="gram-box">
+      <p>Le français de l'information transforme les verbes en noms — plus dense, plus neutre :</p>
+      <table>
+        <tr><th>Phrase verbale (à l'oral)</th><th>Nominalisation (à l'écrit / à la télé)</th></tr>
+        <tr><td class="ex">Il manque des enseignants.</td><td class="ex">le manque d'enseignants</td></tr>
+        <tr><td class="ex">On utilise la force.</td><td class="ex">l'usage de la force</td></tr>
+        <tr><td class="ex">Le ministre a répondu.</td><td class="ex">la réponse du ministre</td></tr>
+        <tr><td class="ex">On utilise des grenades.</td><td class="ex">l'utilisation de grenades</td></tr>
+      </table>
+    </div>
+    <h3>G3 — Le subjonctif après la nécessité et la probabilité</h3>
+    <div class="gram-box">
+      <p>Après <b>il faut que</b>, <b>pour que</b> et <b>il y a une probabilité pour que</b> : subjonctif — présent ou passé !</p>
+      <ul class="compact">
+        <li>« Il faut que je <b>puisse</b> vous expliquer ce qui se passe. »</li>
+        <li>« Le formulaire, pour que les lycéens <b>s'expriment</b> de manière formelle. »</li>
+        <li>« Il y a une forte probabilité pour que sa blessure <b>ait été causée</b> par une grenade. » (subjonctif passé : <em>ait été + participe</em>)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div data-lv="c1" hidden>
+    <h3>G1 — Le passif journalistique : qui efface-t-on ?</h3>
+    <div class="gram-box">
+      <p>Dans « des établissements ont été vandalisés », il n'y a <b>pas d'agent</b>. Ce n'est pas un hasard : le passif sans agent sert à décrire un fait <b>sans désigner le responsable</b>.</p>
+      <ul class="compact">
+        <li>« Sa blessure <b>a probablement été causée par</b> une grenade. » — avec agent, quand la responsabilité est en jeu.</li>
+        <li>« L'utilisation de grenades n'était plus autorisée. » — le passif « sans sujet » devient une décision anonyme.</li>
+      </ul>
+      <div class="astuce"><strong>Analyse</strong> Repérez, dans un article, les passifs sans agent : demandez-vous toujours <em>qui</em> est effacé — un individu, une institution, une responsabilité ?</div>
+    </div>
+    <h3>G2 — La modalisation : nuancer sans mentir</h3>
+    <div class="gram-box">
+      <p>Le registre de Nelly est remarquable : jamais catégorique. Voici ses outils de nuance (que vous pouvez voler !) :</p>
+      <table>
+        <tr><th>Outil</th><th>Effet</th></tr>
+        <tr><td class="ex">« <b>Il y a une forte probabilité pour que</b>… »</td><td>affirme une très haute chance, sans certitude</td></tr>
+        <tr><td class="ex">« <b>Sans doute que</b> des manifestations auront lieu. »</td><td>hypothèse raisonnable</td></tr>
+        <tr><td class="ex">« On peut <b>avoir l'impression que</b>… » / « on a <b>la sensation que</b>… »</td><td>distingue la perception de la réalité</td></tr>
+        <tr><td class="ex">« Ça peut <b>paraître</b> effrayant. »</td><td>reconnaît une apparence sans la valider</td></tr>
+      </table>
+    </div>
+    <h3>G3 — La mise en relief : ce qui… c'est / c'est… que</h3>
+    <div class="gram-box">
+      <p>Pour souligner une information, le français la « met en relief » :</p>
+      <div class="formule">Ce qui est paradoxal, c'est que… / C'est là que… / C'est un peu… de faire ça</div>
+      <ul class="compact">
+        <li>« <b>Ce qui est paradoxal</b>, c'est qu'il y a plus de 3 000 professeurs <b>sans poste</b>. »</li>
+        <li>« Tu comprends que <b>c'est là que</b> le débat devient beaucoup plus grave. »</li>
+        <li>« <b>C'est un peu</b> se tirer une balle dans le pied <b>de faire</b> ce genre de choses. »</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="parle">
+  <h2><span class="num">5</span>Français parlé</h2>
+
+  <div data-lv="a2">
+    <h3>La chute du « ne » : le secret n° 1 de l'oral</h3>
+    <div class="oral">
+      <strong>À l'oral, on oublie presque toujours « ne »</strong>
+      <ul class="compact">
+        <li>« C'est pas un questionnaire qui va régler tout ça. »<button class="say" type="button" data-say="C&#x27;est pas un questionnaire qui va régler tout ça." data-yt="544.7,548.07" data-audio="audio-france/v063.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+        <li>« On est juste pas écouté ! »<button class="say" type="button" data-say="On est juste pas écouté !" data-yt="470.5,471.79" data-audio="audio-france/v064.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+        <li>« J'ai pas compris comment on est passé de la canicule à l'automne. »<button class="say" type="button" data-say="J&#x27;ai pas compris comment on est passé de la canicule à l&#x27;automne." data-yt="722.22,727.23" data-audio="audio-france/v065.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+      </ul>
+      À l'écrit, gardez « ne ». À l'oral, sa chute est la norme — même quand on est très en colère !
+    </div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <h3>Les petits mots du français oral</h3>
+    <table>
+      <tr><th>Mot</th><th>Fonction</th><th>Exemple</th></tr>
+      <tr><td>bref</td><td>in short, anyway</td><td class="ex">« Bref, c'est vrai que quand on regarde les informations… »<button class="say" type="button" data-say="Bref, c&#x27;est vrai que quand on regarde les informations…" data-yt="59.66,62.07" data-audio="audio-france/v066.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+      <tr><td>du coup</td><td>so, therefore</td><td class="ex">« Mais du coup, les lycéens ont l'impression de ne pas être pris au sérieux. »<button class="say" type="button" data-say="Mais du coup, les lycéens ont l&#x27;impression de ne pas être pris au sérieux." data-yt="525.3,528.69" data-audio="audio-france/v067.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+      <tr><td>en fait</td><td>actually, in fact</td><td class="ex">« En fait, on est habitué. »<button class="say" type="button" data-say="En fait, on est habitué." data-yt="637.32,639.77" data-audio="audio-france/v068.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+      <tr><td>quand même</td><td>still, all the same</td><td class="ex">« Ce qui est complètement fou quand même. »<button class="say" type="button" data-say="Ce qui est complètement fou quand même." data-yt="201.72,204.15" data-audio="audio-france/v069.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+      <tr><td>voilà</td><td>there you go, that's it</td><td class="ex">« Voilà ce que réclament les lycéens. »<button class="say" type="button" data-say="Voilà ce que réclament les lycéens." data-yt="551.68,553.85" data-audio="audio-france/v070.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></td></tr>
+    </table>
+    <div class="astuce"><strong>Astuce</strong> Ces mots ne portent pas de sens fort : ils donnent le rythme. Un « du coup » ou un « en fait » de temps en temps suffit.</div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <h3>Les registres : de la rue au journal</h3>
+    <div class="oral">
+      <strong>Dans la vidéo, on entend la rue — voici comment la presse le dirait</strong>
+      <ul class="compact">
+        <li>« Nous aussi on veut pas fermer nos gueules. »<button class="say" type="button" data-say="Nous aussi, on veut pas fermer nos gueules." data-yt="173.72,175.85" data-audio="audio-france/v071.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+      </ul>
+      <table>
+        <tr><th>Rue (vulgaire / familier)</th><th>Journal (standard)</th></tr>
+        <tr><td>fermer sa gueule <span class="badge vulgaire">vulgaire</span></td><td>se taire / garder le silence</td></tr>
+        <tr><td>sacager <span class="badge familier">familier</span></td><td>dégrader, détériorer</td></tr>
+        <tr><td>ça dégénère <span class="badge familier">familier</span></td><td>la situation se dégrade</td></tr>
+      </table>
+      <div class="astuce"><strong>Culture</strong> « Le 93 » = le département de la Seine-Saint-Denis, au nord-est de Paris. Dire « les lycées du 93 », c'est parler des lycées populaires de banlieue — un raccourci très courant.</div>
+    </div>
+  </div>
+
+  <div data-lv="c1" hidden>
+    <h3>La langue de l'explication : prudence et distance</h3>
+    <div class="oral">
+      <strong>Comment parler d'un sujet brûlant sans se brûler</strong>
+      <ul class="compact">
+        <li>« Je précise bien sûr que je ne suis pas là pour donner mon opinion politique ou pour prendre partie. »<button class="say" type="button" data-say="Je précise bien sûr que je ne suis pas là pour donner mon opinion politique ou pour prendre partie." data-yt="86.62,92.17" data-audio="audio-france/v072.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+        <li>« Il faut être vraiment très prudent avec ce genre de sujet. »<button class="say" type="button" data-say="Il faut être vraiment très prudent avec ce genre de sujet." data-yt="480.24,483.29" data-audio="audio-france/v073.m4a" aria-label="Écouter" title="Écouter (extrait de la vidéo)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5l-5 4H3z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></li>
+      </ul>
+      <strong>Trois techniques (repérez-les partout dans la vidéo) :</strong>
+      <ul class="compact">
+        <li><b>Annoncer sa règle du jeu</b> : « je ne prends pas parti… mais simplement essayer de vous exposer les faits ».</li>
+        <li><b>Multiplier les voix</b> : Nelly insère des extraits de lycéens, de passants critiques, de textes officiels — le discours n'est jamais sa seule parole.</li>
+        <li><b>Nommer les limites</b> : « c'est difficile d'être factuel », « je vais essayer » — avouer la difficulté, c'est déjà de l'objectivité.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="exercices">
+  <h2><span class="num">6</span>Exercices</h2>
+  <p class="lead">Répondez, puis cliquez sur « Corriger » — la correction est automatique. « Recommencer » efface vos réponses.</p>
+
+  <div data-lv="a2">
+    <div class="exo"><script type="application/json">{
+      "id": "fr-a2-1",
+      "type": "match",
+      "title": "Exercice 1 — Associez le mot à sa définition",
+      "instructions": "Cliquez un mot, puis sa définition. Cliquez une paire pour la défaire.",
+      "pairs": [
+        {"left": "un lycée", "right": "L'école des élèves de 15 à 18 ans"},
+        {"left": "un lycéen", "right": "Un élève qui va au lycée"},
+        {"left": "en colère", "right": "Très fâché"},
+        {"left": "fatigué", "right": "Qui a besoin de dormir"},
+        {"left": "les notes", "right": "Les résultats des contrôles (20/20 !)"},
+        {"left": "faire peur", "right": "Causer de la peur"}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "fr-a2-2",
+      "type": "choice",
+      "title": "Exercice 2 — Pourquoi, comment ou depuis quand ?",
+      "instructions": "Choisissez le bon mot interrogatif.",
+      "options": ["Pourquoi", "Comment", "Depuis quand"],
+      "items": [
+        {"prompt": "« ___ ces lycéens manifestent-ils ? » (la cause)", "correct": ["Pourquoi"]},
+        {"prompt": "« ___ on peut étudier dans ces conditions ? » (de quelle manière)", "correct": ["Comment"]},
+        {"prompt": "« ___ les lycéens manifestent-ils ? — Depuis le 21 septembre. »", "correct": ["Depuis quand"]}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "fr-a2-3",
+      "type": "fill",
+      "title": "Exercice 3 — Le verbe avoir",
+      "instructions": "Complétez avec la forme correcte d'« avoir ».",
+      "items": [
+        {"prompt": "« J'___ cours de 8h à 18h. »", "answers": ["ai"]},
+        {"prompt": "« Elle ___ 16 ans. »", "answers": ["a"]},
+        {"prompt": "« Ils ___ peur. »", "answers": ["ont"]},
+        {"prompt": "« On ___ besoin de plus de budget. »", "answers": ["a"]}
+      ]}</script></div>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <div class="exo"><script type="application/json">{
+      "id": "fr-b1-1",
+      "type": "match",
+      "title": "Exercice 1 — Associez le mot à sa définition",
+      "instructions": "Cliquez un mot, puis sa définition. Cliquez une paire pour la défaire.",
+      "pairs": [
+        {"left": "les revendications", "right": "Ce que les manifestants demandent"},
+        {"left": "surchargé", "right": "Trop plein, trop chargé"},
+        {"left": "dégradé", "right": "Abîmé, en mauvais état"},
+        {"left": "des locaux", "right": "Les bâtiments, les salles"},
+        {"left": "manquant", "right": "Qui n'est pas là, qui manque"},
+        {"left": "déformer", "right": "Changer la vérité des faits"},
+        {"left": "la colère", "right": "Le sentiment des gens très fâchés"},
+        {"left": "un affrontement", "right": "Quand deux groupes se heurtent violemment"},
+        {"left": "un blessé", "right": "Une personne touchée par une violence"},
+        {"left": "un budget", "right": "L'argent prévu pour un projet"}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "fr-b1-2",
+      "type": "fill",
+      "title": "Exercice 2 — La négation et la transformation",
+      "instructions": "Complétez, ou transformez à la forme active.",
+      "items": [
+        {"prompt": "« On n'a ___ de prof ! » (avant, oui ; maintenant, non)", "answers": ["plus"]},
+        {"prompt": "« Il n'y a absolument ___ danger. »", "answers": ["aucun"]},
+        {"prompt": "« Je n'ai pas de professeur de français ___ 3 mois. »", "answers": ["depuis"]},
+        {"prompt": "Transformez à la forme active : « Les lycéens ne sont pas pris au sérieux. » → On…", "answers": ["On ne prend pas les lycéens au sérieux.", "On prend pas les lycéens au sérieux."]}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "fr-b1-3",
+      "type": "fill",
+      "title": "Exercice 3 — Transformez au passif",
+      "instructions": "Comme dans un article de presse : être + participe passé.",
+      "items": [
+        {"prompt": "« Des élèves ont vandalisé des établissements. » → Des établissements…", "answers": ["Des établissements ont été vandalisés."]},
+        {"prompt": "« Une grenade a causé sa blessure. » → Sa blessure…", "answers": ["Sa blessure a été causée par une grenade."]},
+        {"prompt": "« La police a utilisé des gaz lacrymogènes. » → Des gaz lacrymogènes…", "answers": ["Des gaz lacrymogènes ont été utilisés."]}
+      ]}</script></div>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <div class="exo"><script type="application/json">{
+      "id": "fr-b2-1",
+      "type": "match",
+      "title": "Exercice 1 — Associez le mot à sa définition",
+      "instructions": "Cliquez un mot, puis sa définition. Cliquez une paire pour la défaire.",
+      "pairs": [
+        {"left": "dégénérer", "right": "Devenir violent, échapper au contrôle"},
+        {"left": "les forces de l'ordre", "right": "La police et la gendarmerie"},
+        {"left": "les gaz lacrymogènes", "right": "Ce qui fait pleurer les yeux"},
+        {"left": "vandalisé", "right": "Détruit volontairement"},
+        {"left": "un procureur", "right": "Le magistrat qui représente l'État au tribunal"},
+        {"left": "déplorable", "right": "Très mauvais, honteux"},
+        {"left": "la légitimité", "right": "Le fait d'être juste, acceptable"},
+        {"left": "l'enjeu", "right": "Ce qui est vraiment en question, l'important"},
+        {"left": "le bac", "right": "L'examen final du lycée"},
+        {"left": "une formation", "right": "Des études, un parcours d'apprentissage"}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "fr-b2-2",
+      "type": "choice",
+      "title": "Exercice 2 — La concession",
+      "instructions": "Choisissez le bon connecteur.",
+      "options": ["Malgré", "alors que", "puisqu'", "Même si"],
+      "items": [
+        {"prompt": "« ___ la légitimité des revendications, ces dégradations ne sont pas acceptables. »", "correct": ["Malgré"]},
+        {"prompt": "« Ce n'est pas facile d'apprendre ___ les classes sont surchargées. »", "correct": ["alors que"]},
+        {"prompt": "« C'est paradoxal ___ il y a 3 000 professeurs sans poste. »", "correct": ["puisqu'"]},
+        {"prompt": "« ___ l'usage de la force est parfois nécessaire, il doit rester proportionné. »", "correct": ["Même si"]}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "fr-b2-3",
+      "type": "fill",
+      "title": "Exercice 3 — Nominalisez (style journalistique)",
+      "instructions": "Transformez la phrase en groupe nominal, comme un titre de journal.",
+      "items": [
+        {"prompt": "« Il manque des enseignants. » → …", "answers": ["le manque d'enseignants"]},
+        {"prompt": "« On utilise la force. » → …", "answers": ["l'usage de la force"]},
+        {"prompt": "« Le ministre a répondu. » → …", "answers": ["la réponse du ministre"]}
+      ]}</script></div>
+  </div>
+
+  <div data-lv="c1" hidden>
+    <div class="exo"><script type="application/json">{
+      "id": "fr-c1-1",
+      "type": "fill",
+      "title": "Exercice 1 — Nuancez ces affirmations comme un journaliste",
+      "instructions": "Réécrivez chaque phrase avec une forme de nuance (voir la grammaire G2).",
+      "items": [
+        {"prompt": "« Les médias mentent. » → Les médias…", "answers": ["Les médias peuvent déformer les faits.", "Les médias peuvent déformer ce qui se passe."]},
+        {"prompt": "« La police abuse de son pouvoir. » → Il est possible que…", "answers": ["Il est possible que certains policiers abusent de leur pouvoir."]},
+        {"prompt": "« Ce garçon a perdu sa main à cause d'une grenade. » → Il y a une forte probabilité pour que…", "answers": ["Il y a une forte probabilité pour que sa blessure ait été causée par une grenade."]},
+        {"prompt": "« Toute la France brûle. » → On a la sensation que…", "answers": ["On a la sensation que toute la France est en train de brûler."]}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "fr-c1-2",
+      "type": "fill",
+      "title": "Exercice 2 — Le subjonctif de la nécessité et de la probabilité",
+      "instructions": "Complétez avec le subjonctif (présent ou passé).",
+      "items": [
+        {"prompt": "« Il faut que je ___ (pouvoir) vous expliquer la situation. »", "answers": ["puisse"]},
+        {"prompt": "« Un formulaire, pour que les lycéens ___ (s'exprimer). »", "answers": ["s'expriment"]},
+        {"prompt": "« Il est important que vous ___ (lire) plusieurs sources. »", "answers": ["lisiez"]},
+        {"prompt": "« Il y a une probabilité pour que sa blessure ___ (être causée) par une grenade. »", "answers": ["ait été causée"]}
+      ]}</script></div>
+
+    <div class="exo"><script type="application/json">{
+      "id": "fr-c1-3",
+      "type": "choice",
+      "title": "Exercice 3 — De la rue au journal",
+      "instructions": "Choisissez la version « langue de la presse ».",
+      "items": [
+        {"prompt": "Comment un journal dirait-il « Les profs se cassent » ?", "options": ["Les professeurs se cassent.", "Les professeurs démissionnent en nombre."], "correct": ["Les professeurs démissionnent en nombre."]},
+        {"prompt": "Et « Ça a dégénéré » ?", "options": ["Ça a dégénéré.", "La situation s'est gravement dégradée."], "correct": ["La situation s'est gravement dégradée."]},
+        {"prompt": "Et « On veut pas fermer nos gueules » ?", "options": ["On veut pas fermer nos gueules.", "Nous voulons faire entendre notre voix."], "correct": ["Nous voulons faire entendre notre voix."]}
+      ]}</script></div>
+  </div>
+</section>
+
+<section id="avous">
+  <h2><span class="num">7</span>À vous !</h2>
+
+  <div data-lv="a2">
+    <div class="speak">
+      <strong>Défi A2 — Ta journée d'école</strong>
+      <p>Écris puis dis à voix haute 5 phrases : 3 choses de ta journée (avec « avoir »), 1 chose qui te met en colère, et 1 question avec « pourquoi » ou « comment ».</p>
+    </div>
+    <details>
+      <summary>Exemples de réponses</summary>
+      <ul class="compact">
+        <li>« J'ai cours de 9h à 16h. »</li>
+        <li>« J'ai beaucoup de contrôles en ce moment. »</li>
+        <li>« J'ai besoin d'une pause ! »</li>
+        <li>« Ça me met en colère quand il n'y a pas de professeur. »</li>
+        <li>« Pourquoi les classes sont-elles si pleines ? »</li>
+      </ul>
+    </details>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <div class="speak">
+      <strong>Défi B1 — Ta revendication</strong>
+      <p>Écris trois phrases : une revendication avec « pour que + subjonctif », une phrase au passif (« … a été … »), et une négation avec « plus » ou « aucun ».</p>
+    </div>
+    <details>
+      <summary>Exemples de réponses</summary>
+      <ul class="compact">
+        <li>« Je manifeste pour que les professeurs soient remplacés rapidement. »</li>
+        <li>« Le gymnase a été rénové l'année dernière. »</li>
+        <li>« Il n'y a plus de place à la cantine ! »</li>
+      </ul>
+    </details>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <div class="speak">
+      <strong>Défi B2 — Débat : faut-il tout casser pour se faire entendre ?</strong>
+      <p>Donne ton avis en 5-6 phrases. Utilise : une concession (<em>même si / malgré</em>), une nominalisation (<em>le manque de…, l'usage de…</em>), et exprime l'enjeu du débat.</p>
+    </div>
+    <details>
+      <summary>Éléments de réponse</summary>
+      <ul class="compact">
+        <li>« Même si la colère est légitime, les dégradations se retournent contre les manifestants. »</li>
+        <li>« Malgré le manque de moyens, casser des locaux ne finance pas de nouveaux professeurs. »</li>
+        <li>« L'enjeu, c'est d'être pris au sérieux — et la violence donne un prétexte pour ne pas écouter. »</li>
+      </ul>
+    </details>
+  </div>
+
+  <div data-lv="c1" hidden>
+    <div class="speak">
+      <strong>Défi C1 — Le journaliste neutre</strong>
+      <p>Choisis un événement d'actualité (de ton pays, de ta ville, de ton école) et écris un paragraphe de 6-8 phrases <em>strictement factuel</em> : un passif sans agent, deux formes de modalisation (<em>il y a une probabilité pour que / on a la sensation que / sans doute</em>), une mise en relief (<em>Ce qui est frappant, c'est que…</em>), et zéro opinion. Termine par « il faut garder un esprit critique »… mais sans le dire !</p>
+    </div>
+    <details>
+      <summary>Exemple de paragraphe</summary>
+      <ul class="compact">
+        <li>« Depuis plusieurs jours, des classes ont été fermées dans la ville. Il y a une forte probabilité pour que la décision ait été prise en urgence. Ce qui est frappant, c'est que personne n'a encore communiqué de calendrier. On a la sensation que la situation est sous contrôle, mais… »</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="tricolore"></div>
+  <p><strong>Sources :</strong> vidéo « Is France Facing a Revolution? » de <em>Français avec Nelly</em> — <a href="https://www.youtube.com/watch?v=f9THA1UELmQ">youtube.com/watch?v=f9THA1UELmQ</a>. Leçon créée à partir de la transcription française (sous-titres automatiques, alignés sur l'audio).</p>
+  <p>Un contenu adapté à votre niveau : changez de parcours (A2 · B1 · B2 · C1) à tout moment. Fichiers associés : <code>transcript-france.txt</code>, <code>transcript-france.json</code>, <code>audio-france/</code> (extraits), <code>video_src-france/lesson_video.mp4</code> (vidéo locale).</p>
+<!--LESSONS_NAV_FOOT-->
+  <p style="margin-top:.6rem;">Autres leçons : <a href="index.html">Toutes les leçons</a> · <a href="lecon-opinions-impopulaires.html">259 · Les opinions impopulaires</a> · <a href="lecon-ai.html">199 · L'IA au quotidien</a> · <a href="lecon-dommage.html">Dommage · Bigflo &amp; Oli</a></p>
+  <!--/LESSONS_NAV_FOOT-->
+</footer>
+
+<script>
+  var radios = document.querySelectorAll("input[name='niveau']");
+  function applyLevel(lv) {
+    document.body.dataset.niveau = lv;
+    document.querySelectorAll('[data-lv]').forEach(function (el) {
+      el.hidden = el.dataset.lv !== lv;
+    });
+  }
+  radios.forEach(function (r) {
+    r.addEventListener('change', function () { applyLevel(r.value); });
+  });
+  applyLevel(document.querySelector("input[name='niveau']:checked").value);
+
+  var panel = document.getElementById('sidepanel');
+  var toggle = document.getElementById('spToggle');
+  function closePanel() {
+    document.body.classList.remove('sp-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+  toggle.addEventListener('click', function () {
+    var open = !document.body.classList.contains('sp-open');
+    document.body.classList.toggle('sp-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  panel.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', closePanel);
+  });
+  document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('sp-open')) return;
+    if (!panel.contains(e.target) && !toggle.contains(e.target)) closePanel();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePanel();
+  });
+
+  var navLinks = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+  var navSections = navLinks.map(function (a) {
+    return document.querySelector(a.getAttribute('href'));
+  });
+  function spy() {
+    var current = null;
+    navSections.forEach(function (s) {
+      if (s && s.getBoundingClientRect().top <= 140) current = s.id;
+    });
+    navLinks.forEach(function (a) {
+      var active = current !== null && a.getAttribute('href') === '#' + current;
+      a.classList.toggle('active', active);
+      if (active) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  spy();
+
+  var speechOK = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+  var frVoice = null;
+  function pickVoice(voices) {
+    var preferred = ['Eddy', 'Amélie', 'Amelie', 'Thomas', 'Flo', 'Audrey', 'Aurélie'];
+    var fr = voices.filter(function (v) { return /^fr/i.test(v.lang); });
+    if (!fr.length) return null;
+    var frFR = fr.filter(function (v) { return /fr[-_]FR/i.test(v.lang); });
+    var pool = frFR.length ? frFR : fr;
+    for (var i = 0; i < preferred.length; i++) {
+      for (var j = 0; j < pool.length; j++) {
+        if (pool[j].name.indexOf(preferred[i]) !== -1) return pool[j];
+      }
+    }
+    return pool[0];
+  }
+  function refreshVoice() {
+    if (speechOK) frVoice = pickVoice(window.speechSynthesis.getVoices());
+  }
+  if (speechOK) {
+    refreshVoice();
+    if ('onvoiceschanged' in window.speechSynthesis) {
+      window.speechSynthesis.onvoiceschanged = refreshVoice;
+    }
+  }
+  document.querySelectorAll('.say').forEach(function (b) {
+    if (!b.getAttribute('data-audio') && !speechOK) b.hidden = true;
+  });
+
+  var sayToken = 0;
+  var currentBtn = null;
+  var currentAudio = null;
+  function stopPlayback() {
+    sayToken++;
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    if (ytVideo && !ytVideo.paused) ytVideo.pause();
+    ytFinish = null;
+    if (speechOK) window.speechSynthesis.cancel();
+    if (currentBtn) {
+      currentBtn.classList.remove('playing');
+      currentBtn = null;
+    }
+  }
+  function speakText(text, rate, token, onDone) {
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'fr-FR';
+    if (frVoice) u.voice = frVoice;
+    u.rate = rate;
+    u.onend = onDone;
+    u.onerror = onDone;
+    window.speechSynthesis.speak(u);
+  }
+  function speakItem(btn, token, finish) {
+    if (!frVoice) refreshVoice();
+    var t1 = btn.getAttribute('data-say') || '';
+    var t2 = btn.getAttribute('data-say2') || '';
+    if (!t1) { finish(); return; }
+    speakText(t1, 0.95, token, function () {
+      if (token !== sayToken) return;
+      if (t2) {
+        setTimeout(function () {
+          if (token !== sayToken) return;
+          speakText(t2, 0.9, token, finish);
+        }, 400);
+      } else {
+        finish();
+      }
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.say');
+    if (!btn || btn.hidden) return;
+    stopPlayback();
+    var token = sayToken;
+    currentBtn = btn;
+    btn.classList.add('playing');
+    function finish() {
+      if (token !== sayToken) return;
+      btn.classList.remove('playing');
+      if (currentBtn === btn) currentBtn = null;
+    }
+    var file = btn.getAttribute('data-audio');
+    var ytSpan = btn.getAttribute('data-yt');
+    var usedYt = false;
+    if (ytSpan && ytReady && !ytBroken) {
+      var yparts = ytSpan.split(',');
+      usedYt = playYtSegment(parseFloat(yparts[0]), parseFloat(yparts[1]), finish);
+    }
+    if (!usedYt && file) {
+      var failed = false;
+      var fallback = function () {
+        if (failed || token !== sayToken) return;
+        failed = true;
+        currentAudio = null;
+        if (speechOK) speakItem(btn, token, finish);
+        else finish();
+      };
+      var a = new Audio(file);
+      currentAudio = a;
+      a.onended = function () {
+        if (token === sayToken) { currentAudio = null; finish(); }
+      };
+      a.onerror = fallback;
+      var p = a.play();
+      if (p && p.catch) p.catch(fallback);
+    } else if (!usedYt && speechOK) {
+      speakItem(btn, token, finish);
+    } else if (!usedYt) {
+      finish();
+    }
+  });
+
+  // ---- Floating video (local copy of the source video) ----
+  var ytVideo = document.getElementById('ytplayer');
+  var ytReady = false;
+  var ytBroken = false;
+  var ytPoll = null;
+  var ytFinish = null;
+
+  if (ytVideo) {
+    ytVideo.addEventListener('loadedmetadata', function () { ytReady = true; });
+    ytVideo.addEventListener('error', function () { ytBroken = true; });
+    if (ytVideo.readyState >= 1) ytReady = true;
+  }
+
+  function stopYtSegment() {
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    if (ytVideo && !ytVideo.paused) ytVideo.pause();
+    var f = ytFinish;
+    ytFinish = null;
+    if (f) f();
+  }
+  function playYtSegment(start, end, onDone) {
+    if (!ytReady || ytBroken || !ytVideo) return false;
+    var s = Math.max(0, start - 0.2);
+    var e = end + 0.2;
+    try {
+      ytVideo.currentTime = s;
+      var pr = ytVideo.play();
+      if (pr && pr.catch) pr.catch(function () { ytBroken = true; stopYtSegment(); });
+    } catch (err) {
+      return false;
+    }
+    ytFinish = onDone;
+    var t0 = Date.now();
+    ytPoll = setInterval(function () {
+      if (!ytVideo) { stopYtSegment(); return; }
+      var t = ytVideo.currentTime;
+      var elapsed = Date.now() - t0;
+      if (elapsed > 450 && t >= e) stopYtSegment();
+      else if (elapsed > (e - s) * 1000 + 6000) stopYtSegment();
+    }, 100);
+    return true;
+  }
+
+  // ---- Custom hover-only video controls ----
+  function detachYtSegment() {
+    if (ytPoll) { clearInterval(ytPoll); ytPoll = null; }
+    ytFinish = null;
+    if (currentBtn) { currentBtn.classList.remove('playing'); currentBtn = null; }
+  }
+  var ytvWrap = document.getElementById('ytv');
+  var ytvSeek = document.getElementById('ytvSeek');
+  var ytvCur = document.getElementById('ytvCur');
+  var ytvDur = document.getElementById('ytvDur');
+  var ytvPlay = document.querySelector('.ytv-play');
+  var ytvFull = document.querySelector('.ytv-full');
+  var ytvDragging = false;
+
+  function fmtTime(t) {
+    t = Math.max(0, Math.floor(t || 0));
+    var m = Math.floor(t / 60), s = t % 60;
+    return m + ':' + (s < 10 ? '0' + s : s);
+  }
+  function syncYtv() {
+    if (!ytvWrap || !ytVideo) return;
+    ytvWrap.classList.toggle('playing', !ytVideo.paused && !ytVideo.ended);
+    if (!ytvDragging && ytVideo.duration) {
+      ytvSeek.value = Math.round(1000 * ytVideo.currentTime / ytVideo.duration);
+      ytvCur.textContent = fmtTime(ytVideo.currentTime);
+    }
+  }
+  function ytvToggle() {
+    detachYtSegment();
+    if (ytVideo.paused) {
+      var pr = ytVideo.play();
+      if (pr && pr.catch) pr.catch(function () {});
+    } else {
+      ytVideo.pause();
+    }
+  }
+  if (ytVideo && ytvWrap) {
+    ['play', 'pause', 'ended', 'loadedmetadata', 'timeupdate'].forEach(function (ev) {
+      ytVideo.addEventListener(ev, syncYtv);
+    });
+    if (ytVideo.duration) ytvDur.textContent = fmtTime(ytVideo.duration);
+    ytVideo.addEventListener('loadedmetadata', function () {
+      ytvDur.textContent = fmtTime(ytVideo.duration);
+    });
+    ytVideo.addEventListener('click', ytvToggle);
+    ytvPlay.addEventListener('click', ytvToggle);
+    ytvSeek.addEventListener('pointerdown', function () { ytvDragging = true; detachYtSegment(); });
+    ytvSeek.addEventListener('input', function () {
+      if (ytVideo.duration) ytVideo.currentTime = ytvSeek.value * ytVideo.duration / 1000;
+      ytvCur.textContent = fmtTime(ytVideo.currentTime);
+    });
+    window.addEventListener('pointerup', function () { ytvDragging = false; syncYtv(); });
+    window.addEventListener('pointercancel', function () { ytvDragging = false; syncYtv(); });
+    ytvFull.addEventListener('click', function () {
+      if (document.fullscreenElement) { document.exitFullscreen(); return; }
+      if (ytvWrap.requestFullscreen) ytvWrap.requestFullscreen();
+      else if (ytvWrap.webkitRequestFullscreen) ytvWrap.webkitRequestFullscreen();
+      else if (ytVideo.webkitEnterFullscreen) ytVideo.webkitEnterFullscreen();
+    });
+    syncYtv();
+  }
+
+  // ---- Keep the floating panels below the sticky level bar ----
+  var levelbarEl = document.querySelector('.levelbar');
+  function updatePanelTop() {
+    if (!levelbarEl) return;
+    var bottom = levelbarEl.getBoundingClientRect().bottom;
+    document.documentElement.style.setProperty('--panel-top', Math.max(12, Math.round(bottom + 12)) + 'px');
+  }
+  function updateShift() {
+    var s = Math.max(0, Math.min(130, window.innerWidth / 2 - 642));
+    document.documentElement.style.setProperty('--shift', Math.round(s) + 'px');
+  }
+  window.addEventListener('scroll', updatePanelTop, { passive: true });
+  window.addEventListener('resize', function () { updatePanelTop(); updateShift(); });
+  updatePanelTop();
+  updateShift();
+</script>
+<script src="exos.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon de français par niveau — La colère des lycéens (Français avec Nelly)</title>
+</head>
+<body data-niveau="a2">
+
+<header>
+  <div class="header-inner">
+    <p class="kicker">Français avec un tuteur · Parcours par niveau</p>
+    <h1>La colère des lycéens — leçon d'actualité</h1>
+    <p class="sub">D'après la vidéo <strong>« Is France Facing a Revolution? »</strong> de <strong>Français avec Nelly</strong> : pourquoi les lycéens français manifestent, ce qui s'est vraiment passé — et comment lire l'actualité avec un esprit critique.</p>
+  </div>
+</header>
+
+<div class="levelbar" role="radiogroup" aria-label="Choisissez votre niveau">
+  <span class="lbl">Niveau</span>
+  <label class="seg" data-n="a2" for="lv-a2"><input type="radio" id="lv-a2" name="niveau" value="a2" checked> A2 <small>Les bases</small></label>
+  <label class="seg" data-n="b1" for="lv-b1"><input type="radio" id="lv-b1" name="niveau" value="b1"> B1 <small>Conversation</small></label>
+  <label class="seg" data-n="b2" for="lv-b2"><input type="radio" id="lv-b2" name="niveau" value="b2"> B2 <small>Nuances</small></label>
+  <label class="seg" data-n="c1" for="lv-c1"><input type="radio" id="lv-c1" name="niveau" value="c1"> C1 <small>Analyse</small></label>
+</div>
+
+<aside class="sidepanel" id="sidepanel" aria-label="Sommaire de la leçon">
+  <div class="sp-title">Sommaire</div>
+  <nav>
+    <a href="#intro">Votre parcours</a>
+    <a href="#comprehension">1 · Compréhension orale</a>
+    <a href="#vocabulaire">2 · Vocabulaire</a>
+    <a href="#expressions">3 · Expressions</a>
+    <a href="#grammaire">4 · Grammaire</a>
+    <a href="#parle">5 · Français parlé</a>
+    <a href="#exercices">6 · Exercices</a>
+    <a href="#avous">7 · À vous !</a>
+  </nav>
+</aside>
+<button class="sp-toggle" id="spToggle" type="button" aria-controls="sidepanel" aria-expanded="false">Sommaire</button>
+
+<aside class="ytpanel" id="ytpanel" aria-label="Vidéo — extraits de la leçon">
+  <div class="yt-title">Vidéo · Français avec Nelly</div>
+  <div class="ytv" id="ytv">
+    <video id="ytplayer" src="video_src-france/lesson_video.mp4" preload="metadata" playsinline></video>
+    <div class="ytv-ui">
+      <button class="ytv-btn ytv-play" type="button" aria-label="Lecture / pause">
+        <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z" fill="currentColor"/></svg>
+      </button>
+      <span class="ytv-time" id="ytvCur">0:00</span>
+      <input class="ytv-seek" id="ytvSeek" type="range" min="0" max="1000" step="1" value="0" aria-label="Position dans la vidéo">
+      <span class="ytv-time" id="ytvDur">0:00</span>
+      <button class="ytv-btn ytv-full" type="button" aria-label="Plein écran">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm14 0h2v6h-6v-2h4v-4z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="yt-hint">Cliquez sur un haut-parleur : la vidéo joue le passage et s'arrête à la fin. Contrôles : survolez la vidéo.</div>
+</aside>
+
+<main>
+
+<section class="intro" id="intro">
+  <h2>Votre parcours</h2>
+  <div class="tricolore"></div>
+  <div class="astuce">
+    <strong>Méthode conseillée</strong>
+    Regardez la vidéo une fois, puis faites le parcours de votre niveau — les exercices se corrigent automatiquement quand vous cliquez sur « Corriger ». Re-regardez ensuite la vidéo : vous entendrez tout ce que vous venez d'apprendre.
+  </div>
+
+  <div class="objectifs" data-lv="a2">
+    <p class="t">Parcours A2 — Les bases</p>
+    <p>Comprendre une actualité simple : 10 mots du quotidien scolaire (lycée, professeur, manifestations…), les questions avec « pourquoi » et « comment », et le verbe « avoir » des situations de tous les jours.</p>
+    <p class="dur">Durée estimée : 20–25 min · Prérequis : niveau débutant (A1–A2)</p>
+  </div>
+  <div class="objectifs" data-lv="b1" hidden>
+    <p class="t">Parcours B1 — Conversation</p>
+    <p>Parler d'un mouvement social : 10 mots, 6 expressions, la négation avancée (ne… plus, aucun, depuis), le but (pour que + subjonctif) et le passif simple.</p>
+    <p class="dur">Durée estimée : 35–40 min · Prérequis : niveau intermédiaire (B1)</p>
+  </div>
+  <div class="objectifs" data-lv="b2" hidden>
+    <p class="t">Parcours B2 — Nuances</p>
+    <p>Débattre de sujets graves : le lexique du débat et de la contestation (l'enjeu, légitime, dégénérer…), la concession (malgré, alors que) et la nominalisation du style journalistique.</p>
+    <p class="dur">Durée estimée : 45–50 min · Prérequis : niveau avancé (B2)</p>
+  </div>
+  <div class="objectifs" data-lv="c1" hidden>
+    <p class="t">Parcours C1 — Analyse</p>
+    <p>Lire l'actualité comme un journaliste : le passif et la nominalisation de la presse, le subjonctif de la probabilité, la <em>modalisation</em> (nuancer sans mentir) et la mise en relief — avec le lexique de l'analyse (factuel, anxiogène, infime…).</p>
+    <p class="dur">Durée estimée : 50–60 min · Prérequis : niveau avancé (C1)</p>
+  </div>
+</section>
+
+<section id="comprehension">
+  <h2><span class="num">1</span>Compréhension orale</h2>
+
+  <div data-lv="a2">
+    <p class="lead">Écoutez la vidéo, puis répondez avec des phrases simples.</p>
+    <ol>
+      <li>Pourquoi les lycéens manifestent-ils ?</li>
+      <li>Est-ce que toute la France est « en feu », comme on le voit à la télé ?</li>
+      <li>Est-ce que Nelly va bien ?</li>
+    </ol>
+    <details>
+      <summary>Contrôlez vos réponses</summary>
+      <ol>
+        <li>Il n'y a <span class="answer">pas assez de professeurs</span>, les classes sont trop pleines et les lycées sont dégradés.</li>
+        <li><span class="answer">Non</span> : les images montrent « quelques heures, quelques rues » — pas tout le pays.</li>
+        <li><span class="answer">Oui</span>, « tout va bien » : sa vie continue normalement à Paris.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b1" hidden>
+    <p class="lead">Écoutez la vidéo, puis répondez (phrases simples).</p>
+    <ol>
+      <li>Qu'est-ce que Parcoursup ?</li>
+      <li>Pourquoi la réponse du ministre n'a-t-elle pas satisfait les lycéens ?</li>
+      <li>Pourquoi certains lycéens critiquent-ils les dégradations commises par d'autres manifestants ?</li>
+    </ol>
+    <details>
+      <summary>Contrôlez vos réponses</summary>
+      <ol>
+        <li>La <span class="answer">plateforme</span> où les élèves font des vœux et candidatent pour leurs formations <span class="answer">après le bac</span>.</li>
+        <li>Le ministre a créé un <span class="answer">questionnaire</span> — les lycéens ont l'impression de <span class="answer">ne pas être pris au sérieux</span>.</li>
+        <li>Parce que c'est <span class="answer">« se tirer une balle dans le pied »</span> : ils demandent de meilleurs locaux et certains viennent les casser.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="b2" hidden>
+    <p class="lead">Analyse. Répondez en quelques phrases et justifiez avec des extraits.</p>
+    <ol>
+      <li>« Ce n'est pas un exercice facile d'essayer d'être factuel » : comment Nelly procède-t-elle pour rester objective ?</li>
+      <li>Sur le sujet de la violence policière, quelles questions opposées pose-t-elle ? Quel est l'effet de cette méthode ?</li>
+    </ol>
+    <details>
+      <summary>Réponses possibles</summary>
+      <ol>
+        <li>Elle annonce qu'elle ne donne <span class="answer">pas son opinion politique</span>, expose les faits dans l'ordre, multiplie les <span class="answer">points de vue</span> (lycéens, citoyen critique, contexte) et rappelle que <span class="answer">plusieurs réalités coexistent</span>.</li>
+        <li>Elle demande : la force est-elle <span class="answer">nécessaire et proportionnée</span> ? Les manifestants sont-ils <span class="answer">armés ou agressifs</span> ? Ou certains policiers <span class="answer">abusent-ils de leur pouvoir</span> ? Et la violence est-elle <span class="answer">légitime pour se faire entendre</span> ? C'est une méthode « à charge et à décharge » qui évite de généraliser.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div data-lv="c1" hidden>
+    <p class="lead">Analyse fine. Répondez en citant le texte.</p>
+    <ol>
+      <li>« Parfois les médias peuvent déformer ce qui se passe réellement. » De quels biais de perception Nelly parle-t-elle, et quelle démarche recommande-t-elle pour les corriger ?</li>
+      <li>Elle souligne un « paradoxe » : plus de 3 000 professeurs sans poste, alors que les lycées manquent de professeurs. Qu'est-ce que ce paradoxe révèle du système, et pourquoi est-ce un point si puissant pour les manifestants ?</li>
+    </ol>
+    <details>
+      <summary>Réponses possibles</summary>
+      <ol>
+        <li>Elle dénonce la <span class="answer">décontextualisation</span> : un événement local (une rue, deux heures) présenté comme la situation du pays entier — « on peut avoir l'impression […] que c'est la guerre ». Sa méthode : croiser les sources (« lisez plusieurs articles de sources différentes »), distinguer les faits des impressions, et se méfier de l'effet <span class="answer">anxiogène</span> des images.</li>
+        <li>Les postes existent (3 000 enseignants non affectés) mais l'allocation ne fonctionne pas — un problème <span class="answer">administratif et politique</span>, pas un manque de personnes. Pour les manifestants, c'est la preuve que le problème n'est pas une fatalité mais un <span class="answer">choix de gestion</span> : d'où la formule « la logique, il n'y en a pas ».</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<!--PART2-->

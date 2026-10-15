@@ -5,6 +5,7 @@
     --rouge: #c8102e;
     --vert: #1e7a46;
     --violet: #6b3fa0;
+    --teal: #0e6b62;
     --texte: #22262e;
     --gris: #5c6470;
     --fond: #f6f7fb;
@@ -26,6 +27,7 @@
   body[data-niveau="a2"] { --accent: var(--vert); }
   body[data-niveau="b1"] { --accent: var(--bleu); }
   body[data-niveau="b2"] { --accent: var(--violet); }
+  body[data-niveau="c1"] { --accent: var(--teal); }
   header {
     background: linear-gradient(135deg, #16357a 0%, #1d4aa3 60%, #2a5cc4 100%);
     color: #fff;
@@ -102,6 +104,7 @@
   .seg[data-n="a2"]:has(input:checked) { background: var(--vert); }
   .seg[data-n="b1"]:has(input:checked) { background: var(--bleu); }
   .seg[data-n="b2"]:has(input:checked) { background: var(--violet); }
+  .seg[data-n="c1"]:has(input:checked) { background: var(--teal); }
   .seg:has(input:focus-visible) { outline: 3px solid #9db8ef; outline-offset: 2px; }
   main { max-width: 900px; margin-left: max(1.25rem, calc(50% - 450px - var(--shift, 0px))); margin-right: auto; padding: 1.6rem 1.25rem 4rem; }
   section {
@@ -167,6 +170,7 @@
   }
   body[data-niveau="a2"] .objectifs { background: linear-gradient(90deg, rgba(30,122,70,.09), rgba(30,122,70,.02)); }
   body[data-niveau="b2"] .objectifs { background: linear-gradient(90deg, rgba(107,63,160,.09), rgba(107,63,160,.02)); }
+  body[data-niveau="c1"] .objectifs { background: linear-gradient(90deg, rgba(14,107,98,.10), rgba(14,107,98,.02)); }
   .objectifs .t { font-weight: 800; color: var(--accent); margin: 0 0 .2rem; }
   .objectifs p { margin: .2rem 0; }
   .objectifs .dur { font-size: .85rem; color: var(--gris); }
