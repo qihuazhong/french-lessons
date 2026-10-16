@@ -3,9 +3,9 @@ main = "worker.js"
 compatibility_date = "2026-01-01"
 
 [vars]
-GOOGLE_CLIENT_ID = "REMPLACER_PAR_VOTRE_CLIENT_ID_GOOGLE"
+GOOGLE_CLIENT_ID = "877091310824-ghjegu69m7tdjkdq1itfs808ee0qob38.apps.googleusercontent.com"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "french-progress"
-database_id = "REMPLACER_PAR_L_ID_D1"
+database_id = "8a83a163-72aa-4e7a-9cd4-a5fbfd4460ab"
