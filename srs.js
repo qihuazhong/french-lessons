@@ -232,7 +232,7 @@
   function setSession(idToken) {
     var payload = decodeJwt(idToken);
     if (!payload || !payload.sub) return null;
-    var s = { idToken: idToken, sub: payload.sub, email: payload.email || '', exp: payload.exp || 0 };
+    var s = { idToken: idToken, sub: payload.sub, email: payload.email || '', exp: payload.exp || 0, picture: payload.picture || '' };
     try { localStorage.setItem(SESSION_KEY, JSON.stringify(s)); } catch (e) {}
     return s;
   }
@@ -247,6 +247,32 @@
     if (!c.url || !c.clientId || !s) return null;
     if (s.exp && s.exp * 1000 <= now()) return null;
     return { url: c.url, idToken: s.idToken, email: s.email };
+  }
+
+  function renderAccountChip() {
+    if (typeof document === 'undefined' || !document.body) return;
+    var old = document.getElementById('account-chip');
+    if (old && old.parentNode) old.parentNode.removeChild(old);
+    var c = config();
+    var s = session();
+    if (!c.url || !c.clientId || !s || (s.exp && s.exp * 1000 <= now())) return;
+    var pic = s.picture || (decodeJwt(s.idToken) || {}).picture || '';
+    if (!pic) return;
+    var a = document.createElement('a');
+    a.id = 'account-chip';
+    a.href = 'progres.html';
+    a.title = 'Compte Google : ' + (s.email || s.sub) + ' — synchronisation des progrès';
+    a.style.cssText = 'position:fixed;right:14px;bottom:14px;z-index:80;width:34px;height:34px;' +
+      'border-radius:50%;border:2px solid #fff;background:#fff;display:block;' +
+      'box-shadow:0 3px 12px rgba(20,40,90,.3);';
+    var img = document.createElement('img');
+    img.alt = '';
+    img.referrerPolicy = 'no-referrer';
+    img.style.cssText = 'width:100%;height:100%;border-radius:50%;display:block;';
+    img.onerror = function () { if (a.parentNode) a.parentNode.removeChild(a); };
+    a.appendChild(img);
+    img.src = pic;
+    document.body.appendChild(a);
   }
 
   var syncTimer = null;
@@ -574,8 +600,12 @@
       }
     });
 
-    if (auth() && typeof window !== 'undefined') {
-      window.addEventListener('focus', function () { runSync(load(), null); });
+    renderAccountChip();
+    if (typeof window !== 'undefined') {
+      window.addEventListener('focus', function () {
+        renderAccountChip();
+        if (auth()) runSync(load(), null);
+      });
     }
 
     document.addEventListener('exo-graded', function (e) {

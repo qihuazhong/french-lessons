@@ -138,7 +138,7 @@
         <div id="gsi-btn"></div>
       </div>
       <div id="sync-in" style="display:none;">
-        <p class="note" style="margin:.2rem 0 .6rem;">Connecté : <b id="sync-email"></b><br><span id="sync-last"></span></p>
+        <p class="note" style="margin:.2rem 0 .6rem;"><img id="sync-avatar" alt="" style="display:none;width:22px;height:22px;border-radius:50%;vertical-align:-6px;margin-right:.35rem;border:1px solid var(--bordure);">Connecté : <b id="sync-email"></b><br><span id="sync-last"></span></p>
         <button class="btn ghost" id="sync-off">Se déconnecter</button>
       </div>
       <span id="sync-msg" class="note"></span>
@@ -452,6 +452,10 @@
     var valid = !!(s && (!s.exp || s.exp * 1000 > Date.now()));
     if (valid) {
       document.getElementById('sync-email').textContent = s.email || s.sub;
+      var av = document.getElementById('sync-avatar');
+      var pic = s.picture || (SRS.decodeJwt(s.idToken) || {}).picture || '';
+      if (pic) { av.src = pic; av.style.display = ''; } else { av.removeAttribute('src'); av.style.display = 'none'; }
+      av.onerror = function () { av.style.display = 'none'; };
       var t = SRS.lastSync();
       document.getElementById('sync-last').textContent = t
         ? 'Dernière synchro : ' + new Date(t).toLocaleString('fr-FR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })

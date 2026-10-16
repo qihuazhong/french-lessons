@@ -173,7 +173,8 @@ the "Leçons" side-panel block + footer line into **every** registered page
   PUT** (a stale device can't clobber the server), with a busy queue and a
   401 → `auth` result that clears the session and asks to reconnect; sync runs
   on save (debounced 2.5s), on progres.html load, and on window focus (both
-  pages). `fr-lessons-sync-last` holds the last successful sync time.
+  pages). When signed in, lesson pages show a small round photo chip
+  (`#account-chip`, bottom-right, rendered by `srs.js`) linking to progres.html. `fr-lessons-sync-last` holds the last successful sync time.
   Merge = latest `last` wins per item, activities are unioned; `wipedAt`
   (set by « Réinitialiser ») drops items/activity older than the wipe on every
   device. The Worker (`cloudflare/worker.js`) verifies the Google JWT (JWKS

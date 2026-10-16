@@ -59,6 +59,8 @@ const mkJwt = (payload) => {
 const dec = SRS.decodeJwt(mkJwt({ email: 'a@example.com', sub: '123', exp: 9999999999 }));
 ok(dec && dec.email === 'a@example.com' && dec.sub === '123', 'decodeJwt : charge utile décodée');
 ok(SRS.decodeJwt('pas-un-jeton') === null, 'decodeJwt : jeton malformé → null');
+const sPic = SRS.setSession(mkJwt({ sub: 's1', email: 'e@x.y', exp: 9999999999, picture: 'https://lh3.example/p.png' }));
+ok(sPic && sPic.picture === 'https://lh3.example/p.png', 'setSession : photo de profil conservée');
 ok(SRS.auth() === null, 'auth : null sans configuration (config.js vide)');
 const r2 = SRS.reset();
 ok(r2.wipedAt > 0 && Object.keys(r2.items).length === 0, 'reset : pose wipedAt et vide le paquet');
@@ -83,15 +85,19 @@ ok(reg.items['lecon-x.html|neuf'].last > 0, 'inscription : last horodaté (survi
 
 console.log('== jsdom integration');
 const { JSDOM } = require('jsdom');
-function loadPage(file) {
+function loadPage(file, before) {
   let html = fs.readFileSync(path.join(PROJ, file), 'utf8');
   for (const lib of ['exos.js', 'srs.js']) {
     const code = fs.readFileSync(path.join(PROJ, lib), 'utf8');
     html = html.replace('<script src="' + lib + '"></script>', '<script>' + code + '</script>');
   }
-  const dom = new JSDOM(html, { runScripts: 'dangerously', url: 'https://example.test/' + file, pretendToBeVisual: true });
+  const dom = new JSDOM(html, { runScripts: 'dangerously', url: 'https://example.test/' + file, pretendToBeVisual: true, beforeParse: before });
   return new Promise(r => setTimeout(() => r(dom), 120));
 }
+const withSession = (w, session) => {
+  w.FR_CONFIG = { workerUrl: 'https://w.example', googleClientId: 'c.apps.googleusercontent.com' };
+  w.localStorage.setItem('fr-lessons-session', JSON.stringify(session));
+};
 const delay = ms => new Promise(r => setTimeout(r, ms));
 
 (async () => {
@@ -137,6 +143,22 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   doc.dispatchEvent(new win.CustomEvent('exo-graded', { detail: { id: 'fr-a2-1', score: 3, total: 6 } }));
   const stored2 = JSON.parse(win.localStorage.getItem(SRS.KEY) || '{}');
   ok(stored2.activity.some(e => e.k === 'exo' && e.id === 'fr-a2-1' && e.score === 3), 'événement exo-graded enregistré');
+  ok(!doc.getElementById('account-chip'), 'pas de pastille de compte sans session');
+  dom.window.close();
+
+  const PICTURE = 'https://lh3.googleusercontent.com/avatar.png';
+  dom = await loadPage('lecon-france.html', w => withSession(w, {
+    idToken: 'jeton', sub: 's1', email: 'moi@example.com', exp: 9999999999, picture: PICTURE
+  }));
+  win = dom.window; doc = win.document;
+  await delay(80);
+  let chip = doc.getElementById('account-chip');
+  ok(!!chip && chip.querySelector('img').getAttribute('src') === PICTURE, 'page de leçon : pastille de compte avec la photo');
+  ok(!!chip && chip.getAttribute('href') === 'progres.html' && /moi@example\.com/.test(chip.title), 'pastille : lien vers Mes progrès + email en infobulle');
+  win.localStorage.removeItem('fr-lessons-session');
+  win.dispatchEvent(new win.Event('focus'));
+  await delay(30);
+  ok(!doc.getElementById('account-chip'), 'pastille retirée après déconnexion (focus)');
   dom.window.close();
 
   dom = await loadPage('progres.html');
@@ -181,6 +203,26 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   } else {
     ok(false, 'carte de révision introuvable');
   }
+  dom.window.close();
+
+  dom = await loadPage('progres.html', w => withSession(w, {
+    idToken: mkJwt({ sub: 's1', email: 'moi@example.com', exp: 9999999999, picture: PICTURE }),
+    sub: 's1', email: 'moi@example.com', exp: 9999999999
+  }));
+  win = dom.window; doc = win.document;
+  await delay(80);
+  let av = doc.getElementById('sync-avatar');
+  ok(av.style.display !== 'none' && av.getAttribute('src') === PICTURE, 'Mes progrès : photo affichée après connexion (via le jeton)');
+  ok(doc.getElementById('sync-in').style.display !== 'none' && /moi@example\.com/.test(doc.getElementById('sync-email').textContent), 'Mes progrès : section « connecté » visible');
+  dom.window.close();
+
+  dom = await loadPage('progres.html', w => withSession(w, {
+    idToken: 'jeton-sans-photo', sub: 's1', email: 'moi@example.com', exp: 9999999999
+  }));
+  win = dom.window; doc = win.document;
+  await delay(80);
+  av = doc.getElementById('sync-avatar');
+  ok(av.style.display === 'none', 'Mes progrès : photo masquée si le jeton n’en contient pas');
   dom.window.close();
 
   console.log('\n' + passed + ' passed, ' + failed + ' failed');
