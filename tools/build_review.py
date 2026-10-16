@@ -258,6 +258,7 @@ TEMPLATE = '''<!DOCTYPE html>
 <footer>Progrès stockés localement (localStorage) par <code>srs.js</code> — composant partagé, réutilisé sur chaque page de leçon.</footer>
 
 <script id="deck" type="application/json">{deck}</script>
+<script src="config.js"></script>
 <script src="srs.js"></script>
 <script>
 (function () {

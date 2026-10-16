@@ -147,6 +147,8 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   ok(doc.querySelectorAll('#forecast .fbar').length === 5, 'graphique « À venir » : 5 périodes');
   ok(/non configurée/i.test(doc.getElementById('sync-note').textContent) && doc.getElementById('sync-note').style.display !== 'none', 'sync : note « non configurée » affichée sans config.js');
   ok(doc.getElementById('sync-out').style.display === 'none', 'sync : bouton Google masqué sans configuration');
+  const progresSrc = fs.readFileSync(path.join(PROJ, 'progres.html'), 'utf8');
+  ok(/<script src="config\.js"><\/script>\s*<script src="srs\.js">/.test(progresSrc), 'progres.html charge config.js avant srs.js');
   const fN = () => Array.prototype.map.call(doc.querySelectorAll('#forecast .fbar-n'), e => parseInt(e.textContent, 10));
   ok(!doc.querySelector('#forecast .fbar').classList.contains('hot'), 'paquet vide : pas de pic « Auj. »');
   const addAll = doc.getElementById('add-all');
