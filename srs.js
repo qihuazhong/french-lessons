@@ -410,6 +410,47 @@
     };
   }
 
+  function gramText(box) {
+    var out = [];
+    function push(s) { s = (s || '').replace(/\s+/g, ' ').trim(); if (s) out.push(s); }
+    function walk(node) {
+      Array.prototype.forEach.call(node.children, function (ch) {
+        var tag = ch.tagName;
+        if (tag === 'UL' || tag === 'OL') {
+          Array.prototype.forEach.call(ch.querySelectorAll('li'), function (li) { push('• ' + li.textContent); });
+        } else if (tag === 'TABLE') {
+          Array.prototype.forEach.call(ch.querySelectorAll('tr'), function (tr) {
+            var cells = Array.prototype.map.call(tr.querySelectorAll('th,td'), function (c) {
+              return (c.textContent || '').replace(/\s+/g, ' ').trim();
+            }).filter(Boolean);
+            if (cells.length) push(cells.join(' — '));
+          });
+        } else if (tag === 'P' || tag === 'DIV') {
+          if (ch.querySelector('p,div,ul,ol,table')) walk(ch);
+          else push(ch.textContent);
+        } else {
+          push(ch.textContent);
+        }
+      });
+    }
+    walk(box);
+    return out.join('\n');
+  }
+
+  function itemFromGram(h3, box, level) {
+    var title = (h3.textContent || '').replace(/\s+/g, ' ').trim();
+    var label = (title.match(/^(G\d+)/) || [])[1];
+    if (!label) return null;
+    return {
+      key: 'gram:' + (level || '?') + ':' + label, type: 'grammaire',
+      term: title,
+      gloss: '',
+      example: gramText(box),
+      audio: '',
+      level: level || null
+    };
+  }
+
   function itemFromButton(btn) {
     var blk = btn.closest ? btn.closest('[data-lv]') : null;
     var level = blk ? blk.getAttribute('data-lv') : null;
@@ -438,6 +479,13 @@
         var it = itemFromCard(card, lv);
         if (it && it.key) out.push({ item: it, target: card.querySelector('.titre-row') || card });
       });
+    } else if (sec === 'grammaire') {
+      Array.prototype.forEach.call(blk.querySelectorAll('h3'), function (h3) {
+        var box = h3.nextElementSibling;
+        if (!box || !box.classList || !box.classList.contains('gram-box')) return;
+        var it = itemFromGram(h3, box, lv);
+        if (it && it.key) out.push({ item: it, target: h3 });
+      });
     }
     return out;
   }
@@ -454,7 +502,7 @@
   function collectFromDom() {
     var out = [];
     Array.prototype.forEach.call(
-      document.querySelectorAll('#vocabulaire [data-lv], #expressions [data-lv]'),
+      document.querySelectorAll('#vocabulaire [data-lv], #expressions [data-lv], #grammaire [data-lv]'),
       function (blk) {
         if (blk.hidden) return;
         out = out.concat(collectFromRoot(blk));
@@ -468,7 +516,8 @@
     '.add-deck:disabled{opacity:.85;cursor:default;background:#f0f7f1;border-color:#bfe0cb;color:#1e7a46}' +
     '.pick{margin-right:.45rem;accent-color:#16357a;cursor:pointer}' +
     '.add-deck-cancel{background:none;border:none;color:#5a6b8c;font:inherit;font-size:.82rem;' +
-    'cursor:pointer;text-decoration:underline;margin-left:.4rem}';
+    'cursor:pointer;text-decoration:underline;margin-left:.4rem}' +
+    '.gram-add{margin:.1rem 0 1rem}';
 
   function initLessonPage() {
     if (typeof document === 'undefined') return;
@@ -491,7 +540,9 @@
     }
 
     function kindOf(blk) {
-      return sectionOf(blk) === 'expressions' ? 'expression(s)' : 'mot(s)';
+      var sec = sectionOf(blk);
+      if (sec === 'grammaire') return 'point(s) de grammaire';
+      return sec === 'expressions' ? 'expression(s)' : 'mot(s)';
     }
 
     function remainingIn(blk) {
@@ -593,12 +644,24 @@
 
     function injectAddButtons() {
       Array.prototype.forEach.call(
-        document.querySelectorAll('#vocabulaire [data-lv], #expressions [data-lv]'),
+        document.querySelectorAll('#vocabulaire [data-lv], #expressions [data-lv], #grammaire [data-lv]'),
         function (blk) {
           if (blk.hidden) return;
-          var lead = blk.querySelector('.lead');
-          if (!lead || lead.querySelector('.add-deck')) return;
           if (!collectFromRoot(blk).length) return;
+          var gram = sectionOf(blk) === 'grammaire';
+          var holder;
+          if (gram) {
+            holder = blk.querySelector('.gram-add');
+            if (!holder) {
+              holder = document.createElement('div');
+              holder.className = 'gram-add';
+              blk.insertBefore(holder, blk.firstChild);
+            }
+          } else {
+            holder = blk.querySelector('.lead');
+            if (!holder) return;
+          }
+          if (holder.querySelector('.add-deck')) { refreshLabel(blk, holder.querySelector('.add-deck')); return; }
           var b = document.createElement('button');
           b.type = 'button';
           b.className = 'add-deck';
@@ -606,8 +669,8 @@
             if (active && active.blk === blk) active.confirm();
             else enterSelect(blk, b);
           });
-          lead.appendChild(document.createTextNode(' '));
-          lead.appendChild(b);
+          if (!gram) holder.appendChild(document.createTextNode(' '));
+          holder.appendChild(b);
           refreshLabel(blk, b);
         });
     }

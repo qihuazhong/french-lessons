@@ -155,6 +155,17 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   addBtn.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
   ok(frCount() === 10, 'second passage : le mot exclu ajouté → 10 cartes (' + frCount() + ')');
   ok(addBtn.disabled && /carte\(s\) ajoutée/.test(addBtn.textContent), 'bouton finalisé (« ' + addBtn.textContent + ' »)');
+  const gramBtn = doc.querySelector('#grammaire [data-lv]:not([hidden]) .add-deck');
+  ok(!!gramBtn && /point\(s\) de grammaire/.test(gramBtn.textContent), 'grammaire : bouton d’ajout présent (« ' + (gramBtn ? gramBtn.textContent : 'absent') + ' »)');
+  gramBtn.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const gpicks = doc.querySelectorAll('#grammaire [data-lv]:not([hidden]) .pick');
+  ok(gpicks.length === 2, 'grammaire : une case par point du niveau visible (' + gpicks.length + ')');
+  gramBtn.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const gst = JSON.parse(win.localStorage.getItem(SRS.KEY));
+  const gItem = gst.items['lecon-france.html|gram:a2:G1'];
+  ok(!!gItem && gItem.meta.type === 'grammaire', 'grammaire : carte enregistrée (gram:a2:G1)');
+  ok(!!gItem && /pourquoi, comment/.test(gItem.meta.term) && /est-ce que/.test(gItem.meta.example), 'grammaire : titre et explication extraits');
+  ok(gramBtn.disabled && /carte\(s\) ajoutée/.test(gramBtn.textContent), 'grammaire : bouton finalisé après ajout (« ' + gramBtn.textContent + ' »)');
   const exprBtn = doc.querySelector('#expressions [data-lv]:not([hidden]) .add-deck');
   exprBtn.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
   ok(doc.querySelectorAll('#expressions .pick').length > 0, 'mode sélection aussi pour les expressions (' + doc.querySelectorAll('#expressions .pick').length + ' cases)');
@@ -192,6 +203,7 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   ok(doc.getElementById('sync-out').style.display === 'none', 'sync : bouton Google masqué sans configuration');
   const progresSrc = fs.readFileSync(path.join(PROJ, 'progres.html'), 'utf8');
   ok(/<script src="config\.js"><\/script>\s*<script src="srs\.js">/.test(progresSrc), 'progres.html charge config.js avant srs.js');
+  ok((progresSrc.match(/"ty":"grammaire"/g) || []).length === 34, 'catalogue : 34 points de grammaire');
   const fN = () => Array.prototype.map.call(doc.querySelectorAll('#forecast .fbar-n'), e => parseInt(e.textContent, 10));
   ok(!doc.querySelector('#forecast .fbar').classList.contains('hot'), 'paquet vide : pas de pic « Auj. »');
   const addAll = doc.getElementById('add-all');
@@ -202,7 +214,7 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   await delay(50);
   const before = doc.getElementById('qcount').textContent;
   ok(/\d+ \/ \d+/.test(before), 'après « ajouter tout le catalogue » : file affichée (' + before + ')');
-  ok(fN()[0] === 205 && fN()[1] === 0, 'prévision : 205 cartes dues aujourd’hui (' + fN().join('/') + ')');
+  ok(fN()[0] === 239 && fN()[1] === 0, 'prévision : 239 cartes dues aujourd’hui (' + fN().join('/') + ')');
   ok(doc.querySelector('#forecast .fbar').classList.contains('hot'), 'barre « Auj. » mise en évidence');
   const reveal = doc.querySelector('#qbody .reveal button');
   if (reveal) {
@@ -218,7 +230,7 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
     doc.querySelector('#qbody .grade button.g2').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
     const after = doc.getElementById('qcount').textContent;
     ok(after !== before, 'après notation, carte suivante (' + after + ')');
-    ok(fN()[0] === 204 && fN()[1] === 1, 'après « Bien » : 204 aujourd’hui / 1 demain (' + fN().join('/') + ')');
+    ok(fN()[0] === 238 && fN()[1] === 1, 'après « Bien » : 238 aujourd’hui / 1 demain (' + fN().join('/') + ')');
     const st = JSON.parse(win.localStorage.getItem(SRS.KEY));
     ok(st.activity.some(e => e.k === 'rev' && e.g === 2), 'révision enregistrée (g=2)');
     ok(doc.querySelectorAll('#history .fbar-n')[13].textContent === '1', 'historique : révision du jour comptée');
@@ -232,7 +244,7 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
     const remStored = JSON.parse(win.localStorage.getItem(SRS.KEY));
     ok(Object.keys(remStored.items).length === beforeRem - 1, 'carte retirée du paquet (' + beforeRem + ' → ' + Object.keys(remStored.items).length + ')');
     ok(Object.keys(remStored.removed || {}).length === 1, 'tombstone « removed » enregistré');
-    ok(fN()[0] === 203 && fN()[1] === 1, 'prévision après retrait : 203 aujourd’hui (' + fN().join('/') + ')');
+    ok(fN()[0] === 237 && fN()[1] === 1, 'prévision après retrait : 237 aujourd’hui (' + fN().join('/') + ')');
     ok(doc.querySelectorAll('#history .fbar-n')[13].textContent === '1', 'historique : un retrait n’ajoute pas de révision');
     const cancStored = JSON.parse(win.localStorage.getItem(SRS.KEY));
     win.confirm = function () { return false; };
@@ -247,6 +259,26 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   } else {
     ok(false, 'carte de révision introuvable');
   }
+  dom.window.close();
+
+  dom = await loadPage('progres.html', w => {
+    const it = SRS.newItem({ lesson: 'lecon-france.html', key: 'gram:a2:G1', type: 'grammaire',
+      term: 'G1 — Poser des questions : pourquoi, comment, est-ce que', gloss: '',
+      example: 'Pourquoi ?\n• « Pourquoi tu ris ? »', audio: '', level: 'a2' });
+    it.last = Date.now();
+    const st = SRS.emptyDoc();
+    st.items['lecon-france.html|gram:a2:G1'] = it;
+    w.localStorage.setItem(SRS.KEY, JSON.stringify(st));
+  });
+  win = dom.window; doc = win.document;
+  await delay(80);
+  ok(/grammaire/.test(doc.querySelector('#qbody .tag').textContent), 'révision grammaire : étiquette « grammaire »');
+  ok(/Rappelez-vous la règle/.test(doc.querySelector('#qbody .hint').textContent), 'révision grammaire : consigne adaptée');
+  ok(/pourquoi, comment/.test(doc.querySelector('#qbody .front').textContent), 'révision grammaire : le titre est au recto');
+  doc.querySelector('#qbody .reveal button').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const expl = doc.querySelector('#qbody .back .expl');
+  ok(!!expl && /Pourquoi \?/.test(expl.textContent), 'révision grammaire : explication au verso');
+  ok(!doc.querySelector('#qbody .back .play'), 'révision grammaire : pas de bouton audio');
   dom.window.close();
 
   dom = await loadPage('progres.html', w => withSession(w, {

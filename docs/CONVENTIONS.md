@@ -147,14 +147,19 @@ the "Leçons" side-panel block + footer line into **every** registered page
 - Item sources: cards enter the deck **explicitly** — nothing registers on page
   open or level change. Two triggers: (a) clicking a `.say` on a vocab row /
   expression card adds that one card; (b) the « + Ajouter ces N … » button that
-  `srs.js` injects into each visible level's `.lead` opens a **selection mode**:
+  `srs.js` injects into each visible level's `.lead` (and into `.gram-add` for
+  grammar points) opens a **selection mode**:
   a checkbox per row/card (all checked; items already in the deck are shown
   checked + disabled), the button becomes « Ajouter la sélection (N) » with a
   live count, « Annuler »/Échap exits without adding — so items can be excluded
   before adding. Keys are the `data-say` strings, so keep them unique within a
   lesson.
+- Grammar: each `<h3>` + `.gram-box` pair in `#grammaire [data-lv]` is one card
+  (`type: grammaire`, key `gram:<level>:<G#>`, e.g. `gram:a2:G1`). Front = the
+  grammar title; back = the plain-text rule, formula and examples extracted
+  from the box (bullets `• `, table rows joined with ` — `); no audio.
 - `progres.html` never auto-registers either: an empty deck shows a button to
-  add the whole catalog (205 cards), and a « Réinitialiser » button clears the
+  add the whole catalog (239 cards), and a « Réinitialiser » button clears the
   local doc.
 - Removal: once the answer is shown, the review card offers « Retirer du
   paquet » (confirm first) → `SRS.removeItem` deletes `items[key]` and writes a

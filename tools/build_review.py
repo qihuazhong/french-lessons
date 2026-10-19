@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generate progres.html — the spaced-repetition review page.
 
-Scans every lesson registered in lessons.json, extracts its vocabulary and
-expression items (term, gloss, example, audio clip, level), and writes a
+Scans every lesson registered in lessons.json, extracts its vocabulary,
+expression and grammar items (term, gloss, example, audio clip, level), and writes a
 self-contained progres.html with the deck embedded as inline JSON. The page
 uses srs.js for scheduling (localStorage-first, optional Cloudflare sync).
 
@@ -24,6 +24,35 @@ def strip_tags(s):
     s = html_mod.unescape(s)
     s = s.replace('«', ' ').replace('»', ' ')
     return ' '.join(s.split()).strip()
+
+
+def plain_text(s):
+    s = re.sub(r'<[^>]+>', ' ', s)
+    return ' '.join(html_mod.unescape(s).split()).strip()
+
+
+def div_at(s, start):
+    depth = 0
+    for m in re.finditer(r'<div\b|</div>', s[start:]):
+        depth += 1 if m.group(0) != '</div>' else -1
+        if depth == 0:
+            return s[start:start + m.end()]
+    return s[start:]
+
+
+def gram_text(box):
+    h = re.sub(r'<br\s*/?>', '\n', box)
+    h = re.sub(r'</(p|li|div|tr|h\d)>', '\n', h)
+    h = re.sub(r'</t[dh]>', ' — ', h)
+    h = re.sub(r'<li[^>]*>', '• ', h)
+    h = re.sub(r'<[^>]+>', '', h)
+    h = html_mod.unescape(h)
+    lines = []
+    for line in h.split('\n'):
+        line = ' '.join(line.split()).strip(' —')
+        if line:
+            lines.append(line)
+    return '\n'.join(lines)
 
 
 def level_at(levels, pos):
@@ -92,6 +121,30 @@ def extract_exprs(src):
     return items
 
 
+def extract_grammar(src):
+    sec = section_of(src, 'grammaire')
+    levels = [(m.start(), m.group(1)) for m in re.finditer(r'<div data-lv="(\w+)"', sec)]
+    items = []
+    open_tag = '<div class="gram-box">'
+    for m in re.finditer(r'<h3>(.*?)</h3>\s*' + re.escape(open_tag), sec, re.S):
+        title = plain_text(m.group(1))
+        label = re.match(r'(G\d+)', title)
+        if not label:
+            continue
+        lv = level_at(levels, m.start())
+        box = div_at(sec, m.end() - len(open_tag))
+        items.append({
+            't': title,
+            'k': 'gram:%s:%s' % (lv or '?', label.group(1)),
+            'g': '',
+            'e': gram_text(box),
+            'a': '',
+            'lv': lv,
+            'ty': 'grammaire'
+        })
+    return items
+
+
 def build_deck():
     reg = json.load(open(REG, encoding='utf-8'))
     deck = {'lessons': [], 'items': []}
@@ -99,7 +152,7 @@ def build_deck():
         if not os.path.exists(entry['file']):
             continue
         src = open(entry['file'], encoding='utf-8').read()
-        items = extract_vocab(src) + extract_exprs(src)
+        items = extract_vocab(src) + extract_exprs(src) + extract_grammar(src)
         for it in items:
             it['l'] = entry['file']
             it['lt'] = entry.get('nav', entry['file'])
@@ -147,10 +200,14 @@ TEMPLATE = '''<!DOCTYPE html>
   #review { padding: 2.2rem 1.6rem 1.8rem; }
   #qbody { text-align: center; }
   .front { font-size: 1.7rem; font-weight: 700; color: var(--bleu); min-height: 2.4rem; cursor: pointer; }
+  .front.gram { font-size: 1.22rem; line-height: 1.4; }
   .hint { font-size: .82rem; color: var(--gris); margin-top: .45rem; }
   .back { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px dashed var(--bordure); display: none; }
   .back .term { font-size: 1.5rem; font-weight: 800; color: var(--vert); }
   .back .ex { color: var(--gris); font-style: italic; margin-top: .4rem; }
+  .back.gram .term { font-size: 1.05rem; color: var(--bleu); }
+  .back .expl { text-align: left; white-space: pre-line; margin: .6rem auto 0; max-width: 560px;
+                font-size: .92rem; line-height: 1.55; color: #33415c; }
   .back .play { margin-top: .7rem; }
   .reveal { margin-top: 1.2rem; }
   .reveal .btn { padding: .6rem 2rem; font-size: .95rem; }
@@ -286,7 +343,7 @@ TEMPLATE = '''<!DOCTYPE html>
 
   function catalogOf(lessonFile) {
     return DECK.items.filter(function (it) { return it.l === lessonFile; })
-      .map(function (it) { return { key: it.t, type: it.ty, term: it.t, gloss: it.g, example: it.e, audio: it.a, level: it.lv }; });
+      .map(function (it) { return { key: it.k || it.t, type: it.ty, term: it.t, gloss: it.g, example: it.e, audio: it.a, level: it.lv }; });
   }
   function addLessonToDeck(lessonFile) {
     return SRS.registerItems(doc, lessonFile, catalogOf(lessonFile));
@@ -496,27 +553,28 @@ TEMPLATE = '''<!DOCTYPE html>
     body.innerHTML = '';
     var tag = document.createElement('div');
     tag.className = 'tag';
-    tag.textContent = m.lt + ' · ' + (m.type === 'expression' ? 'expression' : 'mot') + ' · ' + m.level.toUpperCase();
+    tag.textContent = m.lt + ' · ' + m.type + ' · ' + m.level.toUpperCase();
     body.appendChild(tag);
     var front = document.createElement('div');
-    front.className = 'front';
+    front.className = 'front' + (m.type === 'grammaire' ? ' gram' : '');
     front.textContent = m.gloss || m.term;
     front.title = 'Cliquer pour afficher la réponse';
     front.addEventListener('click', function () { flip(); });
     body.appendChild(front);
     var hint = document.createElement('div');
     hint.className = 'hint';
-    hint.textContent = m.type === 'expression' ? 'Retrouvez l’expression en français' : 'Dites ce mot en français';
+    hint.textContent = m.type === 'grammaire' ? 'Rappelez-vous la règle et les exemples'
+      : (m.type === 'expression' ? 'Retrouvez l’expression en français' : 'Dites ce mot en français');
     body.appendChild(hint);
     var back = document.createElement('div');
-    back.className = 'back';
+    back.className = 'back' + (m.type === 'grammaire' ? ' gram' : '');
     var term = document.createElement('div');
     term.className = 'term';
     term.textContent = m.term;
     back.appendChild(term);
     if (m.example) {
       var ex = document.createElement('div');
-      ex.className = 'ex';
+      ex.className = m.type === 'grammaire' ? 'expl' : 'ex';
       ex.textContent = m.example;
       back.appendChild(ex);
     }

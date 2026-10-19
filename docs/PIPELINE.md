@@ -128,7 +128,7 @@ python3 - <<'EOF'   # HTML well-formedness + spec JSON validity (adapted from ea
 EOF
 node --check <(python3 -c "import re;print(re.search(r'<script>(.*?)</script>', open('lecon-<slug>.html').read(), re.S).group(1))")
 cd tools && npm i jsdom && node test_exos.js   # exercise engine smoke test (24 assertions)
-cd tools && node test_srs.js                   # révisions Anki + retrait/merge + historique + Google (79 assertions)
+cd tools && node test_srs.js                   # révisions Anki + grammaire + retrait/merge + historique + Google (90 assertions)
 ```
 
 Spot-play a few clips: `afplay audio-<slug>/v001.m4a` — and click around in the
@@ -160,7 +160,7 @@ curl -s -o /dev/null -w '%{http_code}\n' https://qihuazhong.github.io/french-les
 | Buttons play wrong clips after edits | ids are DOM-ordered: re-run cut pipeline after adding/removing buttons |
 | Page 404 right after push | Pages is still building; wait and re-check (`.nojekyll` is in place) |
 | Injection anchors match in the wrong section | scope replacements to the target `<section id="…">` substring |
-| Review deck missing items | deck keys come from `data-say` attrs — run `python3 tools/build_review.py` after content edits |
+| Review deck missing items | deck keys come from `data-say` attrs (vocab/expressions) or `gram:<level>:<G#>` (grammar) — run `python3 tools/build_review.py` after content edits |
 
 ## Historical scripts (archival — do not reuse)
 
