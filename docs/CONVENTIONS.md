@@ -169,6 +169,8 @@ the "Leçons" side-panel block + footer line into **every** registered page
   (only once flipped, so the French term isn't spoiled). « À venir » forecast = 5 CSS-bar buckets over `doc.items` due
   dates: Auj. (≤ 23:59 today, overdue included), Demain, 2-3 j, 4-7 j, +7 j;
   the Auj. bar gets `.hot` (red) when non-zero; respects the lesson filter.
+  « Historique » = 14 daily bars counting `rev` activity entries (today in
+  green), same lesson filter; rendered by `renderHistory()` on every refresh.
 - Grades 0–3 (Encore / Difficile / Bien / Facile): SM-2-lite — learning steps
   10/15 min, review interval ×ease, ease clamped 1.3–2.8, max 365 days.
 - Lesson pages log `exo-graded` results into the activity log.

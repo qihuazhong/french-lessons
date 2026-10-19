@@ -188,6 +188,14 @@ TEMPLATE = '''<!DOCTYPE html>
   .fbar.hot .fbar-n { color: var(--rouge); }
   .fbar.hot .fbar-track i { background: var(--rouge); }
   .fbar-l { font-size: .76rem; color: var(--gris); }
+  .chart.hist { gap: .28rem; }
+  .chart.hist .fbar { gap: .22rem; }
+  .chart.hist .fbar-n { font-size: .74rem; }
+  .chart.hist .fbar-track { height: 82px; max-width: none; border-radius: 5px; }
+  .chart.hist .fbar-track i { border-radius: 5px 5px 0 0; }
+  .chart.hist .fbar-l { font-size: .64rem; }
+  .chart.hist .fbar.today .fbar-n { color: var(--vert); }
+  .chart.hist .fbar.today .fbar-track i { background: var(--vert); }
   h2 { font-family: Georgia, "Times New Roman", serif; color: var(--bleu); font-size: 1.25rem; margin: 1.8rem 0 .6rem; }
   table.act { width: 100%; border-collapse: collapse; font-size: .88rem; }
   table.act td, table.act th { padding: .4rem .6rem; border-bottom: 1px solid var(--bordure); text-align: left; }
@@ -227,6 +235,12 @@ TEMPLATE = '''<!DOCTYPE html>
   <div class="card">
     <div class="chart" id="forecast"></div>
     <p class="note">Cartes dues dans chaque période — les retards comptent dans « Auj. ».</p>
+  </div>
+
+  <h2>Historique</h2>
+  <div class="card">
+    <div class="chart hist" id="history"></div>
+    <p class="note">Révisions notées par jour (14 derniers jours) — le filtre de leçon s'applique.</p>
   </div>
 
   <h2>Activité récente</h2>
@@ -389,6 +403,44 @@ TEMPLATE = '''<!DOCTYPE html>
     });
   }
 
+  function dateKey(d) {
+    return d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+  }
+
+  function renderHistory() {
+    var el = document.getElementById('history');
+    var DAYS = 14;
+    var nowD = new Date();
+    var buckets = [];
+    var idx = {};
+    for (var i = DAYS - 1; i >= 0; i--) {
+      var d = new Date(nowD.getFullYear(), nowD.getMonth(), nowD.getDate() - i);
+      idx[dateKey(d)] = buckets.length;
+      buckets.push({ d: d, label: i === 0 ? 'Auj.' : String(d.getDate()), count: 0 });
+    }
+    var since = buckets[0].d.getTime();
+    doc.activity.forEach(function (e) {
+      if (e.k !== 'rev' || !e.t || e.t < since) return;
+      if (lessonFilter && e.lesson !== lessonFilter) return;
+      var i = idx[dateKey(new Date(e.t))];
+      if (i != null) buckets[i].count++;
+    });
+    var max = 1;
+    buckets.forEach(function (b) { if (b.count > max) max = b.count; });
+    el.innerHTML = '';
+    buckets.forEach(function (b, i) {
+      var w = document.createElement('div');
+      w.className = 'fbar' + (i === buckets.length - 1 ? ' today' : '');
+      w.title = b.d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })
+        + ' : ' + b.count + ' révision(s)';
+      var pct = b.count ? Math.max(5, Math.round(100 * b.count / max)) : 0;
+      w.innerHTML = '<div class="fbar-n">' + b.count + '</div>'
+        + '<div class="fbar-track"><i style="height:' + pct + '%"></i></div>'
+        + '<div class="fbar-l">' + b.label + '</div>';
+      el.appendChild(w);
+    });
+  }
+
   var audioEl = null;
   function playAudio(path) {
     if (!path) return;
@@ -547,6 +599,7 @@ TEMPLATE = '''<!DOCTYPE html>
     renderStats();
     renderCard();
     renderForecast();
+    renderHistory();
   }
 
   function renderActivity() {
@@ -648,6 +701,7 @@ TEMPLATE = '''<!DOCTYPE html>
     renderFilters();
     renderCard();
     renderForecast();
+    renderHistory();
     renderActivity();
   }
 

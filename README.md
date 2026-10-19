@@ -84,7 +84,8 @@ item so you can include/exclude before confirming (« Annuler » or Échap).
 space to flip), solid graded buttons in Anki colours each showing the simulated
 next interval (Encore 10 min · Difficile 15 min · Bien 1 j · Facile 4 j on new
 cards; keys 1-4, and R replays the audio once flipped), a due forecast chart (Auj. / Demain / 2-3 j / 4-7 j / +7 j),
-due counts, streak, activity log, JSON export/import, and a reset button. Once
+a 14-day review-history bar chart, due counts, streak, activity log, JSON
+export/import, and a reset button. Once
 the answer is shown, « Retirer du paquet » removes a card from the deck (confirm
 first; re-addable from the lesson — the removal syncs across devices).
 
