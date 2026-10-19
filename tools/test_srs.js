@@ -83,6 +83,26 @@ const reg = SRS.emptyDoc();
 SRS.registerItems(reg, 'lecon-x.html', [{ key: 'neuf', type: 'mot' }]);
 ok(reg.items['lecon-x.html|neuf'].last > 0, 'inscription : last horodaté (survit aux tombstones)');
 
+console.log('== suppression de cartes (removed)');
+const rd = SRS.emptyDoc();
+SRS.registerItems(rd, 'lecon-x.html', [{ key: 'a', type: 'mot', term: 'a' }]);
+SRS.removeItem(rd, 'lecon-x.html|a');
+ok(!rd.items['lecon-x.html|a'] && rd.removed['lecon-x.html|a'] > 0, 'removeItem : carte retirée + tombstone horodaté');
+const rd2 = SRS.emptyDoc();
+rd2.items['lecon-x.html|a'] = SRS.newItem({ term: 'a' });
+rd2.items['lecon-x.html|a'].last = 100;
+const rem = SRS.emptyDoc();
+rem.removed['lecon-x.html|a'] = 150;
+ok(!SRS.merge(rd2, rem).items['lecon-x.html|a'], 'merge : carte retirée sur un autre appareil écartée');
+const re = SRS.emptyDoc();
+re.items['lecon-x.html|a'] = SRS.newItem({ term: 'a' });
+re.items['lecon-x.html|a'].last = 200;
+ok(!!SRS.merge(re, rem).items['lecon-x.html|a'], 'merge : ré-ajout postérieur au retrait conservé');
+SRS.registerItems(rd, 'lecon-x.html', [{ key: 'a', type: 'mot', term: 'a' }]);
+ok(!!rd.items['lecon-x.html|a'] && !rd.removed['lecon-x.html|a'], 'ré-ajout : tombstone effacé');
+const legacy = { v: 1, items: {}, activity: [] };
+ok(!!(SRS.merge(legacy, SRS.emptyDoc()).removed), 'merge : doc sans « removed » (ancien format) accepté');
+
 console.log('== jsdom integration');
 const { JSDOM } = require('jsdom');
 function loadPage(file, before) {
@@ -200,6 +220,27 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
     ok(fN()[0] === 204 && fN()[1] === 1, 'après « Bien » : 204 aujourd’hui / 1 demain (' + fN().join('/') + ')');
     const st = JSON.parse(win.localStorage.getItem(SRS.KEY));
     ok(st.activity.some(e => e.k === 'rev' && e.g === 2), 'révision enregistrée (g=2)');
+    let rmRow = doc.querySelector('#qbody .remove-row');
+    ok(!!rmRow && rmRow.style.display === 'none', 'bouton « Retirer du paquet » masqué avant d’afficher la réponse');
+    doc.querySelector('#qbody .reveal button').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+    ok(doc.querySelector('#qbody .remove-row').style.display === 'block', 'bouton « Retirer du paquet » visible après affichage');
+    win.confirm = function () { return true; };
+    const beforeRem = Object.keys(JSON.parse(win.localStorage.getItem(SRS.KEY)).items).length;
+    doc.querySelector('#qbody .remove-row button').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+    const remStored = JSON.parse(win.localStorage.getItem(SRS.KEY));
+    ok(Object.keys(remStored.items).length === beforeRem - 1, 'carte retirée du paquet (' + beforeRem + ' → ' + Object.keys(remStored.items).length + ')');
+    ok(Object.keys(remStored.removed || {}).length === 1, 'tombstone « removed » enregistré');
+    ok(fN()[0] === 203 && fN()[1] === 1, 'prévision après retrait : 203 aujourd’hui (' + fN().join('/') + ')');
+    const cancStored = JSON.parse(win.localStorage.getItem(SRS.KEY));
+    win.confirm = function () { return false; };
+    if (doc.querySelector('#qbody .reveal button')) {
+      doc.querySelector('#qbody .reveal button').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+      doc.querySelector('#qbody .remove-row button').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+      const after = JSON.parse(win.localStorage.getItem(SRS.KEY));
+      ok(Object.keys(after.items).length === Object.keys(cancStored.items).length, 'annulation du confirm : carte conservée');
+    } else {
+      ok(true, 'annulation du confirm : (session terminée, rien à annuler)');
+    }
   } else {
     ok(false, 'carte de révision introuvable');
   }

@@ -143,7 +143,7 @@ the "Leçons" side-panel block + footer line into **every** registered page
 
 - Storage: localStorage key `fr-lessons-progress-v1`, doc =
   `{v, created, lastOpen, items: {"<lessonFile>|<data-say>": {st, due, ivl,
-  ease, reps, lapses, last, meta}}, activity: [...]}`.
+  ease, reps, lapses, last, meta}}, removed: {key: ts}, activity: [...]}`.
 - Item sources: cards enter the deck **explicitly** — nothing registers on page
   open or level change. Two triggers: (a) clicking a `.say` on a vocab row /
   expression card adds that one card; (b) the « + Ajouter ces N … » button that
@@ -156,6 +156,12 @@ the "Leçons" side-panel block + footer line into **every** registered page
 - `progres.html` never auto-registers either: an empty deck shows a button to
   add the whole catalog (205 cards), and a « Réinitialiser » button clears the
   local doc.
+- Removal: once the answer is shown, the review card offers « Retirer du
+  paquet » (confirm first) → `SRS.removeItem` deletes `items[key]` and writes a
+  per-item tombstone `removed[key] = now` (the item is re-addable from the
+  lesson at any time). `merge` unions the `removed` maps and drops any item
+  whose `last <= removed[key]`, so removals propagate across devices instead of
+  being resurrected by the next sync; re-adding clears the tombstone.
 - Review UI is Anki-style: centered card (front = gloss, click/space flips),
   solid graded buttons (g0..g3 red/orange/green/blue) whose `.ivl` span shows
   the simulated next interval (`previewIvl` clones the item and calls

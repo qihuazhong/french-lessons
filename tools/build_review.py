@@ -165,6 +165,8 @@ TEMPLATE = '''<!DOCTYPE html>
   .g2 { background: #2e8b57; } .g2:hover { background: #287a4c; }
   .g3 { background: #2c6fbb; } .g3:hover { background: #266199; }
   .keys { font-size: .78rem; color: var(--gris); margin-top: .8rem; }
+  .remove-row { display: none; margin-top: 1rem; }
+  .remove-row .btn { font-size: .8rem; padding: .3rem .9rem; }
   .btn { font: inherit; font-weight: 700; font-size: .9rem; border-radius: 999px; padding: .45rem 1.1rem;
          cursor: pointer; border: 1.5px solid transparent; background: var(--bleu); color: #fff; }
   .btn.ghost { background: transparent; color: var(--bleu); border-color: #c9d6f2; }
@@ -293,6 +295,7 @@ TEMPLATE = '''<!DOCTYPE html>
 
   var queue = [];
   var pos = 0;
+  var done = 0;
   var flipped = false;
 
   function itemsMatching() {
@@ -302,6 +305,7 @@ TEMPLATE = '''<!DOCTYPE html>
   function buildQueue() {
     queue = itemsMatching();
     pos = 0;
+    done = 0;
     flipped = false;
   }
 
@@ -426,8 +430,8 @@ TEMPLATE = '''<!DOCTYPE html>
       return;
     }
     if (pos >= queue.length) {
-      body.innerHTML = '<div class="empty">Session terminée : ' + queue.length + ' carte(s) révisée(s). Bravo !</div>';
-      count.textContent = queue.length + ' / ' + queue.length;
+      body.innerHTML = '<div class="empty">Session terminée : ' + done + ' carte(s) révisée(s). Bravo !</div>';
+      count.textContent = done + ' / ' + queue.length;
       bar.style.width = '100%';
       next.textContent = '';
       return;
@@ -495,6 +499,26 @@ TEMPLATE = '''<!DOCTYPE html>
     keys.className = 'keys';
     keys.textContent = 'raccourcis : espace = afficher · 1-4 = noter · R = écouter';
     body.appendChild(keys);
+    var rmRow = document.createElement('div');
+    rmRow.className = 'remove-row';
+    rmRow.style.display = 'none';
+    var rmBtn = document.createElement('button');
+    rmBtn.type = 'button';
+    rmBtn.className = 'btn danger';
+    rmBtn.textContent = 'Retirer du paquet';
+    rmBtn.title = 'Retirer cette carte de vos révisions (ré-ajoutable depuis la leçon)';
+    rmBtn.addEventListener('click', function () {
+      if (!window.confirm('Retirer « ' + m.term + ' » du paquet ? (ré-ajoutable depuis la leçon)')) return;
+      SRS.removeItem(doc, queue[pos]);
+      SRS.save(doc);
+      pos++;
+      flipped = false;
+      renderStats();
+      renderCard();
+      renderForecast();
+    });
+    rmRow.appendChild(rmBtn);
+    body.appendChild(rmRow);
     if (flipped) showBack();
   }
 
@@ -503,8 +527,10 @@ TEMPLATE = '''<!DOCTYPE html>
     var back = document.querySelector('#qbody .back');
     var grade = document.querySelector('#qbody .grade');
     var reveal = document.querySelector('#qbody .reveal');
+    var rmRow = document.querySelector('#qbody .remove-row');
     if (back) back.style.display = 'block';
     if (grade) grade.style.display = 'flex';
+    if (rmRow) rmRow.style.display = 'block';
     if (reveal) reveal.style.display = 'none';
   }
 

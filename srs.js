@@ -14,7 +14,7 @@
   function now() { return Date.now(); }
 
   function emptyDoc() {
-    return { v: 1, created: now(), lastOpen: now(), items: {}, activity: [] };
+    return { v: 1, created: now(), lastOpen: now(), items: {}, removed: {}, activity: [] };
   }
 
   function load() {
@@ -22,6 +22,7 @@
       var raw = (typeof localStorage !== 'undefined') && localStorage.getItem(KEY);
       var d = raw ? JSON.parse(raw) : emptyDoc();
       if (!d.items) d.items = {};
+      if (!d.removed) d.removed = {};
       if (!d.activity) d.activity = [];
       d.v = 1;
       return d;
@@ -91,10 +92,19 @@
 
   function itemKey(lesson, key) { return lesson + '|' + key; }
 
+  function removeItem(doc, key) {
+    if (!doc.items[key]) return false;
+    delete doc.items[key];
+    if (!doc.removed) doc.removed = {};
+    doc.removed[key] = now();
+    return true;
+  }
+
   function registerItems(doc, lesson, list) {
     var added = 0;
     list.forEach(function (it) {
       var k = itemKey(lesson, it.key);
+      if (doc.removed && doc.removed[k]) delete doc.removed[k];
       if (!doc.items[k]) {
         doc.items[k] = newItem({
           lesson: lesson, key: it.key, type: it.type, term: it.term,
@@ -172,13 +182,22 @@
       created: Math.min(a.created || now(), b.created || now()),
       lastOpen: Math.max(a.lastOpen || 0, b.lastOpen || 0),
       items: {},
+      removed: {},
       activity: []
     };
     if (wiped) out.wipedAt = wiped;
     [a, b].forEach(function (d) {
+      Object.keys(d.removed || {}).forEach(function (k) {
+        var t = d.removed[k] || 0;
+        if (t <= wiped) return;
+        if (t > (out.removed[k] || 0)) out.removed[k] = t;
+      });
+    });
+    [a, b].forEach(function (d) {
       Object.keys(d.items || {}).forEach(function (k) {
         var it = d.items[k];
         if (wiped && (it.last || 0) <= wiped) return;
+        if ((it.last || 0) <= (out.removed[k] || 0)) return;
         if (!out.items[k] || (it.last || 0) > (out.items[k].last || 0)) out.items[k] = it;
       });
     });
@@ -625,7 +644,7 @@
     KEY: KEY,
     load: load, save: save, emptyDoc: emptyDoc, reset: reset,
     newItem: newItem, grade: grade,
-    itemKey: itemKey, registerItems: registerItems, recordActivity: recordActivity,
+    itemKey: itemKey, registerItems: registerItems, removeItem: removeItem, recordActivity: recordActivity,
     dueItems: dueItems, stats: stats, streak: streak, merge: merge,
     exportJSON: exportJSON, importJSON: importJSON,
     config: config, session: session, setSession: setSession, clearSession: clearSession,
