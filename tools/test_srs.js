@@ -51,6 +51,18 @@ const m = SRS.merge(a, b);
 ok(m.items['lecon-x.html|un truc'].last === 9999999999999, 'merge : dernière écriture gagne');
 ok(m.activity.length === 2 && m.activity[0].t === 1, 'merge : activité fusionnée et triée');
 
+console.log('== déduplication de l’activité');
+const da = SRS.emptyDoc();
+da.activity.push({ t: 10, k: 'rev', lesson: 'l', term: 'x', g: 2 });
+da.activity.push({ t: 11, k: 'exo', lesson: 'l', id: 'e1', score: 1, total: 2 });
+const dup = SRS.merge(da, da);
+ok(dup.activity.length === 2, 'merge : activité identique non dupliquée (' + dup.activity.length + ')');
+ok(SRS.merge(dup, dup).activity.length === 2, 'merge : idempotent après plusieurs cycles');
+const sameT = SRS.emptyDoc();
+sameT.activity.push({ t: 10, k: 'rev', lesson: 'l', term: 'x', g: 2 });
+sameT.activity.push({ t: 10, k: 'rev', lesson: 'l', term: 'y', g: 2 });
+ok(SRS.merge(sameT, SRS.emptyDoc()).activity.length === 2, 'merge : événements distincts au même instant conservés');
+
 console.log('== Google session');
 const mkJwt = (payload) => {
   const b64 = (o) => Buffer.from(JSON.stringify(o)).toString('base64url');
@@ -279,6 +291,21 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   const expl = doc.querySelector('#qbody .back .expl');
   ok(!!expl && /Pourquoi \?/.test(expl.textContent), 'révision grammaire : explication au verso');
   ok(!doc.querySelector('#qbody .back .play'), 'révision grammaire : pas de bouton audio');
+  dom.window.close();
+
+  dom = await loadPage('progres.html', w => {
+    const st = SRS.emptyDoc();
+    st.activity = [
+      { t: 1000, k: 'rev', lesson: 'l', term: 'x', g: 2 },
+      { t: 1000, k: 'rev', lesson: 'l', term: 'x', g: 2 },
+      { t: 2000, k: 'rev', lesson: 'l', term: 'y', g: 2 }
+    ];
+    w.localStorage.setItem(SRS.KEY, JSON.stringify(st));
+  });
+  win = dom.window; doc = win.document;
+  await delay(80);
+  const statN = Array.prototype.map.call(doc.querySelectorAll('.stat .n'), e => e.textContent);
+  ok(statN[4] === '2', 'doc gonflé : « Révisions » dédupliqué au chargement (' + statN[4] + ')');
   dom.window.close();
 
   dom = await loadPage('progres.html', w => withSession(w, {

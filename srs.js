@@ -24,6 +24,8 @@
       if (!d.items) d.items = {};
       if (!d.removed) d.removed = {};
       if (!d.activity) d.activity = [];
+      var clean = dedupeActivity(d.activity);
+      if (clean.length !== d.activity.length) d.activity = clean;
       d.v = 1;
       return d;
     } catch (e) {
@@ -122,6 +124,21 @@
     return added;
   }
 
+  function activityKey(e) {
+    return [e.t, e.k || '', e.lesson || '', e.term || '', e.g == null ? '' : e.g,
+      e.id || '', e.score == null ? '' : e.score, e.total == null ? '' : e.total].join('|');
+  }
+
+  function dedupeActivity(list) {
+    var seen = {};
+    return (list || []).filter(function (e) {
+      var k = activityKey(e);
+      if (seen[k]) return false;
+      seen[k] = 1;
+      return true;
+    });
+  }
+
   function recordActivity(doc, entry) {
     if (entry.t == null) entry.t = now();
     doc.activity.push(entry);
@@ -201,9 +218,9 @@
         if (!out.items[k] || (it.last || 0) > (out.items[k].last || 0)) out.items[k] = it;
       });
     });
-    var acts = (a.activity || []).concat(b.activity || []).filter(function (e) {
+    var acts = dedupeActivity((a.activity || []).concat(b.activity || []).filter(function (e) {
       return !wiped || e.t > wiped;
-    });
+    }));
     acts.sort(function (x, y) { return x.t - y.t; });
     out.activity = acts.slice(-MAX_ACTIVITY);
     return out;
