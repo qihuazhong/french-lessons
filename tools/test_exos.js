@@ -76,8 +76,9 @@ async function testOpinions() {
   click(match.querySelector('.exo-btn.reset'));
   ok(Array.from(L).every(l => !l.dataset.pair), 'reset du match');
 
+  const wrongR = Array.from(R).find(r => r.textContent.trim() !== pairs[0][1]);
   click(L[0]);
-  click(R[2]);
+  click(wrongR);
   click(match.querySelector('.exo-btn.check'));
   ok(/\b0\/6\b/.test(match.querySelector('.exo-score').textContent), 'match faux : 0/6');
   ok(/→ /.test(L[0].querySelector('.hint').textContent), 'indice affiché sur paire fausse');
