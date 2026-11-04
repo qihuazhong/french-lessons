@@ -98,6 +98,13 @@ optionally `= exemple`; tab or `;` also work): they become review cards under
 the lesson key `prive:<id>`, get their own filter chip, and travel with export
 /import and Google sync (`doc.priv`, newest edit wins, deletions are
 tombstones). Links are restricted to http(s).
+The translation is optional: a line with only the French word gets its English
+sense looked up automatically (`SRS.lookupGloss`: English Wiktionary's
+definitions of the French entry, up to 3 senses; fallback MyMemory for phrases
+or misses), written back into the textarea so it can be checked before adding
+(« Compléter le sens (aperçu) »). Words without their own clip are pronounced
+with the browser's French speech-synthesis voice (card « Écouter », key R, 🔊 in
+the lesson's card list).
 
 Everything is **localStorage-first** (free, offline, no account). Optional $0
 cloud sync ties progress to a **Google account**: sign in with Google on
