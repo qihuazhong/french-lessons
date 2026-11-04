@@ -14,7 +14,7 @@
   function now() { return Date.now(); }
 
   function emptyDoc() {
-    return { v: 1, created: now(), lastOpen: now(), items: {}, removed: {}, activity: [] };
+    return { v: 1, created: now(), lastOpen: now(), items: {}, removed: {}, activity: [], priv: {} };
   }
 
   function load() {
@@ -24,6 +24,7 @@
       if (!d.items) d.items = {};
       if (!d.removed) d.removed = {};
       if (!d.activity) d.activity = [];
+      if (!d.priv) d.priv = {};
       var clean = dedupeActivity(d.activity);
       if (clean.length !== d.activity.length) d.activity = clean;
       d.v = 1;
@@ -124,6 +125,95 @@
     return added;
   }
 
+  // ---- Leçons privées (cours particuliers) -------------------------------
+  // doc.priv[id] = { id, name, url, date, notes, created, updated, deleted? }
+  // Leurs cartes vivent dans doc.items sous la leçon « prive:<id> ».
+  // Fusion : la version la plus récente (updated) gagne ; une suppression est
+  // un tombstone (deleted) qui se propage entre appareils.
+  var PRIV_PREFIX = 'prive:';
+
+  function privLessonId(id) { return PRIV_PREFIX + id; }
+
+  function isPrivLesson(lesson) { return String(lesson || '').indexOf(PRIV_PREFIX) === 0; }
+
+  function safeUrl(u) {
+    u = String(u || '').trim();
+    if (!u) return '';
+    if (!/^[a-z][a-z0-9+.-]*:/i.test(u)) u = 'https://' + u.replace(/^\/+/, '');
+    return /^https?:\/\/[^\s]+$/i.test(u) ? u : '';
+  }
+
+  function newPrivId() {
+    return now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
+
+  function privateLessons(doc) {
+    var p = (doc && doc.priv) || {};
+    return Object.keys(p).map(function (k) { return p[k]; })
+      .filter(function (L) { return L && !L.deleted; })
+      .sort(function (a, b) {
+        return String(b.date || '').localeCompare(String(a.date || '')) || (b.created || 0) - (a.created || 0);
+      });
+  }
+
+  function savePrivateLesson(doc, data) {
+    if (!doc.priv) doc.priv = {};
+    var name = String((data && data.name) || '').trim();
+    if (!name) return null;
+    var id = data.id && doc.priv[data.id] && !doc.priv[data.id].deleted ? data.id : newPrivId();
+    var t = now();
+    var prev = doc.priv[id] || { id: id, created: t };
+    var L = {
+      id: id, name: name.slice(0, 120), url: safeUrl(data.url),
+      date: /^\d{4}-\d{2}-\d{2}$/.test(data.date || '') ? data.date : '',
+      notes: String(data.notes || '').trim().slice(0, 2000),
+      created: prev.created || t, updated: t
+    };
+    doc.priv[id] = L;
+    return L;
+  }
+
+  function privateCards(doc, id) {
+    var lesson = privLessonId(id);
+    return Object.keys(doc.items).filter(function (k) {
+      var m = doc.items[k].meta;
+      return m && m.lesson === lesson;
+    });
+  }
+
+  function deletePrivateLesson(doc, id) {
+    if (!doc.priv || !doc.priv[id]) return false;
+    var t = now();
+    privateCards(doc, id).forEach(function (k) { removeItem(doc, k); });
+    doc.priv[id] = { id: id, deleted: t, updated: t };
+    return true;
+  }
+
+  // Une carte par ligne : « français = traduction » (option : « = exemple »).
+  // Séparateurs acceptés : =, tabulation, « ; », « — » / « - » entourés d'espaces.
+  function parseCardLines(text) {
+    var out = [];
+    String(text || '').split(/\r?\n/).forEach(function (line) {
+      line = line.trim();
+      if (!line) return;
+      var parts = line.split(/\s*(?:=|\t|;|\s[\u2014\u2013-]\s)\s*/).map(function (x) { return x.trim(); });
+      var term = parts[0];
+      if (!term) return;
+      out.push({
+        key: term, term: term,
+        type: term.split(/\s+/).length > 2 ? 'expression' : 'mot',
+        gloss: parts[1] || '', example: parts.slice(2).join(' — '), audio: '', level: null
+      });
+    });
+    return out;
+  }
+
+  function addPrivateCards(doc, id, list) {
+    var L = doc.priv && doc.priv[id];
+    if (!L || L.deleted) return 0;
+    return registerItems(doc, privLessonId(id), list);
+  }
+
   function activityKey(e) {
     return [e.t, e.k || '', e.lesson || '', e.term || '', e.g == null ? '' : e.g,
       e.id || '', e.score == null ? '' : e.score, e.total == null ? '' : e.total].join('|');
@@ -200,9 +290,19 @@
       lastOpen: Math.max(a.lastOpen || 0, b.lastOpen || 0),
       items: {},
       removed: {},
-      activity: []
+      activity: [],
+      priv: {}
     };
     if (wiped) out.wipedAt = wiped;
+    [a, b].forEach(function (d) {
+      Object.keys(d.priv || {}).forEach(function (id) {
+        var L = d.priv[id];
+        if (!L || (wiped && (L.updated || 0) <= wiped)) return;
+        var cur = out.priv[id];
+        var tu = L.updated || 0, cu = cur ? (cur.updated || 0) : -1;
+        if (!cur || tu > cu || (tu === cu && L.deleted && !cur.deleted)) out.priv[id] = L;
+      });
+    });
     [a, b].forEach(function (d) {
       Object.keys(d.removed || {}).forEach(function (k) {
         var t = d.removed[k] || 0;
@@ -347,6 +447,7 @@
         var merged = doc;
         var changed = false;
         var remoteHasData = remote && ((remote.items && Object.keys(remote.items).length) ||
+          (remote.priv && Object.keys(remote.priv).length) ||
           (remote.wipedAt || 0) > ((doc && doc.wipedAt) || 0));
         if (remoteHasData) {
           merged = merge(doc, remote);
@@ -724,7 +825,11 @@
     KEY: KEY,
     load: load, save: save, emptyDoc: emptyDoc, reset: reset,
     newItem: newItem, grade: grade,
-    itemKey: itemKey, registerItems: registerItems, removeItem: removeItem, recordActivity: recordActivity,
+    itemKey: itemKey, registerItems: registerItems,
+    privLessonId: privLessonId, isPrivLesson: isPrivLesson, safeUrl: safeUrl,
+    privateLessons: privateLessons, savePrivateLesson: savePrivateLesson,
+    deletePrivateLesson: deletePrivateLesson, privateCards: privateCards,
+    parseCardLines: parseCardLines, addPrivateCards: addPrivateCards, removeItem: removeItem, recordActivity: recordActivity,
     dueItems: dueItems, stats: stats, streak: streak, merge: merge,
     exportJSON: exportJSON, importJSON: importJSON,
     config: config, session: session, setSession: setSession, clearSession: clearSession,

@@ -91,6 +91,14 @@ title, the back its explanation and examples. Once
 the answer is shown, « Retirer du paquet » removes a card from the deck (confirm
 first; re-addable from the lesson — the removal syncs across devices).
 
+**Private lessons** (« Mes leçons privées » on progres.html) record your own
+tutoring sessions: a name, a link (video call, shared doc, recording), a date
+and notes. Add the words seen in class one per line (`français = traduction`,
+optionally `= exemple`; tab or `;` also work): they become review cards under
+the lesson key `prive:<id>`, get their own filter chip, and travel with export
+/import and Google sync (`doc.priv`, newest edit wins, deletions are
+tombstones). Links are restricted to http(s).
+
 Everything is **localStorage-first** (free, offline, no account). Optional $0
 cloud sync ties progress to a **Google account**: sign in with Google on
 progres.html, and the same progress follows you on every device. It needs a
