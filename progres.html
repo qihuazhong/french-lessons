@@ -30,6 +30,7 @@
   .chip { border: 1.5px solid #c9d6f2; background: #fff; color: var(--bleu); border-radius: 999px;
           padding: .25rem .8rem; font: inherit; font-size: .84rem; font-weight: 700; cursor: pointer; }
   .chip.on { background: var(--bleu); color: #fff; border-color: var(--bleu); }
+  .chip.priv { border-style: dashed; }
   .card { background: var(--carte); border: 1px solid var(--bordure); border-radius: 14px;
           padding: 1.6rem 1.5rem; margin-bottom: 1.2rem; box-shadow: 0 1px 3px rgba(20,40,90,.06); }
   .card .tag { font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
@@ -101,6 +102,27 @@
   details.sync input { font: inherit; font-size: .88rem; padding: .35rem .6rem; border: 1.5px solid #c9d6f2;
                        border-radius: 8px; width: 100%; margin: .35rem 0; }
   .note { font-size: .84rem; color: var(--gris); }
+  .pform { display: grid; gap: .55rem; margin-top: .9rem; padding: 1rem; background: #f8faff;
+           border: 1px solid var(--bordure); border-radius: 12px; }
+  .pform[hidden], .padd[hidden] { display: none; }
+  .pform label { display: grid; gap: .2rem; font-size: .82rem; font-weight: 700; color: var(--bleu); }
+  .pform input, .pform textarea, .padd textarea { font: inherit; font-size: .9rem; font-weight: 400; color: var(--texte);
+           padding: .4rem .6rem; border: 1.5px solid #c9d6f2; border-radius: 8px; width: 100%; background: #fff; }
+  .pform .row { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .plesson { border: 1px solid var(--bordure); border-radius: 12px; padding: .8rem 1rem; margin-bottom: .7rem; }
+  .pname { font-weight: 800; color: var(--bleu); font-size: 1.02rem; }
+  .plink { font-size: .84rem; margin-left: .45rem; color: var(--teal); font-weight: 700; }
+  .pmeta { font-size: .8rem; color: var(--gris); }
+  .pnotes { font-size: .88rem; white-space: pre-line; margin-top: .3rem; color: #33415c; }
+  .pactions { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .55rem; }
+  .pactions .btn, .padd .btn { font-size: .8rem; padding: .28rem .85rem; }
+  .padd { margin-top: .6rem; display: grid; gap: .4rem; }
+  .pcards { margin-top: .5rem; font-size: .86rem; }
+  .pcards summary { cursor: pointer; color: var(--bleu); font-weight: 700; font-size: .82rem; }
+  .pcards ul { list-style: none; padding: 0; margin: .4rem 0 0; }
+  .pcards li { display: flex; align-items: baseline; gap: .5rem; padding: .2rem 0; border-bottom: 1px dashed var(--bordure); }
+  .pcards li span { flex: 1; }
+  .pcards li button { background: none; border: none; color: #a3081f; cursor: pointer; font: inherit; font-weight: 700; }
   footer { max-width: 860px; margin: 0 auto; padding: 0 1.25rem 3rem; color: var(--gris); font-size: .85rem; }
   footer a { color: var(--bleu); }
 </style>
@@ -123,6 +145,31 @@
     <div class="progress-line"><span id="qcount"></span><span style="flex:1"></span><span id="qnext"></span></div>
     <div class="bar"><i id="qbar"></i></div>
     <div id="qbody"></div>
+  </div>
+
+  <h2>Mes leçons privées</h2>
+  <div class="card" id="priv">
+    <p class="note" style="margin-top:0;">Vos cours particuliers (tuteur, visio…) : donnez-leur un nom et un lien
+    (visio, document partagé, enregistrement), puis ajoutez les mots vus en cours — ils rejoignent vos révisions,
+    ont leur propre filtre et se synchronisent avec votre compte.</p>
+    <div id="priv-list"></div>
+    <button class="btn" id="priv-new" type="button">+ Nouvelle leçon privée</button>
+    <form id="priv-form" class="pform" hidden>
+      <input type="hidden" id="pf-id">
+      <label>Nom de la leçon *
+        <input id="pf-name" required maxlength="120" placeholder="ex. Cours avec Marie — le subjonctif" autocomplete="off"></label>
+      <label>Lien (visio, document, enregistrement…)
+        <input id="pf-url" inputmode="url" placeholder="https://…" autocomplete="off"></label>
+      <label>Date
+        <input id="pf-date" type="date"></label>
+      <label>Notes
+        <textarea id="pf-notes" rows="2" maxlength="2000" placeholder="Sujets abordés, devoirs…"></textarea></label>
+      <div class="row">
+        <button class="btn" type="submit" id="pf-save">Enregistrer</button>
+        <button class="btn ghost" type="button" id="pf-cancel">Annuler</button>
+        <span class="note" id="pf-msg"></span>
+      </div>
+    </form>
   </div>
 
   <h2>À venir</h2>
@@ -232,13 +279,28 @@
       });
   }
 
+  function lessonTitle(f) {
+    for (var i = 0; i < DECK.lessons.length; i++) if (DECK.lessons[i].f === f) return DECK.lessons[i].t;
+    if (SRS.isPrivLesson(f)) {
+      var L = (doc.priv || {})[f.slice(SRS.privLessonId('').length)];
+      return L && !L.deleted ? L.name : 'Leçon privée';
+    }
+    return String(f || '').replace('lecon-', '').replace('.html', '');
+  }
+
   function renderFilters() {
     var el = document.getElementById('filters');
     el.innerHTML = '';
-    var opts = [{ f: '', t: 'Toutes les leçons' }].concat(DECK.lessons.map(function (L) { return { f: L.f, t: L.t }; }));
+    var privs = SRS.privateLessons(doc);
+    if (SRS.isPrivLesson(lessonFilter) && !privs.some(function (L) { return SRS.privLessonId(L.id) === lessonFilter; })) {
+      lessonFilter = '';
+    }
+    var opts = [{ f: '', t: 'Toutes les leçons' }].concat(DECK.lessons.map(function (L) { return { f: L.f, t: L.t }; }))
+      .concat(privs.map(function (L) { return { f: SRS.privLessonId(L.id), t: L.name, p: true }; }));
     opts.forEach(function (o) {
       var b = document.createElement('button');
-      b.className = 'chip' + (lessonFilter === o.f ? ' on' : '');
+      b.className = 'chip' + (o.p ? ' priv' : '') + (lessonFilter === o.f ? ' on' : '');
+      if (o.p) b.title = 'Leçon privée';
       b.textContent = o.t;
       b.addEventListener('click', function () {
         lessonFilter = o.f;
@@ -375,6 +437,7 @@
       next.textContent = '';
       return;
     }
+    while (pos < queue.length && !doc.items[queue[pos]]) pos++;
     if (pos >= queue.length) {
       body.innerHTML = '<div class="empty">Session terminée : ' + done + ' carte(s) révisée(s). Bravo !</div>';
       count.textContent = done + ' / ' + queue.length;
@@ -390,7 +453,8 @@
     body.innerHTML = '';
     var tag = document.createElement('div');
     tag.className = 'tag';
-    tag.textContent = m.lt + ' · ' + m.type + ' · ' + m.level.toUpperCase();
+    tag.textContent = [lessonTitle(m.lesson), m.type, m.level ? String(m.level).toUpperCase() : '']
+      .filter(Boolean).join(' · ');
     body.appendChild(tag);
     var front = document.createElement('div');
     front.className = 'front' + (m.type === 'grammaire' ? ' gram' : '');
@@ -591,9 +655,189 @@
     });
   }
 
+  // ---- Leçons privées --------------------------------------------------
+  var privDrafts = {};
+  var privOpen = {};
+
+  function fmtDate(iso) {
+    if (!iso) return '';
+    var p = iso.split('-');
+    var d = new Date(+p[0], +p[1] - 1, +p[2]);
+    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  function smallBtn(label, cls, fn) {
+    var b = el('button', 'btn' + (cls ? ' ' + cls : ''), label);
+    b.type = 'button';
+    b.addEventListener('click', fn);
+    return b;
+  }
+
+  function cardsAdded(fresh) {
+    if (pos >= queue.length) buildQueue();
+    else queue = queue.concat(SRS.dueItems(doc, lessonFilter || null).filter(function (k) { return queue.indexOf(k) < 0; }));
+    renderAll();
+    return fresh;
+  }
+
+  function renderPriv() {
+    var list = document.getElementById('priv-list');
+    list.innerHTML = '';
+    var t = Date.now();
+    SRS.privateLessons(doc).forEach(function (L) {
+      var lid = SRS.privLessonId(L.id);
+      var keys = SRS.privateCards(doc, L.id);
+      var due = keys.filter(function (k) { return doc.items[k].due <= t; }).length;
+      var box = el('div', 'plesson');
+      box.setAttribute('data-id', L.id);
+      var head = el('div', 'ph');
+      head.appendChild(el('span', 'pname', L.name));
+      if (L.url) {
+        var a = el('a', 'plink', 'Ouvrir le lien ↗');
+        a.href = L.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.title = L.url;
+        head.appendChild(a);
+      }
+      box.appendChild(head);
+      box.appendChild(el('div', 'pmeta', [fmtDate(L.date), keys.length + ' carte(s)', due + ' à réviser']
+        .filter(Boolean).join(' · ')));
+      if (L.notes) box.appendChild(el('div', 'pnotes', L.notes));
+
+      var acts = el('div', 'pactions');
+      var rv = smallBtn('Réviser (' + due + ')', '', function () {
+        lessonFilter = lid;
+        buildQueue();
+        renderAll();
+        var r = document.getElementById('review');
+        if (r.scrollIntoView) r.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      rv.className += ' p-review';
+      rv.disabled = !due;
+      acts.appendChild(rv);
+      acts.appendChild(smallBtn('+ Ajouter des cartes', 'ghost p-add', function () {
+        privOpen[L.id] = !privOpen[L.id];
+        renderPriv();
+        var ta = document.querySelector('.plesson[data-id="' + L.id + '"] textarea');
+        if (ta) ta.focus();
+      }));
+      acts.appendChild(smallBtn('Modifier', 'ghost p-edit', function () { openForm(L); }));
+      acts.appendChild(smallBtn('Supprimer', 'danger p-del', function () {
+        if (!window.confirm('Supprimer la leçon « ' + L.name + ' » et ses ' + keys.length + ' carte(s) ?')) return;
+        SRS.deletePrivateLesson(doc, L.id);
+        if (lessonFilter === lid) lessonFilter = '';
+        SRS.save(doc);
+        buildQueue();
+        renderAll();
+      }));
+      box.appendChild(acts);
+
+      var add = el('div', 'padd');
+      add.hidden = !privOpen[L.id];
+      var ta = document.createElement('textarea');
+      ta.rows = 4;
+      ta.placeholder = 'Une carte par ligne :  français = traduction  (= exemple, facultatif)'
+        + String.fromCharCode(10) + 'ex. donner un coup de main = to lend a hand = Tu peux me donner un coup de main ?';
+      ta.value = privDrafts[L.id] || '';
+      ta.addEventListener('input', function () { privDrafts[L.id] = ta.value; });
+      add.appendChild(ta);
+      var row = el('div', 'pactions');
+      var msg = el('span', 'note');
+      row.appendChild(smallBtn('Ajouter à mes révisions', 'p-add-ok', function () {
+        var cards = SRS.parseCardLines(ta.value);
+        if (!cards.length) { msg.textContent = 'Écrivez au moins une ligne « français = traduction ».'; return; }
+        var n = SRS.addPrivateCards(doc, L.id, cards);
+        SRS.save(doc);
+        privDrafts[L.id] = '';
+        privOpen[L.id] = false;
+        cardsAdded(n);
+      }));
+      row.appendChild(smallBtn('Fermer', 'ghost', function () { privOpen[L.id] = false; renderPriv(); }));
+      row.appendChild(msg);
+      add.appendChild(row);
+      box.appendChild(add);
+
+      if (keys.length) {
+        var det = el('details', 'pcards');
+        det.appendChild(el('summary', '', 'Voir les cartes (' + keys.length + ')'));
+        var ul = el('ul');
+        keys.sort(function (x, y) { return String(doc.items[x].meta.term).localeCompare(String(doc.items[y].meta.term), 'fr'); })
+          .forEach(function (k) {
+            var m = doc.items[k].meta;
+            var li = el('li');
+            li.appendChild(el('span', '', m.term + (m.gloss ? ' — ' + m.gloss : '')));
+            var x = el('button', '', '×');
+            x.type = 'button';
+            x.title = 'Retirer cette carte';
+            x.addEventListener('click', function () {
+              SRS.removeItem(doc, k);
+              SRS.save(doc);
+              buildQueue();
+              renderAll();
+              var d2 = document.querySelector('.plesson[data-id="' + L.id + '"] details');
+              if (d2) d2.open = true;
+            });
+            li.appendChild(x);
+            ul.appendChild(li);
+          });
+        det.appendChild(ul);
+        box.appendChild(det);
+      }
+      list.appendChild(box);
+    });
+  }
+
+  var pform = document.getElementById('priv-form');
+  function openForm(L) {
+    L = L || {};
+    document.getElementById('pf-id').value = L.id || '';
+    document.getElementById('pf-name').value = L.name || '';
+    document.getElementById('pf-url').value = L.url || '';
+    document.getElementById('pf-date').value = L.date || (L.id ? '' : new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10));
+    document.getElementById('pf-notes').value = L.notes || '';
+    document.getElementById('pf-msg').textContent = '';
+    document.getElementById('pf-save').textContent = L.id ? 'Enregistrer les modifications' : 'Créer la leçon';
+    pform.hidden = false;
+    document.getElementById('priv-new').hidden = true;
+    document.getElementById('pf-name').focus();
+  }
+  function closeForm() {
+    pform.hidden = true;
+    document.getElementById('priv-new').hidden = false;
+  }
+  document.getElementById('priv-new').addEventListener('click', function () { openForm(null); });
+  document.getElementById('pf-cancel').addEventListener('click', closeForm);
+  pform.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var rawUrl = document.getElementById('pf-url').value.trim();
+    var data = {
+      id: document.getElementById('pf-id').value,
+      name: document.getElementById('pf-name').value,
+      url: rawUrl,
+      date: document.getElementById('pf-date').value,
+      notes: document.getElementById('pf-notes').value
+    };
+    if (!data.name.trim()) { document.getElementById('pf-msg').textContent = 'Le nom est obligatoire.'; return; }
+    if (rawUrl && !SRS.safeUrl(rawUrl)) { document.getElementById('pf-msg').textContent = 'Lien invalide (http:// ou https://).'; return; }
+    var L = SRS.savePrivateLesson(doc, data);
+    SRS.save(doc);
+    closeForm();
+    if (!data.id) privOpen[L.id] = true;
+    renderAll();
+  });
+
   function renderAll() {
     renderStats();
     renderFilters();
+    renderPriv();
     renderCard();
     renderForecast();
     renderHistory();
@@ -632,7 +876,7 @@
     renderAccount();
   });
   document.getElementById('reset').addEventListener('click', function () {
-    if (!confirm('Effacer tout votre historique de révision ?')) return;
+    if (!confirm('Effacer tout votre historique de révision (et vos leçons privées) ?')) return;
     doc = SRS.reset();
     document.getElementById('backup-msg').textContent = 'Progrès réinitialisés.';
     buildQueue();
