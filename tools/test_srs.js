@@ -145,6 +145,16 @@ const pw = SRS.emptyDoc(); pw.wipedAt = Date.now() + 1000;
 ok(Object.keys(SRS.merge(pv, pw).priv).length === 0, 'merge : reset (wipedAt) efface aussi les leçons privées');
 ok(!!SRS.merge({ v: 1, items: {}, activity: [] }, SRS.emptyDoc()).priv, 'merge : doc sans « priv » (ancien format) accepté');
 
+console.log('== sens anglais automatique');
+const WK_RATER = { fr: [{ partOfSpeech: 'Verb', language: 'French', definitions: [
+  { definition: 'to <a href="/wiki/miss">miss</a> (a train, etc.)' }, { definition: '' },
+  { definition: 'to fail; to <i>botch</i> = ruin' }] }], en: [{ definitions: [{ definition: 'english word' }] }] };
+const mockFetch = (map, calls) => url => {
+  if (calls) calls.push(url);
+  for (const k in map) if (url.indexOf(k) >= 0) return Promise.resolve({ ok: true, json: () => Promise.resolve(map[k]) });
+  return Promise.resolve({ ok: false, status: 404, json: () => Promise.resolve({}) });
+};
+
 console.log('== jsdom integration');
 const { JSDOM } = require('jsdom');
 function loadPage(file, before) {
@@ -163,6 +173,24 @@ const withSession = (w, session) => {
 const delay = ms => new Promise(r => setTimeout(r, ms));
 
 (async () => {
+  {
+    const g1 = await SRS.lookupGloss('rater', mockFetch({ 'definition/rater': WK_RATER }));
+    ok(g1 && g1.source === 'wiktionary' && g1.gloss === 'to miss (a train, etc.) / to fail, to botch, ruin', 'lookupGloss : sens français du Wiktionnaire, HTML et séparateurs nettoyés (' + (g1 && g1.gloss) + ')');
+    const calls = [];
+    const g2 = await SRS.lookupGloss('un coup de main', mockFetch({ 'definition/coup_de_main': { fr: [{ definitions: [{ definition: 'a helping hand' }] }] } }, calls));
+    ok(g2 && g2.gloss === 'a helping hand' && calls.length === 2, 'lookupGloss : article retiré si l’entrée exacte manque (' + calls.length + ' requêtes)');
+    const g3 = await SRS.lookupGloss('tu peux me donner un coup de main demain', mockFetch({ 'mymemory': { responseData: { translatedText: 'can you give me a hand tomorrow' }, responseStatus: 200 } }));
+    ok(g3 && g3.source === 'mymemory' && g3.gloss === 'can you give me a hand tomorrow', 'lookupGloss : phrase longue → traduction MyMemory');
+    const g4 = await SRS.lookupGloss('zzz', mockFetch({ 'mymemory': { responseData: { translatedText: 'MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS' }, responseStatus: 429 } }));
+    ok(g4 === null, 'lookupGloss : quota MyMemory épuisé → null');
+    ok(await SRS.lookupGloss('zzz', mockFetch({ 'mymemory': { responseData: { translatedText: 'zzz' }, responseStatus: 200 } })) === null, 'lookupGloss : texte renvoyé tel quel → null');
+    ok(await SRS.lookupGloss('rater', () => Promise.reject(new Error('offline'))) === null, 'lookupGloss : hors ligne → null, sans exception');
+    const fg = await SRS.fillGlosses(SRS.parseCardLines('rater\nla veille = the day before\nzzz =  = un exemple'), mockFetch({ 'definition/rater': WK_RATER }));
+    ok(fg.missing.length === 1 && fg.missing[0] === 'zzz' && fg.cards[1].gloss === 'the day before', 'fillGlosses : complète seulement les lignes sans traduction');
+    const round = SRS.parseCardLines(fg.cards.map(SRS.formatCardLine).join('\n'));
+    ok(round[0].gloss === fg.cards[0].gloss && round[2].gloss === '' && round[2].example === 'un exemple', 'formatCardLine : aller-retour texte sans perte (exemple conservé sans traduction)');
+  }
+
   let dom = await loadPage('lecon-france.html');
   let win = dom.window, doc = win.document;
   const frCount = () => {
@@ -381,7 +409,7 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   pst = JSON.parse(win.localStorage.getItem(SRS.KEY));
   ok(Object.keys(pst.priv).length === 1 && pst.priv[pid].name === 'Cours avec Marie — subjonctif', 'modifier : renommée sur place');
   ok(doc.querySelector('.chip.priv').textContent === 'Cours avec Marie — subjonctif', 'puce renommée');
-  doc.querySelector('.plesson .pcards li button').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  doc.querySelector('.plesson .pcards li .p-rm').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
   pst = JSON.parse(win.localStorage.getItem(SRS.KEY));
   ok(Object.keys(pst.items).length === 1 && doc.querySelectorAll('.plesson .pcards li').length === 1, '× retire une carte de la leçon privée');
   win.confirm = function () { return true; };
@@ -389,6 +417,52 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   pst = JSON.parse(win.localStorage.getItem(SRS.KEY));
   ok(doc.querySelectorAll('.plesson').length === 0 && Object.keys(pst.items).length === 0 && pst.priv[pid].deleted > 0, 'supprimer : leçon + cartes retirées (tombstone)');
   ok(doc.querySelectorAll('.chip').length === 5 && doc.querySelector('.chip').classList.contains('on'), 'supprimer : puce retirée, filtre remis sur « Toutes »');
+  dom.window.close();
+
+  const spoken = [];
+  const withTts = (w, fetchMap) => {
+    w.SpeechSynthesisUtterance = function (t) { this.text = t; };
+    w.speechSynthesis = { getVoices: () => [{ lang: 'en-US', name: 'en' }, { lang: 'fr-CA', name: 'ca' }, { lang: 'fr-FR', name: 'Amélie' }],
+      cancel() {}, speak(u) { spoken.push(u); } };
+    w.fetch = mockFetch(fetchMap);
+  };
+  dom = await loadPage('progres.html', w => withTts(w, { 'definition/rater': WK_RATER,
+    'mymemory': { responseData: { translatedText: 'zzz' }, responseStatus: 200 } }));
+  win = dom.window; doc = win.document;
+  await delay(80);
+  doc.getElementById('priv-new').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  doc.getElementById('pf-name').value = 'Cours auto';
+  doc.getElementById('priv-form').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));
+  let abox = doc.querySelector('.plesson');
+  let ata = abox.querySelector('.padd textarea');
+  ata.value = 'rater\nla veille = the day before';
+  ata.dispatchEvent(new win.Event('input', { bubbles: true }));
+  abox.querySelector('.p-fill').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await delay(30);
+  ok(/^rater = to miss \(a train, etc\.\) \/ to fail/.test(ata.value) && /la veille = the day before/.test(ata.value), 'aperçu : sens complété dans la zone de texte (' + ata.value.split('\n')[0] + ')');
+  ok(Object.keys(JSON.parse(win.localStorage.getItem(SRS.KEY)).items).length === 0, 'aperçu : rien ajouté avant confirmation');
+  ata.value = 'zzz\nrater';
+  ata.dispatchEvent(new win.Event('input', { bubbles: true }));
+  abox.querySelector('.p-add-ok').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await delay(30);
+  let ast = JSON.parse(win.localStorage.getItem(SRS.KEY));
+  ok(Object.keys(ast.items).length === 0 && /Sens introuvable pour : zzz/.test(abox.querySelector('.p-msg').textContent), 'ajout : mot introuvable signalé, rien ajouté');
+  abox.querySelector('.p-add-ok').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await delay(30);
+  ast = JSON.parse(win.localStorage.getItem(SRS.KEY));
+  const akeys = Object.keys(ast.items);
+  const rk = akeys.find(k => /\|rater$/.test(k));
+  ok(akeys.length === 2 && rk && /^to miss/.test(ast.items[rk].meta.gloss), 'second clic : ajout (rater avec son sens auto, zzz sans traduction)');
+  abox = doc.querySelector('.plesson');
+  abox.querySelector('.pcards li .p-say').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  let last = spoken[spoken.length - 1];
+  ok(last && last.lang === 'fr-FR' && last.voice && last.voice.name === 'Amélie' && /rater|zzz/.test(last.text), 'liste : 🔊 prononce le mot (voix fr-FR)');
+  const pbtn = Array.prototype.find.call(doc.querySelectorAll('#qbody .back .play'), b => /synthèse/.test(b.textContent));
+  ok(!!pbtn, 'carte privée : bouton « Écouter (voix de synthèse) »');
+  doc.querySelector('#qbody .reveal button').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const nBefore = spoken.length;
+  doc.dispatchEvent(new win.KeyboardEvent('keydown', { key: 'r', bubbles: true }));
+  ok(spoken.length === nBefore + 1, 'raccourci R : voix de synthèse sur une carte sans clip');
   dom.window.close();
 
   dom = await loadPage('progres.html', w => withSession(w, {

@@ -123,6 +123,9 @@
   .pcards li { display: flex; align-items: baseline; gap: .5rem; padding: .2rem 0; border-bottom: 1px dashed var(--bordure); }
   .pcards li span { flex: 1; }
   .pcards li button { background: none; border: none; color: #a3081f; cursor: pointer; font: inherit; font-weight: 700; }
+  .pcards li button.p-say { color: var(--bleu); padding: 0 .1rem; }
+  .padd .p-msg { min-height: 1em; }
+  .padd .note { margin: 0; }
   footer { max-width: 860px; margin: 0 auto; padding: 0 1.25rem 3rem; color: var(--gris); font-size: .85rem; }
   footer a { color: var(--bleu); }
 </style>
@@ -408,6 +411,36 @@
     } catch (e) {}
   }
 
+  function frVoice() {
+    try {
+      var vs = window.speechSynthesis.getVoices() || [];
+      var fr = vs.filter(function (v) { return /^fr/i.test(v.lang || ''); });
+      return fr.filter(function (v) { return /^fr[-_]FR/i.test(v.lang); })[0] || fr[0] || null;
+    } catch (e) { return null; }
+  }
+  function hasTts() {
+    return typeof window.speechSynthesis !== 'undefined' && typeof window.SpeechSynthesisUtterance !== 'undefined';
+  }
+  function speakFr(text) {
+    if (!text || !hasTts()) return false;
+    try {
+      if (audioEl) audioEl.pause();
+      var u = new window.SpeechSynthesisUtterance(text);
+      u.lang = 'fr-FR';
+      u.rate = 0.9;
+      var v = frVoice();
+      if (v) u.voice = v;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+      return true;
+    } catch (e) { return false; }
+  }
+  function sayItem(m) {
+    if (!m) return;
+    if (m.audio) playAudio(m.audio);
+    else if (m.type !== 'grammaire') speakFr(m.term);
+  }
+
   function renderCard() {
     var body = document.getElementById('qbody');
     var count = document.getElementById('qcount');
@@ -479,11 +512,11 @@
       ex.textContent = m.example;
       back.appendChild(ex);
     }
-    if (m.audio) {
+    if (m.audio || (m.type !== 'grammaire' && hasTts())) {
       var pb = document.createElement('button');
       pb.className = 'play';
-      pb.textContent = 'Écouter';
-      pb.addEventListener('click', function () { playAudio(m.audio); });
+      pb.textContent = m.audio ? 'Écouter' : 'Écouter (voix de synthèse)';
+      pb.addEventListener('click', function () { sayItem(m); });
       back.appendChild(pb);
     }
     body.appendChild(back);
@@ -744,25 +777,64 @@
       add.hidden = !privOpen[L.id];
       var ta = document.createElement('textarea');
       ta.rows = 4;
-      ta.placeholder = 'Une carte par ligne :  français = traduction  (= exemple, facultatif)'
-        + String.fromCharCode(10) + 'ex. donner un coup de main = to lend a hand = Tu peux me donner un coup de main ?';
+      ta.placeholder = 'Une carte par ligne :  français  (= traduction  = exemple, facultatifs)'
+        + String.fromCharCode(10) + 'ex. donner un coup de main'
+        + String.fromCharCode(10) + 'ex. la veille = the day before = la veille de Noël';
       ta.value = privDrafts[L.id] || '';
       ta.addEventListener('input', function () { privDrafts[L.id] = ta.value; });
       add.appendChild(ta);
       var row = el('div', 'pactions');
-      var msg = el('span', 'note');
-      row.appendChild(smallBtn('Ajouter à mes révisions', 'p-add-ok', function () {
+      var msg = el('span', 'note p-msg');
+      var forceAdd = false;
+      function busy(on) {
+        Array.prototype.forEach.call(row.querySelectorAll('button'), function (b) { b.disabled = on; });
+        ta.disabled = on;
+        if (on) msg.textContent = 'Recherche du sens en anglais…';
+      }
+      // Complète les lignes sans traduction, réécrit la zone de texte (relisible
+      // et modifiable), puis appelle done(cards, missing).
+      function complete(done) {
         var cards = SRS.parseCardLines(ta.value);
-        if (!cards.length) { msg.textContent = 'Écrivez au moins une ligne « français = traduction ».'; return; }
+        if (!cards.length) { msg.textContent = 'Écrivez au moins un mot ou une expression.'; return; }
+        if (!cards.some(function (c) { return !c.gloss; })) { done(cards, []); return; }
+        busy(true);
+        SRS.fillGlosses(cards).then(function (r) {
+          busy(false);
+          ta.value = r.cards.map(SRS.formatCardLine).join(String.fromCharCode(10));
+          privDrafts[L.id] = ta.value;
+          done(r.cards, r.missing);
+        });
+      }
+      function addCards(cards) {
         var n = SRS.addPrivateCards(doc, L.id, cards);
         SRS.save(doc);
         privDrafts[L.id] = '';
         privOpen[L.id] = false;
         cardsAdded(n);
+      }
+      ta.addEventListener('input', function () { forceAdd = false; });
+      row.appendChild(smallBtn('Ajouter à mes révisions', 'p-add-ok', function () {
+        if (forceAdd) { addCards(SRS.parseCardLines(ta.value)); return; }
+        complete(function (cards, missing) {
+          if (!missing.length) { addCards(cards); return; }
+          forceAdd = true;
+          msg.textContent = 'Sens introuvable pour : ' + missing.join(', ')
+            + ' — complétez « = traduction » ou cliquez à nouveau pour ajouter sans traduction.';
+        });
+      }));
+      row.appendChild(smallBtn('Compléter le sens (aperçu)', 'ghost p-fill', function () {
+        complete(function (cards, missing) {
+          msg.textContent = missing.length
+            ? 'Sens introuvable pour : ' + missing.join(', ') + ' — complétez à la main.'
+            : 'Vérifiez ou corrigez, puis ajoutez.';
+        });
       }));
       row.appendChild(smallBtn('Fermer', 'ghost', function () { privOpen[L.id] = false; renderPriv(); }));
-      row.appendChild(msg);
       add.appendChild(row);
+      add.appendChild(msg);
+      add.appendChild(el('p', 'note', 'Sans « = traduction », le sens anglais est cherché automatiquement'
+        + ' (Wiktionnaire, puis traduction MyMemory) : les mots sont envoyés à ces services.'
+        + ' La prononciation utilise la voix française de votre navigateur.'));
       box.appendChild(add);
 
       if (keys.length) {
@@ -773,8 +845,15 @@
           .forEach(function (k) {
             var m = doc.items[k].meta;
             var li = el('li');
+            if (hasTts()) {
+              var sp = el('button', 'p-say', '🔊');
+              sp.type = 'button';
+              sp.title = 'Écouter';
+              sp.addEventListener('click', function () { sayItem(m); });
+              li.appendChild(sp);
+            }
             li.appendChild(el('span', '', m.term + (m.gloss ? ' — ' + m.gloss : '')));
-            var x = el('button', '', '×');
+            var x = el('button', 'p-rm', '×');
             x.type = 'button';
             x.title = 'Retirer cette carte';
             x.addEventListener('click', function () {
@@ -889,7 +968,7 @@
     if (flipped && e.key >= '1' && e.key <= '4') { e.preventDefault(); doGrade(parseInt(e.key, 10) - 1); return; }
     if (flipped && (e.key === 'r' || e.key === 'R')) {
       var key = queue[pos];
-      if (key && doc.items[key] && doc.items[key].meta) playAudio(doc.items[key].meta.audio);
+      if (key && doc.items[key] && doc.items[key].meta) sayItem(doc.items[key].meta);
     }
   });
 

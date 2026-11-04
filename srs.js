@@ -208,6 +208,101 @@
     return out;
   }
 
+  // ---- Sens en anglais automatique ---------------------------------------
+  // 1) Wiktionnaire anglais (définitions de l'entrée française, CORS ouvert) ;
+  // 2) repli : traduction MyMemory (gratuite, sans clé) pour les phrases.
+  // Le résultat passe par cleanGloss : il doit survivre à parseCardLines
+  // (pas de « = », « ; », tabulation ni tiret entouré d'espaces).
+  var WIKT_URL = 'https://en.wiktionary.org/api/rest_v1/page/definition/';
+  var MYMEMORY_URL = 'https://api.mymemory.translated.net/get?langpair=fr|en&q=';
+
+  function cleanGloss(s) {
+    s = String(s || '')
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"')
+      .replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+      .replace(/[=;\t]/g, ',')
+      .replace(/\s[—–-]\s/g, ', ')
+      .replace(/\s+/g, ' ')
+      .replace(/\s+([,.:!?)])/g, '$1')
+      .replace(/,{2,}/g, ',')
+      .trim()
+      .replace(/^[,.\s]+|[,\s]+$/g, '');
+    return s.length > 90 ? s.slice(0, 87).replace(/\s+\S*$/, '') + '…' : s;
+  }
+
+  function glossCandidates(term) {
+    var t = String(term || '').replace(/[’ʼ]/g, "'").replace(/[.!?…]+$/, '').replace(/\s+/g, ' ').trim();
+    var out = [];
+    function add(x) { x = x.trim(); if (x && out.indexOf(x) < 0) out.push(x); }
+    add(t);
+    var bare = t.replace(/^(le|la|les|un|une|des|du|de la|de l'|l'|d')\s*/i, '');
+    add(bare);
+    add(bare.charAt(0).toLowerCase() + bare.slice(1));
+    return out.slice(0, 3);
+  }
+
+  function wiktSenses(data) {
+    var out = [];
+    ((data && data.fr) || []).forEach(function (entry) {
+      ((entry && entry.definitions) || []).forEach(function (d) {
+        var g = cleanGloss(d && d.definition);
+        if (g && out.indexOf(g) < 0 && out.length < 3) out.push(g);
+      });
+    });
+    return out;
+  }
+
+  function lookupGloss(term, fetchFn) {
+    fetchFn = fetchFn || (typeof fetch !== 'undefined' ? fetch : null);
+    if (!fetchFn || !String(term || '').trim()) return Promise.resolve(null);
+    var cands = glossCandidates(term);
+    var words = cands[0] ? cands[0].split(' ').length : 0;
+    function getJson(url) {
+      return Promise.resolve(fetchFn(url)).then(function (r) { return r && r.ok ? r.json() : null; })
+        .catch(function () { return null; });
+    }
+    function tryWikt(i) {
+      if (words > 5 || i >= cands.length) return Promise.resolve(null);
+      return getJson(WIKT_URL + encodeURIComponent(cands[i].replace(/ /g, '_'))).then(function (data) {
+        var senses = wiktSenses(data);
+        if (senses.length) return { gloss: senses.join(' / '), source: 'wiktionary' };
+        return tryWikt(i + 1);
+      });
+    }
+    return tryWikt(0).then(function (hit) {
+      if (hit) return hit;
+      return getJson(MYMEMORY_URL + encodeURIComponent(cands[0])).then(function (data) {
+        var rd = data && data.responseData;
+        var txt = rd && cleanGloss(rd.translatedText);
+        var status = data && Number(data.responseStatus);
+        if (!txt || (status && status !== 200) || /MYMEMORY WARNING|INVALID|QUERY LENGTH/i.test(txt)) return null;
+        if (txt.toLowerCase() === cands[0].toLowerCase()) return null;
+        return { gloss: txt, source: 'mymemory' };
+      });
+    });
+  }
+
+  // Complète les cartes sans traduction ; renvoie { cards, missing: [terme…] }.
+  function fillGlosses(cards, fetchFn) {
+    var missing = [];
+    return Promise.all(cards.map(function (c) {
+      if (c.gloss) return c;
+      return lookupGloss(c.term, fetchFn).then(function (hit) {
+        if (hit) c.gloss = hit.gloss;
+        else missing.push(c.term);
+        return c;
+      });
+    })).then(function (list) { return { cards: list, missing: missing }; });
+  }
+
+  function formatCardLine(c) {
+    var s = c.term;
+    if (c.gloss || c.example) s += ' = ' + (c.gloss || '');
+    if (c.example) s += ' = ' + c.example;
+    return s;
+  }
+
   function addPrivateCards(doc, id, list) {
     var L = doc.priv && doc.priv[id];
     if (!L || L.deleted) return 0;
@@ -829,7 +924,9 @@
     privLessonId: privLessonId, isPrivLesson: isPrivLesson, safeUrl: safeUrl,
     privateLessons: privateLessons, savePrivateLesson: savePrivateLesson,
     deletePrivateLesson: deletePrivateLesson, privateCards: privateCards,
-    parseCardLines: parseCardLines, addPrivateCards: addPrivateCards, removeItem: removeItem, recordActivity: recordActivity,
+    parseCardLines: parseCardLines, addPrivateCards: addPrivateCards,
+    cleanGloss: cleanGloss, glossCandidates: glossCandidates, lookupGloss: lookupGloss,
+    fillGlosses: fillGlosses, formatCardLine: formatCardLine, removeItem: removeItem, recordActivity: recordActivity,
     dueItems: dueItems, stats: stats, streak: streak, merge: merge,
     exportJSON: exportJSON, importJSON: importJSON,
     config: config, session: session, setSession: setSession, clearSession: clearSession,
