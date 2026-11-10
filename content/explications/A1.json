@@ -1,0 +1,645 @@
+{
+ "nom-genre-nombre": {
+  "intro": "En français, chaque nom est masculin ou féminin, même pour les choses. On apprend donc toujours un nom avec son article : **un** livre, **une** table.",
+  "regles": [
+   "Le genre des choses n'est pas logique : il faut l'apprendre avec le nom (le soleil, la lune).",
+   "Pour les personnes, on ajoute souvent **-e** au féminin : un ami → une amie, un étudiant → une étudiante.",
+   "Au pluriel, on ajoute en général **-s** : un livre → des livres. Ce -s ne se prononce pas : à l'oral, c'est l'article (le / les) qui montre le pluriel.",
+   "Les noms en **-eau** et beaucoup de noms en **-eu** prennent **-x** : un gâteau → des gâteaux, un jeu → des jeux. Les noms en **-al** font souvent **-aux** : un journal → des journaux.",
+   "Les noms en -s, -x, -z ne changent pas : un bus → des bus, un prix → des prix."
+  ],
+  "forme": [
+   "masculin → féminin : ami → amie · acteur → actrice · boulanger → boulangère",
+   "singulier → pluriel : livre → livres · gâteau → gâteaux · journal → journaux · prix → prix"
+  ],
+  "exemples": [
+   {
+    "fr": "J'ai un frère et deux sœurs.",
+    "en": "I have one brother and two sisters."
+   },
+   {
+    "fr": "Mon amie est étudiante à Lyon.",
+    "en": "My friend is a student in Lyon."
+   },
+   {
+    "fr": "On achète des gâteaux pour ce soir ?",
+    "en": "Shall we buy some cakes for tonight?"
+   },
+   {
+    "fr": "Il lit trois journaux par jour.",
+    "en": "He reads three newspapers a day."
+   }
+  ],
+  "pieges": [
+   "~~des journals~~ → des **journaux** (-al → -aux).",
+   "~~une problème~~ → **un** problème. Beaucoup de noms en -e sont masculins (un système, un musée) : vérifiez l'article dans le dictionnaire."
+  ],
+  "astuce": "Notez chaque nouveau mot avec un article (un / une), jamais seul."
+ },
+ "nom-articles": {
+  "intro": "Les articles se placent devant le nom. Ils indiquent le genre, le nombre, et si la chose est connue ou non.",
+  "regles": [
+   "L'article **défini** (le, la, l', les) désigne une chose connue, unique, ou une catégorie en général : le soleil, la voiture de Paul, j'aime le café.",
+   "L'article **indéfini** (un, une, des) présente une chose nouvelle ou non précise : j'ai une voiture.",
+   "Devant une voyelle ou un h muet, le et la deviennent **l'** : l'école, l'hôtel.",
+   "Après aimer, adorer, détester, préférer, on utilise l'article défini : j'aime **les** chats (pas des chats).",
+   "Avec à et de, le et les se contractent : à + le = **au**, à + les = **aux**, de + le = **du**, de + les = **des**."
+  ],
+  "forme": [
+   "défini : le (masc.) · la (fém.) · l' (+ voyelle) · les (pluriel)",
+   "indéfini : un (masc.) · une (fém.) · des (pluriel)",
+   "à + le = au · à + les = aux · de + le = du · de + les = des"
+  ],
+  "exemples": [
+   {
+    "fr": "J'ai un chat. Le chat s'appelle Tigre.",
+    "en": "I have a cat. The cat is called Tigre."
+   },
+   {
+    "fr": "J'adore les films italiens.",
+    "en": "I love Italian films."
+   },
+   {
+    "fr": "Il y a une boulangerie près de l'école.",
+    "en": "There is a bakery near the school."
+   },
+   {
+    "fr": "Je vais au cinéma avec des amis.",
+    "en": "I'm going to the cinema with some friends."
+   }
+  ],
+  "pieges": [
+   "~~J'aime des chats~~ → J'aime **les** chats (goût général = article défini).",
+   "~~à le marché~~ → **au** marché ; ~~de le professeur~~ → **du** professeur."
+  ],
+  "astuce": "Première mention : un / une. Ensuite, quand on sait de quoi on parle : le / la."
+ },
+ "nom-partitifs": {
+  "intro": "L'article partitif s'utilise pour une quantité qu'on ne compte pas : une partie d'une chose (du pain, de l'eau). C'est très fréquent pour la nourriture et les boissons.",
+  "regles": [
+   "On utilise **du** (masculin), **de la** (féminin), **de l'** (devant une voyelle) pour une quantité non comptable : je bois du café, je mange de la soupe.",
+   "Pour une chose qu'on compte, on garde un / une / des : je mange une pomme, des pommes.",
+   "Après une négation, du, de la, de l', un, une, des deviennent **de** (ou **d'**) : je ne bois pas **de** café, il n'y a pas **d'**eau.",
+   "Attention : après aimer, adorer, détester, on garde le, la, les : j'aime le café, mais je bois du café.",
+   "Exception : avec être, l'article ne change pas : ce n'est pas du sucre, c'est du sel."
+  ],
+  "forme": [
+   "du pain · de la confiture · de l'eau · des pâtes",
+   "négation : pas de pain · pas de confiture · pas d'eau · pas de pâtes"
+  ],
+  "exemples": [
+   {
+    "fr": "Le matin, je prends du pain et de la confiture.",
+    "en": "In the morning, I have bread and jam."
+   },
+   {
+    "fr": "Tu veux de l'eau ?",
+    "en": "Do you want some water?"
+   },
+   {
+    "fr": "Désolé, il n'y a plus de lait.",
+    "en": "Sorry, there's no more milk."
+   },
+   {
+    "fr": "Je ne mange pas de viande.",
+    "en": "I don't eat meat."
+   }
+  ],
+  "pieges": [
+   "~~Je ne bois pas du café~~ → Je ne bois pas **de** café.",
+   "~~J'aime du chocolat~~ → J'aime **le** chocolat (goût) ; je mange **du** chocolat (quantité)."
+  ],
+  "astuce": "Si on peut dire « un peu de » en anglais (some), c'est souvent du / de la."
+ },
+ "nom-adj-accord": {
+  "intro": "L'adjectif décrit le nom. Il s'accorde avec lui en genre et en nombre, et il se place en général après le nom.",
+  "regles": [
+   "Au féminin, on ajoute **-e** : petit → petite. Si l'adjectif finit déjà par -e, il ne change pas : rouge, jeune.",
+   "Au pluriel, on ajoute **-s** : petits, petites. Le -s ne se prononce pas.",
+   "Quelques féminins spéciaux : -eux → **-euse** (heureux → heureuse), -if → **-ive** (sportif → sportive), -en → **-enne** (italien → italienne). Irréguliers : blanc → blanche, long → longue.",
+   "La plupart des adjectifs (couleurs, nationalités, formes) se placent **après** le nom : une voiture rouge, un film français.",
+   "Quelques adjectifs courts et fréquents se placent **avant** : petit, grand, beau, bon, mauvais, jeune, vieux, nouveau, joli."
+  ],
+  "forme": [
+   "un petit appartement · une petite maison · des petits appartements · des petites maisons",
+   "beau / nouveau / vieux devant voyelle : un **bel** homme · un **nouvel** ami · un **vieil** hôtel"
+  ],
+  "exemples": [
+   {
+    "fr": "J'habite dans un petit appartement très lumineux.",
+    "en": "I live in a small, very bright apartment."
+   },
+   {
+    "fr": "Ma sœur a une voiture blanche.",
+    "en": "My sister has a white car."
+   },
+   {
+    "fr": "Ce sont de bons amis.",
+    "en": "They are good friends."
+   },
+   {
+    "fr": "On a vu un beau film italien.",
+    "en": "We saw a beautiful Italian film."
+   }
+  ],
+  "pieges": [
+   "~~une maison petite~~ → une **petite** maison (petit se place avant).",
+   "~~une robe blanc~~ → une robe **blanche** (accord au féminin)."
+  ],
+  "astuce": "Les adjectifs courts et très fréquents (**beau, joli, bon, mauvais, petit, grand, gros, jeune, vieux, nouveau**) se placent devant le nom ; presque tous les autres, derrière."
+ },
+ "nom-possessifs": {
+  "intro": "Les possessifs disent à qui est une chose (mon livre). Les démonstratifs montrent une chose précise (ce livre, ici).",
+  "regles": [
+   "Le possessif s'accorde avec la **chose possédée**, pas avec la personne : son frère, sa sœur (pour un homme ou une femme).",
+   "Devant un nom féminin qui commence par une voyelle, on utilise **mon, ton, son** : mon amie, son école.",
+   "**leur** (une chose) / **leurs** (plusieurs choses) pour ils / elles : leur maison, leurs enfants.",
+   "Démonstratifs : **ce** (masc.), **cet** (masc. + voyelle ou h muet), **cette** (fém.), **ces** (pluriel).",
+   "Pour préciser, on ajoute -ci (près) ou -là (loin) : ce livre-ci, ce livre-là. À l'oral, on dit surtout -là."
+  ],
+  "forme": [
+   "je : mon · ma · mes — tu : ton · ta · tes — il / elle : son · sa · ses",
+   "nous : notre · nos — vous : votre · vos — ils / elles : leur · leurs",
+   "ce garçon · cet homme · cette fille · ces enfants"
+  ],
+  "exemples": [
+   {
+    "fr": "Je te présente ma sœur et mon frère.",
+    "en": "Let me introduce my sister and my brother."
+   },
+   {
+    "fr": "Paul cherche sa clé.",
+    "en": "Paul is looking for his key."
+   },
+   {
+    "fr": "Tu connais cet hôtel ?",
+    "en": "Do you know this hotel?"
+   },
+   {
+    "fr": "Les voisins promènent leur chien tous les soirs.",
+    "en": "The neighbours walk their dog every evening."
+   }
+  ],
+  "pieges": [
+   "~~ma amie~~ → **mon** amie (voyelle).",
+   "~~Paul cherche son clé~~ → **sa** clé : on regarde le genre de « clé », pas de Paul.",
+   "~~ce homme~~ → **cet** homme."
+  ]
+ },
+ "pronoms-sujets": {
+  "intro": "Le pronom sujet remplace le nom devant le verbe (je, tu, il…). Le pronom tonique (moi, toi, lui…) sert à insister ou après une préposition.",
+  "regles": [
+   "**tu** = une personne proche (ami, famille, enfant). **vous** = une personne qu'on ne connaît pas ou dans un contexte poli, et aussi le pluriel.",
+   "**on** est très fréquent à l'oral : il veut souvent dire « nous » (on y va = nous y allons). Le verbe reste à la 3e personne du singulier.",
+   "**ils** désigne un groupe d'hommes ou un groupe mixte ; **elles**, seulement un groupe de femmes.",
+   "Les pronoms toniques s'utilisent pour insister (Moi, je…), après une préposition (avec toi, chez lui) et seuls (Et toi ? — Moi aussi.)."
+  ],
+  "forme": [
+   "sujets : je (j') · tu · il / elle / on · nous · vous · ils / elles",
+   "toniques : moi · toi · lui / elle · nous · vous · eux / elles"
+  ],
+  "exemples": [
+   {
+    "fr": "Moi, je suis de Lyon. Et toi ?",
+    "en": "I'm from Lyon. What about you?"
+   },
+   {
+    "fr": "Vous êtes madame Martin ?",
+    "en": "Are you Mrs Martin?"
+   },
+   {
+    "fr": "On mange ensemble ce soir ?",
+    "en": "Shall we eat together tonight?"
+   },
+   {
+    "fr": "Je vais au cinéma avec eux.",
+    "en": "I'm going to the cinema with them."
+   }
+  ],
+  "pieges": [
+   "~~Moi suis français~~ → **Moi, je** suis français : le pronom tonique ne remplace pas le pronom sujet.",
+   "~~avec il~~ → avec **lui** ; ~~chez ils~~ → chez **eux**."
+  ],
+  "astuce": "En cas de doute avec un adulte inconnu, dites vous : c'est toujours poli."
+ },
+ "temps-present-er": {
+  "intro": "Les verbes en -er sont les plus nombreux (environ 90 % des verbes). Ils ont presque tous la même conjugaison au présent.",
+  "regles": [
+   "On enlève **-er** et on ajoute les terminaisons : -e, -es, -e, -ons, -ez, -ent.",
+   "À l'oral, je parle, tu parles, il parle, ils parlent se prononcent **pareil** : le -es et le -ent sont muets.",
+   "Devant une voyelle ou un h muet, je devient **j'** : j'aime, j'habite.",
+   "Verbes en -ger : nous mang**e**ons. Verbes en -cer : nous commen**ç**ons (pour garder le son).",
+   "Le présent sert pour maintenant, pour les habitudes et aussi pour un futur proche : Je travaille demain."
+  ],
+  "forme": [
+   "parler : je parle · tu parles · il parle · nous parlons · vous parlez · ils parlent",
+   "aimer : j'aime · tu aimes · elle aime · nous aimons · vous aimez · elles aiment"
+  ],
+  "exemples": [
+   {
+    "fr": "J'habite à Marseille depuis deux ans.",
+    "en": "I've been living in Marseille for two years."
+   },
+   {
+    "fr": "Vous parlez anglais ?",
+    "en": "Do you speak English?"
+   },
+   {
+    "fr": "Le samedi, on regarde un film à la maison.",
+    "en": "On Saturdays, we watch a film at home."
+   },
+   {
+    "fr": "Mes parents travaillent à l'hôpital.",
+    "en": "My parents work at the hospital."
+   }
+  ],
+  "pieges": [
+   "Ne prononcez pas la fin de ils parlent : le **-ent** est muet, ils parlent se dit comme il parle.",
+   "~~je aime~~ → **j'aime**.",
+   "Aller n'est pas régulier : ~~j'alle~~ → je **vais**."
+  ]
+ },
+ "temps-present-irreguliers": {
+  "intro": "Les verbes les plus fréquents du français sont irréguliers. Il faut les apprendre par cœur, car on les utilise dans presque toutes les phrases.",
+  "regles": [
+   "**être** et **avoir** sont les deux verbes les plus importants : ils servent aussi à former le passé composé.",
+   "**aller** (je vais) et **faire** (je fais) sont très irréguliers ; attention à vous **faites** et ils **font**.",
+   "**pouvoir** et **vouloir** ont la même structure : je peux / je veux, ils peuvent / ils veulent. Ils sont suivis d'un infinitif : je veux partir.",
+   "**venir** et **prendre** : le radical change au pluriel (nous venons / ils viennent ; nous prenons / ils prennent)."
+  ],
+  "forme": [
+   "être : je suis · tu es · il est · nous sommes · vous êtes · ils sont",
+   "avoir : j'ai · tu as · il a · nous avons · vous avez · ils ont",
+   "aller : je vais · tu vas · il va · nous allons · vous allez · ils vont",
+   "faire : je fais · tu fais · il fait · nous faisons · vous faites · ils font",
+   "pouvoir : je peux · il peut · ils peuvent — vouloir : je veux · il veut · ils veulent — venir : je viens · ils viennent — prendre : je prends · ils prennent"
+  ],
+  "exemples": [
+   {
+    "fr": "Je suis fatigué, j'ai beaucoup de travail.",
+    "en": "I'm tired, I have a lot of work."
+   },
+   {
+    "fr": "Qu'est-ce que vous faites ce week-end ?",
+    "en": "What are you doing this weekend?"
+   },
+   {
+    "fr": "Tu peux venir à quelle heure ?",
+    "en": "What time can you come?"
+   },
+   {
+    "fr": "Ils prennent le train tous les matins.",
+    "en": "They take the train every morning."
+   }
+  ],
+  "pieges": [
+   "~~vous faisez~~ → vous **faites** ; ~~vous disez~~ → vous **dites**.",
+   "~~J'ai 20 ans~~ est correct, mais ~~Je suis 20 ans~~ est faux : l'âge se dit avec **avoir**."
+  ]
+ },
+ "verbe-avoir-expressions": {
+  "intro": "Beaucoup d'expressions de la vie quotidienne utilisent avoir là où l'anglais utilise « to be ». « Il y a » sert à dire qu'une chose existe dans un lieu.",
+  "regles": [
+   "Sensations et état : avoir **faim**, **soif**, **chaud**, **froid**, **sommeil**, **peur**, **raison**, **tort**, **mal** (à la tête, au dos).",
+   "L'âge se dit avec avoir : j'ai 25 ans.",
+   "**avoir besoin de** et **avoir envie de** + nom ou infinitif : j'ai besoin d'un stylo, j'ai envie de dormir.",
+   "**il y a** + nom = « there is / there are », au singulier comme au pluriel. Négation : il n'y a **pas de**.",
+   "À l'oral, il y a se prononce souvent « y a » : Y a du monde !"
+  ],
+  "forme": [
+   "avoir + faim / soif / chaud / froid / peur / sommeil",
+   "avoir mal à + partie du corps : j'ai mal à la tête · au dos · aux pieds",
+   "avoir besoin de / envie de + nom ou infinitif",
+   "il y a + nom · il n'y a pas de + nom"
+  ],
+  "exemples": [
+   {
+    "fr": "J'ai faim, on mange quelque chose ?",
+    "en": "I'm hungry, shall we eat something?"
+   },
+   {
+    "fr": "Ma fille a sept ans.",
+    "en": "My daughter is seven."
+   },
+   {
+    "fr": "Tu as besoin d'aide ?",
+    "en": "Do you need help?"
+   },
+   {
+    "fr": "Il y a une pharmacie dans la rue ?",
+    "en": "Is there a pharmacy in the street?"
+   },
+   {
+    "fr": "J'ai pas envie de sortir ce soir.",
+    "en": "I don't feel like going out tonight."
+   }
+  ],
+  "pieges": [
+   "~~Je suis faim~~ → **J'ai** faim ; ~~Je suis froid~~ → **J'ai** froid.",
+   "~~Il n'y a pas des bus~~ → Il n'y a **pas de** bus."
+  ]
+ },
+ "temps-pronominaux": {
+  "intro": "Un verbe pronominal se conjugue avec un pronom réfléchi (me, te, se…). On l'utilise souvent pour les actions de la routine : se lever, se laver, s'habiller.",
+  "regles": [
+   "Le pronom réfléchi correspond au sujet : je **me**, tu **te**, il **se**, nous **nous**, vous **vous**, ils **se**.",
+   "Devant une voyelle ou un h muet : **m'**, **t'**, **s'** (je m'appelle, il s'habille).",
+   "Négation : ne se place avant le pronom, pas après le verbe : je **ne me** lève **pas**.",
+   "Devant un infinitif, le pronom change avec le sujet : je vais **me** coucher, tu vas **te** coucher."
+  ],
+  "forme": [
+   "se lever : je me lève · tu te lèves · il se lève · nous nous levons · vous vous levez · ils se lèvent",
+   "s'appeler : je m'appelle · tu t'appelles · il s'appelle"
+  ],
+  "exemples": [
+   {
+    "fr": "Je me lève à sept heures en semaine.",
+    "en": "I get up at seven on weekdays."
+   },
+   {
+    "fr": "Comment tu t'appelles ?",
+    "en": "What's your name?"
+   },
+   {
+    "fr": "Dépêche-toi, on est en retard !",
+    "en": "Hurry up, we're late!"
+   },
+   {
+    "fr": "Le dimanche, on ne se lève pas tôt.",
+    "en": "On Sundays, we don't get up early."
+   }
+  ],
+  "pieges": [
+   "~~Je lève à sept heures~~ → Je **me** lève (sans pronom, lever = lever un objet).",
+   "~~Je vais se coucher~~ → Je vais **me** coucher."
+  ],
+  "astuce": "Si l'action revient sur soi-même (je lave moi-même), le verbe est pronominal."
+ },
+ "temps-futur-proche": {
+  "intro": "Le futur proche sert à parler d'un projet ou d'une action qui va bientôt arriver. C'est le futur le plus utilisé à l'oral.",
+  "regles": [
+   "Forme : **aller** au présent + **infinitif** : je vais partir.",
+   "On l'utilise pour un projet décidé ou une chose presque sûre : Il va pleuvoir (on voit les nuages).",
+   "Négation : ne… pas autour de aller : je **ne** vais **pas** venir.",
+   "Les petits pronoms se placent devant l'infinitif : je vais **le** faire, on va **se** voir."
+  ],
+  "forme": [
+   "je vais · tu vas · il va · nous allons · vous allez · ils vont + infinitif",
+   "je vais manger · on va partir · ils vont arriver"
+  ],
+  "exemples": [
+   {
+    "fr": "Ce soir, je vais regarder un film.",
+    "en": "Tonight, I'm going to watch a film."
+   },
+   {
+    "fr": "Attention, tu vas tomber !",
+    "en": "Careful, you're going to fall!"
+   },
+   {
+    "fr": "On va se voir demain ?",
+    "en": "Are we going to see each other tomorrow?"
+   },
+   {
+    "fr": "Je vais pas rester longtemps.",
+    "en": "I'm not going to stay long."
+   }
+  ],
+  "pieges": [
+   "~~Je vais à manger~~ → Je vais **manger** (pas de « à »).",
+   "~~Je vais le pas faire~~ → Je **ne** vais **pas** le faire."
+  ]
+ },
+ "neg-ne-pas": {
+  "intro": "Pour dire non à une action, on met ne… pas autour du verbe conjugué. C'est la négation de base.",
+  "regles": [
+   "**ne** se place avant le verbe, **pas** après : je **ne** parle **pas** espagnol.",
+   "Devant une voyelle ou un h muet, ne devient **n'** : je **n'**aime **pas**.",
+   "Avec un verbe + infinitif, ne… pas entoure le verbe conjugué : je **ne** veux **pas** partir.",
+   "À l'oral, on supprime très souvent **ne** : « Je sais pas », « C'est pas grave ». À l'écrit, il faut le garder.",
+   "Après pas, un / une / des / du / de la deviennent **de** : je n'ai pas **de** voiture."
+  ],
+  "forme": [
+   "sujet + ne (n') + verbe + pas : je ne mange pas · il n'est pas là",
+   "oral : je mange pas · c'est pas grave"
+  ],
+  "exemples": [
+   {
+    "fr": "Je ne comprends pas la question.",
+    "en": "I don't understand the question."
+   },
+   {
+    "fr": "Elle n'habite pas ici.",
+    "en": "She doesn't live here."
+   },
+   {
+    "fr": "Je sais pas, peut-être demain.",
+    "en": "I don't know, maybe tomorrow."
+   },
+   {
+    "fr": "Il n'a pas de frères.",
+    "en": "He doesn't have any brothers."
+   }
+  ],
+  "pieges": [
+   "~~Je ne pas mange~~ → Je **ne** mange **pas** (pas vient après le verbe).",
+   "~~Je n'ai pas une voiture~~ → Je n'ai pas **de** voiture."
+  ],
+  "astuce": "Écoutez le « pas » : à l'oral, c'est lui qui porte la négation."
+ },
+ "questions-intonation": {
+  "intro": "La façon la plus simple de poser une question : on garde la phrase affirmative et on monte la voix à la fin. C'est la forme la plus fréquente à l'oral.",
+  "regles": [
+   "L'ordre des mots ne change pas : Tu viens. → Tu viens **?** (la voix monte).",
+   "À l'écrit, seul le point d'interrogation montre la question.",
+   "Le mot interrogatif peut se placer à la fin : Tu habites **où** ? Tu pars **quand** ? (registre familier, très courant).",
+   "Pour demander l'avis sur un thème, on peut simplement le nommer : Et le fromage ?",
+   "Cette forme est familière ou neutre ; dans un contexte formel, on préfère « est-ce que » ou l'inversion."
+  ],
+  "forme": [
+   "affirmation ↘ : Tu aimes le jazz.",
+   "question ↗ : Tu aimes le jazz ?"
+  ],
+  "exemples": [
+   {
+    "fr": "Tu viens avec nous ce soir ?",
+    "en": "Are you coming with us tonight?"
+   },
+   {
+    "fr": "Vous aimez la cuisine indienne ?",
+    "en": "Do you like Indian food?"
+   },
+   {
+    "fr": "Il fait quoi dans la vie ?",
+    "en": "What does he do for a living?"
+   },
+   {
+    "fr": "C'est loin d'ici ?",
+    "en": "Is it far from here?"
+   }
+  ],
+  "pieges": [
+   "Si la voix descend à la fin, « Tu viens » sonne comme une affirmation : il faut bien **monter** la voix sur la dernière syllabe.",
+   "~~Quoi tu fais ?~~ → Tu fais **quoi** ? (quoi va à la fin) ou **Qu'est-ce que** tu fais ?"
+  ]
+ },
+ "questions-est-ce-que": {
+  "intro": "On met « est-ce que » au début d'une phrase affirmative pour en faire une question. C'est neutre, clair et toujours correct, à l'oral comme à l'écrit.",
+  "regles": [
+   "Forme : **Est-ce que** + sujet + verbe ? L'ordre de la phrase ne change pas.",
+   "Devant une voyelle, que devient **qu'** : Est-ce **qu'**il vient ?",
+   "On répond par oui ou non (ou **si** pour contredire une question négative).",
+   "On peut ajouter un mot interrogatif devant : **Où est-ce que** tu habites ? **Pourquoi est-ce que** tu pars ?"
+  ],
+  "forme": [
+   "Est-ce que + phrase affirmative ?",
+   "Est-ce que vous parlez français ? · Est-ce qu'elle est là ?"
+  ],
+  "exemples": [
+   {
+    "fr": "Est-ce que vous avez une chambre pour ce soir ?",
+    "en": "Do you have a room for tonight?"
+   },
+   {
+    "fr": "Est-ce qu'il y a un bus pour l'aéroport ?",
+    "en": "Is there a bus to the airport?"
+   },
+   {
+    "fr": "Est-ce que tu veux un café ?",
+    "en": "Do you want a coffee?"
+   },
+   {
+    "fr": "Est-ce que ça vous aide pour le travail ?",
+    "en": "Does it help you with work?"
+   }
+  ],
+  "pieges": [
+   "~~Est-ce que vous êtes-vous français ?~~ → Est-ce que **vous êtes** français ? (pas d'inversion après est-ce que).",
+   "~~Est-ce que il vient ?~~ → Est-ce **qu'il** vient ?"
+  ],
+  "astuce": "« Est-ce que » ne se traduit pas : c'est juste un signal de question, comme « do » en anglais."
+ },
+ "questions-mots": {
+  "intro": "Les mots interrogatifs servent à demander une information précise : un lieu, un moment, une manière, une raison, une quantité, une chose ou une personne.",
+  "regles": [
+   "**où** (lieu), **quand** (moment), **comment** (manière), **pourquoi** (raison), **combien** (quantité), **qui** (personne).",
+   "Pour une chose, on dit **qu'est-ce que** au début (Qu'est-ce que tu fais ?) ou **quoi** à la fin à l'oral (Tu fais quoi ?).",
+   "Trois places possibles : au début avec est-ce que (Où est-ce que tu habites ?), à la fin à l'oral (Tu habites où ?), ou avec inversion, plus soutenu (Où habites-tu ?).",
+   "**combien de** + nom : Combien de frères tu as ?",
+   "On répond à pourquoi avec **parce que** : Parce que je suis fatigué."
+  ],
+  "forme": [
+   "mot interrogatif + est-ce que + sujet + verbe ?",
+   "oral : sujet + verbe + mot interrogatif ? (Tu pars quand ?)"
+  ],
+  "exemples": [
+   {
+    "fr": "Où est-ce que tu travailles ?",
+    "en": "Where do you work?"
+   },
+   {
+    "fr": "Tu rentres quand ?",
+    "en": "When are you coming back?"
+   },
+   {
+    "fr": "Qu'est-ce que vous voulez boire ?",
+    "en": "What would you like to drink?"
+   },
+   {
+    "fr": "Ça coûte combien ?",
+    "en": "How much does it cost?"
+   },
+   {
+    "fr": "Pourquoi est-ce qu'il est en retard ?",
+    "en": "Why is he late?"
+   }
+  ],
+  "pieges": [
+   "~~Que tu fais ?~~ → **Qu'est-ce que** tu fais ? ou Tu fais **quoi** ?",
+   "~~Pourquoi ? — Pour je suis malade.~~ → **Parce que** je suis malade."
+  ]
+ },
+ "prep-lieux": {
+  "intro": "Pour dire où on est ou où on va, la préposition dépend du lieu : une ville, un pays, une maison ou un objet.",
+  "regles": [
+   "Ville : **à** (à Paris, à Tokyo). Pour aller et pour être, c'est la même préposition.",
+   "Pays féminin (souvent en -e) : **en** (en France, en Italie). Pays masculin : **au** (au Japon, au Canada). Pays pluriel : **aux** (aux États-Unis). Pays masculin qui commence par une voyelle : **en** (en Iran).",
+   "Venir d'un lieu : **de** + ville (de Paris), **de / d'** + pays féminin (de France), **du** + pays masculin (du Japon), **des** + pluriel (des États-Unis).",
+   "**chez** + personne : chez moi, chez le médecin. **dans** = à l'intérieur : dans la boîte. **sur** = dessus : sur la table. **sous** = dessous."
+  ],
+  "forme": [
+   "à + ville · en + pays fém. · au + pays masc. · aux + pays pluriel",
+   "de Rome · de France · du Brésil · des Pays-Bas",
+   "chez + personne · dans · sur · sous · devant · derrière"
+  ],
+  "exemples": [
+   {
+    "fr": "J'habite à Bruxelles, mais je travaille au Luxembourg.",
+    "en": "I live in Brussels, but I work in Luxembourg."
+   },
+   {
+    "fr": "Cet été, on va en Espagne.",
+    "en": "This summer, we're going to Spain."
+   },
+   {
+    "fr": "Elle vient du Mexique.",
+    "en": "She comes from Mexico."
+   },
+   {
+    "fr": "Tes clés sont sur la table, dans la cuisine.",
+    "en": "Your keys are on the table, in the kitchen."
+   },
+   {
+    "fr": "Ce soir, on dîne chez Marc.",
+    "en": "Tonight, we're having dinner at Marc's."
+   }
+  ],
+  "pieges": [
+   "~~à France~~ → **en** France ; ~~en Japon~~ → **au** Japon.",
+   "~~Je vais à la maison de Paul~~ → Je vais **chez** Paul (plus naturel)."
+  ],
+  "astuce": "Exceptions à retenir : le Mexique, le Cambodge, le Mozambique sont masculins malgré le -e (au Mexique)."
+ },
+ "disc-gouts": {
+  "intro": "Pour parler de ce qu'on aime ou non, on utilise une échelle de verbes, du plus positif au plus négatif. C'est un thème central des premières conversations.",
+  "regles": [
+   "L'échelle : **adorer** (+++) > **aimer bien** (++) > **aimer** (+) > **ne pas trop aimer** (–) > **ne pas aimer du tout** / **détester** (– –).",
+   "Attention : avec une personne, **j'aime bien** est moins fort que **j'aime** (j'aime = amour) ; pour une chose, les deux sont proches.",
+   "Devant un nom, on met l'article défini : j'adore **le** chocolat, je déteste **les** araignées.",
+   "Devant un verbe, on met l'**infinitif** : j'aime lire, je déteste attendre.",
+   "**préférer** sert à comparer : je préfère le thé au café ; je préfère rester ici."
+  ],
+  "forme": [
+   "j'adore · j'aime bien · j'aime · je n'aime pas trop · je déteste",
+   "verbe + le / la / les + nom · verbe + infinitif",
+   "préférer A à B : je préfère le vélo à la voiture"
+  ],
+  "exemples": [
+   {
+    "fr": "J'adore prendre le métro.",
+    "en": "I love taking the metro."
+   },
+   {
+    "fr": "J'aime bien rester chez moi le dimanche.",
+    "en": "I quite like staying at home on Sundays."
+   },
+   {
+    "fr": "J'aime pas trop le rap.",
+    "en": "I'm not really into rap."
+   },
+   {
+    "fr": "Je déteste les œufs.",
+    "en": "I hate eggs."
+   },
+   {
+    "fr": "Tu préfères la mer ou la montagne ?",
+    "en": "Do you prefer the sea or the mountains?"
+   }
+  ],
+  "pieges": [
+   "~~J'aime chocolat~~ → J'aime **le** chocolat (article obligatoire).",
+   "~~J'aime de lire~~ → J'aime **lire** (pas de « de » devant l'infinitif)."
+  ],
+  "astuce": "Pour répondre vite : Moi aussi (accord avec un oui), Moi non plus (accord avec un non), Moi si / Pas moi (désaccord)."
+ }
+}

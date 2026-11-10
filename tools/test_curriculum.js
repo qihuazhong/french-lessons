@@ -84,6 +84,37 @@ lessons.forEach(l => {
 });
 ok(total >= 34, total + ' points de grammaire au total');
 
+console.log('== explications détaillées (content/explications)');
+const EX_DIR = path.join(PROJ, 'content', 'explications');
+const expl = {};
+const exFiles = fs.existsSync(EX_DIR) ? fs.readdirSync(EX_DIR).filter(f => f.endsWith('.json')) : [];
+exFiles.forEach(f => Object.assign(expl, JSON.parse(fs.readFileSync(path.join(EX_DIR, f), 'utf8'))));
+LV.forEach(lv => {
+  const file = path.join(EX_DIR, lv + '.json');
+  const ids = cur.points.filter(p => p.level === lv).map(p => p.id);
+  const got = fs.existsSync(file) ? Object.keys(JSON.parse(fs.readFileSync(file, 'utf8'))) : [];
+  ok(JSON.stringify(got) === JSON.stringify(ids), lv + '.json : une explication par point du niveau, dans l’ordre (' + got.length + '/' + ids.length + ')');
+});
+const KEYS = ['intro', 'regles', 'forme', 'exemples', 'pieges', 'astuce'];
+const exBad = [];
+Object.keys(expl).forEach(id => {
+  const e = expl[id];
+  const why = [];
+  if (!byId[id]) why.push('id inconnu');
+  if (Object.keys(e).some(k => !KEYS.includes(k))) why.push('clé inconnue');
+  if (typeof e.intro !== 'string' || !e.intro.trim()) why.push('intro');
+  if (!Array.isArray(e.regles) || e.regles.length < 2 || e.regles.length > 5) why.push('regles 2–5');
+  if (e.forme && (!Array.isArray(e.forme) || e.forme.length > 5)) why.push('forme ≤ 5');
+  if (!Array.isArray(e.exemples) || e.exemples.length < 3 || e.exemples.length > 5 ||
+      e.exemples.some(x => !x.fr || !x.en)) why.push('exemples 3–5 {fr, en}');
+  if (!Array.isArray(e.pieges) || e.pieges.length < 1 || e.pieges.length > 3) why.push('pieges 1–3');
+  const txt = JSON.stringify(e);
+  if (/<[a-zA-Z\/]/.test(txt)) why.push('HTML interdit');
+  if (/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(txt)) why.push('emoji');
+  if (why.length) exBad.push(id + ' (' + why.join(', ') + ')');
+});
+ok(exBad.length === 0, 'format des explications valide' + (exBad.length ? ' — ' + exBad.join('; ') : ''));
+
 console.log('== tags « concepts » des exercices');
 function exoSpecs(html) {
   return [...html.matchAll(/<div class="exo"><script type="application\/json">([\s\S]*?)<\/script>/g)]
@@ -139,6 +170,11 @@ arts.forEach(a => {
 });
 ok(nLinks >= 34 && badLinks.length === 0, nLinks + ' liens « Étudier dans » → bon fichier, bon parcours, bon point' +
   (badLinks.length ? ' — ' + badLinks.join(', ') : ''));
+const withMore = arts.filter(a => /<details class="gp-more"><summary>Explication détaillée<\/summary>/.test(a[3]));
+ok(withMore.length === cur.points.length, 'chaque point a une « Explication détaillée » dépliable (' + withMore.length + '/' + cur.points.length + ')');
+const moreHtml = withMore.map(a => a[3].slice(a[3].indexOf('<details'), a[3].indexOf('</details>'))).join('');
+ok(!/\*\*|~~/.test(moreHtml), 'balisage **gras** / ~~barré~~ converti partout');
+ok(!/<(?!\/?(details|summary|div|p|h5|ul|li|span|b|s)\b)[a-z]/i.test(moreHtml), 'aucune balise HTML autre que celles du gabarit');
 const prereqLinks = [...parcours.matchAll(/href="#gp-([^"]+)"/g)].map(m => m[1]);
 ok(prereqLinks.length > 0 && prereqLinks.every(id => byId[id]), 'liens de prérequis internes valides');
 const navOk = lessons.every(l => fs.readFileSync(path.join(PROJ, l.file), 'utf8').includes('href="parcours.html"')) &&

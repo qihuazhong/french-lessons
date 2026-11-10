@@ -1,0 +1,389 @@
+{
+  "temps-passe-compose": {
+    "intro": "Le passé composé raconte une action terminée dans le passé : un événement, une étape d'une histoire. C'est le temps du passé le plus utilisé à l'oral.",
+    "regles": [
+      "Forme : **avoir** ou **être** au présent + **participe passé** : j'ai mangé, je suis parti.",
+      "La plupart des verbes utilisent **avoir**. On utilise **être** avec les verbes pronominaux (je me suis levé) et une quinzaine de verbes de mouvement ou de changement d'état : aller, venir, partir, arriver, entrer, sortir, monter, descendre, naître, mourir, rester, tomber, retourner, devenir…",
+      "Avec **être**, le participe s'accorde avec le sujet : elle est partie, ils sont arrivés, elles sont venues.",
+      "Participes réguliers : -er → **-é** (parlé), -ir → souvent **-i** (fini). Irréguliers fréquents : fait, pris, mis, dit, vu, eu, été, voulu, pu, venu.",
+      "Négation autour de l'auxiliaire : je **n'**ai **pas** compris."
+    ],
+    "forme": [
+      "avoir : j'ai parlé · tu as parlé · il a parlé · nous avons parlé · vous avez parlé · ils ont parlé",
+      "être : je suis allé(e) · tu es allé(e) · il est allé · elle est allée · nous sommes allé(e)s · ils sont allés",
+      "monter, descendre, sortir + objet → avoir : elle a descendu la poubelle"
+    ],
+    "exemples": [
+      {"fr": "Hier, j'ai regardé un film avec ma sœur.", "en": "Yesterday, I watched a film with my sister."},
+      {"fr": "Elle est descendue du bus devant la gare.", "en": "She got off the bus in front of the station."},
+      {"fr": "On s'est levés tôt pour prendre le train.", "en": "We got up early to catch the train."},
+      {"fr": "Tu as fini tes devoirs ?", "en": "Have you finished your homework?"},
+      {"fr": "Je n'ai pas compris la question.", "en": "I didn't understand the question."}
+    ],
+    "pieges": [
+      "~~J'ai allé au cinéma~~ → Je **suis** allé au cinéma.",
+      "~~Elle est parti~~ → Elle est parti**e** (accord avec être).",
+      "~~Je n'ai mangé pas~~ → Je **n'ai pas** mangé : la négation entoure l'auxiliaire."
+    ],
+    "astuce": "Imaginez une maison : on y entre, on en sort, on monte, on descend, on arrive, on part… Ces verbes de la « maison d'être » prennent être."
+  },
+  "temps-imparfait": {
+    "intro": "L'imparfait sert à décrire le passé (le décor, les personnes, la situation) et à parler d'habitudes passées : Quand j'étais petit, je jouais au foot.",
+    "regles": [
+      "Formation : on prend le radical de **nous** au présent, on enlève -ons et on ajoute **-ais, -ais, -ait, -ions, -iez, -aient** : nous finissons → je finissais.",
+      "Seule exception : **être** → j'**ét**ais.",
+      "On l'utilise pour une description (Il faisait beau), un état (J'étais fatigué) ou une habitude (Le dimanche, on allait chez ma grand-mère).",
+      "À l'oral, -ais, -ait et -aient se prononcent pareil."
+    ],
+    "forme": [
+      "parler : je parlais · tu parlais · il parlait · nous parlions · vous parliez · ils parlaient",
+      "être : j'étais · tu étais · il était · nous étions · vous étiez · ils étaient",
+      "avoir → j'avais · faire → je faisais · aller → j'allais"
+    ],
+    "exemples": [
+      {"fr": "Quand j'étais petit, j'habitais à la campagne.", "en": "When I was little, I lived in the countryside."},
+      {"fr": "Il faisait très froid ce matin-là.", "en": "It was very cold that morning."},
+      {"fr": "Avant, on allait à la plage tous les étés.", "en": "We used to go to the beach every summer."},
+      {"fr": "Elle avait les cheveux longs à l'époque.", "en": "She had long hair back then."}
+    ],
+    "pieges": [
+      "~~je mangais~~ → je **mangeais** ; ~~je commencais~~ → je **commençais** (on garde le e et le ç du radical de nous).",
+      "~~Quand j'ai été petit~~ → Quand **j'étais** petit (description = imparfait)."
+    ],
+    "astuce": "Pour raconter : l'imparfait pose le décor, le passé composé fait avancer l'histoire (Il pleuvait quand je suis sorti)."
+  },
+  "temps-futur-simple": {
+    "intro": "Le futur simple sert à parler de projets, de prévisions et de promesses. Il est plus fréquent à l'écrit ; à l'oral, on utilise souvent le futur proche.",
+    "regles": [
+      "Formation : **infinitif** + terminaisons **-ai, -as, -a, -ons, -ez, -ont** : parler → je parlerai, finir → je finirai.",
+      "Verbes en -re : on enlève le -e final : prendre → je **prendr**ai.",
+      "Radicaux irréguliers fréquents : être → **ser-**, avoir → **aur-**, aller → **ir-**, faire → **fer-**, venir → **viendr-**, pouvoir → **pourr-**, vouloir → **voudr-**, voir → **verr-**, devoir → **devr-**.",
+      "On l'utilise souvent avec **quand** + futur : Quand je serai grand, je serai médecin."
+    ],
+    "forme": [
+      "parler : je parlerai · tu parleras · il parlera · nous parlerons · vous parlerez · ils parleront",
+      "être : je serai · avoir : j'aurai · aller : j'irai · faire : je ferai"
+    ],
+    "exemples": [
+      {"fr": "Demain, il fera beau dans le sud.", "en": "Tomorrow, the weather will be nice in the south."},
+      {"fr": "Je t'appellerai ce soir.", "en": "I'll call you tonight."},
+      {"fr": "L'année prochaine, on ira au Portugal.", "en": "Next year, we'll go to Portugal."},
+      {"fr": "Quand tu auras le temps, tu pourras m'aider ?", "en": "When you have time, will you be able to help me?"}
+    ],
+    "pieges": [
+      "~~Quand je suis grand, je serai…~~ → Quand je **serai** grand (futur après quand).",
+      "~~je allerai~~ → **j'irai**."
+    ],
+    "astuce": "Les terminaisons ressemblent au verbe avoir au présent : (j')ai, (tu) as, (il) a, (ils) ont."
+  },
+  "temps-passe-recent": {
+    "intro": "Pour dire qu'une action vient juste de finir, on utilise venir de + infinitif. Pour dire qu'elle se passe en ce moment, on utilise être en train de + infinitif.",
+    "regles": [
+      "**venir de** au présent + infinitif = passé très proche : Je viens de manger (= il y a quelques minutes).",
+      "**être en train de** + infinitif = action en cours, qui dure : Je suis en train de cuisiner.",
+      "Devant une voyelle : **d'** : il vient **d'**arriver, je suis en train **d'**écrire.",
+      "Avec un verbe pronominal, le pronom change avec le sujet : je viens de **me** réveiller."
+    ],
+    "forme": [
+      "venir : je viens · tu viens · il vient · nous venons · vous venez · ils viennent + de + infinitif",
+      "être en train de + infinitif : je suis en train de lire"
+    ],
+    "exemples": [
+      {"fr": "Le train vient de partir.", "en": "The train has just left."},
+      {"fr": "Je viens d'arriver, je suis devant la gare.", "en": "I've just arrived, I'm in front of the station."},
+      {"fr": "Désolé, je peux pas parler, je suis en train de conduire.", "en": "Sorry, I can't talk, I'm driving."},
+      {"fr": "Les enfants sont en train de jouer dans le jardin.", "en": "The children are playing in the garden."}
+    ],
+    "pieges": [
+      "~~Je suis venu de manger~~ → Je **viens de** manger (venir reste au présent).",
+      "~~Je viens de France~~ ≠ passé récent : venir de + **lieu** = l'origine ; venir de + **infinitif** = passé récent."
+    ],
+    "astuce": "Anglais : venir de = « have just », être en train de = « be …ing »."
+  },
+  "modes-imperatif": {
+    "intro": "L'impératif sert à donner un ordre, un conseil, une instruction ou une invitation. Il n'y a pas de sujet : Viens ! Écoutez !",
+    "regles": [
+      "Trois personnes seulement : **tu**, **nous**, **vous**, à partir du présent : tu viens → **viens**, nous partons → **partons**, vous écoutez → **écoutez**.",
+      "Verbes en -er (et aller) : pas de -s à la forme tu : tu parles → **parle**, tu vas → **va**.",
+      "Formes irrégulières : être → **sois, soyons, soyez** ; avoir → **aie, ayons, ayez**.",
+      "Verbes pronominaux : le pronom va **après** le verbe avec un trait d'union : **lève-toi**, **dépêchez-vous**. À la négation, il revient devant : **ne t'inquiète pas**."
+    ],
+    "forme": [
+      "parler : parle · parlons · parlez — finir : finis · finissons · finissez",
+      "affirmatif : assieds-toi · négatif : ne t'assieds pas"
+    ],
+    "exemples": [
+      {"fr": "Ferme la porte, s'il te plaît.", "en": "Close the door, please."},
+      {"fr": "Allons au parc cet après-midi !", "en": "Let's go to the park this afternoon!"},
+      {"fr": "Tournez à gauche après la pharmacie.", "en": "Turn left after the pharmacy."},
+      {"fr": "Ne t'inquiète pas, tout va bien.", "en": "Don't worry, everything's fine."},
+      {"fr": "Soyez prudents sur la route.", "en": "Be careful on the road."}
+    ],
+    "pieges": [
+      "~~Manges ta soupe !~~ → **Mange** ta soupe ! (pas de -s pour les verbes en -er).",
+      "~~Toi lève !~~ / ~~Te lève !~~ → **Lève-toi !**"
+    ],
+    "astuce": "Pour être plus poli, on ajoute s'il te plaît / s'il vous plaît, ou on utilise le conditionnel (Tu pourrais… ?)."
+  },
+  "modes-cond-politesse": {
+    "intro": "Le conditionnel rend une demande plus polie et plus douce. On l'utilise au magasin, au café, au travail, avec des personnes qu'on ne connaît pas.",
+    "regles": [
+      "Trois formes essentielles : **je voudrais** (vouloir), **j'aimerais** (aimer), **pourriez-vous / tu pourrais** (pouvoir).",
+      "Formation : radical du futur + terminaisons de l'imparfait : je voudr**ais**, nous pourr**ions**.",
+      "**je voudrais** est plus poli que **je veux** : au café, on dit Je voudrais un café.",
+      "**Pourriez-vous** + infinitif ? / **Vous pourriez** + infinitif ? pour demander un service ; **est-ce que tu pourrais** avec un ami.",
+      "On l'utilise aussi pour un conseil : Tu **devrais** te reposer."
+    ],
+    "forme": [
+      "vouloir : je voudrais · tu voudrais · il voudrait · nous voudrions · vous voudriez · ils voudraient",
+      "pouvoir : je pourrais · vous pourriez — aimer : j'aimerais — devoir : tu devrais"
+    ],
+    "exemples": [
+      {"fr": "Bonjour, je voudrais deux croissants, s'il vous plaît.", "en": "Hello, I'd like two croissants, please."},
+      {"fr": "Pourriez-vous parler plus lentement ?", "en": "Could you speak more slowly?"},
+      {"fr": "J'aimerais réserver une table pour quatre.", "en": "I'd like to book a table for four."},
+      {"fr": "Tu pourrais m'aider à porter ça ?", "en": "Could you help me carry this?"}
+    ],
+    "pieges": [
+      "~~Je veux un café~~ (au café) → **Je voudrais** un café : je veux paraît impoli.",
+      "Pour demander poliment, ~~je voudrai~~ (futur) → je **voudrais** (avec -s) : à l'écrit, attention à la terminaison."
+    ]
+  },
+  "pronoms-cod-coi": {
+    "intro": "Les pronoms compléments remplacent un nom déjà mentionné pour éviter de le répéter. Ils se placent devant le verbe.",
+    "regles": [
+      "**COD** (verbe + nom, sans préposition) : **le, la, l', les** : Je vois Marie → Je **la** vois.",
+      "**COI** (verbe + **à** + personne) : **lui** (singulier), **leur** (pluriel) : Je parle à Paul → Je **lui** parle.",
+      "**me, te, nous, vous** servent pour COD et COI : Il **me** regarde, il **me** parle.",
+      "Place : devant le verbe conjugué (je **le** connais), devant l'infinitif (je vais **le** faire), devant l'auxiliaire au passé composé (je **l'**ai vu).",
+      "Verbes courants + à + personne : parler, téléphoner, donner, dire, demander, répondre, écrire à quelqu'un."
+    ],
+    "forme": [
+      "COD : me · te · le / la (l') · nous · vous · les",
+      "COI : me · te · lui · nous · vous · leur",
+      "je le vois · je ne le vois pas · je vais le voir · je l'ai vu"
+    ],
+    "exemples": [
+      {"fr": "Tu connais Sophie ? — Oui, je la connais bien.", "en": "Do you know Sophie? — Yes, I know her well."},
+      {"fr": "J'ai téléphoné à mes parents, je leur ai dit la nouvelle.", "en": "I phoned my parents, I told them the news."},
+      {"fr": "Ce film, je vais le regarder ce soir.", "en": "That film, I'm going to watch it tonight."},
+      {"fr": "Tu peux me passer le sel ?", "en": "Can you pass me the salt?"}
+    ],
+    "pieges": [
+      "~~Je parle lui~~ / ~~Je le parle~~ → Je **lui** parle (parler **à** quelqu'un = COI).",
+      "~~Je leurs donne~~ → je **leur** donne : le pronom leur ne prend jamais de -s.",
+      "~~Je vois le~~ → Je **le** vois (le pronom va devant le verbe)."
+    ]
+  },
+  "pronoms-y-lieu": {
+    "intro": "y et en sont deux petits pronoms très fréquents. À ce niveau, y remplace surtout un lieu, et en remplace une quantité.",
+    "regles": [
+      "**y** remplace un lieu déjà mentionné (à, en, dans, chez… + lieu) : Tu vas à Paris ? — Oui, j'**y** vais.",
+      "**en** remplace un nom avec du, de la, des, ou avec un nombre ou une quantité : Tu veux du café ? — Oui, j'**en** veux. Tu as des enfants ? — J'**en** ai deux.",
+      "Avec un nombre ou une quantité, on répète le nombre à la fin : j'en ai **deux**, j'en prends **beaucoup**.",
+      "Les deux se placent devant le verbe conjugué, ou devant l'infinitif : je vais **y** aller.",
+      "Expressions figées à retenir : **il y a**, **on y va**, **il y en a**."
+    ],
+    "forme": [
+      "à / en / dans + lieu → y : je vais à la plage → j'y vais",
+      "du / de la / des / un nombre + nom → en : j'achète trois pommes → j'en achète trois",
+      "négation : je n'y vais pas · je n'en veux pas"
+    ],
+    "exemples": [
+      {"fr": "Tu vas à la salle de sport ? — Oui, j'y vais le lundi.", "en": "Do you go to the gym? — Yes, I go there on Mondays."},
+      {"fr": "Il ne veut pas y aller.", "en": "He doesn't want to go there."},
+      {"fr": "Des tomates ? J'en prends un kilo, s'il vous plaît.", "en": "Tomatoes? I'll take a kilo, please."},
+      {"fr": "Il y en a encore dans le frigo.", "en": "There's still some left in the fridge."}
+    ],
+    "pieges": [
+      "Tu as des enfants ? — ~~Oui, j'en ai.~~ (pour dire deux) → Oui, j'en ai **deux** : on garde le nombre à la fin.",
+      "Tu vas au marché ? — ~~Oui, je vais.~~ → Oui, **j'y vais** : aller a besoin d'un lieu ou de y."
+    ],
+    "astuce": "On y va ! (= Let's go!) est sûrement la phrase avec y la plus utilisée en France."
+  },
+  "pronoms-relatifs-simples": {
+    "intro": "Les pronoms relatifs relient deux phrases et évitent de répéter un nom : le film que j'ai vu, la ville où j'habite.",
+    "regles": [
+      "**qui** remplace le **sujet** du verbe qui suit : J'ai un ami. Il habite à Nice. → J'ai un ami **qui** habite à Nice.",
+      "**que** (qu') remplace le **COD** : Le film est super. J'ai vu ce film. → Le film **que** j'ai vu est super.",
+      "**où** remplace un **lieu** ou un **moment** : la ville **où** j'habite, le jour **où** je suis arrivé.",
+      "Après qui vient en général un verbe ; après que vient un sujet + verbe."
+    ],
+    "forme": [
+      "nom + qui + verbe : la fille qui chante",
+      "nom + que + sujet + verbe : la chanson que j'écoute",
+      "lieu / moment + où + sujet + verbe : le café où on se retrouve"
+    ],
+    "exemples": [
+      {"fr": "C'est le restaurant qui est près de la gare.", "en": "It's the restaurant that's near the station."},
+      {"fr": "Le livre que tu m'as prêté est génial.", "en": "The book you lent me is great."},
+      {"fr": "Lyon, c'est la ville où je suis né.", "en": "Lyon is the city where I was born."},
+      {"fr": "Je me souviens du jour où on s'est rencontrés.", "en": "I remember the day we met."}
+    ],
+    "pieges": [
+      "~~Le livre qui j'ai lu~~ → Le livre **que** j'ai lu (j' est déjà le sujet).",
+      "~~La ville que j'habite~~ → La ville **où** j'habite.",
+      "~~l'homme qu'arrive~~ → l'homme **qui** arrive : que s'élide (qu'il), mais qui ne s'élide jamais."
+    ],
+    "astuce": "En anglais, on peut supprimer « that » (the book you lent me) ; en français, que est obligatoire."
+  },
+  "neg-adverbes": {
+    "intro": "Après ne… pas, d'autres négations permettent d'être plus précis : jamais (le temps), rien (les choses), personne (les gens), plus (le changement).",
+    "regles": [
+      "**ne… jamais** = à aucun moment : Je **ne** bois **jamais** de café.",
+      "**ne… rien** = aucune chose ; **ne… personne** = aucune personne : Je **ne** vois **rien**, je **ne** connais **personne**.",
+      "**ne… plus** = avant oui, maintenant non : Il **n'**habite **plus** ici.",
+      "Pour nuancer : **pas du tout** (= absolument pas), **pas vraiment**, **pas trop** (plus doux).",
+      "Comme pour ne… pas, à l'oral, **ne** disparaît très souvent : J'ai rien compris. On a plus de pain."
+    ],
+    "forme": [
+      "ne + verbe + jamais / rien / personne / plus",
+      "passé composé : je n'ai jamais vu · je n'ai rien vu · je n'ai vu personne (personne après le participe)",
+      "réponses courtes : Jamais. · Rien. · Personne. · Pas du tout."
+    ],
+    "exemples": [
+      {"fr": "Je ne suis jamais allé au Canada.", "en": "I've never been to Canada."},
+      {"fr": "Il n'y a personne à la maison.", "en": "There's nobody at home."},
+      {"fr": "J'ai rien compris au film.", "en": "I didn't understand anything in the film."},
+      {"fr": "Désolé, on n'a plus de croissants.", "en": "Sorry, we don't have any croissants left."},
+      {"fr": "Tu es fâché ? — Non, pas du tout.", "en": "Are you angry? — No, not at all."}
+    ],
+    "pieges": [
+      "~~Je ne vois pas personne~~ → Je ne vois **personne** (pas de « pas » en plus).",
+      "~~Je n'ai personne vu~~ → Je n'ai vu **personne** (mais : je n'ai **rien** vu)."
+    ]
+  },
+  "questions-inversion": {
+    "intro": "Dans l'inversion, on place le pronom sujet après le verbe : Voulez-vous… ? C'est la question du registre soutenu, surtout à l'écrit et dans les situations formelles.",
+    "regles": [
+      "Forme : verbe + **trait d'union** + pronom sujet : **Parlez-vous** français ?",
+      "Si le verbe finit par une voyelle à la 3e personne, on ajoute **-t-** pour la prononciation : Où **va-t-il** ? **Aime-t-elle** le jazz ?",
+      "Avec un nom sujet, on garde le nom et on ajoute le pronom : **Paul vient-il** ce soir ?",
+      "Au passé composé, on inverse l'auxiliaire : **As-tu** fini ?",
+      "Quelques formes figées sont courantes même à l'oral : Comment allez-vous ? Quelle heure est-il ? Voulez-vous… ?"
+    ],
+    "forme": [
+      "verbe-pronom ? : Venez-vous ? · Pouvez-vous m'aider ?",
+      "mot interrogatif + verbe-pronom ? : Où habitez-vous ?",
+      "3e pers. + voyelle : a-t-il · parle-t-elle · va-t-on"
+    ],
+    "exemples": [
+      {"fr": "Pouvez-vous m'indiquer la gare, s'il vous plaît ?", "en": "Could you show me the way to the station, please?"},
+      {"fr": "Où habite-t-il maintenant ?", "en": "Where does he live now?"},
+      {"fr": "Avez-vous des questions ?", "en": "Do you have any questions?"},
+      {"fr": "Comment s'appelle-t-elle ?", "en": "What is her name?"}
+    ],
+    "pieges": [
+      "~~Parle-il français ?~~ → **Parle-t-il** français ?",
+      "~~Est-ce que voulez-vous… ?~~ → **Voulez-vous… ?** ou **Est-ce que vous voulez… ?** : on ne combine pas les deux."
+    ],
+    "astuce": "À l'oral entre amis, l'inversion peut sembler trop formelle : préférez l'intonation (Tu viens ?)."
+  },
+  "nom-comparatif": {
+    "intro": "Le comparatif compare deux choses ou deux personnes ; le superlatif désigne le plus haut ou le plus bas degré dans un groupe.",
+    "regles": [
+      "Comparatif : **plus** (+), **moins** (–), **aussi** (=) + adjectif ou adverbe + **que** : Paris est plus grand que Lyon.",
+      "Avec un nom : **plus de / moins de / autant de** + nom + que : J'ai moins de temps que toi.",
+      "Superlatif : **le / la / les plus** (ou moins) + adjectif : C'est la ville la plus belle. L'article s'accorde.",
+      "Formes irrégulières : bon → **meilleur** (le meilleur) ; bien → **mieux** (le mieux). Meilleur s'accorde : meilleure, meilleurs.",
+      "**meilleur** décrit un nom (un meilleur film) ; **mieux** décrit un verbe (il chante mieux)."
+    ],
+    "forme": [
+      "plus / moins / aussi + adjectif + que",
+      "plus de / moins de / autant de + nom + que",
+      "le / la / les + plus / moins + adjectif (+ de) : le plus grand du monde",
+      "bon → meilleur → le meilleur · bien → mieux → le mieux"
+    ],
+    "exemples": [
+      {"fr": "Le train est plus rapide que le bus.", "en": "The train is faster than the bus."},
+      {"fr": "Ma sœur est aussi grande que moi.", "en": "My sister is as tall as me."},
+      {"fr": "C'est le meilleur restaurant du quartier.", "en": "It's the best restaurant in the neighbourhood."},
+      {"fr": "Tu parles mieux français que l'année dernière.", "en": "You speak French better than last year."},
+      {"fr": "Il y a moins de monde le matin.", "en": "There are fewer people in the morning."}
+    ],
+    "pieges": [
+      "~~plus bon~~ → **meilleur** ; ~~plus bien~~ → **mieux**.",
+      "~~Il chante meilleur que moi~~ → Il chante **mieux** que moi (verbe → mieux)."
+    ],
+    "astuce": "Après un superlatif, le groupe est introduit par de : le plus grand **du** monde (pas « dans le monde »)."
+  },
+  "nom-quantite": {
+    "intro": "Les expressions de quantité disent combien il y a de quelque chose, sans donner un nombre exact : beaucoup de, un peu de, trop de…",
+    "regles": [
+      "Après une expression de quantité, on met **de** (ou **d'**) + nom, **sans article** : beaucoup **de** gens, un peu **d'**eau.",
+      "Les expressions : **beaucoup de** (+), **trop de** (plus que nécessaire), **assez de** (suffisamment), **un peu de** (petite quantité, non comptable), **peu de** (pas beaucoup), **plein de** (familier = beaucoup).",
+      "Les quantités précises suivent la même règle : un kilo **de** pommes, une bouteille **d'**eau, un verre **de** vin.",
+      "**un peu de** est positif (il y en a) ; **peu de** est négatif (il n'y en a presque pas)."
+    ],
+    "forme": [
+      "beaucoup / trop / assez / peu / un peu / plein + de + nom",
+      "un kilo de · une bouteille de · un paquet de · une tranche de + nom"
+    ],
+    "exemples": [
+      {"fr": "Il y a beaucoup de monde dans le métro ce matin.", "en": "There are a lot of people in the metro this morning."},
+      {"fr": "Tu veux un peu de lait dans ton café ?", "en": "Do you want a little milk in your coffee?"},
+      {"fr": "J'ai pas assez d'argent pour ce voyage.", "en": "I don't have enough money for this trip."},
+      {"fr": "Elle a plein d'amis à Montréal.", "en": "She has loads of friends in Montreal."},
+      {"fr": "Je voudrais un kilo de tomates, s'il vous plaît.", "en": "I'd like a kilo of tomatoes, please."}
+    ],
+    "pieges": [
+      "~~beaucoup des amis~~ → beaucoup **d'**amis.",
+      "~~un peu de pommes~~ → un peu s'utilise surtout avec un nom non comptable ; avec un nom comptable, on dit **quelques** pommes."
+    ],
+    "astuce": "Une quantité « avale » l'article : du lait → un peu de lait, des amis → beaucoup d'amis."
+  },
+  "prep-temps": {
+    "intro": "Ces petits mots situent une action dans le temps : depuis quand, il y a combien de temps, pendant combien de temps, dans combien de temps, en combien de temps.",
+    "regles": [
+      "**depuis** + durée ou date : action qui a commencé dans le passé et **continue**. On utilise le présent : J'habite ici **depuis** trois ans.",
+      "**il y a** + durée : moment dans le passé, action **terminée** (avec le passé composé) : Je suis arrivé **il y a** deux jours.",
+      "**pendant** + durée : la durée complète d'une action : J'ai dormi **pendant** dix heures.",
+      "**dans** + durée : moment dans le **futur** : Le film commence **dans** dix minutes.",
+      "**en** + durée : le temps nécessaire pour faire quelque chose : J'ai fait le gâteau **en** une heure."
+    ],
+    "forme": [
+      "depuis + présent → ça continue",
+      "il y a + passé composé → c'est fini",
+      "dans + futur → à partir de maintenant"
+    ],
+    "exemples": [
+      {"fr": "J'apprends le français depuis six mois.", "en": "I've been learning French for six months."},
+      {"fr": "On s'est rencontrés il y a dix ans.", "en": "We met ten years ago."},
+      {"fr": "Pendant les vacances, j'ai beaucoup lu.", "en": "During the holidays, I read a lot."},
+      {"fr": "Le bus arrive dans cinq minutes.", "en": "The bus is arriving in five minutes."},
+      {"fr": "Il a fini le marathon en quatre heures.", "en": "He finished the marathon in four hours."}
+    ],
+    "pieges": [
+      "~~J'habite ici pour trois ans~~ / ~~J'ai habité ici depuis trois ans~~ → J'habite ici **depuis** trois ans (présent).",
+      "~~Je pars en deux jours~~ (= après-demain) → Je pars **dans** deux jours."
+    ],
+    "astuce": "Pour l'anglais : depuis = « for/since » + continue, il y a = « ago », dans = « in » (futur)."
+  },
+  "phrase-cause-simple": {
+    "intro": "Pour expliquer pourquoi (la cause) ou dire le résultat (la conséquence), on utilise des mots de liaison simples.",
+    "regles": [
+      "**parce que** répond à « pourquoi ? » ; il se place après la conséquence : Je reste chez moi **parce que** je suis malade.",
+      "**car** a le même sens, mais il est plus écrit ou soutenu ; il ne se place jamais en début de phrase.",
+      "**comme** se place **en début de phrase**, avant la conséquence : **Comme** il pleut, on reste à la maison.",
+      "Conséquence : **donc** (neutre), **alors** (plus oral), **c'est pour ça que** (oral, insiste sur le lien) : Il pleut, **donc** on reste à la maison.",
+      "Devant une voyelle : parce **qu'**il… ; c'est pour ça **qu'**on…"
+    ],
+    "forme": [
+      "conséquence + parce que / car + cause",
+      "Comme + cause, conséquence",
+      "cause + donc / alors / c'est pour ça que + conséquence"
+    ],
+    "exemples": [
+      {"fr": "Je suis en retard parce que j'ai raté le bus.", "en": "I'm late because I missed the bus."},
+      {"fr": "Comme il fait beau, on mange dehors.", "en": "Since the weather's nice, we're eating outside."},
+      {"fr": "J'étais fatigué, alors je suis rentré tôt.", "en": "I was tired, so I went home early."},
+      {"fr": "Elle adore l'Italie, c'est pour ça qu'elle apprend l'italien.", "en": "She loves Italy, that's why she's learning Italian."},
+      {"fr": "Le magasin est fermé car c'est un jour férié.", "en": "The shop is closed because it's a public holiday."}
+    ],
+    "pieges": [
+      "~~Car il pleut, je reste ici~~ → **Comme** il pleut, je reste ici (car ne commence pas une phrase).",
+      "~~parce que de la pluie~~ → **à cause de** la pluie (parce que + phrase avec verbe)."
+    ],
+    "astuce": "Pourquoi ? → Parce que… La question et la réponse vont ensemble."
+  }
+}

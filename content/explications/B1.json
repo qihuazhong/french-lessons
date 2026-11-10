@@ -1,0 +1,828 @@
+{
+  "temps-pc-imparfait": {
+    "intro": "Pour raconter au passé, on combine presque toujours deux temps : l'imparfait pose le décor, le passé composé fait avancer l'histoire.",
+    "regles": [
+      "Imparfait : description (lieu, météo, personnes, sentiments), habitude passée, action en cours sans limite précise.",
+      "Passé composé : action ponctuelle, terminée, ou succession d'actions (« je suis entré, j'ai vu, je suis reparti »).",
+      "Une action en cours (imparfait) est souvent interrompue par un événement (passé composé) : « je dormais quand le téléphone **a sonné** ».",
+      "Une durée limitée et précise (pendant deux ans, de 2010 à 2015, trois fois) appelle le passé composé, même si elle est longue.",
+      "Le même verbe change de sens : « j'étais malade » (l'état, le décor) / « j'ai été malade toute la semaine » (un épisode fini)."
+    ],
+    "forme": [
+      "décor / habitude / action en cours → **imparfait** : il faisait beau, je travaillais",
+      "événement / succession / durée fermée → **passé composé** : il a commencé à pleuvoir",
+      "action en cours + interruption : imparfait + **quand** + passé composé"
+    ],
+    "exemples": [
+      {
+        "fr": "Il pleuvait, les rues étaient vides, et soudain une voiture s'est arrêtée devant moi.",
+        "en": "It was raining, the streets were empty, and suddenly a car stopped in front of me."
+      },
+      {
+        "fr": "Quand j'étais petit, je passais tous mes étés chez ma grand-mère.",
+        "en": "When I was little, I spent all my summers at my grandmother's."
+      },
+      {
+        "fr": "Je regardais un film quand mon frère a appelé.",
+        "en": "I was watching a film when my brother called."
+      },
+      {
+        "fr": "J'ai habité trois ans à Lyon, et ça m'a beaucoup plu.",
+        "en": "I lived in Lyon for three years, and I really liked it."
+      }
+    ],
+    "pieges": [
+      "~~Pendant deux ans, je travaillais à Berlin~~ (pour un épisode terminé) → **j'ai travaillé** deux ans à Berlin.",
+      "~~Hier, il a fait beau, alors je me suis promené~~ (pour planter le décor) → le cadre d'une scène se met à l'imparfait : il **faisait** beau, alors je me suis promené."
+    ],
+    "astuce": "Imaginez un film : l'imparfait, c'est le décor et la musique de fond ; le passé composé, ce sont les actions qui font avancer la scène."
+  },
+  "temps-plus-que-parfait": {
+    "intro": "Le plus-que-parfait exprime une action passée qui s'est produite avant une autre action passée. C'est « le passé du passé ».",
+    "regles": [
+      "Formation : avoir ou être à l'imparfait + participe passé ; on choisit l'auxiliaire comme au passé composé.",
+      "Avec être, le participe s'accorde avec le sujet : « elle était déjà **partie** ».",
+      "On l'emploie quand on raconte au passé et qu'on revient en arrière : souvent avec déjà, avant, la veille, parce que.",
+      "Il est très fréquent dans le discours rapporté au passé : « il m'a dit qu'il **avait fini** »."
+    ],
+    "forme": [
+      "j'avais fini, tu avais fini, il avait fini, nous avions fini, vous aviez fini, ils avaient fini",
+      "j'étais parti(e), tu étais parti(e), il était parti, elle était partie, nous étions parti(e)s, ils étaient partis",
+      "action 1 (plus-que-parfait) → action 2 (passé composé / imparfait)"
+    ],
+    "exemples": [
+      {
+        "fr": "Quand je suis arrivé à la gare, le train était déjà parti.",
+        "en": "When I got to the station, the train had already left."
+      },
+      {
+        "fr": "Elle était fatiguée parce qu'elle n'avait pas dormi de la nuit.",
+        "en": "She was tired because she hadn't slept all night."
+      },
+      {
+        "fr": "Il m'a rendu le livre que je lui avais prêté.",
+        "en": "He gave me back the book I had lent him."
+      },
+      {
+        "fr": "On ne s'était jamais vus avant cette soirée.",
+        "en": "We had never met before that party."
+      }
+    ],
+    "pieges": [
+      "~~Quand je suis arrivé, il est déjà parti~~ → il **était** déjà **parti** (son départ est antérieur à mon arrivée).",
+      "~~Il m'a dit qu'il a fini~~ → il m'a dit qu'il **avait fini** : au discours rapporté au passé, le passé composé devient plus-que-parfait."
+    ]
+  },
+  "temps-present-narration": {
+    "intro": "On peut raconter des faits passés au présent pour les rendre plus vivants, comme si on y était. C'est courant à l'oral dans les anecdotes, et à l'écrit dans les récits historiques, les biographies et les chansons.",
+    "regles": [
+      "Le présent remplace à la fois le passé composé et l'imparfait : le contexte (hier, en 1789, l'autre jour) indique que c'est du passé.",
+      "À l'oral, on passe souvent au présent au moment fort de l'histoire, après une introduction au passé : « L'autre jour, j'étais dans le métro, et là, un type **me demande**… »",
+      "Une fois qu'on a choisi le présent, on reste cohérent ; un événement antérieur ou un fait ponctuel qui se détache peut passer au passé composé (« une fois, elle lui **a souri** »), et ce qui vient après se met au futur.",
+      "À l'écrit, il sert aussi pour les dates historiques et les biographies : « Victor Hugo **naît** en 1802 »."
+    ],
+    "forme": [
+      "contexte passé (hier, en 1940…) + verbes au **présent**",
+      "avant le moment raconté → passé composé ; après → futur"
+    ],
+    "exemples": [
+      {
+        "fr": "Hier soir, je rentre chez moi, j'ouvre la porte… et là, je vois de l'eau partout !",
+        "en": "Last night I get home, I open the door… and there's water everywhere!"
+      },
+      {
+        "fr": "En 1789, le peuple de Paris prend la Bastille.",
+        "en": "In 1789, the people of Paris storm the Bastille."
+      },
+      {
+        "fr": "Marie Curie naît à Varsovie en 1867 ; elle obtiendra deux prix Nobel.",
+        "en": "Marie Curie is born in Warsaw in 1867; she will go on to win two Nobel Prizes."
+      },
+      {
+        "fr": "Il attend son bus, comme tous les matins, mais ce jour-là, le bus ne vient pas.",
+        "en": "He waits for his bus, like every morning, but that day the bus doesn't come."
+      }
+    ],
+    "pieges": [
+      "~~Hier, je rentre chez moi, j'ouvrais la porte et je vois…~~ → ne mélangez pas les temps au hasard : je rentre, j'**ouvre**, je vois."
+    ],
+    "astuce": "Le petit « et là… » est le signal typique, à l'oral, qu'on bascule au présent de narration."
+  },
+  "verbe-gerondif": {
+    "intro": "Le gérondif (en + participe présent) relie deux actions faites par la même personne. Il dit comment, en même temps que quoi, ou à quelle condition une chose se passe.",
+    "regles": [
+      "Formation : en + radical de « nous » au présent + -ant : nous parlons → **en parlant**, nous finissons → **en finissant**.",
+      "Trois irréguliers : être → **en étant**, avoir → **en ayant**, savoir → **en sachant**.",
+      "Le sujet du gérondif est toujours le même que celui du verbe principal.",
+      "Sens : simultanéité (en marchant), manière ou moyen (en travaillant dur), condition (en partant tôt, tu éviteras les bouchons).",
+      "**Tout en** + participe présent insiste sur la simultanéité ou marque une opposition : « tout en sachant que c'était risqué »."
+    ],
+    "forme": [
+      "en + radical de nous + **-ant**",
+      "manger → en mangeant ; commencer → en commençant",
+      "être → en étant ; avoir → en ayant ; savoir → en sachant"
+    ],
+    "exemples": [
+      {
+        "fr": "J'écoute des podcasts en faisant la cuisine.",
+        "en": "I listen to podcasts while cooking."
+      },
+      {
+        "fr": "On apprend une langue en la pratiquant tous les jours.",
+        "en": "You learn a language by practising it every day."
+      },
+      {
+        "fr": "En prenant le train de 8 heures, tu arriveras à temps.",
+        "en": "If you take the 8 o'clock train, you'll get there on time."
+      },
+      {
+        "fr": "Il s'est cassé le bras en tombant de vélo.",
+        "en": "He broke his arm falling off his bike."
+      }
+    ],
+    "pieges": [
+      "~~En entrant dans la salle, le professeur m'a salué~~ (si c'est moi qui entre) → les sujets doivent être identiques : **en entrant** dans la salle, **j'ai** salué le professeur.",
+      "~~en étudier~~ → après « en », jamais d'infinitif : **en étudiant**."
+    ]
+  },
+  "verbe-passif": {
+    "intro": "La voix passive met en avant celui ou ce qui subit l'action, quand l'auteur de l'action est inconnu, évident ou moins important. Elle est très fréquente dans la presse et les textes officiels.",
+    "regles": [
+      "Formation : être + participe passé ; le verbe être prend le temps du verbe actif (a construit → **a été construit**).",
+      "Le participe s'accorde avec le sujet : « Les maisons **ont été détruites** ».",
+      "L'agent est introduit par **par** ; avec des verbes de sentiment ou d'état, souvent par **de** : « aimé **de** tous », « couvert **de** neige ».",
+      "Seuls les verbes avec un complément d'objet direct se mettent au passif (on ne dit pas ~~il a été parlé~~).",
+      "À l'oral, on préfère souvent une phrase active avec « on » : « On a volé mon vélo » plutôt que « Mon vélo a été volé »."
+    ],
+    "forme": [
+      "présent : la loi **est votée** ; passé composé : la loi **a été votée**",
+      "imparfait : la loi **était votée** ; futur : la loi **sera votée**",
+      "sujet + être (au temps voulu) + participe passé accordé (+ par + agent)"
+    ],
+    "exemples": [
+      {
+        "fr": "Le musée a été construit au XIXe siècle.",
+        "en": "The museum was built in the 19th century."
+      },
+      {
+        "fr": "Trois personnes ont été blessées dans l'accident.",
+        "en": "Three people were injured in the accident."
+      },
+      {
+        "fr": "Ce roman est lu par des millions de lecteurs.",
+        "en": "This novel is read by millions of readers."
+      },
+      {
+        "fr": "Les résultats seront publiés la semaine prochaine.",
+        "en": "The results will be published next week."
+      }
+    ],
+    "pieges": [
+      "~~La décision a été prise par on~~ → si l'agent est vague, on le supprime : la décision **a été prise**, ou on garde l'actif : **on a pris** la décision.",
+      "~~Les voitures ont été réparé~~ → accord avec le sujet : ont été **réparées**."
+    ]
+  },
+  "cond-present": {
+    "intro": "Le conditionnel présent présente une action comme possible, imaginée ou non certaine. On l'utilise pour être poli, exprimer un souhait, donner un conseil, faire une hypothèse ou rapporter une information non confirmée.",
+    "regles": [
+      "Formation : radical du futur + terminaisons de l'imparfait (-ais, -ais, -ait, -ions, -iez, -aient).",
+      "Les radicaux irréguliers sont ceux du futur : être → **ser-**, avoir → **aur-**, aller → **ir-**, faire → **fer-**, pouvoir → **pourr-**, vouloir → **voudr-**, devoir → **devr-**.",
+      "Conseil : « tu **devrais** », « à ta place, je **ferais**… » ; souhait : « j'**aimerais** partir ».",
+      "Hypothèse : « ça **pourrait** marcher », « si j'avais le temps, je **viendrais** ».",
+      "Information non confirmée, surtout dans les médias : « Le ministre **serait** sur le départ » (= selon certaines sources)."
+    ],
+    "forme": [
+      "parler : je parlerais, tu parlerais, il parlerait, nous parlerions, vous parleriez, ils parleraient",
+      "être : je serais ; avoir : j'aurais ; pouvoir : je pourrais ; faire : je ferais",
+      "radical du futur + **-ais, -ais, -ait, -ions, -iez, -aient**"
+    ],
+    "exemples": [
+      {
+        "fr": "Tu devrais te reposer un peu, tu as l'air épuisé.",
+        "en": "You should rest a bit, you look exhausted."
+      },
+      {
+        "fr": "J'aimerais bien vivre au bord de la mer.",
+        "en": "I'd love to live by the sea."
+      },
+      {
+        "fr": "Cette application pourrait vraiment t'aider.",
+        "en": "This app could really help you."
+      },
+      {
+        "fr": "Selon la presse, l'incendie serait d'origine criminelle.",
+        "en": "According to the press, the fire was apparently started deliberately."
+      }
+    ],
+    "pieges": [
+      "~~Je voudrai un café~~ (futur) → **je voudrais** un café : le -s final distingue le conditionnel du futur à l'écrit.",
+      "~~Si j'aurais le temps~~ → jamais de conditionnel après « si » : si j'**avais** le temps, je **viendrais**."
+    ],
+    "astuce": "Conditionnel = la « tête » du futur (le radical) + la « queue » de l'imparfait (les terminaisons)."
+  },
+  "cond-passe": {
+    "intro": "Le conditionnel passé parle de ce qui aurait pu se passer mais ne s'est pas passé. On l'utilise surtout pour exprimer un regret ou faire un reproche.",
+    "regles": [
+      "Formation : avoir ou être au conditionnel présent + participe passé : j'**aurais** aimé, elle **serait** venue.",
+      "Regret (sur soi) : « j'**aurais dû** l'appeler », « j'**aurais aimé** être là ».",
+      "Reproche (sur l'autre) : « tu **aurais pu** me prévenir ! », « vous **auriez dû** demander ».",
+      "Après dû et pu, on met un infinitif ; les petits pronoms se placent devant cet infinitif : « il aurait dû **y** aller ».",
+      "Il sert aussi pour une information passée non confirmée : « l'accident **aurait fait** trois victimes »."
+    ],
+    "forme": [
+      "devoir : j'aurais dû, tu aurais dû, il aurait dû, nous aurions dû, vous auriez dû, ils auraient dû",
+      "pouvoir : j'aurais pu, tu aurais pu, il aurait pu…",
+      "avec être : je serais venu(e), elle serait partie, ils seraient restés",
+      "**aurais dû / aurais pu** + infinitif"
+    ],
+    "exemples": [
+      {
+        "fr": "J'aurais dû partir plus tôt, j'ai raté mon train.",
+        "en": "I should have left earlier, I missed my train."
+      },
+      {
+        "fr": "Tu aurais pu me dire que tu ne venais pas !",
+        "en": "You could have told me you weren't coming!"
+      },
+      {
+        "fr": "On aurait aimé vous voir à la fête.",
+        "en": "We would have liked to see you at the party."
+      },
+      {
+        "fr": "Elle ne serait jamais partie sans dire au revoir.",
+        "en": "She would never have left without saying goodbye."
+      }
+    ],
+    "pieges": [
+      "~~J'aurais dû fait mes devoirs~~ → après dû, un infinitif : j'aurais dû **faire** mes devoirs.",
+      "~~Il aurait dû aller y~~ → le pronom se place devant l'infinitif : il aurait dû **y aller**."
+    ],
+    "astuce": "« J'aurais dû » = I should have ; « j'aurais pu » = I could have : les deux formules couvrent la plupart des regrets du quotidien."
+  },
+  "hypothese-si": {
+    "intro": "Avec « si », on pose une condition et on dit ce qui en découle. Le choix des temps dépend de la probabilité : situation réelle et possible, ou situation imaginaire.",
+    "regles": [
+      "Hypothèse probable ou réelle : **si + présent**, puis présent, futur ou impératif : « s'il pleut, on **restera** à la maison ».",
+      "Hypothèse imaginaire ou peu probable (dans le présent ou le futur) : **si + imparfait**, puis **conditionnel présent** : « si j'étais riche, j'**achèterais** une maison ».",
+      "Jamais de futur ni de conditionnel juste après ce « si » de condition.",
+      "« Si » s'élide seulement devant « il » et « ils » : **s'il**, **s'ils**, mais si elle, si on.",
+      "La proposition avec « si » peut venir avant ou après : « je viendrais si j'avais le temps »."
+    ],
+    "forme": [
+      "si + **présent** → présent / futur / impératif",
+      "si + **imparfait** → **conditionnel présent**",
+      "s'il / s'ils, mais si elle, si on"
+    ],
+    "exemples": [
+      {
+        "fr": "Si tu finis tôt, appelle-moi.",
+        "en": "If you finish early, call me."
+      },
+      {
+        "fr": "S'il fait beau demain, on ira à la plage.",
+        "en": "If the weather's nice tomorrow, we'll go to the beach."
+      },
+      {
+        "fr": "Si j'avais plus de temps, j'apprendrais le piano.",
+        "en": "If I had more time, I would learn the piano."
+      },
+      {
+        "fr": "Qu'est-ce que tu ferais si tu gagnais au loto ?",
+        "en": "What would you do if you won the lottery?"
+      }
+    ],
+    "pieges": [
+      "~~Si j'aurais de l'argent, je voyagerais~~ → si j'**avais** de l'argent, je voyagerais.",
+      "~~Si il vient~~ → **s'il** vient."
+    ],
+    "astuce": "Les « -rais » n'aiment pas le « si » : le conditionnel va toujours dans l'autre partie de la phrase."
+  },
+  "mode-subj-il-faut-que": {
+    "intro": "Le subjonctif présent s'emploie après certaines expressions de nécessité, de volonté ou de but. Il présente l'action comme souhaitée ou nécessaire, pas comme un fait.",
+    "regles": [
+      "Formation régulière : radical de « ils » au présent + -e, -es, -e, -ions, -iez, -ent (ils finissent → que je **finisse**).",
+      "Pour nous et vous, la forme ressemble à l'imparfait : que nous **prenions**, que vous **veniez**.",
+      "Irréguliers fréquents : être (que je sois), avoir (que j'aie), aller (que j'aille), faire (que je fasse), pouvoir (que je puisse), savoir (que je sache), vouloir (que je veuille).",
+      "Déclencheurs à connaître : **il faut que**, **vouloir que**, **aimer que**, **pour que**, **avant que** ; le subjonctif est toujours introduit par « que ».",
+      "Si le sujet est le même, on utilise l'infinitif : « je veux **partir** », « il faut **partir** » (règle générale) ; à l'oral, « il » tombe souvent : « faut partir »."
+    ],
+    "forme": [
+      "parler : que je parle, que tu parles, qu'il parle, que nous parlions, que vous parliez, qu'ils parlent",
+      "être : que je sois, que tu sois, qu'il soit, que nous soyons, que vous soyez, qu'ils soient",
+      "avoir : que j'aie, que tu aies, qu'il ait, que nous ayons, que vous ayez, qu'ils aient",
+      "aller : que j'aille, que nous allions ; faire : que je fasse"
+    ],
+    "exemples": [
+      {
+        "fr": "Il faut que tu viennes avec nous ce soir.",
+        "en": "You have to come with us tonight."
+      },
+      {
+        "fr": "Mes parents veulent que je fasse des études de médecine.",
+        "en": "My parents want me to study medicine."
+      },
+      {
+        "fr": "Je t'explique encore une fois pour que tu comprennes bien.",
+        "en": "I'll explain again so that you really understand."
+      },
+      {
+        "fr": "Il faudrait qu'on parte avant qu'il pleuve.",
+        "en": "We should leave before it rains."
+      }
+    ],
+    "pieges": [
+      "~~Je veux que je parte~~ → même sujet = infinitif : je veux **partir**.",
+      "~~J'espère que tu sois là~~ → « espérer que » est suivi de l'indicatif : j'espère que tu **seras** là.",
+      "~~Il faut que tu vas~~ → il faut que tu **ailles**."
+    ]
+  },
+  "pron-y-en": {
+    "intro": "Y et en remplacent un complément déjà mentionné pour éviter de le répéter. Y remplace surtout « à + chose » ou un lieu ; en remplace « de + chose » ou une quantité.",
+    "regles": [
+      "**Y** remplace à + chose (penser à, s'intéresser à, répondre à…) ou un lieu (à, en, chez, dans…) : « j'**y** pense », « j'**y** vais ».",
+      "**En** remplace de + chose (parler de, avoir besoin de, se servir de…), un partitif (du, de la, des) ou une quantité : « j'**en** parle », « j'**en** veux ».",
+      "Avec une quantité ou un nombre, on garde le nombre à la fin : « j'**en** ai **deux** », « il y **en** a beaucoup ».",
+      "Les deux se placent devant le verbe conjugué, ou devant l'infinitif s'il y en a un : « je vais **y** réfléchir ». À l'impératif affirmatif, ils suivent le verbe : **vas-y**, **prends-en**.",
+      "Pour une personne, on n'utilise pas y/en en général : à + personne → lui/leur ou à lui/à elle ; de + personne → de lui/d'elle."
+    ],
+    "forme": [
+      "à + chose / lieu → **y** : je pense à mon examen → j'y pense",
+      "de + chose → **en** : je parle de mon voyage → j'en parle",
+      "quantité → **en** + nombre : j'ai trois sœurs → j'en ai trois",
+      "négation : je n'**y** vais pas, je n'**en** ai pas"
+    ],
+    "exemples": [
+      {
+        "fr": "Tu penses à ton entretien ? — Oui, j'y pense tout le temps.",
+        "en": "Are you thinking about your interview? — Yes, I think about it all the time."
+      },
+      {
+        "fr": "Tu as besoin de ton ordinateur ? — Non, je n'en ai pas besoin.",
+        "en": "Do you need your computer? — No, I don't need it."
+      },
+      {
+        "fr": "Des lignes de métro, il y en a seize à Paris.",
+        "en": "Metro lines — there are sixteen of them in Paris."
+      },
+      {
+        "fr": "Le cinéma ? On y va ce soir, tu viens ?",
+        "en": "The cinema? We're going tonight, are you coming?"
+      }
+    ],
+    "pieges": [
+      "~~J'y pense~~ (à Marie) → avec une personne, on garde « à + pronom tonique » : je pense **à elle**.",
+      "~~J'ai deux~~ (frères) → on ne supprime pas le complément sans le remplacer : j'**en** ai deux."
+    ],
+    "astuce": "Si vous entendez « de » dans la question, répondez avec « en » ; si vous entendez « à », répondez avec « y »."
+  },
+  "pron-doubles": {
+    "intro": "Quand deux pronoms compléments sont dans la même phrase, ils suivent un ordre fixe devant le verbe. C'est très fréquent dans les réponses courtes : « je te le donne », « il m'en parle ».",
+    "regles": [
+      "Ordre devant le verbe : me / te / se / nous / vous → le / la / les → lui / leur → y → en.",
+      "Me, te, nous, vous viennent avant le, la, les ; mais le, la, les viennent avant lui, leur : « je **te le** dis », mais « je **le lui** dis ».",
+      "Y et en sont toujours à la fin du groupe, et en est le dernier : « je **lui en** parle », « il **y en** a ».",
+      "À l'impératif affirmatif, les pronoms suivent le verbe avec des traits d'union, et le COD vient d'abord : « donne-**le-moi** », « donne-**le-lui** ». Devant en, moi devient **m'** : « donne-**m'en** ».",
+      "À l'impératif négatif, on revient à l'ordre normal : « ne **me le** donne pas »."
+    ],
+    "forme": [
+      "me/te/se/nous/vous + **le/la/les** + **lui/leur** + **y** + **en** + verbe",
+      "je te le prête ; je le lui prête ; je les leur prête",
+      "il m'en parle ; je vous y emmène ; il y en a",
+      "impératif : prête-le-moi, prête-la-lui, donnez-nous-en"
+    ],
+    "exemples": [
+      {
+        "fr": "Tu me prêtes ton vélo ? — D'accord, je te le prête.",
+        "en": "Will you lend me your bike? — OK, I'll lend it to you."
+      },
+      {
+        "fr": "Tu as rendu les clés à Paul ? — Oui, je les lui ai rendues hier.",
+        "en": "Did you give the keys back to Paul? — Yes, I gave them back to him yesterday."
+      },
+      {
+        "fr": "Il m'en a parlé ce matin.",
+        "en": "He talked to me about it this morning."
+      },
+      {
+        "fr": "Tu as encore des fraises ? Donne-m'en, s'il te plaît.",
+        "en": "Do you still have strawberries? Give me some, please."
+      }
+    ],
+    "pieges": [
+      "~~Je lui le donne~~ → **je le lui** donne (le/la/les avant lui/leur).",
+      "~~Donne-moi-le~~ → **donne-le-moi** ; ~~donne-moi-z-en~~ (très familier, à éviter) → **donne-m'en**."
+    ],
+    "astuce": "Retenez une phrase modèle par cas : « je te le dis », « je le lui dis », « il y en a »."
+  },
+  "pron-relatifs-dont": {
+    "intro": "Dont, ce qui et ce que permettent de relier des idées sans répéter. Dont remplace un complément introduit par « de » ; ce qui et ce que signifient « la chose qui / la chose que ».",
+    "regles": [
+      "**Dont** remplace de + nom après un verbe (parler de, avoir besoin de, rêver de), un adjectif (fier de, content de) ou un nom (le fils de) : « le livre **dont** je parle ».",
+      "**Ce qui** = la chose qui ; il est sujet du verbe qui suit : « **ce qui** m'énerve, c'est le bruit ».",
+      "**Ce que** = la chose que ; il est complément du verbe qui suit, qui a déjà un sujet : « **ce que** j'aime, c'est voyager ».",
+      "**Ce dont** = la chose dont, avec les verbes en « de » : « **ce dont** j'ai besoin, c'est de calme ».",
+      "La structure « ce qui / ce que…, c'est… » sert à mettre une idée en relief ; elle est très courante à l'oral."
+    ],
+    "forme": [
+      "verbe + de → **dont** : j'ai besoin de ce livre → le livre **dont** j'ai besoin",
+      "sujet → **ce qui** + verbe ; complément → **ce que** + sujet + verbe",
+      "**ce qui / ce que / ce dont**…, c'est…"
+    ],
+    "exemples": [
+      {
+        "fr": "C'est le film dont tout le monde parle en ce moment.",
+        "en": "It's the film everyone is talking about right now."
+      },
+      {
+        "fr": "J'ai un ami dont la sœur habite au Canada.",
+        "en": "I have a friend whose sister lives in Canada."
+      },
+      {
+        "fr": "Ce qui me plaît dans cette ville, c'est l'ambiance.",
+        "en": "What I like about this city is the atmosphere."
+      },
+      {
+        "fr": "Dis-moi ce que tu veux pour ton anniversaire.",
+        "en": "Tell me what you want for your birthday."
+      },
+      {
+        "fr": "Ce dont il a peur, c'est d'être seul.",
+        "en": "What he's afraid of is being alone."
+      }
+    ],
+    "pieges": [
+      "~~Le livre que je parle~~ → parler **de** → le livre **dont** je parle.",
+      "~~Le film dont je t'ai parlé de~~ → dont contient déjà « de » : le film **dont** je t'ai parlé.",
+      "~~Je ne sais pas qu'est-ce qu'il veut~~ → dans une phrase rapportée : je ne sais pas **ce qu'**il veut."
+    ]
+  },
+  "pron-possessifs": {
+    "intro": "Les pronoms possessifs (le mien, la tienne…) et démonstratifs (celui, celle…) remplacent un nom déjà mentionné. Ils évitent les répétitions dans les comparaisons et les choix.",
+    "regles": [
+      "Le possessif s'accorde avec l'objet possédé, pas avec le possesseur : ma voiture → **la mienne** (même si je suis un homme).",
+      "Le nôtre, le vôtre prennent un accent circonflexe et se prononcent avec un « o » fermé, contrairement à notre, votre (adjectifs).",
+      "Le démonstratif ne s'emploie jamais seul : il est suivi de **-ci / -là**, d'un relatif (**qui, que, dont**) ou de **de** + nom.",
+      "Celui-ci / celui-là distinguent deux éléments ; à l'oral, on utilise surtout **-là** dans les deux cas.",
+      "À l'oral, pour la possession, on dit aussi souvent « c'est **à moi** », « c'est **à lui** »."
+    ],
+    "forme": [
+      "le mien, la mienne, les miens, les miennes ; le tien… ; le sien…",
+      "le nôtre, la nôtre, les nôtres ; le vôtre… ; le leur, la leur, les leurs",
+      "celui, celle, ceux, celles + -ci / -là / qui / que / dont / de"
+    ],
+    "exemples": [
+      {
+        "fr": "Mon téléphone est déchargé, je peux prendre le tien ?",
+        "en": "My phone is dead, can I use yours?"
+      },
+      {
+        "fr": "Leurs enfants sont plus âgés que les nôtres.",
+        "en": "Their children are older than ours."
+      },
+      {
+        "fr": "Quelle robe tu préfères ? — Celle-là, la rouge.",
+        "en": "Which dress do you prefer? — That one, the red one."
+      },
+      {
+        "fr": "Ceux qui veulent venir peuvent s'inscrire ici.",
+        "en": "Those who want to come can sign up here."
+      },
+      {
+        "fr": "Ce n'est pas mon manteau, c'est celui de Julie.",
+        "en": "It's not my coat, it's Julie's."
+      }
+    ],
+    "pieges": [
+      "~~C'est le mien voiture~~ → **c'est ma voiture** ou **c'est la mienne** (pas de nom après le pronom).",
+      "~~Je préfère celui~~ (seul) → je préfère **celui-ci** / **celui que** tu m'as montré.",
+      "~~Ma sœur et le sien~~ (pour « sa sœur ») → l'accord dépend de l'objet possédé : sa sœur → **la sienne**, son frère → **le sien**."
+    ]
+  },
+  "neg-avancee": {
+    "intro": "Au-delà de ne… pas, le français a des négations plus précises pour dire « aucun », « seulement », « ni l'un ni l'autre » ou une situation qui dure.",
+    "regles": [
+      "**Ne… aucun(e)** = pas un seul ; aucun s'accorde avec le nom et reste presque toujours au singulier : « je n'ai **aucune** idée ».",
+      "**Ne… que** n'est pas une vraie négation : il signifie « seulement » : « je n'ai **que** dix euros » (= j'ai seulement dix euros).",
+      "**Ne… ni… ni** nie deux éléments ; on supprime les articles partitifs et indéfinis : « je ne bois **ni** café **ni** thé ».",
+      "**Ne… plus depuis** / **ne… pas depuis** + durée : la situation négative continue : « il ne fume **plus depuis** deux ans ».",
+      "À l'oral, le « ne » tombe souvent : « j'ai aucune idée », « y a que lui » ; à l'écrit, on le garde."
+    ],
+    "forme": [
+      "ne + verbe + **aucun(e)** + nom",
+      "ne + verbe + **que** + élément = seulement",
+      "ne + verbe + **ni** X **ni** Y ; **ni** X **ni** Y + ne + verbe (sujets)",
+      "ne + verbe + **plus / pas** + **depuis** + durée"
+    ],
+    "exemples": [
+      {
+        "fr": "Il n'y a aucun problème, on peut commencer.",
+        "en": "There's no problem at all, we can start."
+      },
+      {
+        "fr": "Je n'ai que cinq minutes, fais vite.",
+        "en": "I only have five minutes, be quick."
+      },
+      {
+        "fr": "Elle n'aime ni le fromage ni le vin : en France, c'est rare !",
+        "en": "She likes neither cheese nor wine: in France, that's rare!"
+      },
+      {
+        "fr": "Je ne l'ai pas vu depuis des années.",
+        "en": "I haven't seen him for years."
+      },
+      {
+        "fr": "Ni mon frère ni ma sœur ne sont venus.",
+        "en": "Neither my brother nor my sister came."
+      }
+    ],
+    "pieges": [
+      "~~Je n'ai pas aucune idée~~ → aucun remplace « pas » : je n'ai **aucune** idée.",
+      "~~Je ne bois ni du café ni du thé~~ → je ne bois **ni café ni thé**.",
+      "~~Je n'ai pas que dix euros~~ (pour dire « seulement ») → **je n'ai que** dix euros : ne… que remplace « seulement » et n'a pas de « pas »."
+    ]
+  },
+  "phrase-but": {
+    "intro": "Pour dire dans quel but on fait quelque chose, on utilise pour ou afin de + infinitif, ou pour que / afin que + subjonctif. Tout dépend du sujet des deux verbes.",
+    "regles": [
+      "Même sujet pour les deux verbes → **pour / afin de + infinitif** : « je travaille **pour gagner** ma vie ».",
+      "Sujets différents → **pour que / afin que + subjonctif** : « je parle lentement **pour que** tu **comprennes** ».",
+      "**Afin de / afin que** ont le même sens que pour / pour que, mais sont plus soutenus, surtout écrits.",
+      "À la forme négative, « ne pas » se place en bloc devant l'infinitif : « **pour ne pas** être en retard ».",
+      "Pour un but qu'on veut éviter : **de peur de** + infinitif, **de peur que** + subjonctif (registre plus soutenu)."
+    ],
+    "forme": [
+      "**pour / afin de** + infinitif (même sujet)",
+      "**pour que / afin que** + subjonctif (sujets différents)",
+      "pour **ne pas** + infinitif"
+    ],
+    "exemples": [
+      {
+        "fr": "Je me lève tôt pour éviter les embouteillages.",
+        "en": "I get up early to avoid the traffic jams."
+      },
+      {
+        "fr": "Le prof répète les consignes pour que tout le monde comprenne.",
+        "en": "The teacher repeats the instructions so that everyone understands."
+      },
+      {
+        "fr": "Afin de réduire les déchets, la ville a installé de nouvelles poubelles.",
+        "en": "In order to reduce waste, the city has installed new bins."
+      },
+      {
+        "fr": "Parle moins fort pour ne pas réveiller le bébé.",
+        "en": "Speak more quietly so as not to wake the baby."
+      }
+    ],
+    "pieges": [
+      "~~Je t'appelle pour que tu sais~~ → pour que + subjonctif : pour que tu **saches**.",
+      "~~Je travaille pour que je gagne ma vie~~ → même sujet : je travaille **pour gagner** ma vie.",
+      "~~pour pas être en retard~~ (familier à l'oral) → à l'écrit : **pour ne pas** être en retard."
+    ]
+  },
+  "phrase-opposition": {
+    "intro": "Pour opposer deux idées, on dispose de plusieurs connecteurs. Le choix dépend du sens (simple contraste ou concession) et du registre (oral ou écrit).",
+    "regles": [
+      "**Mais** est le connecteur de base ; **par contre** est très courant à l'oral, **en revanche** est son équivalent plus soutenu, surtout écrit.",
+      "**Alors que** et **tandis que** + indicatif comparent deux faits qui contrastent (= « whereas ») ; tandis que est plus écrit.",
+      "**Même si** + indicatif exprime une concession : le fait est vrai mais il ne change pas la conclusion : « **même si** c'est cher, j'y vais ».",
+      "Après même si, pas de futur ni de conditionnel : on emploie le présent, l'imparfait ou un temps du passé.",
+      "Comme « si », même si s'élide seulement devant il(s) : **même s'il**."
+    ],
+    "forme": [
+      "fait A, **alors que / tandis que** fait B (contraste)",
+      "**même si** + indicatif, conséquence inattendue (concession)",
+      "**par contre** (oral) / **en revanche** (écrit)"
+    ],
+    "exemples": [
+      {
+        "fr": "Mon frère adore le sport, alors que moi, je préfère lire.",
+        "en": "My brother loves sport, whereas I prefer reading."
+      },
+      {
+        "fr": "Même si on ne se voit pas souvent, on reste très proches.",
+        "en": "Even if we don't see each other often, we're still very close."
+      },
+      {
+        "fr": "Le quartier est bruyant ; par contre, les loyers sont bas.",
+        "en": "The neighbourhood is noisy; on the other hand, rents are low."
+      },
+      {
+        "fr": "Les ventes ont progressé en Europe, tandis qu'elles ont reculé en Asie.",
+        "en": "Sales rose in Europe, while they fell in Asia."
+      }
+    ],
+    "pieges": [
+      "~~Même si il fait froid~~ → **même s'il** fait froid.",
+      "~~Même si tu viendras~~ → même si tu **viens**.",
+      "Ne confondez pas : « **alors que** » oppose deux faits ; « **même si** » admet un obstacle qui n'empêche rien."
+    ]
+  },
+  "phrase-temps": {
+    "intro": "Pour situer deux actions l'une par rapport à l'autre, on utilise des connecteurs de temps : en même temps, avant ou après. Certains sont suivis d'un verbe conjugué, d'autres d'un infinitif.",
+    "regles": [
+      "Simultanéité : **quand**, **lorsque** (plus écrit), **pendant que** + indicatif : « **pendant que** tu cuisines, je mets la table ».",
+      "Juste après : **dès que** + indicatif ; pour une action future, on met le futur après quand et dès que : « **dès que** j'**arriverai**, je t'appellerai ».",
+      "Antériorité, même sujet : **avant de** + infinitif ; sujets différents : **avant que** + subjonctif.",
+      "Postériorité, même sujet : **après** + infinitif passé (**avoir** ou **être** + participe passé) : « **après avoir mangé**, il est sorti ».",
+      "Avec être, le participe s'accorde avec le sujet : « **après être rentrée**, elle s'est couchée »."
+    ],
+    "forme": [
+      "quand / pendant que / dès que + indicatif",
+      "**avant de** + infinitif ; **avant que** + subjonctif",
+      "**après avoir / après être** + participe passé",
+      "futur : quand / dès que + **futur**"
+    ],
+    "exemples": [
+      {
+        "fr": "Je t'envoie un message dès que j'arrive.",
+        "en": "I'll text you as soon as I arrive."
+      },
+      {
+        "fr": "Pendant que les enfants dormaient, on a regardé un film.",
+        "en": "While the children were asleep, we watched a film."
+      },
+      {
+        "fr": "Lave-toi les mains avant de passer à table.",
+        "en": "Wash your hands before coming to the table."
+      },
+      {
+        "fr": "Après avoir fini ses études, elle est partie au Japon.",
+        "en": "After finishing her studies, she went to Japan."
+      },
+      {
+        "fr": "Quand tu auras le temps, tu passeras me voir ?",
+        "en": "When you have time, will you come and see me?"
+      }
+    ],
+    "pieges": [
+      "~~Avant de je pars~~ → **avant de partir** (même sujet) ou **avant que tu partes** (sujets différents).",
+      "~~Après manger~~ (oral familier) / ~~après j'ai mangé~~ → **après avoir mangé**.",
+      "~~Quand je suis grand, je serai pilote~~ → pour l'avenir, futur des deux côtés : quand je **serai** grand, je serai pilote."
+    ]
+  },
+  "prep-adverbes-ment": {
+    "intro": "Beaucoup d'adverbes de manière se forment à partir d'un adjectif + -ment. Ils précisent comment on fait une action ou nuancent ce qu'on dit (vraiment, heureusement).",
+    "regles": [
+      "Règle générale : adjectif au féminin + **-ment** : lent → lente → **lentement**, heureux → heureuse → **heureusement**.",
+      "Adjectif masculin terminé par une voyelle : masculin + -ment : vrai → **vraiment**, poli → **poliment**, absolu → **absolument**.",
+      "Adjectif en -ant → **-amment**, en -ent → **-emment** ; les deux se prononcent [amɑ̃] : courant → couramment, évident → **évidemment**.",
+      "Quelques formes à apprendre : gentil → **gentiment**, précis → **précisément**, énorme → **énormément**, profond → **profondément**.",
+      "Place : après le verbe conjugué (« il parle **lentement** ») ; aux temps composés, les adverbes courts ou fréquents se mettent entre l'auxiliaire et le participe (« j'ai **vraiment** aimé »), les autres plutôt après (« il a répondu **calmement** »)."
+    ],
+    "forme": [
+      "féminin + **-ment** : doux → douce → doucement",
+      "voyelle + **-ment** : vrai → vraiment",
+      "-ant → **-amment** ; -ent → **-emment**"
+    ],
+    "exemples": [
+      {
+        "fr": "Parle plus lentement, s'il te plaît, je ne comprends rien.",
+        "en": "Please speak more slowly, I can't understand a thing."
+      },
+      {
+        "fr": "J'ai vraiment adoré ce concert.",
+        "en": "I really loved that concert."
+      },
+      {
+        "fr": "Heureusement, personne n'a été blessé.",
+        "en": "Fortunately, nobody was hurt."
+      },
+      {
+        "fr": "Elle parle couramment trois langues.",
+        "en": "She speaks three languages fluently."
+      }
+    ],
+    "pieges": [
+      "~~évidamment~~ → **évidemment** (adjectif en -ent → -emment, même si on prononce « a »).",
+      "~~gentillement~~ → **gentiment** ; ~~vraiement~~ → **vraiment**.",
+      "~~Il conduit rapide~~ → avec un verbe, on utilise l'adverbe : il conduit **rapidement** (« vite » est aussi possible)."
+    ]
+  },
+  "disc-discours-indirect": {
+    "intro": "Le discours indirect sert à rapporter les paroles de quelqu'un sans les citer mot à mot. Quand le verbe introducteur est au présent (il dit, elle demande), les temps ne changent pas.",
+    "regles": [
+      "Affirmation : **dire que** + phrase : « Il dit : “Je suis fatigué.” » → « Il dit **qu'**il est fatigué ».",
+      "Question fermée (oui/non) : **demander si** : « Elle demande **si** tu viens ».",
+      "Question avec un mot interrogatif : on garde le mot (où, quand, comment, pourquoi, combien), sans inversion : « Il demande **où** tu habites ».",
+      "Qu'est-ce que → **ce que** ; qu'est-ce qui → **ce qui** : « Je me demande **ce qu'**il veut ».",
+      "Ordre ou conseil à l'impératif : **dire de** + infinitif : « Elle me dit **de** me dépêcher ». Pensez aussi à changer les pronoms et les possessifs (je → il, mon → son)."
+    ],
+    "forme": [
+      "« Je pars. » → il dit **qu'**il part",
+      "« Tu viens ? » → il demande **si** je viens",
+      "« Où vas-tu ? » → il demande **où** je vais",
+      "« Qu'est-ce que tu fais ? » → il veut savoir **ce que** je fais",
+      "« Ferme la porte ! » → il me dit **de** fermer la porte"
+    ],
+    "exemples": [
+      {
+        "fr": "Ma mère dit qu'elle arrive dans dix minutes.",
+        "en": "My mum says she'll be here in ten minutes."
+      },
+      {
+        "fr": "Le serveur demande si on veut un dessert.",
+        "en": "The waiter is asking if we want dessert."
+      },
+      {
+        "fr": "Je ne sais pas pourquoi il est parti si vite.",
+        "en": "I don't know why he left so quickly."
+      },
+      {
+        "fr": "Il veut savoir ce qui s'est passé hier soir.",
+        "en": "He wants to know what happened last night."
+      },
+      {
+        "fr": "Le médecin me dit de rester au lit.",
+        "en": "The doctor tells me to stay in bed."
+      }
+    ],
+    "pieges": [
+      "~~Il demande qu'est-ce que tu veux~~ → il demande **ce que** tu veux.",
+      "~~Elle demande si est-ce que tu viens~~ / ~~où habites-tu~~ → pas de « est-ce que » ni d'inversion : elle demande **si** tu viens, **où tu habites**.",
+      "~~Il dit que je ferme la porte~~ (pour un ordre) → il me dit **de fermer** la porte."
+    ]
+  },
+  "disc-opinion": {
+    "intro": "Pour donner son avis, on varie les verbes d'opinion : penser, trouver, croire, estimer, considérer. Attention au mode : indicatif à l'affirmatif, souvent subjonctif à la négative.",
+    "regles": [
+      "**Penser / croire / trouver / estimer / considérer que** + indicatif à la forme affirmative : « je pense que c'**est** une bonne idée ».",
+      "À la forme négative ou interrogative avec inversion, on emploie en général le subjonctif : « je ne pense pas que ce **soit** une bonne idée », « croyez-vous qu'il **puisse** venir ? ». À l'oral familier, on entend aussi l'indicatif.",
+      "**Trouver** exprime un avis personnel basé sur une expérience : « je **trouve** ce film ennuyeux », « je trouve **ça** + adjectif ».",
+      "**Croire** marque moins de certitude que penser ; **estimer** et **considérer** sont plus soutenus, fréquents à l'écrit et dans les débats.",
+      "Autres formules utiles : à mon avis, selon moi, d'après moi (sans « que »), j'ai l'impression que + indicatif."
+    ],
+    "forme": [
+      "je pense / crois / trouve que + **indicatif**",
+      "je ne pense pas / ne crois pas que + **subjonctif**",
+      "je trouve + nom + adjectif ; je trouve **ça** + adjectif",
+      "**à mon avis**, … / **selon moi**, …"
+    ],
+    "exemples": [
+      {
+        "fr": "Je trouve que les transports sont trop chers à Paris.",
+        "en": "I think public transport in Paris is too expensive."
+      },
+      {
+        "fr": "Je ne crois pas qu'il soit capable de finir à temps.",
+        "en": "I don't think he's able to finish on time."
+      },
+      {
+        "fr": "Le gouvernement estime que la mesure est nécessaire.",
+        "en": "The government considers the measure necessary."
+      },
+      {
+        "fr": "À mon avis, on devrait attendre un peu.",
+        "en": "In my opinion, we should wait a bit."
+      }
+    ],
+    "pieges": [
+      "~~Je pense que ce soit vrai~~ → à l'affirmatif, indicatif : je pense que c'**est** vrai ; mais : je ne pense pas que ce **soit** vrai.",
+      "~~À mon avis, je pense que…~~ → redondant : choisissez **à mon avis, c'est…** ou **je pense que c'est…**.",
+      "~~Selon moi que c'est faux~~ → pas de « que » après selon moi : **selon moi, c'est faux**."
+    ]
+  },
+  "disc-preference": {
+    "intro": "Pour exprimer une préférence ou donner un conseil, on compare deux options : préférer, aimer mieux, il vaut mieux, plutôt que. Ce sont des structures très fréquentes à l'oral.",
+    "regles": [
+      "**Préférer** + nom / infinitif ; pour comparer deux noms : **préférer X à Y** (« je préfère le thé **au** café »).",
+      "Pour comparer deux actions : **préférer** + infinitif + **plutôt que (de)** + infinitif : « je préfère marcher **plutôt que de** prendre le bus ».",
+      "**Il vaut mieux** + infinitif (conseil général) ou **il vaut mieux que** + subjonctif (conseil à quelqu'un) : « il vaut mieux **que tu partes** ».",
+      "**(Il) vaut mieux X que Y** compare deux infinitifs ; à l'oral, « il » disparaît souvent : « **vaut mieux** prévenir **que** guérir ». **Mieux vaut** est la forme figée, plus écrite ou proverbiale.",
+      "Pour adoucir un conseil, on utilise le conditionnel : « **il vaudrait mieux** », « **tu devrais** », « à ta place, je **préférerais**… »."
+    ],
+    "forme": [
+      "préférer X **à** Y (noms)",
+      "préférer + inf. + **plutôt que (de)** + inf.",
+      "**il vaut mieux** + infinitif ; **il vaut mieux que** + subjonctif",
+      "**(il) vaut mieux** X **que** Y ; **mieux vaut** tard que jamais"
+    ],
+    "exemples": [
+      {
+        "fr": "Je préfère la montagne à la mer.",
+        "en": "I prefer the mountains to the seaside."
+      },
+      {
+        "fr": "Il vaut mieux réserver à l'avance, le restaurant est souvent complet.",
+        "en": "It's better to book in advance, the restaurant is often full."
+      },
+      {
+        "fr": "Vaut mieux essayer et se tromper que ne rien faire.",
+        "en": "Better to try and get it wrong than do nothing."
+      },
+      {
+        "fr": "On a préféré rester à la maison plutôt que de sortir sous la pluie.",
+        "en": "We chose to stay home rather than go out in the rain."
+      },
+      {
+        "fr": "Il vaudrait mieux que tu en parles à ton chef.",
+        "en": "It would be better if you talked to your boss about it."
+      }
+    ],
+    "pieges": [
+      "~~Je préfère le thé que le café~~ → je préfère le thé **au** café (avec deux noms : préférer X **à** Y).",
+      "~~Il vaut mieux que tu pars~~ → il vaut mieux que tu **partes** (subjonctif).",
+      "~~Il est mieux de partir~~ → **il vaut mieux** partir."
+    ],
+    "astuce": "Retenez le proverbe « Mieux vaut prévenir que guérir » : il contient toute la structure X que Y."
+  }
+}

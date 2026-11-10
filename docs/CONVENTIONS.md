@@ -188,6 +188,11 @@ the "Leçons" side-panel block + footer line into **every** registered page
   (mapping table, idempotent, `--check`); `build_review.py` copies them into
   the catalogue as `gp`; each tagged `<h3>` also gets `id="gram-<lv>-<G#>"`,
   the deep-link anchor used by `parcours.html`. Checked by `tools/test_curriculum.js`.
+- Explanations: `content/explications/<LEVEL>.json` = `{id: {intro, regles[2–5],
+  forme[0–5]?, exemples[3–5]{fr, en}, pieges[1–3], astuce?}}`, in curriculum
+  order. French except `en`; inline markup only `**bold**` and `~~wrong form~~`
+  (no HTML, no emojis). Rendered as `<details class="gp-more">` on parcours.html;
+  an open card spans the full row. Checked by `tools/test_curriculum.js`.
 - Lesson URLs accept `?niveau=<lv>` (e.g. `lecon-ai.html?niveau=b1#gram-b1-G2`):
   the level script selects that parcours before scrolling to the anchor
   (`tools/framework/script.html`).

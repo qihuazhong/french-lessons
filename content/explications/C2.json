@@ -1,0 +1,290 @@
+{
+  "mode-subj-imparfait": {
+    "intro": "L'imparfait et le plus-que-parfait du subjonctif appartiennent à la langue littéraire. On les rencontre dans les romans classiques, certains essais et, ponctuellement, dans la presse soutenue : il faut surtout savoir les **reconnaître**.",
+    "regles": [
+      "Dans la **concordance des temps littéraire**, quand le verbe principal est au passé, la subordonnée prend l'imparfait du subjonctif (simultanéité) ou le plus-que-parfait (antériorité) : « Il fallait qu'il **partît** » ; « Je doutais qu'elle **eût compris** ».",
+      "Dans la langue courante, ils sont remplacés par le subjonctif **présent** et **passé** : « Il fallait qu'il parte. »",
+      "Seule la **3e personne du singulier** (qu'il fût, qu'il eût, qu'elle vînt) reste vivante dans l'écrit soutenu, notamment dans des tours figés : **fût-ce** (même si c'était), **ne fût-ce que** (ne serait-ce que), **eût-il** (même s'il avait).",
+      "Usage actif : à réserver à l'écrit très soutenu et à la 3e personne du singulier ; les autres personnes (que nous chantassions) paraissent aujourd'hui précieuses, voire comiques."
+    ],
+    "forme": [
+      "imparfait du subjonctif = radical du passé simple + -sse, -sses, -ât / -ît / -ût, -ssions, -ssiez, -ssent",
+      "qu'il chantât, qu'il finît, qu'il prît, qu'il fût, qu'il eût, qu'il vînt",
+      "plus-que-parfait = qu'il eût / qu'il fût + participe passé (qu'il eût dit, qu'il fût venu)"
+    ],
+    "exemples": [
+      {
+        "fr": "Elle exigea qu'on lui rendît sa lettre sur-le-champ.",
+        "en": "She demanded that her letter be returned to her at once."
+      },
+      {
+        "fr": "Bien qu'il eût tout préparé, rien ne se passa comme prévu.",
+        "en": "Although he had prepared everything, nothing went as planned."
+      },
+      {
+        "fr": "Il refusa de céder, ne fût-ce qu'un instant.",
+        "en": "He refused to give in, even for a moment."
+      },
+      {
+        "fr": "Il fallait qu'une décision fût prise avant l'hiver.",
+        "en": "A decision had to be made before winter."
+      }
+    ],
+    "pieges": [
+      "Ne confondez pas **il fut** (passé simple, indicatif) et **qu'il fût** (imparfait du subjonctif) : seul l'accent circonflexe les distingue. De même **il chanta** / **qu'il chantât**.",
+      "N'utilisez pas ces formes à l'oral courant : ~~Je voulais que vous vinssiez~~ → Je voulais que vous **veniez**."
+    ],
+    "astuce": "Dans un texte, un -ât, -ît ou -ût final après « que » signale presque toujours un imparfait du subjonctif : traduisez-le mentalement par le subjonctif présent."
+  },
+  "temps-litteraires": {
+    "intro": "Le passé antérieur et le conditionnel passé 2e forme complètent le système des temps littéraires. Ils sont surtout à **reconnaître** dans les récits au passé simple et dans la prose soutenue.",
+    "regles": [
+      "Le **passé antérieur** (eut fini, fut parti) exprime une action achevée **juste avant** une autre au passé simple, surtout après **dès que, lorsque, quand, aussitôt que, après que, à peine… que**.",
+      "Il se forme avec l'auxiliaire au **passé simple** + participe passé, et suit les mêmes règles d'auxiliaire et d'accord que le passé composé.",
+      "Le **conditionnel passé 2e forme** a la même forme que le plus-que-parfait du subjonctif : « Il **eût été** préférable » = il aurait été préférable.",
+      "Dans les hypothèses littéraires, il peut apparaître dans les deux propositions : « S'il l'**eût su**, il **fût venu** » = s'il l'avait su, il serait venu.",
+      "Usage actif : le passé antérieur dans un récit écrit au passé simple ; la tournure figée **il eût été + adjectif** dans un écrit très soutenu. Ailleurs, simple reconnaissance."
+    ],
+    "forme": [
+      "passé antérieur : eus, eus, eut, eûmes, eûtes, eurent + participe passé",
+      "ou : fus, fus, fut, fûmes, fûtes, furent + participe passé accordé",
+      "conditionnel passé 2e forme : eût / fût + participe passé"
+    ],
+    "exemples": [
+      {
+        "fr": "Dès qu'il eut terminé son discours, la salle se leva pour l'applaudir.",
+        "en": "As soon as he had finished his speech, the audience rose to applaud him."
+      },
+      {
+        "fr": "Lorsqu'elle fut sortie, ils restèrent un long moment silencieux.",
+        "en": "Once she had left, they remained silent for a long time."
+      },
+      {
+        "fr": "Il eût été plus sage d'attendre les résultats de l'enquête.",
+        "en": "It would have been wiser to wait for the results of the inquiry."
+      },
+      {
+        "fr": "Qui l'eût cru ?",
+        "en": "Who would have thought it?"
+      }
+    ],
+    "pieges": [
+      "**Il eut** (passé antérieur, indicatif, sans accent) ≠ **il eût** (conditionnel 2e forme ou subjonctif, avec accent) : ~~Dès qu'il eût fini~~ → dès qu'il **eut** fini.",
+      "**Après que** se construit avec l'indicatif : ~~après qu'il eût fini~~ (subjonctif fautif) → après qu'il **eut** fini (passé antérieur)."
+    ],
+    "astuce": "Dans un récit au passé simple, le passé antérieur joue le rôle que le plus-que-parfait joue face au passé composé : il marque l'étape juste précédente."
+  },
+  "neg-litteraire": {
+    "intro": "En langue soutenue, certains verbes et tours se contentent de **ne** seul, sans pas, pour exprimer une vraie négation. C'est un marqueur fort du registre écrit et littéraire.",
+    "regles": [
+      "Avec **cesser, oser, pouvoir, savoir** suivis d'un infinitif, pas peut disparaître : « Il **ne cesse de** pleuvoir », « Je **n'ose** le croire », « Je **ne puis** accepter ».",
+      "**Je ne saurais** + infinitif = je ne peux pas (formule de politesse ou d'insistance) : « Je ne saurais vous dire à quel point je regrette. »",
+      "Dans des tours figés : **si je ne me trompe**, **qu'à cela ne tienne**, **n'importe**, **il n'est pas de** + nom (= il n'y a pas), et après **il y a / voilà / depuis** + durée avec un temps composé : « Il y a des années que je ne l'ai vu. »",
+      "Registre **soutenu ou littéraire** : je ne saurais, je n'ose, il ne cesse de sont à **employer activement** à l'écrit et à l'oral formel ; les autres tours sont surtout à **reconnaître**."
+    ],
+    "forme": [
+      "ne + cesser / oser / pouvoir / savoir + infinitif",
+      "je ne saurais + infinitif = je ne peux pas",
+      "il y a / voilà + durée + que + ne + temps composé"
+    ],
+    "exemples": [
+      {
+        "fr": "Le chômage ne cesse d'augmenter depuis le début de l'année.",
+        "en": "Unemployment has been rising steadily since the start of the year."
+      },
+      {
+        "fr": "Je ne saurais trop vous recommander la prudence.",
+        "en": "I cannot recommend caution to you strongly enough."
+      },
+      {
+        "fr": "Elle n'osait lever les yeux vers lui.",
+        "en": "She did not dare raise her eyes to him."
+      },
+      {
+        "fr": "Si je ne me trompe, la séance devait commencer à dix heures.",
+        "en": "If I'm not mistaken, the session was supposed to start at ten."
+      }
+    ],
+    "pieges": [
+      "**Je ne saurais** ne signifie pas « je ne saurais pas » au sens de l'ignorance : c'est « je ne peux pas » : « Je ne saurais accepter » = I cannot accept.",
+      "Ne généralisez pas : avec les autres verbes, pas reste obligatoire : ~~Je ne veux le faire~~ → je ne veux **pas** le faire."
+    ]
+  },
+  "phrase-ellipse": {
+    "intro": "L'ellipse supprime ce que le contexte rend évident ; la subordination complexe emboîte plusieurs niveaux de propositions. Maîtriser les deux permet une écriture dense et rythmée, typique de la presse et de l'essai.",
+    "regles": [
+      "**Phrase nominale** : sans verbe conjugué, fréquente dans les titres, les notes et le style journalistique : « Grève à la RATP : trafic très perturbé. »",
+      "**Ellipse du verbe** dans une coordination ou une comparaison : « L'un réclame la réforme, l'autre son abandon. » Le verbe sous-entendu doit être identique.",
+      "**Proposition participiale** (sujet propre au participe) : « Le dîner terminé, chacun rentra chez soi. » ; **apposition détachée** : « Ancien ministre, il connaît bien le dossier. »",
+      "**Incises** et **enchâssements** : on peut insérer une relative dans une complétive, une incise dans une subordonnée, à condition que la phrase reste lisible et que chaque élément se rattache clairement au bon terme.",
+      "Registre **écrit soutenu et journalistique** : à **produire activement**, en relisant pour vérifier les rattachements."
+    ],
+    "forme": [
+      "nom + complément (+ : + nom) : phrase nominale",
+      "sujet A + verbe + complément, sujet B + complément (verbe sous-entendu)",
+      "nom + participe passé, proposition principale (participiale)"
+    ],
+    "exemples": [
+      {
+        "fr": "Hausse record des prix de l'énergie : les ménages inquiets.",
+        "en": "Record rise in energy prices: households worried."
+      },
+      {
+        "fr": "Les uns y voient une chance, les autres une menace.",
+        "en": "Some see it as an opportunity, others as a threat."
+      },
+      {
+        "fr": "Les résultats connus, le ministre a présenté sa démission.",
+        "en": "Once the results were known, the minister tendered his resignation."
+      },
+      {
+        "fr": "Le rapport, dont les conclusions, affirme-t-on au ministère, seraient accablantes, sera publié lundi.",
+        "en": "The report, whose conclusions are said at the ministry to be damning, will be published on Monday."
+      }
+    ],
+    "pieges": [
+      "Apposition mal rattachée : ~~Ancien ministre, son livre fait scandale~~ (c'est le livre l'ancien ministre ?) → Ancien ministre, **il** publie un livre qui fait scandale.",
+      "Dans l'incise, l'inversion est obligatoire : ~~« Je refuse », il a dit~~ → « Je refuse », **a-t-il dit**.",
+      "L'ellipse exige le même verbe : ~~Il aime le cinéma, elle à la montagne~~ → elle **préfère aller** à la montagne."
+    ]
+  },
+  "disc-implicite": {
+    "intro": "Une grande partie du sens ne se dit pas : il se présuppose, se sous-entend ou se dit par l'inverse. Au niveau C2, il faut **repérer** ces procédés dans la presse, la conversation et la littérature, et savoir en **user** avec mesure.",
+    "regles": [
+      "**Présupposé** : information tenue pour acquise par la phrase. « Il a arrêté de fumer » présuppose qu'il fumait. **Sous-entendu** : ce que l'auditeur doit déduire de la situation (« Il fait froid ici » = fermez la fenêtre).",
+      "**Antiphrase** (ironie) : dire le contraire de ce qu'on pense, signalé par le contexte, l'intonation ou des guillemets : « Bravo, quelle organisation ! » devant un fiasco.",
+      "**Litote** : dire moins pour suggérer plus : « Ce n'est pas mauvais » = c'est très bon ; « Il n'est pas bête » = il est intelligent.",
+      "**Euphémisme** : atténuer une réalité désagréable : « Il nous a quittés » (il est mort), « un plan social » (des licenciements), « un demandeur d'emploi » (un chômeur).",
+      "La litote et l'euphémisme sont très courants à l'oral : à **employer activement** ; l'ironie écrite est à manier avec prudence, car elle peut être mal comprise."
+    ],
+    "forme": [
+      "litote : ne… pas + contraire (pas mal, pas bête, pas inutile)",
+      "antiphrase : éloge apparent + contexte d'échec"
+    ],
+    "exemples": [
+      {
+        "fr": "Ce n'était pas la meilleure idée du siècle.",
+        "en": "It wasn't exactly the best idea of the century."
+      },
+      {
+        "fr": "Merci pour ton aide, vraiment, je ne sais pas ce que j'aurais fait sans toi.",
+        "en": "Thanks for your help, really, I don't know what I'd have done without you. (said ironically to someone who did nothing)"
+      },
+      {
+        "fr": "L'entreprise a annoncé une « réorganisation de ses effectifs ».",
+        "en": "The company announced a restructuring of its workforce (i.e. job cuts)."
+      },
+      {
+        "fr": "Même le président a fini par reconnaître ses erreurs.",
+        "en": "Even the president ended up admitting his mistakes."
+      }
+    ],
+    "pieges": [
+      "Ne prenez pas les litotes au pied de la lettre : « **pas mal** » = plutôt bien, « **pas terrible** » = médiocre, « **pas évident** » = difficile.",
+      "Le présupposé est difficile à contester : répondre « non » à « Avez-vous cessé de tricher ? » confirme qu'on trichait. Il faut rejeter la question elle-même."
+    ]
+  },
+  "disc-figures": {
+    "intro": "Les figures de style donnent force et relief au discours. Au niveau C2, il faut les **identifier** dans un texte littéraire ou politique et savoir en **employer** quelques-unes, avec parcimonie, dans un essai ou un discours.",
+    "regles": [
+      "**Hyperbole** : exagération expressive (« Je te l'ai dit mille fois »). **Oxymore** : deux termes contradictoires réunis dans un même groupe (« un silence assourdissant »).",
+      "**Antithèse** : opposition de deux idées dans la phrase (« Il était riche de promesses, pauvre de résultats »). L'oxymore est une antithèse resserrée en un seul groupe.",
+      "**Chiasme** : structure croisée A-B / B-A (« Il faut travailler pour vivre, et non vivre pour travailler »). **Anaphore** : reprise d'un même mot en tête de phrases ou de vers successifs.",
+      "Autres figures utiles : **gradation** (progression d'intensité), **métonymie** (« boire un verre », « l'Élysée a réagi »), **personnification**, **prétérition** (dire qu'on ne dira pas).",
+      "Registre : **littéraire, oratoire et journalistique** ; en rédaction, une figure bien placée vaut mieux qu'une accumulation."
+    ],
+    "forme": [
+      "chiasme : A B / B A",
+      "anaphore : X…, X…, X…",
+      "oxymore : nom + adjectif contraire"
+    ],
+    "exemples": [
+      {
+        "fr": "Nous voulons une école qui instruit, une école qui protège, une école qui libère.",
+        "en": "We want a school that educates, a school that protects, a school that sets free."
+      },
+      {
+        "fr": "Cette ville morte grouille pourtant d'une vie secrète.",
+        "en": "This dead town nevertheless teems with a secret life."
+      },
+      {
+        "fr": "Je ne parlerai pas de ses mensonges, ni de ses promesses oubliées.",
+        "en": "I will not mention his lies, nor his forgotten promises."
+      },
+      {
+        "fr": "Matignon a démenti l'information dans la soirée.",
+        "en": "The Prime Minister's office denied the report in the evening."
+      }
+    ],
+    "pieges": [
+      "Ne confondez pas **oxymore** (contradiction dans un même groupe : « une douce violence ») et **antithèse** (opposition entre deux parties de la phrase).",
+      "**Anaphore** a deux sens : en rhétorique, la répétition en tête de phrase ; en grammaire, un pronom qui reprend un mot déjà cité. Précisez le contexte."
+    ],
+    "astuce": "Pour analyser une figure, nommez-la, puis expliquez toujours son **effet** : insistance, surprise, ironie, émotion. Le nom seul ne suffit pas."
+  },
+  "disc-variations": {
+    "intro": "Le français varie selon la région, le milieu social et la situation. Au niveau C2, il faut **comprendre** ces variétés (Belgique, Suisse, Québec, Afrique, argot, verlan) et savoir **adapter** son propre registre sans imitation maladroite.",
+    "regles": [
+      "**Variation géographique** : en Belgique et en Suisse, **septante** (70) et **nonante** (90) ; **huitante** (80) dans une partie de la Suisse romande. En Belgique, en Suisse et au Québec, **déjeuner, dîner, souper** désignent souvent le petit-déjeuner, le repas de midi et celui du soir.",
+      "Au **Québec** : **courriel** (e-mail), **magasiner** (faire les magasins), **char** (voiture, familier), **blonde** (petite amie). Ces mots sont parfaitement normaux dans leur contexte.",
+      "**Argot** et **langue familière** : fric (argent), bagnole (voiture), boulot (travail), flic (policier), bouquin (livre).",
+      "**Verlan** : inversion des syllabes, surtout chez les jeunes : **meuf** (femme), **relou** (lourd), **chelou** (louche), **vénère** (énervé), **ouf** (fou).",
+      "Usage : à **reconnaître** largement ; à **employer** seulement si vous maîtrisez le contexte et le registre. Dans un écrit formel, restez dans le standard."
+    ],
+    "exemples": [
+      {
+        "fr": "En Belgique, on vous dira que le film commence à vingt heures et dure nonante minutes.",
+        "en": "In Belgium, people will tell you the film starts at 8 p.m. and lasts ninety minutes."
+      },
+      {
+        "fr": "On va magasiner samedi, tu viens avec nous ?",
+        "en": "We're going shopping on Saturday, are you coming with us? (Quebec)"
+      },
+      {
+        "fr": "Il est trop relou, ce mec, il me prend la tête depuis ce matin.",
+        "en": "This guy is so annoying, he's been bugging me since this morning."
+      },
+      {
+        "fr": "J'ai pas un rond, je peux pas me payer une nouvelle bagnole.",
+        "en": "I'm broke, I can't afford a new car."
+      }
+    ],
+    "pieges": [
+      "Ne mêlez pas les registres : ~~Monsieur le directeur, ce projet est vraiment chelou~~ → ce projet **me semble étrange**.",
+      "Attention aux faux amis régionaux : un rendez-vous pour « dîner » à Montréal ou à Bruxelles se tiendra souvent **à midi**."
+    ],
+    "astuce": "Pour apprendre le verlan, retournez le mot de départ : « relou » vient de « lourd », « chelou » de « louche »."
+  },
+  "disc-precision-lexicale": {
+    "intro": "Au niveau C2, la qualité d'un texte tient au **mot juste** : remplacer les termes passe-partout, éviter les paronymes, maîtriser les expressions idiomatiques rares et percevoir les jeux de mots. C'est un travail d'écriture et de relecture.",
+    "regles": [
+      "Remplacez les **verbes passe-partout** (faire, dire, mettre, avoir, il y a) par un verbe précis : faire un effort → **fournir** un effort ; dire → **affirmer, soutenir, admettre, prétendre** (ce dernier marque le doute).",
+      "Distinguez les **paronymes** : éminent / imminent, conjecture (hypothèse) / conjoncture (situation), perpétrer (commettre) / perpétuer (faire durer), infraction / effraction, prodige / prodigue.",
+      "Employez les **expressions idiomatiques** dans leur sens exact et leur registre : **avoir maille à partir avec** (avoir un différend avec), **ménager la chèvre et le chou** (ne mécontenter personne), **tomber de Charybde en Scylla** (aller de mal en pis).",
+      "Repérez les **jeux de mots** (calembours, double sens) des titres de presse et des slogans : ils reposent sur l'homophonie ou la polysémie.",
+      "Registre : **soutenu** pour la plupart des expressions rares ; à **employer activement**, mais avec naturel, sans surcharger le texte."
+    ],
+    "exemples": [
+      {
+        "fr": "Le gouvernement a longtemps ménagé la chèvre et le chou avant de trancher.",
+        "en": "The government long tried to please everyone before making a decision."
+      },
+      {
+        "fr": "Les cambrioleurs sont entrés par effraction et ont commis plusieurs infractions.",
+        "en": "The burglars broke in and committed several offences."
+      },
+      {
+        "fr": "Dans la conjoncture actuelle, toute prévision relève de la conjecture.",
+        "en": "In the current economic situation, any forecast is mere guesswork."
+      },
+      {
+        "fr": "Le maire a eu maille à partir avec les commerçants du centre-ville.",
+        "en": "The mayor clashed with the town-centre shopkeepers."
+      }
+    ],
+    "pieges": [
+      "~~Un attentat a été perpétué~~ → un attentat a été **perpétré** (perpétuer = faire durer).",
+      "~~Un magasin bien achalandé~~ au sens de « bien approvisionné » est critiqué par la norme : à l'origine, **achalandé** signifie « qui a beaucoup de clients ». Dites un magasin **bien approvisionné**."
+    ]
+  }
+}

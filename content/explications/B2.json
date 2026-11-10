@@ -1,0 +1,799 @@
+{
+ "temps-futur-anterieur": {
+  "intro": "Le futur antérieur présente une action comme achevée à un moment donné de l'avenir, ou avant une autre action future. Il sert aussi à faire une supposition sur un fait passé.",
+  "regles": [
+   "Formation : **avoir** ou **être** au futur simple + participe passé, avec les mêmes règles d'auxiliaire et d'accord qu'au passé composé.",
+   "Antériorité dans le futur : après **quand, lorsque, dès que, aussitôt que, une fois que, après que**, on emploie le futur antérieur pour l'action terminée avant l'action principale au futur.",
+   "Action accomplie à une échéance : **d'ici / avant / dans** + date + futur antérieur (« D'ici juin, j'aurai terminé ma thèse »).",
+   "Supposition sur le passé (oral et écrit courant) : « Il n'est pas là ? Il aura raté son train. » = il a probablement raté son train.",
+   "Bilan anticipé, surtout en presse : « Ce gouvernement n'aura duré que six mois. »"
+  ],
+  "forme": [
+   "j'**aurai fini**, tu **auras fini**, il **aura fini**…",
+   "je **serai parti(e)**, nous **serons parti(e)s**…",
+   "**quand / dès que** + futur antérieur → futur simple"
+  ],
+  "exemples": [
+   {
+    "fr": "Dès que tu auras reçu le contrat, envoie-le-moi signé.",
+    "en": "As soon as you've received the contract, send it back to me signed."
+   },
+   {
+    "fr": "D'ici la fin de l'année, nous aurons rénové toutes les salles.",
+    "en": "By the end of the year, we will have renovated all the rooms."
+   },
+   {
+    "fr": "Elle ne répond pas : elle aura oublié son téléphone au bureau.",
+    "en": "She's not answering: she must have left her phone at the office."
+   },
+   {
+    "fr": "Une fois que les enfants seront couchés, on pourra parler tranquillement.",
+    "en": "Once the kids are in bed, we'll be able to talk in peace."
+   }
+  ],
+  "pieges": [
+   "~~Quand j'ai fini, je t'appellerai.~~ → **Quand j'aurai fini, je t'appellerai.** (le français marque le futur dans la subordonnée, contrairement à l'anglais).",
+   "~~Dès que je finirai, je partirai.~~ n'est pas faux, mais si l'action doit être terminée avant, préférez **dès que j'aurai fini**."
+  ],
+  "astuce": "Si l'anglais dit « will have done » ou « once I've done » à propos de l'avenir, pensez futur antérieur."
+ },
+ "temps-concordance": {
+  "intro": "Quand on rapporte au passé des paroles ou des pensées (« il a dit que… »), les temps de la phrase rapportée se décalent vers le passé. C'est la concordance des temps, indispensable à l'écrit et dans tout récit.",
+  "regles": [
+   "Si le verbe introducteur est au présent ou au futur (il dit, il dira), les temps ne changent pas.",
+   "Si le verbe introducteur est au passé (il a dit, il disait, il avait dit), le présent devient **imparfait**, le passé composé devient **plus-que-parfait**, le futur devient **conditionnel présent**, le futur antérieur devient **conditionnel passé**.",
+   "L'imparfait, le plus-que-parfait, le conditionnel et le subjonctif ne changent pas.",
+   "L'impératif devient **de + infinitif** : « Viens ! » → Il m'a dit **de venir**.",
+   "Les repères de temps et de lieu s'adaptent : aujourd'hui → **ce jour-là**, demain → **le lendemain**, hier → **la veille**, ici → **là**, la semaine prochaine → **la semaine suivante**."
+  ],
+  "forme": [
+   "« Je suis malade. » → il a dit qu'il **était** malade",
+   "« J'ai fini. » → qu'il **avait fini**",
+   "« Je viendrai. » → qu'il **viendrait**",
+   "« J'aurai fini lundi. » → qu'il **aurait fini** le lundi"
+  ],
+  "exemples": [
+   {
+    "fr": "La ministre a affirmé que la réforme entrerait en vigueur le mois suivant.",
+    "en": "The minister stated that the reform would come into effect the following month."
+   },
+   {
+    "fr": "Il m'a expliqué qu'il avait perdu ses clés la veille.",
+    "en": "He explained to me that he had lost his keys the day before."
+   },
+   {
+    "fr": "Je pensais que tu aurais terminé avant midi.",
+    "en": "I thought you would have finished before noon."
+   },
+   {
+    "fr": "Elle nous a demandé de ne pas faire de bruit.",
+    "en": "She asked us not to make any noise."
+   }
+  ],
+  "pieges": [
+   "~~Il a dit qu'il viendra demain.~~ → **Il a dit qu'il viendrait le lendemain.** (à l'oral, « qu'il viendra demain » se dit si « demain » est encore à venir pour le locuteur).",
+   "~~Il m'a dit que je viens.~~ → **Il m'a dit de venir.** (ordre rapporté = de + infinitif)."
+  ],
+  "astuce": "Si le fait rapporté est toujours vrai, le présent reste possible : « Il m'a dit que la Terre est ronde. »"
+ },
+ "hypothese-si-passe": {
+  "intro": "L'hypothèse irréelle du passé imagine ce qui se serait passé si les circonstances avaient été différentes. On l'utilise pour exprimer un regret, un reproche ou refaire l'histoire.",
+  "regles": [
+   "Structure de base : **si + plus-que-parfait**, **conditionnel passé** dans la principale. Les deux faits sont passés et n'ont pas eu lieu.",
+   "Jamais de conditionnel après **si** : le conditionnel va dans la principale uniquement.",
+   "Hypothèse mixte, conséquence présente : **si + plus-que-parfait → conditionnel présent** (« Si j'avais accepté ce poste, je vivrais à Lyon »).",
+   "Hypothèse mixte, condition permanente : **si + imparfait → conditionnel passé** (« Si j'étais plus prudent, je n'aurais pas eu cet accident »).",
+   "Dans le registre soutenu, on trouve aussi le plus-que-parfait du subjonctif (« S'il eût su… »), à reconnaître seulement."
+  ],
+  "forme": [
+   "**si** + avais / étais + participe passé → **aurais / serais** + participe passé",
+   "**si** + plus-que-parfait → conditionnel présent (conséquence actuelle)"
+  ],
+  "exemples": [
+   {
+    "fr": "Si j'avais su, je ne serais pas venu.",
+    "en": "If I had known, I wouldn't have come."
+   },
+   {
+    "fr": "Si le gouvernement avait agi plus tôt, la crise aurait pu être évitée.",
+    "en": "If the government had acted sooner, the crisis could have been avoided."
+   },
+   {
+    "fr": "Si tu m'avais prévenu, je t'aurais attendu.",
+    "en": "If you had told me, I would have waited for you."
+   },
+   {
+    "fr": "Si elle n'avait pas raté ce train, elle ne serait pas là aujourd'hui.",
+    "en": "If she hadn't missed that train, she wouldn't be here today."
+   }
+  ],
+  "pieges": [
+   "~~Si j'aurais su, …~~ → **Si j'avais su, …** (très fréquent à l'oral familier, mais fautif).",
+   "~~Si tu m'avais appelé, je viendrais hier.~~ → **je serais venu hier** : une conséquence passée demande le conditionnel passé."
+  ],
+  "astuce": "Pour un regret sans « si », pensez à **j'aurais dû / j'aurais pu / j'aurais aimé** + infinitif."
+ },
+ "mode-subj-expressions": {
+  "intro": "Au-delà de « il faut que », le subjonctif s'emploie dès que le fait est envisagé plutôt qu'affirmé : nécessité, doute, possibilité, sentiment, et après certaines conjonctions.",
+  "regles": [
+   "Nécessité et volonté : **il faut que, il est nécessaire / indispensable que, je veux que, j'exige que**.",
+   "Doute et possibilité : **je doute que, il est possible que, il se peut que, il y a une probabilité pour que** ; aussi **je ne pense pas / ne crois pas que** et **penses-tu que ?** à l'écrit.",
+   "Sentiment et jugement : **je suis content / déçu que, j'ai peur que, je regrette que, il est dommage / normal que**.",
+   "Conjonctions : **bien que, pour que, avant que, à moins que, sans que, à condition que, jusqu'à ce que**.",
+   "Si le sujet est le même dans les deux parties, on passe à l'infinitif : ~~je suis content que je vienne~~ → **je suis content de venir**."
+  ],
+  "forme": [
+   "subjonctif : il est possible que / je doute que / bien que / avant que",
+   "indicatif : il est probable que / je pense que / j'espère que / après que"
+  ],
+  "exemples": [
+   {
+    "fr": "Il est possible que le projet soit reporté à l'année prochaine.",
+    "en": "It's possible the project will be postponed until next year."
+   },
+   {
+    "fr": "Je doute qu'ils puissent tenir les délais.",
+    "en": "I doubt they'll be able to meet the deadlines."
+   },
+   {
+    "fr": "Je ne pense pas que ce soit une bonne idée.",
+    "en": "I don't think it's a good idea."
+   },
+   {
+    "fr": "Partons avant qu'il fasse nuit.",
+    "en": "Let's leave before it gets dark."
+   },
+   {
+    "fr": "On regrette que la réunion n'ait pas eu lieu.",
+    "en": "We regret that the meeting didn't take place."
+   }
+  ],
+  "pieges": [
+   "Il est probable qu'il vienne → dans la norme, on préfère **il est probable qu'il viendra** : la probabilité forte prend l'indicatif, la simple possibilité le subjonctif (« il est possible qu'il vienne »).",
+   "~~Après qu'il soit parti~~ → **après qu'il est parti** (indicatif dans la norme ; le subjonctif est très répandu mais critiqué).",
+   "~~J'espère qu'il vienne.~~ → **J'espère qu'il viendra.**"
+  ],
+  "astuce": "Après **avant que** et **à moins que**, l'écrit soutenu ajoute souvent un « ne » explétif sans valeur négative : « avant qu'il ne soit trop tard »."
+ },
+ "mode-subj-passe": {
+  "intro": "Le subjonctif passé s'emploie dans les mêmes contextes que le subjonctif présent, mais pour une action déjà accomplie, antérieure au verbe principal ou à un moment de référence.",
+  "regles": [
+   "Formation : **avoir** ou **être** au subjonctif présent + participe passé (que j'**aie fini**, qu'elle **soit partie**).",
+   "Il exprime l'antériorité : le fait est terminé au moment du verbe principal (« Je suis ravi que vous **soyez venus** »).",
+   "Il exprime aussi l'accompli dans l'avenir : « Il faut que tu **aies rendu** ton dossier avant vendredi. »",
+   "Le temps du verbe principal ne change rien : on choisit présent ou passé selon le rapport chronologique, pas selon la concordance.",
+   "Même sujet : on emploie l'infinitif passé (« Je suis content **d'avoir réussi** »)."
+  ],
+  "forme": [
+   "que j'**aie** / tu **aies** / il **ait** / nous **ayons** / vous **ayez** / ils **aient** + participe",
+   "que je **sois** / tu **sois** / il **soit** / nous **soyons** / vous **soyez** / ils **soient** + participe"
+  ],
+  "exemples": [
+   {
+    "fr": "Je suis content qu'il soit venu à la fête.",
+    "en": "I'm glad he came to the party."
+   },
+   {
+    "fr": "Il est dommage que vous n'ayez pas pu assister à la conférence.",
+    "en": "It's a pity you weren't able to attend the conference."
+   },
+   {
+    "fr": "Bien qu'elle ait beaucoup travaillé, elle a échoué à l'examen.",
+    "en": "Although she worked hard, she failed the exam."
+   },
+   {
+    "fr": "Il y a une forte probabilité pour que l'incendie ait été provoqué.",
+    "en": "It is highly likely that the fire was started deliberately."
+   }
+  ],
+  "pieges": [
+   "~~Je suis désolé que tu as attendu.~~ → **Je suis désolé que tu aies attendu.**",
+   "~~Je ne crois pas qu'il est venu.~~ → **Je ne crois pas qu'il soit venu.**",
+   "~~qu'il aie~~ → **qu'il ait** (pas de -e à la 3e personne)."
+  ]
+ },
+ "mod-devoir-probabilite": {
+  "intro": "Pour dire qu'un fait est probable ou sur le point d'arriver, le français utilise des tournures verbales plutôt que des adverbes : devoir de probabilité, être sur le point de, risquer de.",
+  "regles": [
+   "**devoir + infinitif** peut exprimer une forte probabilité : « Il doit y avoir une erreur » = il y a sûrement une erreur. Seul le contexte distingue probabilité et obligation.",
+   "Au passé : **avoir dû + infinitif** ou **devoir avoir + participe** (« Il a dû oublier » / « Il doit avoir oublié » = il a probablement oublié).",
+   "**devrait + infinitif** : ce qui est attendu, prévu (« Le colis devrait arriver demain »).",
+   "**être sur le point de + infinitif** : imminence, l'action va arriver dans très peu de temps.",
+   "**risquer de + infinitif** : possibilité, en général d'un fait non souhaité (« Tu risques de te faire mal »)."
+  ],
+  "forme": [
+   "il **doit** + infinitif = il … sûrement",
+   "il **a dû** + infinitif = il a sûrement …",
+   "**être sur le point de** + infinitif",
+   "**risquer de** + infinitif"
+  ],
+  "exemples": [
+   {
+    "fr": "Il n'y a personne ; ils doivent être en vacances.",
+    "en": "Nobody's home; they must be on holiday."
+   },
+   {
+    "fr": "Elle a dû se tromper d'adresse.",
+    "en": "She must have got the address wrong."
+   },
+   {
+    "fr": "Ce sont des métiers qui sont sur le point d'être menacés.",
+    "en": "These are jobs that are about to be threatened."
+   },
+   {
+    "fr": "Avec ces embouteillages, on risque d'arriver en retard.",
+    "en": "With this traffic, we might well arrive late."
+   }
+  ],
+  "pieges": [
+   "~~Je suis sur le point à partir.~~ → **Je suis sur le point de partir.**",
+   "~~Il risque qu'il pleuve.~~ → **Il risque de pleuvoir.** (ou **il se peut qu'il pleuve**)."
+  ],
+  "astuce": "« Il risque de gagner » s'entend à l'oral familier pour un fait positif ; à l'écrit, préférez **il pourrait bien gagner**."
+ },
+ "verbe-faire-causatif": {
+  "intro": "Avec faire + infinitif, le sujet ne fait pas l'action lui-même : il la fait faire par quelqu'un d'autre. Avec se faire + infinitif, le sujet subit l'action ou la fait faire pour lui.",
+  "regles": [
+   "**faire + infinitif** : causatif. « Je fais réparer ma voiture » = un garagiste la répare.",
+   "L'agent est introduit par **à** ou **par** : « Je fais lire ce roman **à** mes élèves » ; « Il a fait construire la maison **par** un architecte ».",
+   "Les pronoms se placent devant **faire**, pas devant l'infinitif : « Je **la** fais réparer », « Je **le leur** fais lire ». À l'impératif affirmatif : « Fais-**la** réparer ».",
+   "**se faire + infinitif** : le sujet subit (se faire voler, se faire engueuler, se faire avoir = être trompé, familier) ou bénéficie (se faire couper les cheveux).",
+   "Au passé composé, le participe **fait** suivi d'un infinitif reste invariable : « Elle s'est **fait** opérer »."
+  ],
+  "forme": [
+   "**faire** + infinitif + COD (+ **à / par** + agent)",
+   "**se faire** + infinitif",
+   "pronom + **faire** + infinitif : je **le** fais faire"
+  ],
+  "exemples": [
+   {
+    "fr": "On a fait venir un plombier en urgence.",
+    "en": "We got a plumber to come out urgently."
+   },
+   {
+    "fr": "Ce film m'a fait pleurer.",
+    "en": "That film made me cry."
+   },
+   {
+    "fr": "Je me suis fait voler mon vélo devant la gare.",
+    "en": "I had my bike stolen outside the station."
+   },
+   {
+    "fr": "Fais attention, tu vas te faire avoir.",
+    "en": "Be careful, you're going to get ripped off."
+   }
+  ],
+  "pieges": [
+   "~~Elle s'est faite avoir.~~ → **Elle s'est fait avoir.** (participe invariable devant un infinitif).",
+   "~~Je fais le réparer.~~ → **Je le fais réparer.**",
+   "~~J'ai réparé ma voiture~~ (si c'est le garagiste) → **J'ai fait réparer ma voiture.**"
+  ],
+  "astuce": "**laisser + infinitif** fonctionne de la même façon, mais sans idée de contrainte : « Laisse-le parler »."
+ },
+ "verbe-participe-present": {
+  "intro": "Le participe présent (en -ant) exprime une action liée à un nom ; il appartient surtout à l'écrit et au registre soutenu. L'adjectif verbal, de même origine, décrit une qualité et s'accorde.",
+  "regles": [
+   "Le participe présent est **invariable** et équivaut souvent à une relative (« les étudiants **ayant** réussi » = qui ont réussi) ou à une cause (« **Étant** malade, il est resté chez lui »).",
+   "**ayant / étant + participe passé** marque une action antérieure : « **Ayant terminé** son rapport, elle est partie ».",
+   "L'adjectif verbal décrit une qualité, s'accorde et peut être précédé de **très** : « des remarques **blessantes** ».",
+   "Test : un complément d'objet ou un adverbe après le mot → participe présent (« des arguments **convainquant** le jury ») ; une qualité → adjectif (« des arguments **convaincants** »).",
+   "Certains adjectifs verbaux ont une orthographe différente : convainquant / **convaincant**, fatiguant / **fatigant**, provoquant / **provocant**, négligeant / **négligent**, précédant / **précédent**, différant / **différent**."
+  ],
+  "forme": [
+   "participe présent : radical de **nous** au présent + **-ant** (nous finiss-ons → finissant)",
+   "irréguliers : **ayant, étant, sachant**",
+   "participe passé composé : **ayant / étant** + participe passé"
+  ],
+  "exemples": [
+   {
+    "fr": "Les candidats ayant obtenu la moyenne seront convoqués à l'oral.",
+    "en": "Candidates who obtained a pass mark will be called for the oral exam."
+   },
+   {
+    "fr": "Ne sachant pas quoi répondre, il a changé de sujet.",
+    "en": "Not knowing what to say, he changed the subject."
+   },
+   {
+    "fr": "C'est un travail fatigant mais passionnant.",
+    "en": "It's tiring but fascinating work."
+   },
+   {
+    "fr": "En fatiguant ses élèves, on n'obtient rien.",
+    "en": "You achieve nothing by wearing your students out."
+   }
+  ],
+  "pieges": [
+   "~~des arguments convainquants~~ → **des arguments convaincants**.",
+   "~~les personnes habitantes à Paris~~ → **les personnes habitant à Paris** (participe invariable).",
+   "~~Étant en retard, le professeur m'a puni.~~ → **Comme j'étais en retard, le professeur m'a puni.** (le participe se rapporte au sujet de la phrase)."
+  ]
+ },
+ "pron-relatifs-composes": {
+  "intro": "Après une préposition, on utilise lequel et ses variantes pour relier deux phrases. Ces relatifs sont indispensables pour un écrit précis et un oral soigné.",
+  "regles": [
+   "**lequel, laquelle, lesquels, lesquelles** s'accordent avec l'antécédent et suivent une préposition : avec, pour, sur, dans, par, sans…",
+   "**à** se contracte : **auquel, auxquels, auxquelles** (mais **à laquelle**). Ex. : penser à, participer à, grâce à.",
+   "**de** se contracte : **duquel, desquels, desquelles** (mais **de laquelle**), surtout après une locution en « de » : à côté de, près de, au cours de, à cause de.",
+   "Pour une personne, **préposition + qui** est plus courant : « la collègue **avec qui** je travaille ».",
+   "**dont** remplace « de + antécédent » seulement s'il n'y a pas de locution prépositionnelle : on dit « le film **dont** je parle » mais « le parc **près duquel** j'habite »."
+  ],
+  "forme": [
+   "préposition + **lequel / laquelle / lesquels / lesquelles**",
+   "à + lequel → **auquel** ; à + lesquel(le)s → **auxquel(le)s**",
+   "de + lequel → **duquel** ; de + lesquel(le)s → **desquel(le)s**"
+  ],
+  "exemples": [
+   {
+    "fr": "C'est la raison pour laquelle j'ai démissionné.",
+    "en": "That's the reason why I resigned."
+   },
+   {
+    "fr": "Le colloque auquel j'ai participé était passionnant.",
+    "en": "The conference I took part in was fascinating."
+   },
+   {
+    "fr": "Voici le logiciel grâce auquel nous avons gagné du temps.",
+    "en": "Here is the software thanks to which we saved time."
+   },
+   {
+    "fr": "La réunion au cours de laquelle la décision a été prise n'a duré qu'une heure.",
+    "en": "The meeting during which the decision was made lasted only an hour."
+   }
+  ],
+  "pieges": [
+   "~~la raison pour que je suis parti~~ → **la raison pour laquelle je suis parti**.",
+   "~~la maison à côté dont j'habite~~ → **la maison à côté de laquelle j'habite**.",
+   "~~les questions auxquels~~ → **les questions auxquelles** (accord avec l'antécédent)."
+  ],
+  "astuce": "Avec un antécédent neutre (ce, rien, quelque chose), on emploie **quoi** : « ce **à quoi** je pense »."
+ },
+ "phrase-cause": {
+  "intro": "Pour justifier un fait, le français dispose de nombreux connecteurs de cause qui ne sont pas interchangeables : chacun apporte une nuance (évidence, fait connu, reproche, manque) et un registre.",
+  "regles": [
+   "**parce que** : cause neutre, répond à « pourquoi ? ». **puisque** : cause connue de l'interlocuteur ou évidente, parfois avec agacement.",
+   "**comme** : cause placée **en tête de phrase**, jamais après la principale.",
+   "**vu que** et **étant donné que** présentent un fait établi ; vu que est très fréquent à l'oral, étant donné que est plus formel.",
+   "Avec un nom : **grâce à** (résultat positif), **à cause de** (négatif ou neutre), **en raison de** (soutenu, administratif), **faute de** + nom sans article ou infinitif (par manque de).",
+   "**sous prétexte que / de** : cause présentée comme fausse ou contestable ; **à force de** + infinitif ou nom : cause par répétition."
+  ],
+  "forme": [
+   "**parce que / puisque / vu que / étant donné que** + indicatif",
+   "**Comme** + indicatif, en début de phrase",
+   "**grâce à / à cause de / en raison de** + nom",
+   "**faute de** + nom sans article / infinitif"
+  ],
+  "exemples": [
+   {
+    "fr": "Comme il pleuvait, le match a été reporté.",
+    "en": "As it was raining, the match was postponed."
+   },
+   {
+    "fr": "Étant donné que c'est gratuit pour moi, je l'utilise.",
+    "en": "Given that it's free for me, I use it."
+   },
+   {
+    "fr": "Le vol a été annulé en raison d'une grève des contrôleurs.",
+    "en": "The flight was cancelled due to an air traffic controllers' strike."
+   },
+   {
+    "fr": "Faute de moyens, l'association a dû fermer.",
+    "en": "For lack of funding, the association had to close."
+   },
+   {
+    "fr": "Il n'est pas venu sous prétexte qu'il était malade.",
+    "en": "He didn't come, claiming he was ill."
+   }
+  ],
+  "pieges": [
+   "~~Le match est annulé, comme il pleut.~~ → **Comme il pleut, le match est annulé.**",
+   "~~Grâce à la neige, l'école est fermée.~~ → **À cause de la neige…** (sauf ironie ou si c'est vraiment une bonne nouvelle).",
+   "~~faute du temps~~ → **faute de temps**."
+  ]
+ },
+ "phrase-consequence": {
+  "intro": "Exprimer la conséquence permet de montrer le résultat d'un fait. Au-delà de « donc », on varie selon le registre et selon qu'on veut insister sur l'intensité.",
+  "regles": [
+   "Connecteurs simples : **donc**, **alors** (oral), **du coup** (familier), **c'est pourquoi**, **par conséquent** (soutenu, écrit).",
+   "**si bien que** et **de sorte que** + **indicatif** introduisent un résultat réel.",
+   "Intensité + conséquence : **si / tellement** + adjectif ou adverbe + **que** ; **tant de / tellement de** + nom + **que** ; verbe + **tant / tellement que**.",
+   "**d'où** + nom : conséquence très concise, typique de l'écrit (« d'où son retard »).",
+   "**de sorte que** + subjonctif exprime un but, pas une conséquence : à bien distinguer."
+  ],
+  "forme": [
+   "**si bien que / de sorte que** + indicatif",
+   "**si / tellement** + adj. / adv. + **que**",
+   "**tant de / tellement de** + nom + **que**",
+   "**d'où** + nom"
+  ],
+  "exemples": [
+   {
+    "fr": "Les trains étaient en grève, si bien que j'ai dû télétravailler.",
+    "en": "The trains were on strike, so I had to work from home."
+   },
+   {
+    "fr": "Il parlait tellement vite que personne ne le comprenait.",
+    "en": "He was talking so fast that nobody could understand him."
+   },
+   {
+    "fr": "Il y avait tant de monde qu'on n'a pas pu entrer.",
+    "en": "There were so many people that we couldn't get in."
+   },
+   {
+    "fr": "Les loyers ont flambé, d'où l'exode vers les villes moyennes.",
+    "en": "Rents have soared, hence the exodus to medium-sized towns."
+   }
+  ],
+  "pieges": [
+   "~~Il a plu, de sorte que le match soit annulé.~~ → **de sorte que le match a été annulé** (résultat = indicatif).",
+   "~~si de travail que~~ → **tellement de travail que** (devant un nom : tant de / tellement de).",
+   "~~d'où il est parti~~ → **d'où son départ** (d'où + nom)."
+  ],
+  "astuce": "« Du coup » est omniprésent à l'oral ; à l'écrit, remplacez-le par **par conséquent** ou **c'est pourquoi**."
+ },
+ "phrase-concession": {
+  "intro": "La concession permet d'admettre un fait tout en maintenant son idée principale. C'est un outil central de l'argumentation, à l'oral comme à l'écrit.",
+  "regles": [
+   "**bien que / quoique + subjonctif** : registre soutenu, surtout écrit.",
+   "**malgré + nom** : jamais suivi de « que » dans la norme ni d'un verbe conjugué.",
+   "**même si + indicatif** : très courant ; jamais de conditionnel après si.",
+   "**alors que / tandis que + indicatif** : opposition entre deux faits simultanés.",
+   "Adverbes : **pourtant, cependant, néanmoins, toutefois** (de plus en plus soutenus) ; **quand même** (oral, après le verbe) ; **avoir beau + infinitif** (« J'ai beau essayer, je n'y arrive pas »)."
+  ],
+  "forme": [
+   "**bien que** + subjonctif",
+   "**malgré** + nom",
+   "**même si / alors que** + indicatif",
+   "**avoir beau** + infinitif, + principale"
+  ],
+  "exemples": [
+   {
+    "fr": "Bien que les revendications soient légitimes, les violences restent inacceptables.",
+    "en": "Although the demands are legitimate, the violence remains unacceptable."
+   },
+   {
+    "fr": "Malgré la pluie, la manifestation a rassemblé des milliers de personnes.",
+    "en": "Despite the rain, the demonstration drew thousands of people."
+   },
+   {
+    "fr": "Même si c'est cher, ça vaut le coup.",
+    "en": "Even if it's expensive, it's worth it."
+   },
+   {
+    "fr": "Il est fatigué ; il continue quand même.",
+    "en": "He's tired; he keeps going anyway."
+   },
+   {
+    "fr": "J'ai beau lui expliquer, il ne comprend pas.",
+    "en": "No matter how much I explain, he doesn't understand."
+   }
+  ],
+  "pieges": [
+   "~~Malgré qu'il pleut~~ → **bien qu'il pleuve** (ou **malgré la pluie**).",
+   "~~Bien qu'il est malade~~ → **bien qu'il soit malade**.",
+   "~~Même si j'aurais le temps~~ → **même si j'avais le temps**."
+  ]
+ },
+ "phrase-condition": {
+  "intro": "Pour poser une condition, on n'est pas obligé d'utiliser si : d'autres conjonctions précisent s'il s'agit d'une condition nécessaire, d'une exception ou d'une simple éventualité.",
+  "regles": [
+   "**à condition que + subjonctif** / **à condition de + infinitif** (même sujet) : condition nécessaire.",
+   "**pourvu que + subjonctif** : condition suffisante (soutenu) ; seul en début de phrase, il exprime un souhait (« Pourvu qu'il fasse beau ! »).",
+   "**à moins que + subjonctif** / **à moins de + infinitif** : exception = sauf si. **sauf si** se construit avec l'indicatif.",
+   "**au cas où + conditionnel** et **en cas de + nom** : éventualité, précaution.",
+   "À l'oral, **si jamais + indicatif** équivaut à « au cas où » ; **avec / sans + nom** peut aussi exprimer une condition (« Sans toi, j'aurais abandonné »)."
+  ],
+  "forme": [
+   "**à condition que / pourvu que / à moins que** + subjonctif",
+   "**au cas où** + conditionnel",
+   "**en cas de** + nom sans article",
+   "**sauf si / si jamais** + indicatif"
+  ],
+  "exemples": [
+   {
+    "fr": "Je te prête ma voiture à condition que tu me la rendes demain.",
+    "en": "I'll lend you my car on condition that you give it back tomorrow."
+   },
+   {
+    "fr": "Prends un parapluie au cas où il pleuvrait.",
+    "en": "Take an umbrella in case it rains."
+   },
+   {
+    "fr": "Nous partirons à huit heures, à moins qu'il y ait un contretemps.",
+    "en": "We'll leave at eight, unless something comes up."
+   },
+   {
+    "fr": "En cas d'incendie, utilisez l'escalier.",
+    "en": "In case of fire, use the stairs."
+   },
+   {
+    "fr": "Si jamais tu passes à Lyon, fais-moi signe.",
+    "en": "If you ever come through Lyon, let me know."
+   }
+  ],
+  "pieges": [
+   "~~au cas où il pleut~~ → **au cas où il pleuvrait**.",
+   "~~à condition qu'il vient~~ → **à condition qu'il vienne**.",
+   "Le « ne » de **à moins qu'il ne vienne** (soutenu) n'est pas une négation : la phrase signifie « sauf s'il vient ». Pour « sauf s'il ne vient pas », il faut **à moins qu'il ne vienne pas**."
+  ]
+ },
+ "phrase-mise-en-relief": {
+  "intro": "La mise en relief isole un élément de la phrase pour le souligner : c'est l'information importante, celle qu'on oppose ou qu'on corrige. Très fréquente à l'oral comme à l'écrit argumentatif.",
+  "regles": [
+   "**c'est … qui** met en relief le sujet ; **c'est … que** met en relief tout autre élément (COD, complément de lieu, de temps…).",
+   "Avec une préposition, elle reste devant l'élément : « C'est **à toi** que je parle », « C'est **de ça** que je parle ».",
+   "**ce qui …, c'est** (sujet) ; **ce que …, c'est** (COD) ; **ce dont …, c'est** (verbe + de) ; **ce à quoi …, c'est** (verbe + à) : on annonce d'abord, on révèle ensuite.",
+   "Après **c'est moi / toi / nous qui**, le verbe s'accorde avec le pronom : « C'est nous qui **avons** raison ».",
+   "Au pluriel, **ce sont … qui** appartient à l'écrit soigné ; **c'est eux** est courant à l'oral."
+  ],
+  "forme": [
+   "**C'est** + élément + **qui / que** + reste",
+   "**Ce qui / Ce que / Ce dont** + proposition, **c'est** + élément",
+   "**C'est là que / C'est alors que** …"
+  ],
+  "exemples": [
+   {
+    "fr": "Ce qui est paradoxal, c'est qu'il y a des professeurs sans poste.",
+    "en": "What's paradoxical is that there are teachers without a post."
+   },
+   {
+    "fr": "C'est en 2008 que la crise a éclaté.",
+    "en": "It was in 2008 that the crisis broke out."
+   },
+   {
+    "fr": "Ce dont j'ai besoin, c'est d'un peu de calme.",
+    "en": "What I need is a bit of peace and quiet."
+   },
+   {
+    "fr": "C'est là que le débat devient vraiment intéressant.",
+    "en": "That's where the debate gets really interesting."
+   },
+   {
+    "fr": "Ce n'est pas le prix qui me dérange, c'est le délai.",
+    "en": "It's not the price that bothers me, it's the lead time."
+   }
+  ],
+  "pieges": [
+   "~~C'est moi qui a raison.~~ → **C'est moi qui ai raison.**",
+   "~~C'est de ça dont je parle.~~ → **C'est de ça que je parle** (ou **C'est ça dont je parle**).",
+   "~~Ce que j'ai besoin, c'est…~~ → **Ce dont j'ai besoin, c'est…** (avoir besoin **de**)."
+  ],
+  "astuce": "À l'oral, on met aussi en relief par dislocation : « Le café, je l'adore. » / « Moi, je pense que… »"
+ },
+ "disc-nominalisation": {
+  "intro": "La nominalisation transforme un verbe ou un adjectif en nom. C'est la marque du français écrit, de la presse et des titres : un style plus dense, plus neutre et plus impersonnel.",
+  "regles": [
+   "Le verbe devient un nom, souvent avec un suffixe : **-tion** (augmenter → l'augmentation), **-ment** (licencier → le licenciement), **-age** (nettoyer → le nettoyage), **-ure** (ouvrir → l'ouverture), ou sans suffixe (refuser → le refus, baisser → la baisse).",
+   "L'adjectif devient aussi un nom : difficile → **la difficulté**, efficace → **l'efficacité**, rare → **la rareté**.",
+   "Le sujet du verbe devient un complément en **de** : « Le ministre a démissionné » → **la démission du ministre** ; l'agent peut être introduit par **par**.",
+   "Dans les titres, on supprime le verbe : « Les prix de l'énergie augmentent fortement » → **Forte hausse des prix de l'énergie**.",
+   "À l'oral, la nominalisation excessive paraît lourde : on revient aux verbes. À l'écrit, elle permet de reprendre une idée (« Cette décision… »)."
+  ],
+  "forme": [
+   "Il manque des enseignants. → **le manque d'enseignants**",
+   "Le ministre a répondu. → **la réponse du ministre**",
+   "Les loyers ont beaucoup augmenté. → **la forte hausse des loyers**"
+  ],
+  "exemples": [
+   {
+    "fr": "Fermeture exceptionnelle de la bibliothèque samedi.",
+    "en": "Library exceptionally closed on Saturday."
+   },
+   {
+    "fr": "L'arrestation du suspect par la police a eu lieu à l'aube.",
+    "en": "The suspect was arrested by the police at dawn."
+   },
+   {
+    "fr": "La réduction du temps de travail fait toujours débat.",
+    "en": "Reducing working hours is still a subject of debate."
+   },
+   {
+    "fr": "Le gouvernement a annoncé un gel des prix ; cette annonce a surpris les marchés.",
+    "en": "The government announced a price freeze; this announcement surprised the markets."
+   }
+  ],
+  "pieges": [
+   "~~l'augmentement~~ → **l'augmentation** ; ~~la réduisation~~ → **la réduction** ; ~~le choisissement~~ → **le choix** : le suffixe ne se devine pas, vérifiez dans le dictionnaire.",
+   "~~la critique du gouvernement~~ est ambiguë (qui critique qui ?) → **les critiques formulées par le gouvernement** ou **les critiques contre le gouvernement**."
+  ],
+  "astuce": "Entraînez-vous dans les deux sens : transformez un titre de presse en phrase verbale, puis un message oral en titre."
+ },
+ "disc-nuancer-opinion": {
+  "intro": "Nuancer son opinion, c'est éviter d'être catégorique : on atténue, on limite la portée de son avis ou on concède avant de s'opposer. C'est attendu dans le débat à l'oral et dans l'essai écrit.",
+  "regles": [
+   "Atténuer avec un verbe d'opinion prudent : **il me semble que, j'ai l'impression que, j'ai tendance à penser que** + indicatif.",
+   "Limiter la portée : **dans une certaine mesure, en partie, plus ou moins, dans la plupart des cas, a priori** (= au premier abord).",
+   "Refuser une généralisation : **pas forcément, pas nécessairement, pas toujours** ; à l'oral, « j'ai pas forcément d'avis tranché ».",
+   "Le conditionnel adoucit : **on pourrait dire que, je dirais plutôt que** ; à la forme négative, **je ne dirais pas que + subjonctif**.",
+   "Concéder puis rectifier : **certes … mais, il est vrai que … cependant, je comprends que + subjonctif, mais…**"
+  ],
+  "forme": [
+   "Avant : « Les réseaux sociaux rendent les jeunes idiots. »",
+   "Après : « Il me semble que les réseaux sociaux peuvent, dans une certaine mesure, nuire à la concentration des jeunes. »"
+  ],
+  "exemples": [
+   {
+    "fr": "Il me semble que la mesure arrive un peu tard.",
+    "en": "It seems to me that the measure has come a bit late."
+   },
+   {
+    "fr": "Le télétravail n'est pas forcément synonyme de productivité.",
+    "en": "Remote work doesn't necessarily mean productivity."
+   },
+   {
+    "fr": "A priori, je suis plutôt pour, mais ça dépend des conditions.",
+    "en": "On the face of it I'm rather in favour, but it depends on the conditions."
+   },
+   {
+    "fr": "Je ne dirais pas que c'est inutile, mais c'est coûteux.",
+    "en": "I wouldn't say it's useless, but it is costly."
+   },
+   {
+    "fr": "Certes, l'IA fait gagner du temps ; elle pose néanmoins de vraies questions.",
+    "en": "Admittedly, AI saves time; it nonetheless raises real questions."
+   }
+  ],
+  "pieges": [
+   "~~Il me semble qu'il soit trop tard.~~ → **Il me semble qu'il est trop tard.** (il me semble que = indicatif).",
+   "~~Je ne pense pas que c'est vrai.~~ (oral familier) → **Je ne pense pas que ce soit vrai.**"
+  ],
+  "astuce": "Nuancer n'est pas tout atténuer : gardez une phrase claire qui dit votre position, puis limitez-la."
+ },
+ "disc-metaphores": {
+  "intro": "La langue courante est pleine d'images figées : on ne parle pas de noyade quand on dit que la musique est « une bouée ». Les comprendre évite les contresens ; les employer rend le discours vivant et naturel.",
+  "regles": [
+   "Une métaphore transfère les traits d'une image concrète à une idée : « être rouillé » = avoir perdu l'habitude, comme un objet rouillé ne fonctionne plus bien.",
+   "Les expressions figurées sont **figées** : on ne change ni les mots ni les articles (« avoir **un poil** dans la main », pas « un cheveu »).",
+   "Elles ne se traduisent pas mot à mot : cherchez l'équivalent français de l'idée, pas de l'image anglaise.",
+   "Beaucoup sont **familières** (avoir le cafard, poser un lapin) : à éviter dans un écrit formel, où l'on préfère des images plus neutres (un tournant, un frein, un pilier).",
+   "Technique : remplacez une formulation plate par une image adaptée, mais une seule à la fois, pour ne pas surcharger."
+  ],
+  "forme": [
+   "Il est très paresseux. → Il a **un poil dans la main**. (familier)",
+   "Ça coûte très cher. → Ça coûte **les yeux de la tête**. (courant)",
+   "Cette loi marque un changement important. → Cette loi marque **un tournant**. (écrit)"
+  ],
+  "exemples": [
+   {
+    "fr": "Depuis son départ, elle a le cafard.",
+    "en": "Since he left, she's been feeling down."
+   },
+   {
+    "fr": "Il m'a posé un lapin hier soir.",
+    "en": "He stood me up last night."
+   },
+   {
+    "fr": "Avec ce commentaire, tu as mis de l'huile sur le feu.",
+    "en": "With that comment, you added fuel to the fire."
+   },
+   {
+    "fr": "La musique, c'est sa bouée dans la tempête.",
+    "en": "Music is her lifeline in the storm."
+   },
+   {
+    "fr": "La réforme a été un véritable coup de tonnerre.",
+    "en": "The reform came as a real bombshell."
+   }
+  ],
+  "pieges": [
+   "~~Il pleut des chats et des chiens.~~ → **Il pleut des cordes.**",
+   "~~Je suis sur la clôture.~~ → **J'hésite / Je ne sais pas sur quel pied danser.**"
+  ]
+ },
+ "disc-nuances-sens": {
+  "intro": "Des mots proches en apparence n'ont pas le même sens ni le même emploi. Les distinguer est un critère clé du niveau B2 : c'est ce qui rend l'expression précise.",
+  "regles": [
+   "**remords** : on a fait quelque chose et on se sent coupable ; **regret** : on n'a pas fait quelque chose (ou un fait s'est produit) et on en est triste.",
+   "**amener / emmener** (personnes) : amener = conduire quelqu'un vers un lieu ; emmener = prendre quelqu'un avec soi en partant. Pour les objets : **apporter / emporter**.",
+   "**an / année** : **an** avec un nombre (trois ans) ; **année** pour la durée vécue, avec un adjectif ou un ordinal (une année difficile, la deuxième année). Même logique : jour / journée, matin / matinée, soir / soirée.",
+   "**savoir** (un fait, une compétence, + infinitif) / **connaître** (une personne, un lieu, une œuvre, + nom).",
+   "Méthode : vérifiez dans un dictionnaire les **collocations** (les mots qui vont ensemble) plutôt que la seule définition."
+  ],
+  "exemples": [
+   {
+    "fr": "Il a menti à son ami et il a des remords.",
+    "en": "He lied to his friend and feels guilty about it."
+   },
+   {
+    "fr": "Elle n'a jamais osé chanter en public : c'est son plus grand regret.",
+    "en": "She never dared to sing in public: it's her biggest regret."
+   },
+   {
+    "fr": "Tu peux amener ta sœur ce soir, il y aura de la place.",
+    "en": "You can bring your sister tonight, there'll be room."
+   },
+   {
+    "fr": "Pense à emporter ton passeport.",
+    "en": "Remember to take your passport."
+   },
+   {
+    "fr": "J'ai passé une année formidable à Montréal.",
+    "en": "I had a wonderful year in Montreal."
+   }
+  ],
+  "pieges": [
+   "~~J'ai vingt années.~~ → **J'ai vingt ans.**",
+   "~~Je connais nager.~~ → **Je sais nager.**",
+   "~~Amène ton parapluie.~~ (oral courant) → à l'écrit, **apporte / emporte ton parapluie** (objet)."
+  ],
+  "astuce": "Notez chaque paire avec un exemple personnel : on retient mieux une nuance quand on l'associe à une situation."
+ },
+ "disc-connecteurs": {
+  "intro": "Les connecteurs logiques organisent un texte ou un exposé : ils annoncent un ordre, ajoutent, opposent, illustrent ou concluent. Bien choisis, ils rendent le raisonnement facile à suivre.",
+  "regles": [
+   "Ordonner : **d'abord / tout d'abord, ensuite, puis, enfin** ; à l'écrit, **premièrement, deuxièmement…**",
+   "Ajouter : **de plus, en outre** (soutenu), **par ailleurs** (autre aspect) ; **d'ailleurs** renforce l'idée qu'on vient d'avancer.",
+   "Opposer : **cependant, toutefois, néanmoins, pourtant** ; **en revanche** compare deux éléments (**par contre**, courant à l'oral, est déconseillé à l'écrit soigné).",
+   "Illustrer et reformuler : **par exemple, notamment, ainsi, autrement dit, c'est-à-dire**. Conclure : **en somme, en définitive, pour conclure** ; **bref** à l'oral.",
+   "En tête de phrase, le connecteur est suivi d'une virgule ; évitez d'en mettre un à chaque phrase."
+  ],
+  "forme": [
+   "Avant : « Le vélo est écologique. Il est bon pour la santé. Il est dangereux en ville. »",
+   "Après : « Le vélo est écologique ; **de plus**, il est bon pour la santé. **En revanche**, il reste dangereux en ville. »"
+  ],
+  "exemples": [
+   {
+    "fr": "Tout d'abord, je présenterai le contexte ; ensuite, j'analyserai les causes.",
+    "en": "First, I'll present the background; then I'll analyse the causes."
+   },
+   {
+    "fr": "Ce logement est bien situé. En outre, le loyer est raisonnable.",
+    "en": "This flat is well located. Moreover, the rent is reasonable."
+   },
+   {
+    "fr": "Paris est saturé ; en revanche, les villes moyennes attirent de nouveaux habitants.",
+    "en": "Paris is saturated; on the other hand, medium-sized towns are attracting new residents."
+   },
+   {
+    "fr": "Il n'a pas répondu ; d'ailleurs, il ne répond jamais.",
+    "en": "He didn't reply; in fact, he never does."
+   },
+   {
+    "fr": "En somme, la réforme est nécessaire, mais mal préparée.",
+    "en": "In short, the reform is necessary but poorly prepared."
+   }
+  ],
+  "pieges": [
+   "~~Par ailleurs, il ne répond jamais~~ pour renforcer → **D'ailleurs** (par ailleurs = sur un autre point).",
+   "~~Enfin~~ pour dire « finalement, après réflexion » → **Finalement / En fin de compte** ; **enfin** = en dernier lieu ou « à la fin, après attente »."
+  ]
+ },
+ "disc-registres": {
+  "intro": "Le même message se dit différemment selon la situation : entre amis, au travail, dans une lettre officielle. Reconnaître et choisir le registre (familier, courant, soutenu) est indispensable pour être approprié.",
+  "regles": [
+   "**Familier** : oral entre proches ; « ne » supprimé, « on » pour « nous », mots comme **boulot, bagnole, truc, fric, piger**, question par intonation (« Tu viens ? »).",
+   "**Courant** : neutre, convient presque partout, à l'oral comme à l'écrit ; « est-ce que », vocabulaire standard (travail, voiture, comprendre).",
+   "**Soutenu** : écrit formel, discours officiels ; inversion (« Viens-tu ? »), vocabulaire recherché (**se rendre, demeurer, saisir, un emploi, un véhicule**), subjonctif et passé simple plus fréquents.",
+   "Le registre concerne le lexique, la syntaxe et la prononciation : restez cohérent dans tout un message.",
+   "Le tutoiement et le vouvoiement accompagnent souvent le choix du registre."
+  ],
+  "forme": [
+   "bagnole → voiture → véhicule",
+   "boulot → travail → emploi",
+   "piger → comprendre → saisir",
+   "J'sais pas. → Je ne sais pas. → Je l'ignore."
+  ],
+  "exemples": [
+   {
+    "fr": "T'as pigé ce qu'il a dit ?",
+    "en": "Did you get what he said?"
+   },
+   {
+    "fr": "Est-ce que tu as compris ce qu'il a dit ?",
+    "en": "Did you understand what he said?"
+   },
+   {
+    "fr": "Avez-vous saisi le sens de ses propos ?",
+    "en": "Did you grasp the meaning of his remarks?"
+   },
+   {
+    "fr": "Je vous serais reconnaissant de bien vouloir me rappeler.",
+    "en": "I would be grateful if you could call me back."
+   }
+  ],
+  "pieges": [
+   "~~Madame, je vous écris car j'ai un souci avec ma bagnole.~~ → **Madame, je vous écris au sujet d'un problème concernant mon véhicule.** (pas de mot familier dans une lettre formelle).",
+   "Le soutenu à l'oral entre amis (« Je l'ignore ») paraît pédant ou ironique : adaptez-vous à l'interlocuteur."
+  ],
+  "astuce": "En cas de doute, choisissez le registre courant : il est rarement déplacé."
+ }
+}

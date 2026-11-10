@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Generate parcours.html — the CEFR grammar roadmap (A1 → C2).
 
-Inputs: content/curriculum.json (the canonical inventory) and the data-gp tags
+Inputs: content/curriculum.json (the canonical inventory),
+content/explications/<LEVEL>.json (the detailed explanation shown when a point
+is expanded) and the data-gp tags
 on every lesson's grammar <h3> (see tools/tag_grammar.py), read from the built
 lesson pages listed in lessons.json. Each curriculum point lists the lessons
 (and parcours) where it is taught, with a deep link
@@ -51,6 +53,46 @@ def lesson_coverage(lessons):
     return cov
 
 
+def load_explanations():
+    """content/explications/<LEVEL>.json → {point id: {intro, regles, forme?, exemples, pieges, astuce?}}"""
+    out = {}
+    d = os.path.join(ROOT, 'content', 'explications')
+    if not os.path.isdir(d):
+        return out
+    for name in sorted(os.listdir(d)):
+        if name.endswith('.json'):
+            with open(os.path.join(d, name), encoding='utf-8') as f:
+                out.update(json.load(f))
+    return out
+
+
+def inline(text):
+    """Escape, then allow only **bold** and ~~strike~~ (wrong forms)."""
+    t = html.escape(text, quote=False)
+    t = re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', t)
+    t = re.sub(r'~~(.+?)~~', r'<s>\1</s>', t)
+    return t
+
+
+def explanation_html(e):
+    if not e:
+        return ''
+    parts = ['<p class="ex-intro">%s</p>' % inline(e['intro'])]
+    parts.append('<h5>Les règles</h5><ul>%s</ul>' % ''.join('<li>%s</li>' % inline(r) for r in e['regles']))
+    if e.get('forme'):
+        parts.append('<h5>La forme</h5><div class="ex-forme">%s</div>'
+                     % ''.join('<div>%s</div>' % inline(f) for f in e['forme']))
+    parts.append('<h5>Exemples</h5><ul class="ex-ex">%s</ul>' % ''.join(
+        '<li><span class="fr">%s</span><span class="en">%s</span></li>' % (inline(x['fr']), inline(x['en']))
+        for x in e['exemples']))
+    parts.append('<h5>Pièges à éviter</h5><ul class="ex-pieges">%s</ul>'
+                 % ''.join('<li>%s</li>' % inline(x) for x in e['pieges']))
+    if e.get('astuce'):
+        parts.append('<p class="ex-astuce"><b>Astuce :</b> %s</p>' % inline(e['astuce']))
+    return ('<details class="gp-more"><summary>Explication détaillée</summary>'
+            '<div class="ex">%s</div></details>' % ''.join(parts))
+
+
 def mastery_map(lessons):
     """Evidence sources for the personal overlay (see SRS.mastery):
     exo:   "<lesson>|<exoId>"        -> [concept ids]   (exercise "concepts")
@@ -67,7 +109,7 @@ def mastery_map(lessons):
     return {'exo': exo, 'cards': cards}
 
 
-def point_html(p, by_id, cov):
+def point_html(p, by_id, cov, expl=None):
     taught = cov.get(p['id'], [])
     if taught:
         links = []
@@ -83,13 +125,15 @@ def point_html(p, by_id, cov):
             '<a href="#gp-%s">%s</a>' % (q, esc(by_id[q]['title'])) for q in p['prereq']) + '</p>'
     return ('<article class="gp%s" id="gp-%s" data-gp="%s">'
             '<div class="gp-head"><h4>%s</h4><span class="gp-state" hidden></span></div>'
-            '<p class="sum">%s</p>%s%s</article>'
-            % ('' if taught else ' uncovered', p['id'], p['id'], esc(p['title']), esc(p['summary']), pre, where))
+            '<p class="sum">%s</p>%s%s%s</article>'
+            % ('' if taught else ' uncovered', p['id'], p['id'], esc(p['title']), esc(p['summary']), pre,
+               explanation_html((expl or {}).get(p['id'])), where))
 
 
 def build(cur, lessons):
     by_id = {p['id']: p for p in cur['points']}
     cov = lesson_coverage(lessons)
+    expl = load_explanations()
     cats = list(cur['categories'].keys())
 
     nav, sections = [], []
@@ -107,7 +151,7 @@ def build(cur, lessons):
             if not cp:
                 continue
             groups.append('<div class="cat"><h3>%s</h3><div class="pts">%s</div></div>'
-                          % (esc(cur['categories'][c]), ''.join(point_html(p, by_id, cov) for p in cp)))
+                          % (esc(cur['categories'][c]), ''.join(point_html(p, by_id, cov, expl) for p in cp)))
         sections.append('''<section class="level" id="niveau-%s" style="--lv:%s">
   <div class="level-head">
     <div class="badge">%s</div>
@@ -213,6 +257,25 @@ TEMPLATE = '''<!DOCTYPE html>
   .where span { opacity: .7; font-weight: 500; }
   .where:hover { background: #d6e1f8; }
   .soon { font-size: .78rem; color: #8a92a0; font-style: italic; }
+  .gp-more { border-top: 1px dashed var(--bordure); padding-top: .35rem; }
+  .gp-more summary { cursor: pointer; font-size: .82rem; font-weight: 700; color: var(--lv); list-style-position: inside; }
+  .gp-more summary:hover { text-decoration: underline; }
+  .gp:has(> .gp-more[open]) { grid-column: 1 / -1; }
+  .ex { max-width: 78ch; font-size: .92rem; padding: .3rem 0 .2rem; }
+  .ex h5 { margin: .8rem 0 .25rem; font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--lv); }
+  .ex p { margin: .3rem 0; }
+  .ex ul { margin: .2rem 0; padding-left: 1.2rem; }
+  .ex li { margin: .15rem 0; }
+  .ex-intro { font-size: .98rem; }
+  .ex-forme { background: #f3f6fc; border: 1px solid var(--bordure); border-radius: 8px; padding: .45rem .7rem;
+              font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .84rem; overflow-x: auto; }
+  .ex-forme div { margin: .1rem 0; }
+  .ex-ex { list-style: none; padding-left: 0 !important; }
+  .ex-ex li { border-left: 3px solid color-mix(in srgb, var(--lv) 40%, #fff); padding: .1rem 0 .1rem .6rem; margin: .35rem 0; }
+  .ex-ex .fr { display: block; }
+  .ex-ex .en { display: block; color: var(--gris); font-size: .85rem; font-style: italic; }
+  .ex-pieges s { color: #b4372f; }
+  .ex-astuce { background: #fff8e6; border-radius: 8px; padding: .4rem .7rem; }
   body.only-covered .gp.uncovered { display: none; }
   body.only-covered .cat:not(:has(.gp:not(.uncovered))) { display: none; }
 
@@ -254,7 +317,7 @@ TEMPLATE = '''<!DOCTYPE html>
     .lvnav .filter .short { display: inline; }
     .pts { grid-template-columns: 1fr; }
   }
-  @media print { .lvnav { position: static; } .gp { break-inside: avoid; } }
+  @media print { .lvnav { position: static; } .gp { break-inside: avoid; } .gp-more:not([open]) { display: none; } }
 </style>
 </head>
 <body>

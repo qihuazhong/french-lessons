@@ -1,0 +1,419 @@
+{
+  "temps-passe-simple": {
+    "intro": "Le passé simple est le temps du récit écrit : romans, contes, biographies, récits historiques et certains articles de presse. À l'oral, il est remplacé par le passé composé.",
+    "regles": [
+      "Il présente une action **achevée et coupée du présent** ; dans un récit, il fait avancer l'action, tandis que l'imparfait décrit le décor.",
+      "Registre **littéraire et écrit soutenu**. Au niveau C1, il faut le **reconnaître** sans hésiter à toutes les personnes et savoir le **produire** à la 3e personne (il, ils) dans un récit écrit.",
+      "Les 1re et 2e personnes du pluriel (nous parlâmes, vous fîtes) sont rares, même à l'écrit : on peut les éviter.",
+      "Ne mélangez pas passé simple et passé composé pour raconter la même suite d'événements : choisissez un système et gardez-le."
+    ],
+    "forme": [
+      "verbes en -er : -ai, -as, -a, -âmes, -âtes, -èrent (il parla, ils parlèrent)",
+      "type -i : -is, -is, -it, -îmes, -îtes, -irent (il finit, il prit, il fit, il mit)",
+      "type -u : -us, -us, -ut, -ûmes, -ûtes, -urent (il eut, il fut, il put, il vécut)",
+      "type -in : venir → il vint, ils vinrent ; tenir → il tint",
+      "à retenir : naître → il naquit ; mourir → il mourut ; voir → il vit"
+    ],
+    "exemples": [
+      {
+        "fr": "Elle ouvrit la porte, hésita un instant, puis entra sans un mot.",
+        "en": "She opened the door, hesitated for a moment, then went in without a word."
+      },
+      {
+        "fr": "Il pleuvait depuis le matin lorsque le train s'arrêta en rase campagne.",
+        "en": "It had been raining since the morning when the train stopped in the middle of nowhere."
+      },
+      {
+        "fr": "Le compositeur naquit à Lyon en 1803 et mourut à Paris soixante ans plus tard.",
+        "en": "The composer was born in Lyon in 1803 and died in Paris sixty years later."
+      },
+      {
+        "fr": "Ils vinrent nous voir le lendemain et ne firent aucune allusion à la dispute.",
+        "en": "They came to see us the next day and made no mention of the argument."
+      }
+    ],
+    "pieges": [
+      "Ne confondez pas **il fut** (être), **il fit** (faire) et **il eut** (avoir) : ~~il fut une promenade~~ → il **fit** une promenade.",
+      "À la 1re personne, **je parlai** (passé simple) ≠ **je parlais** (imparfait) : la différence d'une lettre change l'aspect.",
+      "**Il vit** peut être le présent de vivre ou le passé simple de voir : c'est le contexte (temps du récit) qui tranche."
+    ],
+    "astuce": "En lisant, repérez la 3e personne du singulier : -a, -it ou -ut à la fin du verbe signale presque toujours un passé simple."
+  },
+  "temps-participe-compose": {
+    "intro": "Le participe composé (ayant fait, étant parti) exprime une action accomplie avant celle du verbe principal. Il permet de condenser une subordonnée de temps ou de cause dans une phrase écrite.",
+    "regles": [
+      "Il remplace souvent **après que / comme / puisque + verbe** : « Ayant terminé son rapport, elle est partie » = Après avoir terminé / Comme elle avait terminé…",
+      "Avec **étant**, le participe s'accorde avec le sujet ; avec **ayant**, il suit la règle de avoir (accord avec un COD placé avant).",
+      "Le sujet sous-entendu du participe doit être **le même que celui du verbe principal**.",
+      "Registre **écrit, soutenu ou administratif** (presse, rapports, dissertations) : à **produire activement** à l'écrit, plus rare à l'oral spontané.",
+      "Négation : **n'ayant pas** compris, **n'étant jamais** venu. Au passif : **ayant été** + participe passé."
+    ],
+    "forme": [
+      "ayant + participe passé (ayant fini, ayant pris)",
+      "étant + participe passé accordé (étant arrivé·e·s)",
+      "ayant été + participe passé (passif : ayant été élu)"
+    ],
+    "exemples": [
+      {
+        "fr": "Ayant perdu son passeport, il a dû renoncer au voyage.",
+        "en": "Having lost his passport, he had to give up the trip."
+      },
+      {
+        "fr": "Étant arrivées en avance, les deux candidates ont pu relire leurs notes.",
+        "en": "Having arrived early, the two candidates were able to go over their notes."
+      },
+      {
+        "fr": "N'ayant reçu aucune réponse, l'association a saisi la justice.",
+        "en": "Having received no reply, the association took the matter to court."
+      },
+      {
+        "fr": "Ayant été réélu de justesse, le maire a promis de changer de méthode.",
+        "en": "Having been narrowly re-elected, the mayor promised to change his approach."
+      }
+    ],
+    "pieges": [
+      "Participe « en l'air » : ~~Ayant raté le train, mon patron m'a appelé~~ (c'est le patron qui a raté le train !) → Ayant raté le train, **j'ai appelé** mon patron.",
+      "Ne choisissez pas l'auxiliaire au hasard : ~~ayant parti~~ → **étant parti** ; ~~étant fini son travail~~ → **ayant fini** son travail."
+    ],
+    "astuce": "Si vous pouvez remplacer le participe par « après avoir / après être + participe » avec le même sujet, la phrase est correcte."
+  },
+  "nom-accord-participe": {
+    "intro": "Au-delà des règles de base, l'accord du participe passé pose des problèmes précis à l'écrit soutenu : COD antéposé, verbes pronominaux, participe suivi d'un infinitif. Ces règles sont à **maîtriser activement** dans tout texte écrit.",
+    "regles": [
+      "Avec **avoir**, le participe s'accorde avec le **COD placé avant** le verbe (que, la, les, lesquelles…) : « les lettres que j'ai **écrites** ». Avec **en**, pas d'accord : « des lettres, j'en ai écrit ».",
+      "Verbes pronominaux réfléchis ou réciproques : on accorde avec le COD s'il est placé avant. « Elle s'est **lavée** » (se = COD), mais « Elle s'est **lavé** les mains » (COD = les mains, après) ; « Ils se sont **parlé** » (se = COI).",
+      "Verbes essentiellement pronominaux (s'évanouir, se souvenir, s'enfuir) : accord avec le sujet. « Elles se sont **souvenues** de tout. »",
+      "Participe + infinitif : on accorde si le COD placé avant **fait l'action** de l'infinitif : « la chanteuse que j'ai **entendue** chanter » mais « la chanson que j'ai **entendu** chanter ».",
+      "**Fait** + infinitif reste invariable : « elle s'est **fait** couper les cheveux ». Les verbes impersonnels aussi : « les chaleurs qu'il a **fait** »."
+    ],
+    "forme": [
+      "avoir + COD antéposé → accord avec le COD",
+      "se = COD → accord ; se = COI (parler à, téléphoner à, plaire à) → invariable",
+      "fait + infinitif → invariable ; laissé + infinitif → invariable (rectifications de 1990)"
+    ],
+    "exemples": [
+      {
+        "fr": "Les décisions qu'a prises le conseil ont surpris tout le monde.",
+        "en": "The decisions the council made surprised everyone."
+      },
+      {
+        "fr": "Elles se sont écrit pendant dix ans sans jamais se rencontrer.",
+        "en": "They wrote to each other for ten years without ever meeting."
+      },
+      {
+        "fr": "Les deux ministres se sont succédé à la tribune.",
+        "en": "The two ministers took the floor one after the other."
+      },
+      {
+        "fr": "Elle s'est fait opérer la semaine dernière.",
+        "en": "She had an operation last week."
+      }
+    ],
+    "pieges": [
+      "~~Ils se sont téléphonés~~ → ils se sont **téléphoné** (on téléphone **à** quelqu'un : se est COI).",
+      "~~La robe qu'elle s'est faite faire~~ → la robe qu'elle s'est **fait** faire (fait + infinitif est toujours invariable).",
+      "~~Les efforts qu'il a fallus~~ → les efforts qu'il a **fallu** (verbe impersonnel : invariable)."
+    ]
+  },
+  "mode-subj-relatives": {
+    "intro": "Dans une relative, le subjonctif signale que l'existence ou la réalité de l'antécédent est incertaine, recherchée ou présentée comme exceptionnelle. L'indicatif, lui, pose un fait.",
+    "regles": [
+      "Après un antécédent **recherché, souhaité ou hypothétique** : « Je cherche un appartement qui **soit** calme » (je ne sais pas s'il existe) ≠ « J'ai trouvé un appartement qui **est** calme ».",
+      "Après une **négation** ou une **question** sur l'existence : « Il n'y a personne qui **puisse** l'aider » ; « Connais-tu quelqu'un qui **sache** le russe ? »",
+      "Après un **superlatif** ou **le seul, l'unique, le premier, le dernier** : « C'est le meilleur roman que j'**aie** lu. » L'indicatif reste possible pour insister sur un fait objectif.",
+      "Registre : **courant à soutenu**. À **employer activement**, surtout à l'écrit ; à l'oral familier, l'indicatif est fréquent après le superlatif."
+    ],
+    "forme": [
+      "chercher / vouloir / avoir besoin de + un(e) … qui + subjonctif",
+      "il n'y a rien / personne / aucun… qui + subjonctif",
+      "le seul / le premier / le meilleur… que + subjonctif"
+    ],
+    "exemples": [
+      {
+        "fr": "L'entreprise recrute un ingénieur qui ait au moins cinq ans d'expérience.",
+        "en": "The company is hiring an engineer with at least five years' experience."
+      },
+      {
+        "fr": "Il n'existe aucune étude qui prouve un tel lien.",
+        "en": "There is no study that proves such a link."
+      },
+      {
+        "fr": "C'est la seule personne qui me comprenne vraiment.",
+        "en": "She is the only person who truly understands me."
+      },
+      {
+        "fr": "Y a-t-il un médecin qui puisse se déplacer ce soir ?",
+        "en": "Is there a doctor who can come out tonight?"
+      }
+    ],
+    "pieges": [
+      "~~C'est le plus beau film que j'ai jamais vu~~ (à l'écrit soutenu) → que j'**aie** jamais vu.",
+      "Ne mettez pas le subjonctif si l'antécédent est connu et réel : ~~J'ai un voisin qui sache réparer les vélos~~ → qui **sait**."
+    ],
+    "astuce": "Demandez-vous : « Cette chose existe-t-elle sûrement ? » Si la réponse est non ou pas encore, pensez subjonctif."
+  },
+  "neg-expletif": {
+    "intro": "Le ne explétif est un « ne » sans valeur négative qui apparaît après certaines conjonctions et certains verbes. Il appartient au **registre soutenu** et n'est jamais obligatoire.",
+    "regles": [
+      "On le trouve après **avant que, à moins que, de peur que, de crainte que** : « Partons avant qu'il **ne** pleuve. »",
+      "Après les verbes de **crainte** à la forme affirmative (**craindre que, avoir peur que, redouter que**) et après **empêcher que, éviter que**.",
+      "Dans les **comparaisons d'inégalité** (avec l'indicatif) : « C'est plus difficile qu'on **ne** le croit. »",
+      "Il ne change pas le sens : la phrase avec ou sans ne explétif dit la même chose. À l'oral courant, on l'omet souvent.",
+      "Usage : à **reconnaître** absolument, et à **produire** à l'écrit soutenu (dissertation, lettre formelle) si on le souhaite."
+    ],
+    "forme": [
+      "avant que / à moins que / de peur que + (**ne**) + subjonctif",
+      "craindre que / avoir peur que + (**ne**) + subjonctif",
+      "plus / moins / autre… que + (**ne**) + indicatif"
+    ],
+    "exemples": [
+      {
+        "fr": "Je crains qu'il ne soit déjà trop tard.",
+        "en": "I fear it may already be too late."
+      },
+      {
+        "fr": "Nous signerons demain, à moins que la direction ne change d'avis.",
+        "en": "We will sign tomorrow, unless management changes its mind."
+      },
+      {
+        "fr": "Il a fermé la fenêtre de peur que les papiers ne s'envolent.",
+        "en": "He closed the window for fear the papers would blow away."
+      },
+      {
+        "fr": "La réforme coûtera plus cher que le gouvernement ne l'avait annoncé.",
+        "en": "The reform will cost more than the government had announced."
+      }
+    ],
+    "pieges": [
+      "Le ne explétif n'est pas une négation : « Je crains qu'il **ne** vienne » = j'ai peur qu'il vienne ; pour la négation, il faut **ne… pas** : « Je crains qu'il ne vienne **pas** ».",
+      "Ne l'employez pas après **sans que** ni **après que**, selon la norme : ~~sans qu'il ne le sache~~ → sans qu'il le **sache**."
+    ],
+    "astuce": "Pour vérifier, supprimez le ne : si le sens reste identique, c'est un ne explétif."
+  },
+  "phrase-hypothese-avancee": {
+    "intro": "Au-delà de « si » et « à condition que », le français soutenu dispose de locutions qui nuancent l'hypothèse : concession, condition minimale, supposition douteuse. Elles sont précieuses dans l'argumentation écrite.",
+    "regles": [
+      "**Quand bien même** + conditionnel : hypothèse concessive, « même si ». « Quand bien même il s'excuserait, je ne lui ferais plus confiance. »",
+      "**Pour peu que** + subjonctif : une condition minimale suffit. « Pour peu qu'il fasse beau, la terrasse sera pleine. »",
+      "**À supposer que / en supposant que / en admettant que** + subjonctif : on imagine une situation pour en examiner les conséquences.",
+      "**Si tant est que** + subjonctif : condition dont on doute fortement. « Il réussira, si tant est qu'il travaille. »",
+      "Registre **soutenu** (essai, presse d'opinion, discours) : à **employer activement** à l'écrit ; à l'oral, préférer « même si » ou « si jamais »."
+    ],
+    "forme": [
+      "quand bien même + conditionnel",
+      "pour peu que / à supposer que / si tant est que + subjonctif",
+      "au cas où + conditionnel"
+    ],
+    "exemples": [
+      {
+        "fr": "Quand bien même la loi serait votée, elle resterait inapplicable.",
+        "en": "Even if the law were passed, it would remain unenforceable."
+      },
+      {
+        "fr": "Pour peu qu'on l'encourage, cet élève peut faire des merveilles.",
+        "en": "With just a little encouragement, this pupil can work wonders."
+      },
+      {
+        "fr": "À supposer que les chiffres soient exacts, le déficit aurait doublé.",
+        "en": "Assuming the figures are accurate, the deficit has apparently doubled."
+      },
+      {
+        "fr": "Le projet sera prêt en juin, si tant est que les crédits arrivent à temps.",
+        "en": "The project will be ready in June, provided the funding actually arrives in time."
+      }
+    ],
+    "pieges": [
+      "~~Quand bien même il vienne~~ → quand bien même il **viendrait** (conditionnel, pas subjonctif).",
+      "~~Si tant est qu'il est d'accord~~ → si tant est qu'il **soit** d'accord ; de même ~~au cas où il pleuve~~ → au cas où il **pleuvrait**."
+    ],
+    "astuce": "Si tant est que exprime un doute ironique : c'est une façon polie de dire « ce qui n'est pas sûr du tout »."
+  },
+  "disc-passif-effacement": {
+    "intro": "Effacer l'agent, c'est décrire un fait sans dire qui en est responsable. C'est un choix stylistique fréquent dans la presse, l'administration et le discours politique, qu'il faut savoir **repérer** et **utiliser** consciemment.",
+    "regles": [
+      "**Passif sans agent** : « Des erreurs ont été commises. » Le complément « par… » disparaît ; on ne sait pas qui a agi.",
+      "**On** indéfini : « On a fermé l'usine. » L'agent existe mais reste vague.",
+      "**Tournures impersonnelles** : « Il a été décidé que… », « Il est prévu de… » : la décision semble venir de nulle part.",
+      "**Pronominal à sens passif** et **nominalisation** : « Le projet s'est arrêté », « La fermeture du site a été annoncée » : l'action devient un événement sans auteur.",
+      "En lecture critique, demandez-vous toujours **qui** est effacé et **pourquoi** ; en rédaction, réservez ces tournures aux cas où l'agent est inconnu, évident ou volontairement secondaire."
+    ],
+    "forme": [
+      "être + participe passé (sans « par »)",
+      "il a été + participe passé + que / de",
+      "se + verbe à sens passif (se vendre, se décider)"
+    ],
+    "exemples": [
+      {
+        "fr": "Des tirs ont été entendus près de la frontière dans la nuit.",
+        "en": "Shots were heard near the border during the night."
+      },
+      {
+        "fr": "Il a été décidé de reporter la réunion à une date ultérieure.",
+        "en": "It has been decided to postpone the meeting to a later date."
+      },
+      {
+        "fr": "Des erreurs ont pu être commises dans la gestion du dossier.",
+        "en": "Mistakes may have been made in handling the case."
+      },
+      {
+        "fr": "La suppression de deux cents postes a été annoncée hier.",
+        "en": "The cutting of two hundred jobs was announced yesterday."
+      }
+    ],
+    "pieges": [
+      "Dans la tournure impersonnelle, tout reste au masculin singulier : ~~il ont été décidées des mesures~~ → il **a été décidé** des mesures / des mesures **ont été décidées**.",
+      "Le « on » du passif effacé n'est pas le « on » = nous : « On a licencié vingt salariés » ne veut pas dire que le locuteur a licencié."
+    ]
+  },
+  "disc-modalisation": {
+    "intro": "Modaliser, c'est indiquer son degré de certitude ou sa distance par rapport à ce qu'on affirme. C'est indispensable dans la presse, l'essai et toute prise de parole nuancée.",
+    "regles": [
+      "**Conditionnel journalistique** : une information non confirmée. « Le suspect **aurait** quitté le pays » = selon certaines sources, sans garantie.",
+      "**Adverbes** de probabilité : sans doute, probablement, vraisemblablement, apparemment, certainement. Leur force varie : vraisemblablement est plus prudent que certainement.",
+      "**Verbes et locutions** : sembler, paraître, il semblerait que, il y a de fortes chances pour que + subjonctif ; **il paraît que** rapporte une rumeur.",
+      "**Source explicite** : selon, d'après, aux dires de, de l'aveu même de… permettent de ne pas prendre l'information à son compte.",
+      "Registre **journalistique et soutenu** : à **reconnaître** en lecture et à **employer activement** pour nuancer, sans accumuler les marques au point de ne plus rien affirmer."
+    ],
+    "forme": [
+      "conditionnel présent / passé = information non vérifiée",
+      "il semble que + indicatif ou subjonctif ; il me semble que + indicatif",
+      "il y a de fortes chances pour que + subjonctif"
+    ],
+    "exemples": [
+      {
+        "fr": "L'incendie aurait été provoqué par un court-circuit, selon les premiers éléments de l'enquête.",
+        "en": "According to the initial findings of the investigation, the fire was reportedly caused by a short circuit."
+      },
+      {
+        "fr": "Les négociations reprendront vraisemblablement la semaine prochaine.",
+        "en": "Negotiations will in all likelihood resume next week."
+      },
+      {
+        "fr": "Il paraît que le directeur va démissionner.",
+        "en": "Apparently the director is going to resign."
+      },
+      {
+        "fr": "Cette mesure peut sembler injuste, mais elle répond à une urgence réelle.",
+        "en": "This measure may seem unfair, but it responds to a genuine emergency."
+      }
+    ],
+    "pieges": [
+      "**Sans doute** = probablement, pas « sans aucun doute » : pour la certitude, dites **sans aucun doute** ou **assurément**.",
+      "Le conditionnel journalistique n'est pas une hypothèse : « Le ministre aurait menti » ne signifie pas ~~il mentirait si…~~ mais **on dit qu'il a menti**."
+    ]
+  },
+  "disc-inversion-stylistique": {
+    "intro": "Dans une phrase déclarative, le sujet peut se placer après le verbe pour des raisons de style ou après certains adverbes en tête de phrase. Cette inversion est typique de l'**écrit soutenu** : presse, essais, littérature.",
+    "regles": [
+      "Après **peut-être, sans doute, aussi** (= donc), **à peine, ainsi, encore** (= pourtant), **du moins, tout au plus** en tête de phrase : « Peut-être **viendra-t-il**. » Si le sujet est un nom, on le reprend par un pronom : « Peut-être Paul viendra-t-il. »",
+      "Inversion simple dans les **relatives** et **comparatives**, pour équilibrer la phrase : « la maison qu'**habitait** mon grand-père ».",
+      "Verbe d'existence ou de succession en tête : « **Reste** à savoir… », « **Viennent** ensuite les questions financières », « Ainsi **naquit** le projet ».",
+      "Dans les **incises** du discours rapporté, l'inversion est obligatoire : « Je refuse, **déclare-t-elle**. »",
+      "À **reconnaître** et à **produire** à l'écrit soutenu ; à l'oral, on préfère **peut-être que / sans doute que** + ordre normal."
+    ],
+    "forme": [
+      "peut-être / sans doute / aussi / à peine + verbe + -t- + pronom",
+      "adverbe + nom sujet + verbe + pronom de reprise (inversion complexe)",
+      "reste / restent / viennent + sujet"
+    ],
+    "exemples": [
+      {
+        "fr": "Sans doute faudra-t-il revoir l'ensemble du projet.",
+        "en": "No doubt the whole project will have to be reviewed."
+      },
+      {
+        "fr": "À peine le ministre avait-il pris la parole que la salle se mit à siffler.",
+        "en": "The minister had barely begun to speak when the audience started booing."
+      },
+      {
+        "fr": "Les sondages étaient mauvais ; aussi le candidat a-t-il changé de stratégie.",
+        "en": "The polls were bad, so the candidate changed his strategy."
+      },
+      {
+        "fr": "Restent deux questions que le rapport laisse sans réponse.",
+        "en": "There remain two questions that the report leaves unanswered."
+      }
+    ],
+    "pieges": [
+      "~~Peut-être il viendra~~ → Peut-être **viendra-t-il** ou Peut-être **qu'il** viendra.",
+      "**Aussi** en tête de phrase signifie **donc** et entraîne l'inversion : ~~Aussi il est parti~~ (= lui aussi ?) → Aussi **est-il** parti."
+    ],
+    "astuce": "Mettez peut-être ou sans doute après le verbe (« Il viendra peut-être ») pour éviter l'inversion sans perdre en correction."
+  },
+  "disc-argumenter": {
+    "intro": "Construire une argumentation, c'est organiser sa pensée de la thèse à la conclusion en guidant le lecteur avec des connecteurs précis. C'est la compétence centrale de l'essai, de la synthèse et du débat au niveau C1.",
+    "regles": [
+      "Structure type : **thèse** (ce que je défends), **arguments** illustrés par des exemples, **concession** (je reconnais une part de vérité à l'adversaire), **réfutation**, puis **conclusion** qui répond nettement à la question.",
+      "La concession prépare la réfutation : **certes / il est vrai que / sans doute… mais / toutefois / il n'en reste pas moins que**.",
+      "Pour réfuter ou relancer : **or** introduit un fait qui contredit ou complète le raisonnement ; **en réalité, loin de, contrairement à ce que l'on pourrait croire**.",
+      "Pour conclure : **en définitive, somme toute, dès lors, c'est pourquoi**. Évitez « en conclusion » répété mécaniquement.",
+      "Registre **soutenu** : à **produire activement** à l'écrit comme à l'oral formel ; variez les connecteurs et vérifiez que chacun exprime le vrai lien logique."
+    ],
+    "forme": [
+      "certes X, mais Y / il est vrai que X ; toutefois Y",
+      "X ; or Y ; donc Z (raisonnement en trois temps)",
+      "d'une part… d'autre part ; non seulement… mais encore"
+    ],
+    "exemples": [
+      {
+        "fr": "Certes, le télétravail réduit les déplacements ; il n'en reste pas moins qu'il isole les salariés.",
+        "en": "Admittedly, remote work reduces commuting; the fact remains that it isolates employees."
+      },
+      {
+        "fr": "Tout citoyen doit payer l'impôt ; or ces entreprises y échappent légalement : la loi est donc en cause.",
+        "en": "Every citizen must pay taxes; yet these companies avoid them legally, so the law itself is at fault."
+      },
+      {
+        "fr": "Loin de freiner la croissance, cette mesure pourrait la stimuler.",
+        "en": "Far from slowing growth, this measure could stimulate it."
+      },
+      {
+        "fr": "En définitive, la question n'est pas de savoir si l'on doit agir, mais comment.",
+        "en": "Ultimately, the question is not whether we should act, but how."
+      }
+    ],
+    "pieges": [
+      "**En effet** justifie ce qui précède, il ne signifie pas « en fait » ni « vraiment » : ~~En effet, je ne suis pas d'accord~~ → **En fait**, je ne suis pas d'accord.",
+      "**Or** ≠ « ou » ni « donc » : il introduit un nouvel élément qui fait progresser ou retourne le raisonnement.",
+      "À l'écrit soutenu, préférez **en revanche** à **par contre**, jugé plus familier."
+    ]
+  },
+  "disc-reformuler": {
+    "intro": "Reformuler permet de préciser, corriger ou condenser un propos ; résumer, c'est en garder l'essentiel en moins de mots. Ces compétences sont essentielles à l'oral comme dans les épreuves de synthèse.",
+    "regles": [
+      "Pour **expliciter** : c'est-à-dire, autrement dit, en d'autres termes, **à savoir** (introduit une liste ou une précision exacte), **soit** (définition, calcul).",
+      "Pour **corriger ou renchérir** : ou plutôt, du moins, plus exactement, **voire** (et même).",
+      "Pour **condenser** : bref, en somme, en un mot, pour résumer, en résumé. **Bref** est plus familier ; à l'écrit soutenu, préférez **en somme** ou **en définitive**.",
+      "Résumer un texte : suivre l'ordre des idées, **ne pas citer**, ne rien ajouter ni commenter, remplacer les exemples par l'idée générale, utiliser la **nominalisation** pour gagner des mots.",
+      "Registre **courant à soutenu** : à **employer activement**, à l'oral (pour se faire comprendre) comme à l'écrit."
+    ],
+    "forme": [
+      "X, autrement dit / en d'autres termes Y",
+      "X, voire Y (Y est plus fort que X)",
+      "X, à savoir A, B et C"
+    ],
+    "exemples": [
+      {
+        "fr": "Le projet est suspendu, autrement dit il ne verra probablement jamais le jour.",
+        "en": "The project has been suspended; in other words, it will probably never see the light of day."
+      },
+      {
+        "fr": "Cette réforme est inutile, voire dangereuse.",
+        "en": "This reform is pointless, even dangerous."
+      },
+      {
+        "fr": "Trois pays ont refusé de signer, à savoir la Hongrie, la Pologne et l'Autriche.",
+        "en": "Three countries refused to sign, namely Hungary, Poland and Austria."
+      },
+      {
+        "fr": "Les prix montent, les salaires stagnent, les loyers explosent : en somme, le pouvoir d'achat recule.",
+        "en": "Prices are rising, wages are stagnating and rents are soaring: in short, purchasing power is falling."
+      }
+    ],
+    "pieges": [
+      "~~Voir même~~ → **voire** (sans e de « voir », et « voire même » est jugé redondant).",
+      "Dans une dissertation ou une synthèse, **bref** sonne familier : ~~Bref, la réforme a échoué~~ → **En somme**, la réforme a échoué."
+    ],
+    "astuce": "Dans un résumé, chaque paragraphe du texte source doit tenir en une ou deux phrases : identifiez d'abord son idée principale, puis reformulez-la sans regarder le texte."
+  }
+}
