@@ -81,6 +81,7 @@ needed when a badge intervenes between the term and the button.
 ```html
 <div class="exo"><script type="application/json">{
   "id": "xx-b1-1",
+  "concepts": ["pron-y-en"],       // curriculum ids practised; [] = vocab only (tools/tag_grammar.py)
   "type": "match" | "fill" | "choice",
   "title": "Exercice 1 — …",
   "instructions": "…",            // optional
@@ -104,8 +105,13 @@ needed when a badge intervenes between the term and the button.
 - **choice** = `<select>` dropdowns; auto-checks on change; multiple accepted
   values allowed in `correct`.
 - Every block renders **Corriger / Recommencer** + a score line, and dispatches
-  `document` event `exo-graded` `{id, type, score, total, almost}` — the future
-  progress-tracking hook.
+  `document` event `exo-graded` `{id, type, score, total, almost, answered,
+  first, firstAlmost, revealed, round}`. `score` is what the screen shows;
+  `first` = items right on the **first try** of the current `round` (render or
+  « Recommencer » → next reset): an item's verdict is fixed the first time its
+  answer is revealed — fill/match reveal every item on the first check (blanks
+  count as wrong), choice reveals one item per selection (it fires on every
+  change). `revealed` = items whose verdict is fixed. `srs.js` records it — §8.
 
 ## 5. Per-lesson data — `content/<slug>/`
 
@@ -143,7 +149,23 @@ the "Leçons" side-panel block + footer line into **every** registered page
 
 - Storage: localStorage key `fr-lessons-progress-v1`, doc =
   `{v, created, lastOpen, items: {"<lessonFile>|<data-say>": {st, due, ivl,
-  ease, reps, lapses, last, meta}}, removed: {key: ts}, activity: [...]}`.
+  ease, reps, lapses, last, meta}}, removed: {key: ts}, activity: [...],
+  exo: {"<lessonFile>|<exoId>": [attempt, …]}}`.
+- Exercise attempts (`doc.exo`, last 10 per exercise, outside the 800-entry
+  activity cap): one attempt = one sitting `{t, last, round, score, total,
+  almost, partial?, retries?}`. A sitting = an exos.js round, extended by any
+  event on that exercise < 15 min after the sitting's latest event. Its score
+  is the first round's `first` (never raised by peeking, completing after a
+  correction, or resetting and redoing — those count as `retries`); `partial`
+  until every item has been revealed. Events without a round (older pages):
+  15-min window, first complete answer freezes the score. Merge = per attempt
+  start `t`, latest `last` wins; `wipedAt` respected; legacy `activity` exo
+  events are backfilled on load and merge (idempotent).
+- Mastery: `SRS.mastery(doc, map)` → `{conceptId: {state 0–4, label, stale,
+  attempts, partial, acc, cards, ivl, last}}`; `map` (exercise key / grammar
+  card key → concept ids) is embedded in `parcours.html` (`#gp-data`) by
+  `tools/build_roadmap.py`. Rules in README « Grammar roadmap ».
+- `progres.html#sync` opens the Google sync panel (link target used by parcours).
 - Item sources: cards enter the deck **explicitly** — nothing registers on page
   open or level change. Two triggers: (a) clicking a `.say` on a vocab row /
   expression card adds that one card; (b) the « + Ajouter ces N … » button that
@@ -158,6 +180,17 @@ the "Leçons" side-panel block + footer line into **every** registered page
   (`type: grammaire`, key `gram:<level>:<G#>`, e.g. `gram:a2:G1`). Front = the
   grammar title; back = the plain-text rule, formula and examples extracted
   from the box (bullets `• `, table rows joined with ` — `); no audio.
+- Curriculum: every grammar `<h3>` carries `data-gp="<id> [<id>…]"`, ids from
+  `content/curriculum.json` (canonical CEFR inventory A1–C2: id, level,
+  category, title, summary, prereq). The concept level is the CEFR level, not
+  the parcours where a lesson happens to teach it (*y* is taught in an A2
+  parcours but `pron-y-en` is B1). Tags are set by `tools/tag_grammar.py`
+  (mapping table, idempotent, `--check`); `build_review.py` copies them into
+  the catalogue as `gp`; each tagged `<h3>` also gets `id="gram-<lv>-<G#>"`,
+  the deep-link anchor used by `parcours.html`. Checked by `tools/test_curriculum.js`.
+- Lesson URLs accept `?niveau=<lv>` (e.g. `lecon-ai.html?niveau=b1#gram-b1-G2`):
+  the level script selects that parcours before scrolling to the anchor
+  (`tools/framework/script.html`).
 - `progres.html` never auto-registers either: an empty deck shows a button to
   add the whole catalog (239 cards), and a « Réinitialiser » button clears the
   local doc.

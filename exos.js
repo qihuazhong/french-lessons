@@ -75,7 +75,18 @@
     return { check: check, reset: reset, score: score };
   }
 
-  function report(scoreEl, spec, ok, total, almost, open) {
+  // A "round" = one pass at one exercise block: from render (page load) or
+  // « Recommencer » to the next reset. `first` = items right on the first try
+  // in this round (an item's verdict is fixed the first time its answer is
+  // revealed), so peeking at corrections cannot raise it. `revealed` = items
+  // whose verdict is fixed: fill/match reveal every item on the first check
+  // (blanks count as wrong), choice reveals one item per selection.
+  var PAGE_ID = Date.now().toString(36);
+  var roundSeq = 0;
+  function newRound() { roundSeq++; return PAGE_ID + '-' + roundSeq; }
+
+  function report(scoreEl, spec, ok, total, almost, open, x) {
+    x = x || {};
     var txt = 'Score : ' + ok + '/' + total;
     if (almost > 0) txt += ' · ' + almost + ' presque (orthographe)';
     if (open > 0) txt += ' · +' + open + ' à comparer';
@@ -84,7 +95,11 @@
     scoreEl.className = 'exo-score ' + (total > 0 && ok === total ? 'good' : 'bad');
     try {
       document.dispatchEvent(new CustomEvent('exo-graded', {
-        detail: { id: spec.id || null, type: spec.type, score: ok, total: total, almost: almost }
+        detail: { id: spec.id || null, type: spec.type, score: ok, total: total, almost: almost,
+                  answered: x.answered == null ? total : x.answered,
+                  first: x.first == null ? ok : x.first, firstAlmost: x.firstAlmost || 0,
+                  revealed: x.revealed == null ? total : x.revealed,
+                  round: x.round || null }
       }));
     } catch (e) {}
   }
@@ -108,6 +123,7 @@
     var colR = el('div', 'm-col');
     var items = { L: [], R: [] };
     var hints = {};
+    var round = newRound();
 
     function numberFor(li) {
       return pairList.indexOf(li) + 1;
@@ -236,11 +252,13 @@
         }
         items.R[i].classList.add(owner === pk ? 'ok' : 'ko');
       }
-      report(ui.score, spec, ok, n, 0, 0);
+      // locked after a check until « Recommencer » → this check is the first try of the round
+      report(ui.score, spec, ok, n, 0, 0, { answered: Object.keys(assign).length, first: ok, revealed: n, round: round });
     }
 
     function onReset() {
       locked = false;
+      round = newRound();
       assign = {};
       pairList = [];
       pending = null;
@@ -259,6 +277,7 @@
   }
 
   function renderFill(root, spec) {
+    var fillRound = newRound();
     head(root, spec);
     var items = [];
     var body = el('div', 'exo-fill');
@@ -307,7 +326,7 @@
     var ui = actions(root, onCheck, onReset);
 
     function onCheck() {
-      var ok = 0, almost = 0, open = 0, graded = 0;
+      var ok = 0, almost = 0, open = 0, graded = 0, answered = 0, first = 0, firstAlmost = 0;
       items.forEach(function (rec) {
         rec.row.classList.remove('ok', 'almost', 'ko', 'info');
         var v = verdict(rec.input.value, rec.accepted.length ? rec.accepted : ['']);
@@ -323,6 +342,10 @@
           return;
         }
         graded++;
+        if (norm(rec.input.value)) answered++;
+        if (rec.first == null) rec.first = v.state; // every row's answer is shown now
+        if (rec.first === 'ok') first++;
+        else if (rec.first === 'almost') firstAlmost++;
         if (v.state === 'ok') {
           ok++;
           rec.row.classList.add('ok');
@@ -336,11 +359,14 @@
           rec.fb.textContent = rec.input.value.trim() ? '→ ' + v.correct : '→ ' + v.correct;
         }
       });
-      report(ui.score, spec, ok, graded, almost, open);
+      report(ui.score, spec, ok, graded, almost, open,
+        { answered: answered, first: first, firstAlmost: firstAlmost, revealed: graded, round: fillRound });
     }
 
     function onReset() {
+      fillRound = newRound();
       items.forEach(function (rec) {
+        rec.first = null;
         rec.input.value = '';
         rec.row.classList.remove('ok', 'almost', 'ko', 'info');
         rec.fb.textContent = '';
@@ -352,6 +378,7 @@
   }
 
   function renderChoice(root, spec) {
+    var choiceRound = newRound();
     head(root, spec);
     var items = [];
     var body = el('div', 'exo-choice');
@@ -392,10 +419,14 @@
     var ui = actions(root, onCheck, onReset);
 
     function onCheck() {
-      var ok = 0;
+      var ok = 0, answered = 0, first = 0, revealed = 0;
       items.forEach(function (rec) {
         rec.row.classList.remove('ok', 'ko');
         var v = rec.sel.value;
+        if (v) answered++;
+        if (v && rec.first == null) rec.first = rec.correct.indexOf(v) >= 0 ? 1 : 0; // revealed now
+        if (rec.first === 1) first++;
+        if (rec.first != null) revealed++;
         if (!v) {
           rec.fb.textContent = '';
           return;
@@ -409,11 +440,13 @@
           rec.fb.textContent = '→ ' + rec.correct[0];
         }
       });
-      report(ui.score, spec, ok, items.length, 0, 0);
+      report(ui.score, spec, ok, items.length, 0, 0, { answered: answered, first: first, revealed: revealed, round: choiceRound });
     }
 
     function onReset() {
+      choiceRound = newRound();
       items.forEach(function (rec) {
+        rec.first = null;
         rec.sel.selectedIndex = 0;
         rec.row.classList.remove('ok', 'ko');
         rec.fb.textContent = '';

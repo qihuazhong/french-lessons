@@ -540,6 +540,7 @@
   <div class="sp-title" style="margin-top:.6rem;border-top:1px solid var(--bordure);padding-top:.6rem;">Leçons</div>
   <nav>
       <a href="progres.html">Mes progrès</a>
+      <a href="parcours.html">Parcours A1 → C2</a>
       <a href="index.html">Toutes les leçons</a>
       <a href="lecon-opinions-impopulaires.html">259 · Les opinions impopulaires</a>
       <a href="lecon-ai.html">199 · L'IA au quotidien</a>
@@ -810,7 +811,7 @@
   <h2><span class="num">4</span>Grammaire</h2>
 
   <div data-lv="a2">
-    <h3>G1 — Le pronom y : y aller, y penser</h3>
+    <h3 id="gram-a2-G1" data-gp="pronoms-y-lieu pron-y-en">G1 — Le pronom y : y aller, y penser</h3>
     <div class="gram-box">
       <p><b>y</b> remplace un lieu ou une idée déjà connue (« à ça », « à cet endroit »). Il se place <b>devant le verbe</b>.</p>
       <div class="formule">aller + y → y aller / penser + y → y penser</div>
@@ -819,7 +820,7 @@
         <li>« Elle veut même pas <b>y</b> penser. » (= penser à ça)</li>
       </ul>
     </div>
-    <h3>G2 — Le passé composé des verbes du quotidien</h3>
+    <h3 id="gram-a2-G2" data-gp="temps-passe-compose">G2 — Le passé composé des verbes du quotidien</h3>
     <div class="gram-box">
       <p>La chanson raconte avec des verbes très courants : <b>sourire</b> (avec avoir), <b>descendre</b> (avec être !) et <b>revoir</b>.</p>
       <ul class="compact">
@@ -832,7 +833,7 @@
   </div>
 
   <div data-lv="b1" hidden>
-    <h3>G1 — Le conditionnel passé : il aurait dû… (le regret)</h3>
+    <h3 id="gram-b1-G1" data-gp="cond-passe">G1 — Le conditionnel passé : il aurait dû… (le regret)</h3>
     <div class="gram-box">
       <p>Toute la chanson tourne autour de cette structure. Formation : <b>avoir au conditionnel + dû + infinitif</b>.</p>
       <div class="formule">il aurait dû y aller / elle aurait dû le faire</div>
@@ -847,7 +848,7 @@
       </table>
       <p>Les petits pronoms (y, le, la) se placent <b>devant l'infinitif</b> : « il aurait dû <b>y</b> aller », « elle aurait dû <b>le</b> faire ».</p>
     </div>
-    <h3>G2 — Le présent de narration</h3>
+    <h3 id="gram-b1-G2" data-gp="temps-present-narration">G2 — Le présent de narration</h3>
     <div class="gram-box">
       <p>Pour raconter une histoire de façon vivante, on peut tout dire au <b>présent</b> — même des choses passées. La chanson le fait :</p>
       <ul class="compact">
@@ -859,7 +860,7 @@
   </div>
 
   <div data-lv="b2" hidden>
-    <h3>G1 — Les métaphores du quotidien</h3>
+    <h3 id="gram-b2-G1" data-gp="disc-metaphores">G1 — Les métaphores du quotidien</h3>
     <div class="gram-box">
       <p>La chanson transforme des images simples en émotions. Table des métaphores :</p>
       <table>
@@ -872,7 +873,7 @@
         <tr><td>« le monde est à ses pieds »</td><td class="ex">Elle pourrait tout réussir, tout le monde l'admire.</td></tr>
       </table>
     </div>
-    <h3>G2 — Remords ou regrets ?</h3>
+    <h3 id="gram-b2-G2" data-gp="disc-nuances-sens">G2 — Remords ou regrets ?</h3>
     <div class="gram-box">
       <p>La phrase finale joue sur une différence importante :</p>
       <ul class="compact">
@@ -881,7 +882,7 @@
       </ul>
       <p>Le message de la chanson : entre les deux, <b>vaut mieux agir</b> et vivre avec des remords, que rester passif et vivre avec des regrets.</p>
     </div>
-    <h3>G3 — « Vaut mieux X que Y »</h3>
+    <h3 id="gram-b2-G3" data-gp="disc-preference">G3 — « Vaut mieux X que Y »</h3>
     <div class="gram-box">
       <p>Comparer deux actions avec des infinitifs (à l'oral, on omet « il ») :</p>
       <div class="formule">(Il) vaut mieux + infinitif + que + infinitif</div>
@@ -941,6 +942,7 @@
   <div data-lv="a2">
     <div class="exo"><script type="application/json">{
       "id": "do-a2-1",
+      "concepts": [],
       "type": "match",
       "title": "Exercice 1 — Associez le mot à sa définition",
       "instructions": "Cliquez un mot, puis sa définition. Cliquez une paire pour la défaire.",
@@ -955,6 +957,7 @@
 
     <div class="exo"><script type="application/json">{
       "id": "do-a2-2",
+      "concepts": ["pronoms-y-lieu", "pron-y-en", "pronoms-cod-coi"],
       "type": "choice",
       "title": "Exercice 2 — y, le ou les ?",
       "instructions": "Choisissez le bon pronom.",
@@ -968,6 +971,7 @@
 
     <div class="exo"><script type="application/json">{
       "id": "do-a2-3",
+      "concepts": ["temps-passe-compose"],
       "type": "fill",
       "title": "Exercice 3 — Le passé composé de la chanson",
       "instructions": "Complétez (attention aux auxiliaires et aux accords).",
@@ -981,6 +985,7 @@
   <div data-lv="b1" hidden>
     <div class="exo"><script type="application/json">{
       "id": "do-b1-1",
+      "concepts": [],
       "type": "match",
       "title": "Exercice 1 — Associez le mot à sa définition",
       "instructions": "Cliquez un mot, puis sa définition. Cliquez une paire pour la défaire.",
@@ -999,6 +1004,7 @@
 
     <div class="exo"><script type="application/json">{
       "id": "do-b1-2",
+      "concepts": ["cond-passe"],
       "type": "fill",
       "title": "Exercice 2 — Le regret : il aurait dû…",
       "instructions": "Complétez avec le conditionnel passé de « devoir » (aurais / aurait / aurions… + dû).",
@@ -1012,6 +1018,7 @@
 
     <div class="exo"><script type="application/json">{
       "id": "do-b1-3",
+      "concepts": ["temps-present-narration"],
       "type": "fill",
       "title": "Exercice 3 — Le présent de narration",
       "instructions": "Racontez au présent, comme la chanson.",
@@ -1025,6 +1032,7 @@
   <div data-lv="b2" hidden>
     <div class="exo"><script type="application/json">{
       "id": "do-b2-1",
+      "concepts": ["disc-metaphores"],
       "type": "match",
       "title": "Exercice 1 — Associez la métaphore à son sens",
       "instructions": "Cliquez l'image, puis ce qu'elle veut dire. Cliquez une paire pour la défaire.",
@@ -1037,6 +1045,7 @@
 
     <div class="exo"><script type="application/json">{
       "id": "do-b2-2",
+      "concepts": ["disc-nuances-sens"],
       "type": "choice",
       "title": "Exercice 2 — Remords ou regrets ?",
       "instructions": "Choisissez le mot qui convient.",
@@ -1050,6 +1059,7 @@
 
     <div class="exo"><script type="application/json">{
       "id": "do-b2-3",
+      "concepts": ["disc-preference"],
       "type": "fill",
       "title": "Exercice 3 — Vaut mieux… que…",
       "instructions": "Complétez ou reformulez avec « vaut mieux… que… ».",
@@ -1122,7 +1132,7 @@
   <div class="tricolore"></div>
   <p><strong>Sources :</strong> chanson « Dommage » de Bigflo &amp; Oli (extrait officiel) — <a href="https://www.youtube.com/watch?v=8AF-Sm8d8yk">youtube.com/watch?v=8AF-Sm8d8yk</a>. Paroles citées à des fins pédagogiques ; extraits audio alignés sur les sous-titres officiels.</p>
   <p>Un contenu adapté à votre niveau : changez de parcours (A2 · B1 · B2) à tout moment. Fichiers associés : <code>transcript-dommage.txt</code>, <code>transcript-dommage.json</code>, <code>audio-dommage/</code> (extraits), <code>video_src-dommage/lesson_video.mp4</code> (vidéo locale).</p><!--LESSONS_NAV_FOOT-->
-  <p style="margin-top:.6rem;">Autres leçons : <a href="progres.html">Mes progrès</a> · <a href="index.html">Toutes les leçons</a> · <a href="lecon-opinions-impopulaires.html">259 · Les opinions impopulaires</a> · <a href="lecon-ai.html">199 · L'IA au quotidien</a> · <a href="lecon-france.html">Actualité · La colère des lycéens</a></p>
+  <p style="margin-top:.6rem;">Autres leçons : <a href="progres.html">Mes progrès</a> · <a href="parcours.html">Parcours A1 → C2</a> · <a href="index.html">Toutes les leçons</a> · <a href="lecon-opinions-impopulaires.html">259 · Les opinions impopulaires</a> · <a href="lecon-ai.html">199 · L'IA au quotidien</a> · <a href="lecon-france.html">Actualité · La colère des lycéens</a></p>
   <!--/LESSONS_NAV_FOOT-->
 </footer>
 
@@ -1137,7 +1147,14 @@
   radios.forEach(function (r) {
     r.addEventListener('change', function () { applyLevel(r.value); });
   });
-  applyLevel(document.querySelector("input[name='niveau']:checked").value);
+  (function () {
+    var q = /[?&]niveau=([a-z0-9]+)/.exec(location.search);
+    var r = q && document.querySelector("input[name='niveau'][value='" + q[1] + "']");
+    if (r) r.checked = true;
+    applyLevel(document.querySelector("input[name='niveau']:checked").value);
+    var target = location.hash && document.getElementById(location.hash.slice(1));
+    if (r && target) setTimeout(function () { target.scrollIntoView(); }, 0);
+  })();
 
   var panel = document.getElementById('sidepanel');
   var toggle = document.getElementById('spToggle');

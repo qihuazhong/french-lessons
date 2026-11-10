@@ -5,7 +5,8 @@ For every registered lesson page this injects (idempotently, between markers):
   - a "Leçons" block at the bottom of the floating Sommaire side panel
     (index link + all other lessons)
   - an "Autres leçons" line in the footer
-and regenerates the index.html landing page listing all lessons.
+and regenerates the index.html landing page listing all lessons, the review
+deck (progres.html) and the grammar roadmap (parcours.html).
 
 Adding a future lesson: append one entry to lessons.json, run
 `python3 add_lessons_nav.py`, done — every page and the index refresh.
@@ -30,7 +31,8 @@ def strip_marked(src, start, end):
 
 
 def side_block(others):
-    links = ['<a href="progres.html">Mes progrès</a>', '<a href="index.html">Toutes les leçons</a>']
+    links = ['<a href="progres.html">Mes progrès</a>', '<a href="parcours.html">Parcours A1 → C2</a>',
+             '<a href="index.html">Toutes les leçons</a>']
     links += ['<a href="%s">%s</a>' % (x['file'], esc(x['nav'])) for x in others]
     inner = '\n      '.join(links)
     return (SIDE_S +
@@ -39,7 +41,8 @@ def side_block(others):
 
 
 def foot_block(others):
-    parts = ['<a href="progres.html">Mes progrès</a>', '<a href="index.html">Toutes les leçons</a>']
+    parts = ['<a href="progres.html">Mes progrès</a>', '<a href="parcours.html">Parcours A1 → C2</a>',
+             '<a href="index.html">Toutes les leçons</a>']
     parts += ['<a href="%s">%s</a>' % (x['file'], esc(x['nav'])) for x in others]
     return (FOOT_S + '\n  <p style="margin-top:.6rem;">Autres leçons : ' +
             ' · '.join(parts) + '</p>\n  ' + FOOT_E)
@@ -142,6 +145,10 @@ def build_index(lessons):
     <span>Révisions espacées : vos mots et expressions reviennent au bon moment.</span>
     <strong>Mes progrès →</strong>
   </a>
+  <a class="review-banner" href="parcours.html">
+    <span>Le parcours de grammaire, du A1 au C2 : ce qu'il faut maîtriser à chaque niveau, et où l'étudier.</span>
+    <strong>Parcours A1 → C2 →</strong>
+  </a>
   <div class="grid">
 {cards}
   </div>
@@ -164,6 +171,8 @@ def main():
     build_index(lessons)
     import build_review
     build_review.main()
+    import build_roadmap
+    build_roadmap.main()
 
 
 if __name__ == '__main__':

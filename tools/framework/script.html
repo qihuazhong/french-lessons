@@ -9,7 +9,14 @@
   radios.forEach(function (r) {
     r.addEventListener('change', function () { applyLevel(r.value); });
   });
-  applyLevel(document.querySelector("input[name='niveau']:checked").value);
+  (function () {
+    var q = /[?&]niveau=([a-z0-9]+)/.exec(location.search);
+    var r = q && document.querySelector("input[name='niveau'][value='" + q[1] + "']");
+    if (r) r.checked = true;
+    applyLevel(document.querySelector("input[name='niveau']:checked").value);
+    var target = location.hash && document.getElementById(location.hash.slice(1));
+    if (r && target) setTimeout(function () { target.scrollIntoView(); }, 0);
+  })();
 
   var panel = document.getElementById('sidepanel');
   var toggle = document.getElementById('spToggle');

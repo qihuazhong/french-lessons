@@ -126,8 +126,9 @@ def extract_grammar(src):
     levels = [(m.start(), m.group(1)) for m in re.finditer(r'<div data-lv="(\w+)"', sec)]
     items = []
     open_tag = '<div class="gram-box">'
-    for m in re.finditer(r'<h3>(.*?)</h3>\s*' + re.escape(open_tag), sec, re.S):
+    for m in re.finditer(r'<h3(?:\s[^>]*)?>(.*?)</h3>\s*' + re.escape(open_tag), sec, re.S):
         title = plain_text(m.group(1))
+        gp = re.search(r'data-gp="([^"]*)"', m.group(0))
         label = re.match(r'(G\d+)', title)
         if not label:
             continue
@@ -140,7 +141,8 @@ def extract_grammar(src):
             'e': gram_text(box),
             'a': '',
             'lv': lv,
-            'ty': 'grammaire'
+            'ty': 'grammaire',
+            'gp': gp.group(1).split() if gp else []
         })
     return items
 
@@ -296,7 +298,7 @@ TEMPLATE = '''<!DOCTYPE html>
     <p class="kicker">Français avec un tuteur · Révisions</p>
     <h1>Mes progrès</h1>
     <p>Vos mots et expressions passent en révision espacée : chaque carte revient juste avant que vous ne l'oubliez.
-    Vos données restent dans ce navigateur (et peuvent se synchroniser, ci-dessous). <a href="index.html">← Toutes les leçons</a></p>
+    Vos données restent dans ce navigateur (et peuvent se synchroniser, ci-dessous). <a href="index.html">← Toutes les leçons</a> · <a href="parcours.html">Parcours A1 → C2</a></p>
   </div>
 </header>
 <main>
@@ -359,7 +361,7 @@ TEMPLATE = '''<!DOCTYPE html>
     </label>
     <span id="backup-msg" class="note"></span>
     <button class="btn danger" id="reset" style="margin-left:.5rem;">Réinitialiser</button>
-    <details class="sync">
+    <details class="sync" id="sync">
       <summary>Synchronisation multi-appareils — Compte Google</summary>
       <p class="note">Connectez-vous avec Google : vos progrès sont liés à votre compte et vous suivent sur tous vos appareils
       (nécessite le Worker Cloudflare connecté, voir <code>cloudflare/README.md</code>).</p>
@@ -373,6 +375,7 @@ TEMPLATE = '''<!DOCTYPE html>
       </div>
       <span id="sync-msg" class="note"></span>
     </details>
+    <script>if (location.hash === '#sync') document.getElementById('sync').open = true;</script>
   </div>
 </main>
 <footer>Progrès stockés localement (localStorage) par <code>srs.js</code> — composant partagé, réutilisé sur chaque page de leçon.</footer>

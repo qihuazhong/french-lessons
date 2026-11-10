@@ -67,6 +67,13 @@ content following **docs/CONVENTIONS.md**. Keep all 5 parts, the
 `[[SAY2:]]`/`[[SAY:]]` placeholders, and one `data-lv` block per level per
 section.
 
+Tag every grammar point with the curriculum concept(s) it teaches: add the
+lesson to `TAGS` in `tools/tag_grammar.py` (ids from `content/curriculum.json`;
+add a new point there if none fits), then run `python3 tools/tag_grammar.py`
+— it writes `<h3 data-gp="…">` into `src/part4.html` (and the built page).
+Likewise list every exercise id in `EXO_TAGS` (`[]` for vocabulary-only
+exercises); the tool writes `"concepts": [...]` into each spec in `src/part5.html`.
+
 ## Step 5 — build the page
 
 ```bash
@@ -129,6 +136,7 @@ EOF
 node --check <(python3 -c "import re;print(re.search(r'<script>(.*?)</script>', open('lecon-<slug>.html').read(), re.S).group(1))")
 cd tools && npm i jsdom && node test_exos.js   # exercise engine smoke test (24 assertions)
 cd tools && node test_srs.js                   # révisions Anki + grammaire + retrait/merge + historique + Google (94 assertions)
+node tools/test_curriculum.js                  # curriculum A1–C2 + data-gp tags on every grammar point
 ```
 
 Spot-play a few clips: `afplay audio-<slug>/v001.m4a` — and click around in the

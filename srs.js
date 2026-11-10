@@ -10,11 +10,12 @@
   var DAY = 86400000;
   var MIN = 60000;
   var MAX_ACTIVITY = 800;
+  var MAX_EXO = 10;
 
   function now() { return Date.now(); }
 
   function emptyDoc() {
-    return { v: 1, created: now(), lastOpen: now(), items: {}, removed: {}, activity: [], priv: {} };
+    return { v: 1, created: now(), lastOpen: now(), items: {}, removed: {}, activity: [], priv: {}, exo: {} };
   }
 
   function load() {
@@ -27,6 +28,7 @@
       if (!d.priv) d.priv = {};
       var clean = dedupeActivity(d.activity);
       if (clean.length !== d.activity.length) d.activity = clean;
+      backfillExo(d);
       d.v = 1;
       return d;
     } catch (e) {
@@ -236,6 +238,169 @@
     return doc;
   }
 
+  // Exercise attempts, kept per exercise (last MAX_EXO) outside the capped
+  // activity log so mastery survives long review histories.
+  // doc.exo = { "<lessonFile>|<exoId>": [attempt, …] } where one attempt = one
+  // sitting: {t (first event), last (latest event folded in), round?, score,
+  // total, almost, partial?: 1, retries?: n}.
+  // Sitting = an exos.js "round" (page load or « Recommencer » → next reset),
+  // extended by any further event on that exercise less than EXO_SESSION after
+  // the sitting's latest event. Score = items right on the FIRST try of the
+  // sitting's first round (exos.js `first`: an item's verdict is fixed when its
+  // answer is first revealed), so peeking — then completing, or resetting and
+  // redoing — never raises it; those count as `retries`. `partial` until every
+  // item's answer has been revealed (fill/match: first check; choice: each pick).
+  // Events without a round (older pages) use the window alone, and the first
+  // complete answer freezes the score.
+  var EXO_SESSION = 15 * MIN;
+
+  function exoKey(lesson, id) { return lesson + '|' + id; }
+
+  function mergeAttempts(a, b, wiped) {
+    var byT = {};
+    (a || []).concat(b || []).forEach(function (r) {
+      if (!r || r.t == null || (wiped && r.t <= wiped)) return;
+      var cur = byT[r.t];
+      if (!cur || (r.last || r.t) > (cur.last || cur.t) ||
+          ((r.last || r.t) === (cur.last || cur.t) && cur.partial && !r.partial)) byT[r.t] = r;
+    });
+    var out = Object.keys(byT).map(function (k) { return byT[k]; });
+    out.sort(function (x, y) { return x.t - y.t; });
+    return out.slice(-MAX_EXO);
+  }
+
+  function foldExo(list, rec) {
+    var t = rec.t == null ? now() : rec.t;
+    var total = rec.total || 0;
+    var hasFirst = rec.first != null;
+    var score = hasFirst ? rec.first : (rec.score || 0);
+    var almost = hasFirst ? (rec.firstAlmost || 0) : (rec.almost || 0);
+    var legacy = rec.answered == null && rec.revealed == null;
+    var done = rec.revealed != null ? rec.revealed : rec.answered;
+    var complete = legacy || done >= total;
+    var last = list.length ? list[list.length - 1] : null;
+    var lastT = last ? (last.last || last.t) : 0;
+    var sameRound = !!(rec.round && last && last.round === rec.round);
+    var inWindow = !!(last && t >= last.t && t - lastT < EXO_SESSION);
+    if (sameRound || inWindow) {
+      last.last = Math.max(lastT, t);
+      var wasComplete = !last.partial;
+      // A new round right after the previous one (reset and redo with the
+      // corrections fresh in mind) is a retry: it never replaces the score.
+      var update = sameRound || (!rec.round && !last.round && (last.partial || legacy));
+      if (update) {
+        last.score = score; last.total = total; last.almost = almost;
+        if (complete) delete last.partial;
+        if (wasComplete && !legacy) last.retries = (last.retries || 0) + 1;
+      } else {
+        last.retries = (last.retries || 0) + 1;
+      }
+      return list;
+    }
+    var a = { t: t, last: t, score: score, total: total, almost: almost };
+    if (rec.round) a.round = rec.round;
+    if (!complete) a.partial = 1;
+    list.push(a);
+    return list;
+  }
+
+  function recordExo(doc, lesson, id, rec) {
+    if (!id) return doc;
+    if (!doc.exo) doc.exo = {};
+    var k = exoKey(lesson, id);
+    doc.exo[k] = foldExo((doc.exo[k] || []).slice(), rec).slice(-MAX_EXO);
+    return doc;
+  }
+
+  function backfillExo(doc) {
+    if (!doc.exo) doc.exo = {};
+    var wiped = doc.wipedAt || 0;
+    (doc.activity || []).slice().sort(function (x, y) { return x.t - y.t; }).forEach(function (e) {
+      if (e.k !== 'exo' || !e.id || !e.lesson || (wiped && e.t <= wiped)) return;
+      var k = exoKey(e.lesson, e.id);
+      var list = doc.exo[k] || [];
+      var covered = list.some(function (a) { return a.t <= e.t && e.t <= (a.last || a.t); });
+      if (covered) return;
+      if (list.length && e.t < list[list.length - 1].t) return; // older than what we keep
+      doc.exo[k] = foldExo(list.slice(), { t: e.t, score: e.score, total: e.total, almost: e.almost,
+        answered: e.answered, first: e.first, firstAlmost: e.firstAlmost, revealed: e.revealed, round: e.round })
+        .slice(-MAX_EXO);
+    });
+    return doc;
+  }
+
+  // ---- Mastery of curriculum concepts (parcours.html) ----------------------
+  // map = { exo: {"<lesson>|<exoId>": [conceptId…]}, cards: {"<lesson>|gram:<lv>:<G#>": [conceptId…]} }
+  // Evidence per concept: complete exercise attempts (first-try score of each
+  // sitting) and grammar review cards. States:
+  //   0 Non commencé · 1 Découvert · 2 En cours · 3 Acquis · 4 Maîtrisé
+  var MASTERY_LABELS = ['Non commencé', 'Découvert', 'En cours', 'Acquis', 'Maîtrisé'];
+  var ACC_WEIGHTS = [1, 0.8, 0.6, 0.4, 0.2];
+  var STALE_DAYS = 90;
+
+  function masteryOf(ev, t) {
+    var att = ev.attempts.slice().sort(function (x, y) { return y.t - x.t; });
+    var done = att.filter(function (a) { return !a.partial && a.total > 0; });
+    var recent = done.slice(0, ACC_WEIGHTS.length);
+    var wsum = 0, acc = null;
+    if (recent.length) {
+      acc = 0;
+      recent.forEach(function (a, i) {
+        acc += ACC_WEIGHTS[i] * Math.min(1, (a.score + 0.5 * (a.almost || 0)) / a.total);
+        wsum += ACC_WEIGHTS[i];
+      });
+      acc = acc / wsum;
+    }
+    var n = done.length;
+    var span = recent.length > 1 ? (recent[0].t - recent[recent.length - 1].t) / DAY : 0;
+    var ivl = 0, reviewed = false, last = 0;
+    ev.cards.forEach(function (c) {
+      if (c.st === 2) ivl = Math.max(ivl, c.ivl || 0);
+      if (c.st > 0 || c.reps > 0) reviewed = true;
+      if (c.st > 0 || c.reps > 0) last = Math.max(last, c.last || 0);
+    });
+    att.forEach(function (a) { last = Math.max(last, a.last || a.t); });
+
+    var state = 0;
+    if ((n >= 2 && acc >= 0.85 && ivl >= 21) || (n >= 3 && acc >= 0.9 && span >= 7)) state = 4;
+    else if ((n >= 2 && acc >= 0.8) || ivl >= 7) state = 3;
+    else if (att.length || reviewed) state = 2;
+    else if (ev.cards.length) state = 1;
+
+    var stale = false;
+    if (state >= 3 && last && (t - last) > STALE_DAYS * DAY) { state--; stale = true; }
+    return {
+      state: state, label: stale ? 'À revoir' : MASTERY_LABELS[state], stale: stale,
+      attempts: n, partial: att.length - n, acc: acc, cards: ev.cards.length, ivl: ivl, last: last
+    };
+  }
+
+  function mastery(doc, map, t) {
+    if (t == null) t = now();
+    doc = doc || emptyDoc();
+    map = map || {};
+    var ev = {};
+    function bucket(c) { return ev[c] || (ev[c] = { attempts: [], cards: [] }); }
+    Object.keys(map.exo || {}).forEach(function (k) {
+      var list = (doc.exo || {})[k];
+      if (!list || !list.length) return;
+      map.exo[k].forEach(function (c) { bucket(c).attempts = bucket(c).attempts.concat(list); });
+    });
+    Object.keys(map.cards || {}).forEach(function (k) {
+      var it = (doc.items || {})[k];
+      if (!it) return;
+      map.cards[k].forEach(function (c) { bucket(c).cards.push(it); });
+    });
+    var out = {};
+    Object.keys(ev).forEach(function (c) { out[c] = masteryOf(ev[c], t); });
+    return out;
+  }
+
+  function hasProgress(doc) {
+    doc = doc || {};
+    return Object.keys(doc.items || {}).length > 0 || Object.keys(doc.exo || {}).length > 0;
+  }
+
   function dueItems(doc, lessonFilter) {
     var t = now();
     var out = [];
@@ -291,7 +456,8 @@
       items: {},
       removed: {},
       activity: [],
-      priv: {}
+      priv: {},
+      exo: {}
     };
     if (wiped) out.wipedAt = wiped;
     [a, b].forEach(function (d) {
@@ -301,6 +467,13 @@
         var cur = out.priv[id];
         var tu = L.updated || 0, cu = cur ? (cur.updated || 0) : -1;
         if (!cur || tu > cu || (tu === cu && L.deleted && !cur.deleted)) out.priv[id] = L;
+      });
+    });
+    [a, b].forEach(function (d) {
+      Object.keys(d.exo || {}).forEach(function (k) {
+        var m = mergeAttempts(out.exo[k], d.exo[k], wiped);
+        if (m.length) out.exo[k] = m;
+        else delete out.exo[k];
       });
     });
     [a, b].forEach(function (d) {
@@ -323,6 +496,7 @@
     }));
     acts.sort(function (x, y) { return x.t - y.t; });
     out.activity = acts.slice(-MAX_ACTIVITY);
+    backfillExo(out);
     return out;
   }
 
@@ -448,6 +622,7 @@
         var changed = false;
         var remoteHasData = remote && ((remote.items && Object.keys(remote.items).length) ||
           (remote.priv && Object.keys(remote.priv).length) ||
+          (remote.exo && Object.keys(remote.exo).length) ||
           (remote.wipedAt || 0) > ((doc && doc.wipedAt) || 0));
         if (remoteHasData) {
           merged = merge(doc, remote);
@@ -811,7 +986,17 @@
     document.addEventListener('exo-graded', function (e) {
       var d = e.detail || {};
       var doc = load();
-      recordActivity(doc, { k: 'exo', lesson: lesson, id: d.id, score: d.score, total: d.total });
+      var t = now();
+      var entry = { t: t, k: 'exo', lesson: lesson, id: d.id, score: d.score, total: d.total };
+      if (d.answered != null) entry.answered = d.answered;
+      if (d.almost) entry.almost = d.almost;
+      if (d.first != null) entry.first = d.first;
+      if (d.firstAlmost) entry.firstAlmost = d.firstAlmost;
+      if (d.round) entry.round = d.round;
+      if (d.revealed != null) entry.revealed = d.revealed;
+      recordActivity(doc, entry);
+      recordExo(doc, lesson, d.id, { t: t, score: d.score, total: d.total, almost: d.almost, answered: d.answered,
+        first: d.first, firstAlmost: d.firstAlmost, revealed: d.revealed, round: d.round });
       save(doc);
     });
   }
@@ -830,6 +1015,8 @@
     privateLessons: privateLessons, savePrivateLesson: savePrivateLesson,
     deletePrivateLesson: deletePrivateLesson, privateCards: privateCards,
     parseCardLines: parseCardLines, addPrivateCards: addPrivateCards, removeItem: removeItem, recordActivity: recordActivity,
+    mastery: mastery, hasProgress: hasProgress, MASTERY_LABELS: MASTERY_LABELS,
+    exoKey: exoKey, recordExo: recordExo, backfillExo: backfillExo, MAX_EXO: MAX_EXO, EXO_SESSION: EXO_SESSION,
     dueItems: dueItems, stats: stats, streak: streak, merge: merge,
     exportJSON: exportJSON, importJSON: importJSON,
     config: config, session: session, setSession: setSession, clearSession: clearSession,

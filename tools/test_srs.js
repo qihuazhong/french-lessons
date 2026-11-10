@@ -145,11 +145,137 @@ const pw = SRS.emptyDoc(); pw.wipedAt = Date.now() + 1000;
 ok(Object.keys(SRS.merge(pv, pw).priv).length === 0, 'merge : reset (wipedAt) efface aussi les leçons privées');
 ok(!!SRS.merge({ v: 1, items: {}, activity: [] }, SRS.emptyDoc()).priv, 'merge : doc sans « priv » (ancien format) accepté');
 
+console.log('== tentatives d’exercices (doc.exo)');
+{
+  const L = 'lecon-x.html', S = SRS.EXO_SESSION, K = L + '|e1';
+  const at = (d, k) => d.exo[k] || [];
+  let d = SRS.emptyDoc();
+  ok(d.exo && Object.keys(d.exo).length === 0, 'emptyDoc a un magasin exo vide');
+
+  // choix : corrigé à chaque changement → une seule séance, figée à la première réponse complète
+  SRS.recordExo(d, L, 'e1', { t: 1000, score: 1, total: 5, answered: 1 });
+  SRS.recordExo(d, L, 'e1', { t: 2000, score: 2, total: 5, answered: 3 });
+  ok(at(d, K).length === 1 && at(d, K)[0].partial === 1 && at(d, K)[0].score === 2, 'réponses partielles : une tentative « partielle », score du dernier état');
+  SRS.recordExo(d, L, 'e1', { t: 3000, score: 3, total: 5, answered: 5 });
+  ok(at(d, K).length === 1 && !at(d, K)[0].partial && at(d, K)[0].score === 3, 'première réponse complète : score figé (3/5)');
+  SRS.recordExo(d, L, 'e1', { t: 4000, score: 5, total: 5, answered: 5 });
+  ok(at(d, K)[0].score === 3 && at(d, K)[0].retries === 1 && at(d, K)[0].last === 4000, 'nouvel essai après correction : compté en « retries », score inchangé');
+  SRS.recordExo(d, L, 'e1', { t: 4000 + S + 1, score: 5, total: 5, answered: 5 });
+  ok(at(d, K).length === 2 && at(d, K)[1].score === 5, (S / 60000) + ' min après la dernière action : nouvelle tentative');
+
+  let d2 = SRS.emptyDoc();
+  for (let i = 1; i <= 14; i++) SRS.recordExo(d2, L, 'e2', { t: i * 2 * S, score: i % 4, total: 4, answered: 4 });
+  const xs = at(d2, L + '|e2');
+  ok(xs.length === SRS.MAX_EXO && xs[0].t === 5 * 2 * S, 'au plus ' + SRS.MAX_EXO + ' tentatives par exercice, les plus récentes');
+  SRS.recordExo(d2, L, null, { t: 1, score: 1, total: 1 });
+  ok(Object.keys(d2.exo).length === 1, 'exercice sans id ignoré');
+
+  // séances par « round » (exos.js) : score = premier essai, jamais rehaussé
+  {
+    const R = (round, t, first, score, revealed, total, extra) => Object.assign({ t, round, first, score, revealed, answered: revealed, total }, extra || {});
+    const r = SRS.emptyDoc(), KR = L + '|r1';
+    SRS.recordExo(r, L, 'r1', R('A', 1000, 0, 0, 1, 5));          // choix : 1er item faux (réponse affichée)
+    SRS.recordExo(r, L, 'r1', R('A', 2000, 0, 1, 1, 5));          // … corrigé après coup
+    ok(at(r, KR).length === 1 && at(r, KR)[0].partial === 1 && at(r, KR)[0].score === 0, 'choix : corriger un item après avoir vu la réponse ne compte pas');
+    SRS.recordExo(r, L, 'r1', R('A', 3000, 4, 5, 5, 5));
+    ok(at(r, KR)[0].score === 4 && !at(r, KR)[0].partial, 'feuille complète : score = premier essai (4/5), pas l’affichage (5/5)');
+    SRS.recordExo(r, L, 'r1', R('A', 3000 + S + 60000, 4, 5, 5, 5));
+    ok(at(r, KR).length === 1 && at(r, KR)[0].retries === 1, 'même round revérifié plus tard (sans « Recommencer ») : même séance, retry');
+    SRS.recordExo(r, L, 'r1', R('B', 3000 + S + 120000, 5, 5, 5, 5));
+    ok(at(r, KR).length === 1 && at(r, KR)[0].score === 4 && at(r, KR)[0].retries === 2,
+      '« Recommencer » puis refaire juste après : retry, le score reste 4/5');
+    SRS.recordExo(r, L, 'r1', R('C', 3000 + 3 * S, 5, 5, 5, 5));
+    ok(at(r, KR).length === 2 && at(r, KR)[1].score === 5 && at(r, KR)[1].round === 'C', 'nouveau round longtemps après : nouvelle tentative');
+    const f = SRS.emptyDoc(), KF = L + '|f1';
+    SRS.recordExo(f, L, 'f1', R('F', 1000, 2, 2, 5, 5, { answered: 2 }));   // texte : vérifié avec 3 blancs
+    ok(!at(f, KF)[0].partial && at(f, KF)[0].score === 2, 'texte vérifié avec des blancs : réponses dévoilées → tentative complète, blancs faux');
+    SRS.recordExo(f, L, 'f1', R('F', 2000, 2, 5, 5, 5));
+    ok(at(f, KF)[0].score === 2 && at(f, KF)[0].retries === 1, 'puis recopier les corrections : score inchangé (2/5)');
+    const fa = SRS.emptyDoc();
+    SRS.recordExo(fa, L, 'f2', R('G', 1000, 3, 3, 4, 4, { firstAlmost: 1, almost: 1 }));
+    ok(at(fa, L + '|f2')[0].almost === 1, '« presque » du premier essai conservé');
+  }
+
+  // merge : identité = début de la tentative ; la version la plus avancée gagne
+  const a1 = SRS.emptyDoc(), b1 = SRS.emptyDoc();
+  SRS.recordExo(a1, L, 'e1', { t: 100, score: 1, total: 3, answered: 1 });
+  const stale = JSON.parse(JSON.stringify(a1));
+  SRS.recordExo(a1, L, 'e1', { t: 200, score: 2, total: 3, answered: 3 });
+  SRS.recordExo(b1, L, 'e2', { t: 300, score: 2, total: 2, answered: 2 });
+  const m1 = SRS.merge(SRS.merge(a1, b1), stale);
+  ok(at(m1, K).length === 1 && at(m1, K)[0].score === 2 && !at(m1, K)[0].partial && at(m1, L + '|e2').length === 1,
+    'merge : une copie périmée de la même tentative ne crée pas de doublon');
+  ok(JSON.stringify(SRS.merge(m1, m1).exo) === JSON.stringify(m1.exo), 'merge idempotent sur exo');
+  const w = SRS.emptyDoc();
+  w.wipedAt = 250;
+  const m2 = SRS.merge(m1, w);
+  ok(!m2.exo[K] && at(m2, L + '|e2').length === 1, 'merge : les tentatives antérieures à une réinitialisation disparaissent');
+
+  // reprise depuis l’ancien journal (événements sans « answered »)
+  const old = SRS.emptyDoc();
+  delete old.exo;
+  old.activity = [
+    { t: 10, k: 'exo', lesson: L, id: 'e1', score: 1, total: 5 },
+    { t: 20, k: 'exo', lesson: L, id: 'e1', score: 4, total: 5 },
+    { t: 30, k: 'rev', lesson: L, term: 'x', g: 2 },
+    { t: 20 + S + 5, k: 'exo', lesson: L, id: 'e1', score: 5, total: 5 }
+  ];
+  SRS.backfillExo(old);
+  ok(at(old, K).map(r => r.score).join() === '4,5', 'reprise : une tentative par séance (dernier score connu)');
+  SRS.backfillExo(old); SRS.backfillExo(old);
+  ok(at(old, K).length === 2 && !at(old, K).some(r => r.retries), 'reprise idempotente (rien n’est recompté)');
+  const legacy = { v: 1, created: 1, items: {}, removed: {}, activity: old.activity };
+  const m3 = SRS.merge(SRS.emptyDoc(), legacy);
+  ok(at(m3, K).length === 2, 'merge avec un document distant ancien (sans exo) : reprise incluse');
+  const live = SRS.emptyDoc();
+  SRS.recordActivity(live, { t: 500, k: 'exo', lesson: L, id: 'e1', score: 2, total: 2, answered: 2 });
+  SRS.recordExo(live, L, 'e1', { t: 500, score: 2, total: 2, answered: 2 });
+  SRS.backfillExo(live);
+  ok(at(live, K).length === 1 && !at(live, K)[0].retries, 'événement déjà enregistré en direct : pas recompté au chargement');
+}
+
+console.log('== maîtrise des points (SRS.mastery)');
+{
+  const T = 1e12, L = 'lecon-x.html';
+  const map = { exo: { [L + '|e1']: ['c-a'], [L + '|e2']: ['c-a', 'c-b'] }, cards: { [L + '|gram:b1:G1']: ['c-a'], [L + '|gram:b1:G2']: ['c-c'] } };
+  const att = (t, score, total, extra) => Object.assign({ t, last: t, score, total, almost: 0 }, extra || {});
+  const docWith = (exo, items) => Object.assign(SRS.emptyDoc(), { exo: exo || {}, items: items || {} });
+  const card = (st, ivl, last) => Object.assign(SRS.newItem({}), { st, ivl, reps: st ? 1 : 0, last: last || T });
+  const st = (doc, id) => (SRS.mastery(doc, map, T)[id] || { state: 0 }).state;
+
+  ok(Object.keys(SRS.mastery(SRS.emptyDoc(), map, T)).length === 0, 'aucune donnée → aucun point évalué');
+  ok(st(docWith({}, { [L + '|gram:b1:G1']: card(0, 0) }), 'c-a') === 1, 'carte ajoutée jamais révisée → Découvert');
+  ok(st(docWith({ [L + '|e1']: [att(T - 1000, 1, 5, { partial: 1 })] }), 'c-a') === 2, 'tentative partielle → En cours');
+  ok(st(docWith({ [L + '|e1']: [att(T - 1000, 5, 5)] }), 'c-a') === 2, 'une seule tentative, même parfaite → En cours');
+  ok(st(docWith({ [L + '|e1']: [att(T - 2e6, 4, 5), att(T - 1e6, 5, 5)] }), 'c-a') === 3, 'deux tentatives ≥ 80 % → Acquis');
+  ok(st(docWith({ [L + '|e1']: [att(T - 2e6, 2, 5), att(T - 1e6, 3, 5)] }), 'c-a') === 2, 'deux tentatives faibles → En cours');
+  ok(st(docWith({}, { [L + '|gram:b1:G1']: card(2, 9) }), 'c-a') === 3, 'carte à intervalle ≥ 7 j → Acquis');
+  ok(st(docWith({}, { [L + '|gram:b1:G1']: card(2, 60) }), 'c-a') === 3, 'carte seule (même 60 j) plafonne à Acquis');
+  ok(st(docWith({ [L + '|e1']: [att(T - 2e6, 5, 5), att(T - 1e6, 9, 10)] }, { [L + '|gram:b1:G1']: card(2, 25) }), 'c-a') === 4,
+    'exercices ≥ 85 % + carte ≥ 21 j → Maîtrisé');
+  const DAY = 86400000;
+  ok(st(docWith({ [L + '|e1']: [att(T - 10 * DAY, 5, 5), att(T - 5 * DAY, 5, 5), att(T - 1e6, 5, 5)] }), 'c-a') === 4,
+    '3 tentatives ≥ 90 % étalées sur ≥ 7 j → Maîtrisé sans carte');
+  ok(st(docWith({ [L + '|e1']: [att(T - 3e6, 5, 5), att(T - 2e6, 5, 5), att(T - 1e6, 5, 5)] }), 'c-a') === 3,
+    '3 tentatives parfaites le même jour → Acquis seulement');
+  const recentBad = docWith({ [L + '|e1']: [att(T - 4e6, 5, 5), att(T - 3e6, 5, 5), att(T - 2e6, 1, 5), att(T - 1e6, 1, 5)] });
+  ok(st(recentBad, 'c-a') === 2, 'les tentatives récentes pèsent plus (2 échecs récents → En cours)');
+  const almost = SRS.mastery(docWith({ [L + '|e1']: [att(T - 2e6, 3, 4, { almost: 1 }), att(T - 1e6, 3, 4, { almost: 1 })] }), map, T)['c-a'];
+  ok(Math.abs(almost.acc - 0.875) < 1e-9 && almost.state === 3, '« presque » compte pour moitié (87,5 % → Acquis)');
+  const shared = SRS.mastery(docWith({ [L + '|e2']: [att(T - 2e6, 5, 5), att(T - 1e6, 5, 5)] }), map, T);
+  ok(shared['c-a'].state === 3 && shared['c-b'].state === 3, 'un exercice multi-concepts nourrit chacun de ses points');
+  const old = SRS.mastery(docWith({ [L + '|e1']: [att(T - 100 * DAY, 5, 5), att(T - 95 * DAY, 5, 5)] }), map, T)['c-a'];
+  ok(old.state === 2 && old.stale && old.label === 'À revoir', 'acquis il y a plus de 90 j → À revoir (un cran plus bas)');
+  const m = SRS.mastery(docWith({ [L + '|e1']: [att(T - 2e6, 4, 5), att(T - 1e6, 5, 5, { retries: 1 })] }, { [L + '|gram:b1:G1']: card(2, 3) }), map, T)['c-a'];
+  ok(m.attempts === 2 && m.cards === 1 && m.ivl === 3 && m.last === T, 'résumé des preuves (tentatives, cartes, intervalle, dernière activité)');
+  ok(!SRS.hasProgress(SRS.emptyDoc()) && SRS.hasProgress(docWith({ [L + '|e1']: [att(1, 1, 1)] })), 'hasProgress : vrai dès qu’il y a des cartes ou des exercices');
+}
+
 console.log('== jsdom integration');
 const { JSDOM } = require('jsdom');
 function loadPage(file, before) {
   let html = fs.readFileSync(path.join(PROJ, file), 'utf8');
-  for (const lib of ['exos.js', 'srs.js']) {
+  for (const lib of ['exos.js', 'srs.js', 'parcours.js']) {
     const code = fs.readFileSync(path.join(PROJ, lib), 'utf8');
     html = html.replace('<script src="' + lib + '"></script>', '<script>' + code + '</script>');
   }
@@ -216,6 +342,12 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   doc.dispatchEvent(new win.CustomEvent('exo-graded', { detail: { id: 'fr-a2-1', score: 3, total: 6 } }));
   const stored2 = JSON.parse(win.localStorage.getItem(SRS.KEY) || '{}');
   ok(stored2.activity.some(e => e.k === 'exo' && e.id === 'fr-a2-1' && e.score === 3), 'événement exo-graded enregistré');
+  const att = (stored2.exo || {})['lecon-france.html|fr-a2-1'] || [];
+  ok(att.length === 1 && att[0].score === 3 && att[0].total === 6 &&
+    att[0].t === stored2.activity.filter(e => e.k === 'exo').pop().t, 'exo-graded → tentative dans doc.exo (même horodatage que l’activité)');
+  doc.dispatchEvent(new win.CustomEvent('exo-graded', { detail: { id: 'fr-a2-1', score: 6, total: 6, answered: 6 } }));
+  const att2 = JSON.parse(win.localStorage.getItem(SRS.KEY)).exo['lecon-france.html|fr-a2-1'];
+  ok(att2.length === 1 && att2[0].score === 3 && att2[0].retries === 1, 'deuxième correction dans la séance : retry, score initial conservé');
   ok(!doc.getElementById('account-chip'), 'pas de pastille de compte sans session');
   dom.window.close();
 
@@ -410,6 +542,107 @@ const delay = ms => new Promise(r => setTimeout(r, ms));
   av = doc.getElementById('sync-avatar');
   ok(av.style.display === 'none', 'Mes progrès : photo masquée si le jeton n’en contient pas');
   dom.window.close();
+
+  console.log('== parcours.html : maîtrise personnelle');
+  {
+    const NOW = Date.now(), H = 3600000;
+    const seed = doc0 => w => w.localStorage.setItem(SRS.KEY, JSON.stringify(doc0));
+    const marked = d => [...d.querySelectorAll('.gp')].filter(a => /\bm-\d\b/.test(a.className)).length;
+
+    dom = await loadPage('parcours.html');
+    doc = dom.window.document;
+    let me = doc.getElementById('me');
+    ok(!me.hidden && /votre niveau de maîtrise/.test(me.textContent) && me.querySelector('a[href="progres.html#sync"]'),
+      'sans progrès ni compte : parcours général + invitation (exercices, connexion)');
+    ok(marked(doc) === 0 && [...doc.querySelectorAll('.lv-prog')].every(p => p.hidden), 'sans progrès : aucun point décoré');
+    dom.window.close();
+
+    const d0 = SRS.emptyDoc();
+    d0.exo['lecon-ai.html|ai-b1-2'] = [
+      { t: NOW - 3 * H, last: NOW - 3 * H, score: 4, total: 5, almost: 0 },
+      { t: NOW - H, last: NOW - H, score: 5, total: 5, almost: 0 }];
+    d0.exo['lecon-ai.html|ai-b1-3'] = [{ t: NOW - H, last: NOW - H, score: 1, total: 4, almost: 0, partial: 1 }];
+    d0.items['lecon-france.html|gram:b2:G1'] = Object.assign(SRS.newItem({}), { last: NOW });
+    dom = await loadPage('parcours.html', seed(d0));
+    doc = dom.window.document;
+    me = doc.getElementById('me');
+    const art = id => doc.getElementById('gp-' + id);
+    ok(/\bm-3\b/.test(art('pron-y-en').className) && art('pron-y-en').querySelector('.gp-state').textContent === 'Acquis',
+      'données locales sans compte : « y et en » Acquis (2 exercices ≥ 80 %)');
+    ok(/2 exercices · 91 % de réussite · aujourd’hui/.test(art('pron-y-en').querySelector('.gp-evid').textContent),
+      'preuves affichées sous le point (' + art('pron-y-en').querySelector('.gp-evid').textContent + ')');
+    ok(/\bm-2\b/.test(art('verbe-gerondif').className) && /exercice commencé/.test(art('verbe-gerondif').textContent), 'exercice partiel → En cours');
+    ok(/\bm-1\b/.test(art('phrase-concession').className), 'carte ajoutée non révisée → Découvert');
+    ok(/\bm-0\b/.test(art('disc-gouts').className) && art('disc-gouts').querySelector('.gp-state').textContent === 'Non commencé', 'autres points : Non commencé');
+    ok(art('nom-articles').querySelector('.gp-state').hidden, 'point sans leçon ni preuve : pas d’étiquette « Non commencé »');
+    const b1 = doc.querySelector('#niveau-b1 .lv-prog');
+    ok(!b1.hidden && /^1\/21 acquis/.test(b1.textContent.trim()), 'barre du niveau B1 : ' + b1.textContent.trim());
+    ok(/Ma progression/.test(me.textContent) && /1 acquis/.test(me.textContent) && me.querySelector('a[href="progres.html#sync"]'),
+      'panneau « Ma progression » + invitation à se connecter (données locales)');
+    const next = [...me.querySelectorAll('.me-next li')].map(li => li.textContent);
+    ok(next.length === 3 && /gérondif/.test(next[0]) && !next.some(t => /pronoms y et en/.test(t)),
+      'à travailler ensuite : l’en-cours d’abord, jamais un point acquis (' + next.join(' | ') + ')');
+    ok(next.every(t => /^B[12]/.test(t)) && /niveau actuel : B1/.test(me.textContent),
+      'à travailler ensuite : part du niveau actuel (B1), pas des points A1/A2 jamais touchés');
+
+    me.querySelector('.me-btn').dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }));
+    ok(marked(doc) === 0 && /progression est masquée/.test(me.textContent) && dom.window.localStorage.getItem('fr-parcours-hide-mastery') === '1',
+      '« Masquer ma progression » : retour au parcours général, préférence retenue');
+    me.querySelector('.me-btn').dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }));
+    ok(marked(doc) === 92 && doc.querySelectorAll('.gp-evid').length === 3, '« Afficher » : décoration rétablie sans doublon de preuves');
+    dom.window.close();
+
+    dom = await loadPage('parcours.html', w => { seed(d0)(w); w.localStorage.setItem('fr-parcours-hide-mastery', '1'); });
+    ok(marked(dom.window.document) === 0, 'préférence « masquée » respectée au chargement');
+    dom.window.close();
+
+    dom = await loadPage('parcours.html', w => {
+      seed(d0)(w);
+      withSession(w, { idToken: mkJwt({ sub: 's1', email: 'moi@example.com', exp: 9999999999 }), sub: 's1', email: 'moi@example.com', exp: 9999999999 });
+    });
+    doc = dom.window.document;
+    me = doc.getElementById('me');
+    ok(marked(doc) === 92 && /Synchronis(ation…|é)/.test(me.textContent) && !me.querySelector('a[href="progres.html#sync"]'),
+      'connecté : même affichage, sans invitation à se connecter');
+    dom.window.close();
+
+    {
+      const html = fs.readFileSync(path.join(PROJ, 'parcours.html'), 'utf8')
+        .replace('<script src="srs.js"></script>', '<script>window.SRS = { load: function () { return {}; } };</script>')
+        .replace('<script src="parcours.js"></script>', '<script>' + fs.readFileSync(path.join(PROJ, 'parcours.js'), 'utf8') + '</script>');
+      const errs = [];
+      const vc = new (require('jsdom').VirtualConsole)();
+      vc.on('jsdomError', e => errs.push(e.message));
+      const legacy = new JSDOM(html, { runScripts: 'dangerously', url: 'https://example.test/parcours.html', virtualConsole: vc });
+      await delay(60);
+      ok(errs.length === 0 && legacy.window.document.getElementById('me').hidden && legacy.window.document.querySelectorAll('.gp').length === 92,
+        'srs.js ancien en cache (sans mastery) : parcours général sans erreur');
+      legacy.window.close();
+    }
+
+    const pts = [
+      { id: 'p1', lv: 'A1', href: 'x', pre: [] }, { id: 'p2', lv: 'A2', href: 'x', pre: ['p1'] },
+      { id: 'p3', lv: 'A2', href: null, pre: [] }, { id: 'p4', lv: 'B1', href: 'x', pre: ['p3'] },
+      { id: 'p5', lv: 'B1', href: 'x', pre: ['p2'] }, { id: 'p6', lv: 'B1', href: 'x', pre: [] }];
+    const P = dom.window.Parcours;
+    const S = n => ({ state: n });
+    const ids = ms => P.nextUp(pts, ms, 3).map(p => p.id).join();
+    ok(P.LEVEL_MIN_POINTS === 2, 'niveau actuel : au moins 2 points « en cours » ou plus');
+    ok(P.currentLevel(pts, {}) === null, 'currentLevel : aucune preuve → aucun niveau');
+    ok(P.currentLevel(pts, { p1: S(3), p4: S(2) }) === null, 'currentLevel : un seul point par niveau ne suffit pas');
+    ok(P.currentLevel(pts, { p4: S(2), p6: S(3), p1: S(3) }) === 'B1', 'currentLevel : 2 points en B1 → B1');
+    ok(P.currentLevel(pts, { p4: S(1), p6: S(1) }) === null, 'currentLevel : des cartes seulement « découvertes » ne comptent pas');
+    ok(ids({}) === 'p1,p4,p6', 'nextUp sans niveau : depuis A1, prérequis enseignés requis, sans leçon ignorés (' + ids({}) + ')');
+    ok(ids({ p1: S(3) }) === 'p2,p4,p6', 'nextUp : un point acquis débloque la suite');
+    ok(ids({ p4: S(3) }) === 'p1,p6', 'nextUp : un seul exercice B1 ne fait pas sauter au B1 (' + ids({ p4: S(3) }) + ')');
+    ok(ids({ p1: { state: 2, stale: true }, p4: S(2) }) === 'p1,p4,p6', 'nextUp : « à revoir » et en cours en tête, puis le reste');
+    ok(ids({ p4: S(3), p6: S(3) }) === 'p5,p1,p2',
+      'nextUp (B1) : niveau actuel d’abord ; prérequis inférieurs jamais touchés supposés connus ; lacunes inférieures en dernier');
+    ok(ids({ p4: S(3), p6: S(3), p2: S(2) }) === 'p2,p1',
+      'nextUp : un prérequis commencé mais pas acquis passe en tête et bloque ce qui en dépend');
+    ok(ids({ p4: S(3), p6: S(3), p2: S(1) }) === 'p1,p2',
+      'nextUp : un prérequis inférieur « découvert » (pas acquis) bloque encore la suite');
+  }
 
   console.log('\n' + passed + ' passed, ' + failed + ' failed');
   process.exit(failed ? 1 : 0);

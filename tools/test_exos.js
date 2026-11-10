@@ -40,7 +40,11 @@ async function testOpinions() {
   const choice = blocks[0];
   const selects = choice.querySelectorAll('.exo-select');
   const answers = ["je déteste", "j'adore", "je n'aime pas", "j'adore", "je n'aime pas"];
+  const events = [];
+  doc.addEventListener('exo-graded', e => events.push(e.detail));
   answers.forEach((a, i) => { selects[i].value = a; change(selects[i]); });
+  ok(events.length === 5 && events[0].answered === 1 && events[4].answered === 5 && events[4].total === 5,
+    'choix : chaque changement émet exo-graded avec « answered » (1 → 5 sur 5)');
   click(choice.querySelector('.exo-btn.check'));
   ok(/\b5\/5\b/.test(choice.querySelector('.exo-score').textContent), 'choix : 5/5 (' + choice.querySelector('.exo-score').textContent + ')');
 
@@ -103,6 +107,58 @@ async function testOpinions() {
   dom.window.close();
 }
 
+async function testPeek() {
+  console.log('== premier essai : regarder la correction ne fait pas monter « first »');
+  const dom = await load('lecon-ai.html');
+  await delay(80);
+  const doc = dom.window.document;
+  const blocks = exos(doc);
+  const events = [];
+  doc.addEventListener('exo-graded', e => events.push(e.detail));
+  const lastEv = () => events[events.length - 1];
+
+  // choix : item faux → réponse affichée → on corrige → on complète juste
+  const ch = blocks.find(b => /en ou y/.test(b.querySelector('.exo-head').textContent));
+  const sels = [...ch.querySelectorAll('.exo-select')];
+  const wrongOpt = s => [...s.options].find(o => o.value && !/Correct/.test((() => { s.value = o.value; change(s); return s.closest('.exo-item').querySelector('.exo-fb').textContent; })()));
+  const rightOf = s => (s.closest('.exo-item').querySelector('.exo-fb').textContent.match(/→ (.*)$/) || [])[1];
+  wrongOpt(sels[0]);
+  const ans0 = rightOf(sels[0]);
+  sels[0].value = ans0; change(sels[0]);
+  sels.slice(1).forEach(s => {
+    for (const o of s.options) { if (!o.value) continue; s.value = o.value; change(s); if (/Correct/.test(s.closest('.exo-item').querySelector('.exo-fb').textContent)) break; }
+  });
+  const ce = lastEv();
+  ok(ce.score === ce.total && ce.revealed === ce.total && ce.first < ce.total && ce.round,
+    'choix : affichage ' + ce.score + '/' + ce.total + ', premier essai ' + ce.first + ' (essais successifs non crédités)');
+
+  // texte : vérifier à vide → recopier les corrections → vérifier
+  const fill = blocks.find(b => /gérondif/i.test(b.querySelector('.exo-head').textContent));
+  const n0 = events.length;
+  click(fill.querySelector('.exo-btn.check'));
+  const blank = events[n0];
+  ok(blank.first === 0 && blank.revealed === blank.total && blank.answered === 0, 'texte vérifié à vide : tout est dévoilé, premier essai 0');
+  [...fill.querySelectorAll('.exo-item')].forEach(it => {
+    const m = it.querySelector('.exo-fb').textContent.match(/→ (.*)$/);
+    if (m) it.querySelector('input').value = m[1];
+  });
+  click(fill.querySelector('.exo-btn.check'));
+  const copied = lastEv();
+  ok(copied.score === copied.total && copied.first === 0 && copied.round === blank.round, 'texte : correction recopiée → affichage ' + copied.score + '/' + copied.total + ', premier essai toujours 0');
+  click(fill.querySelector('.exo-btn.reset'));
+  click(fill.querySelector('.exo-btn.check'));
+  ok(lastEv().round !== blank.round, '« Recommencer » ouvre un nouveau round');
+
+  // association : vérifier sans rien relier → indices affichés, verrouillé jusqu'à « Recommencer »
+  const match = blocks[0];
+  const n1 = events.length;
+  click(match.querySelector('.exo-btn.check'));
+  ok(events[n1].first === 0 && events[n1].revealed === events[n1].total, 'association vérifiée à vide : premier essai 0, tout dévoilé');
+  click(match.querySelector('.exo-btn.check'));
+  ok(events.length === n1 + 1, 'association verrouillée après correction (pas de second essai sans « Recommencer »)');
+  dom.window.close();
+}
+
 async function testAi() {
   console.log('== lecon-ai.html');
   const dom = await load('lecon-ai.html');
@@ -152,6 +208,7 @@ async function testAi() {
 (async function () {
   await testOpinions();
   await testAi();
+  await testPeek();
   console.log('\n' + passed + ' passed, ' + failed + ' failed');
   process.exit(failed ? 1 : 0);
 })().catch(e => { console.error('CRASH:', e); process.exit(2); });

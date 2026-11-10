@@ -540,6 +540,7 @@
   <div class="sp-title" style="margin-top:.6rem;border-top:1px solid var(--bordure);padding-top:.6rem;">Leçons</div>
   <nav>
       <a href="progres.html">Mes progrès</a>
+      <a href="parcours.html">Parcours A1 → C2</a>
       <a href="index.html">Toutes les leçons</a>
       <a href="lecon-ai.html">199 · L'IA au quotidien</a>
       <a href="lecon-dommage.html">Dommage · Bigflo &amp; Oli</a>
@@ -819,7 +820,7 @@
   <h2><span class="num">4</span>Grammaire</h2>
 
   <div data-lv="a2">
-    <h3>G1 — Dire ses goûts : l'échelle des verbes</h3>
+    <h3 id="gram-a2-G1" data-gp="disc-gouts">G1 — Dire ses goûts : l'échelle des verbes</h3>
     <div class="gram-box">
       <table>
         <tr><th>Verbe</th><th>Force</th><th>Exemple</th></tr>
@@ -830,7 +831,7 @@
       </table>
       <p>Devant un nom, n'oubliez pas l'article : <em>j'adore <b>le</b> métro</em>, <em>j'aime <b>les</b> radis</em>, <em>je déteste <b>les</b> œufs</em>. Devant un verbe, l'infinitif : <em>j'aime <b>grignoter</b></em>.</p>
     </div>
-    <h3>G2 — Poser la question avec l'intonation</h3>
+    <h3 id="gram-a2-G2" data-gp="questions-intonation">G2 — Poser la question avec l'intonation</h3>
     <div class="gram-box">
       <p>À l'oral, pas besoin de « est-ce que » : on monte la voix à la fin.</p>
       <ul class="compact">
@@ -841,7 +842,7 @@
   </div>
 
   <div data-lv="b1" hidden>
-    <h3>G1 — Les pronoms y et en</h3>
+    <h3 id="gram-b1-G1" data-gp="pron-y-en">G1 — Les pronoms y et en</h3>
     <div class="gram-box">
       <p><b>y</b> remplace un lieu ou une chose « à… » ; <b>en</b> remplace une quantité (du, des, quelques…). Les deux se placent devant le verbe.</p>
       <div class="formule">tout le monde + y + va → tout le monde y va</div>
@@ -851,7 +852,7 @@
         <li>« Il y <b>en</b> a quelques-unes que j'aime bien. » (= quelques lignes de métro)</li>
       </ul>
     </div>
-    <h3>G2 — même si vs alors que</h3>
+    <h3 id="gram-b1-G2" data-gp="phrase-opposition">G2 — même si vs alors que</h3>
     <div class="gram-box">
       <p><b>même si</b> = concession ; <b>alors que</b> = opposition, contraste (« whereas »).</p>
       <ul class="compact">
@@ -859,7 +860,7 @@
         <li>« J'adore le métro, <b>alors que</b> pour beaucoup de Parisiens, c'est un calvaire. »</li>
       </ul>
     </div>
-    <h3>G3 — se faire + infinitif</h3>
+    <h3 id="gram-b1-G3" data-gp="verbe-faire-causatif">G3 — se faire + infinitif</h3>
     <div class="gram-box">
       <p>Pour dire qu'on subit une action : le sujet <b>reçoit</b> l'action.</p>
       <div class="formule">se faire + infinitif → je me fais engueuler = I get told off</div>
@@ -872,7 +873,7 @@
   </div>
 
   <div data-lv="b2" hidden>
-    <h3>G1 — il faut que + subjonctif</h3>
+    <h3 id="gram-b2-G1" data-gp="mode-subj-il-faut-que">G1 — il faut que + subjonctif</h3>
     <div class="gram-box">
       <p>« il faut que » est toujours suivi du <b>subjonctif</b>. À l'oral, on omet souvent « il » et on utilise l'infinitif.</p>
       <div class="formule">il faudrait que j'en écoute (subjonctif)</div>
@@ -882,7 +883,7 @@
         <li>« Il faut faire très attention avec <b>ce que</b> vous dites. »</li>
       </ul>
     </div>
-    <h3>G2 — Le conditionnel passé : aurait dû / aurait pu</h3>
+    <h3 id="gram-b2-G2" data-gp="cond-passe">G2 — Le conditionnel passé : aurait dû / aurait pu</h3>
     <div class="gram-box">
       <p>Pour le regret ou le reproche : <em>avoir</em> au conditionnel + participe passé (+ infinitif après dû / pu).</p>
       <div class="formule">ça (n')aurait pas dû l'être = it shouldn't have been</div>
@@ -891,7 +892,7 @@
         <li>« J'aurais dû partir plus tôt. » « On aurait pu aller au cinéma. »</li>
       </ul>
     </div>
-    <h3>G3 — Varier les verbes d'opinion</h3>
+    <h3 id="gram-b2-G3" data-gp="disc-opinion disc-nuancer-opinion">G3 — Varier les verbes d'opinion</h3>
     <div class="gram-box">
       <p>Un avis nuancé, c'est d'abord un avis formulé de plusieurs façons :</p>
       <ul class="compact">
@@ -966,6 +967,7 @@
   <div data-lv="a2">
     <div class="exo"><script type="application/json">{
       "id": "op-a2-1",
+      "concepts": ["disc-gouts"],
       "type": "choice",
       "title": "Exercice 1 — Choisissez le bon verbe",
       "instructions": "Complétez chaque phrase avec le verbe qui convient.",
@@ -980,6 +982,7 @@
 
     <div class="exo"><script type="application/json">{
       "id": "op-a2-2",
+      "concepts": [],
       "type": "match",
       "title": "Exercice 2 — Associez le mot à sa définition",
       "instructions": "Cliquez un mot, puis sa définition. Cliquez une paire pour la défaire.",
@@ -994,6 +997,7 @@
 
     <div class="exo"><script type="application/json">{
       "id": "op-a2-3",
+      "concepts": ["neg-ne-pas"],
       "type": "fill",
       "title": "Exercice 3 — Réécrivez à l'oral (sans « ne »)",
       "instructions": "",
@@ -1008,6 +1012,7 @@
   <div data-lv="b1" hidden>
     <div class="exo"><script type="application/json">{
       "id": "op-b1-1",
+      "concepts": [],
       "type": "match",
       "title": "Exercice 1 — Associez le mot à sa définition",
       "instructions": "Cliquez un mot, puis sa définition. Cliquez une paire pour la défaire.",
@@ -1026,6 +1031,7 @@
 
     <div class="exo"><script type="application/json">{
       "id": "op-b1-2",
+      "concepts": ["pron-y-en"],
       "type": "choice",
       "title": "Exercice 2 — en ou y ?",
       "instructions": "Choisissez le bon pronom.",
@@ -1040,6 +1046,7 @@
 
     <div class="exo"><script type="application/json">{
       "id": "op-b1-3",
+      "concepts": ["verbe-faire-causatif"],
       "type": "fill",
       "title": "Exercice 3 — Transformez avec « se faire »",
       "instructions": "Modèle : Le prof gronde les élèves. → Les élèves se font gronder.",
@@ -1055,6 +1062,7 @@
   <div data-lv="b2" hidden>
     <div class="exo"><script type="application/json">{
       "id": "op-b2-1",
+      "concepts": ["cond-passe"],
       "type": "fill",
       "title": "Exercice 1 — Le conditionnel passé (regret et reproche)",
       "instructions": "Complétez au conditionnel passé.",
@@ -1068,6 +1076,7 @@
 
     <div class="exo"><script type="application/json">{
       "id": "op-b2-2",
+      "concepts": ["disc-registres"],
       "type": "fill",
       "title": "Exercice 2 — Du soutenu à l'oral : réécrivez",
       "instructions": "Réécrivez chaque phrase selon la consigne.",
@@ -1144,7 +1153,7 @@
   <div class="tricolore"></div>
   <p><strong>Sources :</strong> vidéo « The French Share Their Unpopular Opinions | Easy French 259 », chaîne YouTube <em>Easy French</em> — <a href="https://www.youtube.com/watch?v=-VWMMfdLw0U">youtube.com/watch?v=-VWMMfdLw0U</a>. Leçon créée à partir de la transcription française (sous-titres automatiques, nettoyés pour la lecture).</p>
   <p>Un contenu adapté à votre niveau : changez de parcours (A2 · B1 · B2) à tout moment. Fichiers associés : <code>transcript.txt</code>, <code>transcript_raw.json</code>, <code>audio/</code> (extraits), <code>video_src/lesson_video.mp4</code> (vidéo locale).</p><!--LESSONS_NAV_FOOT-->
-  <p style="margin-top:.6rem;">Autres leçons : <a href="progres.html">Mes progrès</a> · <a href="index.html">Toutes les leçons</a> · <a href="lecon-ai.html">199 · L'IA au quotidien</a> · <a href="lecon-dommage.html">Dommage · Bigflo &amp; Oli</a> · <a href="lecon-france.html">Actualité · La colère des lycéens</a></p>
+  <p style="margin-top:.6rem;">Autres leçons : <a href="progres.html">Mes progrès</a> · <a href="parcours.html">Parcours A1 → C2</a> · <a href="index.html">Toutes les leçons</a> · <a href="lecon-ai.html">199 · L'IA au quotidien</a> · <a href="lecon-dommage.html">Dommage · Bigflo &amp; Oli</a> · <a href="lecon-france.html">Actualité · La colère des lycéens</a></p>
   <!--/LESSONS_NAV_FOOT-->
 </footer>
 
@@ -1159,7 +1168,14 @@
   radios.forEach(function (r) {
     r.addEventListener('change', function () { applyLevel(r.value); });
   });
-  applyLevel(document.querySelector("input[name='niveau']:checked").value);
+  (function () {
+    var q = /[?&]niveau=([a-z0-9]+)/.exec(location.search);
+    var r = q && document.querySelector("input[name='niveau'][value='" + q[1] + "']");
+    if (r) r.checked = true;
+    applyLevel(document.querySelector("input[name='niveau']:checked").value);
+    var target = location.hash && document.getElementById(location.hash.slice(1));
+    if (r && target) setTimeout(function () { target.scrollIntoView(); }, 0);
+  })();
 
   var panel = document.getElementById('sidepanel');
   var toggle = document.getElementById('spToggle');
